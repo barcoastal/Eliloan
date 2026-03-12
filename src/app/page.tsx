@@ -1,13 +1,74 @@
 "use client";
 
 import Link from "next/link";
-import { useRef } from "react";
+import { useRef, useState, useEffect } from "react";
 import {
   motion,
   useScroll,
   useTransform,
   useInView,
+  AnimatePresence,
 } from "framer-motion";
+
+/* ------------------------------------------------------------------ */
+/*  SOCIAL PROOF TOAST — Bottom-left corner, cycles through names       */
+/* ------------------------------------------------------------------ */
+const socialProofData = [
+  { name: "Marcus T.", amount: "$4,200", role: "DoorDash Driver", city: "Atlanta, GA", time: "2 hours ago" },
+  { name: "Priya S.", amount: "$7,500", role: "Uber Driver", city: "Houston, TX", time: "4 hours ago" },
+  { name: "Jasmine W.", amount: "$3,100", role: "Instacart Shopper", city: "Miami, FL", time: "6 hours ago" },
+  { name: "Carlos R.", amount: "$9,000", role: "Lyft Driver", city: "Phoenix, AZ", time: "8 hours ago" },
+  { name: "Aisha M.", amount: "$5,800", role: "Amazon Flex Driver", city: "Chicago, IL", time: "12 hours ago" },
+  { name: "Tyler B.", amount: "$2,500", role: "Grubhub Driver", city: "Denver, CO", time: "1 day ago" },
+];
+
+function SocialProofToast() {
+  const [index, setIndex] = useState(0);
+  const [visible, setVisible] = useState(true);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setVisible(false);
+      setTimeout(() => {
+        setIndex((prev) => (prev + 1) % socialProofData.length);
+        setVisible(true);
+      }, 500);
+    }, 4000);
+    return () => clearInterval(interval);
+  }, []);
+
+  const item = socialProofData[index];
+
+  return (
+    <div className="fixed bottom-6 left-6 z-40">
+      <AnimatePresence mode="wait">
+        {visible && (
+          <motion.div
+            key={index}
+            className="flex items-center gap-3 rounded-2xl border border-emerald-600/10 bg-white/90 px-4 py-3 shadow-xl shadow-emerald-900/10 backdrop-blur-xl"
+            initial={{ opacity: 0, y: 20, scale: 0.95 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: -10, scale: 0.95 }}
+            transition={{ duration: 0.4 }}
+          >
+            <div className="flex h-9 w-9 items-center justify-center rounded-full bg-gradient-to-br from-emerald-400 to-green-500 text-[11px] font-bold text-white shadow-md shadow-emerald-500/20">
+              {item.name.charAt(0)}{item.name.split(" ")[1]?.charAt(0)}
+            </div>
+            <div>
+              <p className="text-[12px] font-semibold text-emerald-900">
+                {item.name} just got funded {item.amount}
+              </p>
+              <p className="text-[10px] text-emerald-700/60">
+                {item.role} &middot; {item.city} &middot; {item.time}
+              </p>
+            </div>
+            <div className="ml-1 h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse" />
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
+  );
+}
 
 /* ------------------------------------------------------------------ */
 /*  NAVBAR                                                              */
@@ -30,7 +91,7 @@ function Navbar() {
             <a
               key={label}
               href={`#${label.toLowerCase().replace(/\s+/g, "-")}`}
-              className="text-[13px] font-medium text-emerald-800/50 transition-colors hover:text-emerald-900"
+              className="text-[13px] font-medium text-emerald-800/70 transition-colors hover:text-emerald-900"
             >
               {label}
             </a>
@@ -40,7 +101,7 @@ function Navbar() {
         <div className="flex items-center gap-4">
           <Link
             href="/status"
-            className="hidden text-[13px] font-medium text-emerald-800/50 transition-colors hover:text-emerald-900 sm:block"
+            className="hidden text-[13px] font-medium text-emerald-800/70 transition-colors hover:text-emerald-900 sm:block"
           >
             Check Status
           </Link>
@@ -67,97 +128,85 @@ function Hero() {
   });
   const opacity = useTransform(scrollYProgress, [0, 0.4], [1, 0]);
   const y = useTransform(scrollYProgress, [0, 0.4], [0, -150]);
-  const imgScale = useTransform(scrollYProgress, [0, 0.5], [1, 1.15]);
 
   return (
     <section ref={ref} className="relative h-[200vh]">
       <div className="sticky top-0 flex h-screen items-center overflow-hidden bg-[#FAFAF7]">
-        {/* Background image */}
-        <motion.div className="absolute inset-0" style={{ scale: imgScale }}>
-          <img
-            src="https://images.unsplash.com/photo-1558618666-fcd25c85f82e?w=1920&q=80&auto=format"
-            alt="Delivery rider biking through the city"
-            className="h-full w-full object-cover"
-          />
-          <div className="absolute inset-0 bg-gradient-to-r from-[#FAFAF7] via-[#FAFAF7]/80 to-[#FAFAF7]/30" />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#FAFAF7] via-transparent to-[#FAFAF7]/50" />
-        </motion.div>
-
         <motion.div
-          className="relative z-10 mx-auto w-full max-w-7xl px-6 sm:px-10"
+          className="relative z-10 mx-auto grid w-full max-w-7xl items-center gap-10 px-6 sm:px-10 lg:grid-cols-2 lg:gap-16"
           style={{ opacity, y }}
         >
-          {/* Floating gig worker story card */}
-          <motion.div
-            className="mb-8 inline-flex items-center gap-3 rounded-2xl border border-emerald-600/10 bg-white/80 px-5 py-3 shadow-lg shadow-emerald-900/5 backdrop-blur-sm"
-            initial={{ opacity: 0, x: -30 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8, delay: 0.4 }}
-          >
-            <div className="flex h-10 w-10 items-center justify-center rounded-full bg-gradient-to-br from-emerald-400 to-green-500 shadow-md shadow-emerald-500/20">
-              <svg className="h-5 w-5 text-white" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 18.75a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h6m-9 0H3.375a1.125 1.125 0 01-1.125-1.125V14.25m17.25 4.5a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h1.125c.621 0 1.129-.504 1.09-1.124a17.902 17.902 0 00-3.213-9.193 2.056 2.056 0 00-1.58-.86H14.25M16.5 18.75h-2.25m0-11.177v-.958c0-.568-.422-1.048-.987-1.106a48.554 48.554 0 00-10.026 0 1.106 1.106 0 00-.987 1.106v7.635m12-6.677v6.677m0 4.5v-4.5m0 0h-12" />
-              </svg>
-            </div>
-            <div>
-              <p className="text-[13px] font-semibold text-emerald-900">Marcus just got funded $4,200</p>
-              <p className="text-[11px] text-emerald-700/40">DoorDash driver &middot; Atlanta, GA &middot; 2 hours ago</p>
-            </div>
-            <div className="ml-2 h-2 w-2 rounded-full bg-emerald-400 animate-pulse" />
-          </motion.div>
-
-          <motion.h1
-            className="max-w-2xl text-5xl font-bold leading-[1.05] tracking-[-0.03em] text-emerald-950 sm:text-6xl lg:text-7xl"
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1, delay: 0.3 }}
-          >
-            You drive.
-            <br />
-            You deliver.
-            <br />
-            You deserve
-            <br />
-            <span className="bg-gradient-to-r from-emerald-600 to-green-500 bg-clip-text text-transparent">
-              real funding.
-            </span>
-          </motion.h1>
-
-          <motion.p
-            className="mt-6 max-w-md text-lg leading-relaxed text-emerald-800/50"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.7 }}
-          >
-            Up to $10,000 for Uber drivers, DoorDash dashers,
-            and every 1099 worker. Zero credit check.
-          </motion.p>
-
-          <motion.div
-            className="mt-10 flex flex-col items-start gap-4 sm:flex-row sm:items-center"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.9 }}
-          >
-            <Link
-              href="/apply"
-              className="group rounded-full bg-emerald-600 px-8 py-3.5 text-[15px] font-bold text-white shadow-lg shadow-emerald-600/20 transition-all hover:bg-emerald-500 hover:scale-105"
+          {/* Left — copy */}
+          <div>
+            <motion.div
+              className="mb-6 inline-flex items-center gap-2 rounded-full bg-emerald-50 px-4 py-1.5"
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.6, delay: 0.3 }}
             >
-              Get Funded Now
-              <span className="ml-2 inline-block transition-transform group-hover:translate-x-1">
-                &rarr;
+              <div className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse" />
+              <span className="text-[12px] font-semibold text-emerald-600">Built for 1099 gig workers</span>
+            </motion.div>
+
+            <motion.h1
+              className="max-w-xl text-5xl font-bold leading-[1.05] tracking-[-0.03em] text-emerald-950 sm:text-6xl lg:text-7xl"
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 1, delay: 0.3 }}
+            >
+              You drive.
+              <br />
+              You deliver.
+              <br />
+              You deserve
+              <br />
+              <span className="bg-gradient-to-r from-emerald-600 to-green-500 bg-clip-text text-transparent">
+                real funding.
               </span>
-            </Link>
-            <Link
-              href="/status"
-              className="rounded-full border border-emerald-900/15 bg-white/60 px-8 py-3.5 text-[15px] font-medium text-emerald-900 backdrop-blur transition-all hover:bg-white hover:border-emerald-900/25"
+            </motion.h1>
+
+            <motion.p
+              className="mt-6 max-w-md text-lg leading-relaxed text-emerald-800/70"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.7 }}
             >
-              Check Status
-            </Link>
-            {/* Social proof */}
-            <div className="hidden sm:flex items-center gap-3 ml-4">
+              Up to $10,000 for Uber drivers, DoorDash dashers,
+              and every 1099 worker. Zero credit check.
+            </motion.p>
+
+            <motion.div
+              className="mt-10 flex flex-col items-start gap-4 sm:flex-row sm:items-center"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.9 }}
+            >
+              <Link
+                href="/apply"
+                className="group rounded-full bg-emerald-600 px-8 py-3.5 text-[15px] font-bold text-white shadow-lg shadow-emerald-600/20 transition-all hover:bg-emerald-500 hover:scale-105"
+              >
+                Get Funded Now
+                <span className="ml-2 inline-block transition-transform group-hover:translate-x-1">
+                  &rarr;
+                </span>
+              </Link>
+              <Link
+                href="/status"
+                className="rounded-full border border-emerald-900/15 bg-white/60 px-8 py-3.5 text-[15px] font-medium text-emerald-900 backdrop-blur transition-all hover:bg-white hover:border-emerald-900/25"
+              >
+                Check Status
+              </Link>
+            </motion.div>
+
+            {/* Social proof avatars */}
+            <motion.div
+              className="mt-8 flex items-center gap-3"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.8, delay: 1.1 }}
+            >
               <div className="flex -space-x-2">
-                {["MT", "SK", "DJ", "AR"].map((initials, i) => (
+                {["MT", "SK", "DJ", "AR"].map((initials) => (
                   <div
                     key={initials}
                     className="flex h-8 w-8 items-center justify-center rounded-full border-2 border-[#FAFAF7] bg-gradient-to-br from-emerald-300 to-green-400 text-[10px] font-bold text-emerald-900"
@@ -166,10 +215,45 @@ function Hero() {
                   </div>
                 ))}
               </div>
-              <p className="text-[12px] text-emerald-800/40">
+              <p className="text-[12px] text-emerald-800/65">
                 <span className="font-semibold text-emerald-700">1,200+</span> gig workers funded
               </p>
+            </motion.div>
+          </div>
+
+          {/* Right — hero image */}
+          <motion.div
+            className="relative hidden lg:block"
+            initial={{ opacity: 0, x: 40, scale: 0.95 }}
+            animate={{ opacity: 1, x: 0, scale: 1 }}
+            transition={{ duration: 1, delay: 0.5, ease: [0.25, 0.1, 0.25, 1] }}
+          >
+            <div className="relative aspect-[4/5] overflow-hidden rounded-3xl shadow-2xl shadow-emerald-900/10 ring-1 ring-emerald-900/5">
+              <img
+                src="/hero-rider.jpg"
+                alt="Food delivery rider on a bike with delivery bag"
+                className="h-full w-full object-cover"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-emerald-950/40 via-transparent to-transparent" />
             </div>
+            {/* Floating stat badge */}
+            <motion.div
+              className="absolute -bottom-4 -left-6 rounded-2xl border border-emerald-600/10 bg-white/90 px-5 py-3 shadow-xl shadow-emerald-900/10 backdrop-blur-xl"
+              animate={{ y: [0, -6, 0] }}
+              transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+            >
+              <p className="text-[11px] font-medium text-emerald-800/65">Avg. funding time</p>
+              <p className="text-2xl font-bold tracking-tight text-emerald-700">48hrs</p>
+            </motion.div>
+            {/* Floating amount badge */}
+            <motion.div
+              className="absolute -top-3 -right-4 rounded-2xl border border-emerald-600/10 bg-white/90 px-5 py-3 shadow-xl shadow-emerald-900/10 backdrop-blur-xl"
+              animate={{ y: [0, 6, 0] }}
+              transition={{ duration: 3.5, repeat: Infinity, ease: "easeInOut", delay: 1 }}
+            >
+              <p className="text-[11px] font-medium text-emerald-800/65">Up to</p>
+              <p className="text-2xl font-bold tracking-tight text-emerald-700">$10K</p>
+            </motion.div>
           </motion.div>
         </motion.div>
 
@@ -180,7 +264,7 @@ function Hero() {
           transition={{ duration: 2, repeat: Infinity }}
         >
           <div className="flex flex-col items-center gap-2">
-            <span className="text-[10px] font-medium uppercase tracking-[0.25em] text-emerald-800/30">
+            <span className="text-[10px] font-medium uppercase tracking-[0.25em] text-emerald-800/55">
               Scroll
             </span>
             <div className="h-8 w-[1px] bg-gradient-to-b from-emerald-600/30 to-transparent" />
@@ -232,7 +316,7 @@ function Stats() {
               <div className="text-4xl font-bold tracking-[-0.03em] text-emerald-700 sm:text-5xl">
                 {s.value}
               </div>
-              <div className="mt-2 text-sm font-medium text-emerald-800/30">
+              <div className="mt-2 text-sm font-medium text-emerald-800/55">
                 {s.label}
               </div>
             </motion.div>
@@ -254,7 +338,7 @@ function PlatformTicker() {
 
   return (
     <section className="overflow-hidden border-y border-emerald-900/5 bg-[#F5F5F0] py-10">
-      <p className="mb-6 text-center text-[11px] font-medium uppercase tracking-[0.3em] text-emerald-800/25">
+      <p className="mb-6 text-center text-[11px] font-medium uppercase tracking-[0.3em] text-emerald-800/50">
         Built for workers on every platform
       </p>
       <div className="relative">
@@ -262,7 +346,7 @@ function PlatformTicker() {
           {[...platforms, ...platforms, ...platforms].map((p, i) => (
             <span
               key={`${p}-${i}`}
-              className="flex-shrink-0 rounded-full border border-emerald-800/8 bg-white/80 px-5 py-2 text-sm font-medium text-emerald-800/40"
+              className="flex-shrink-0 rounded-full border border-emerald-800/8 bg-white/80 px-5 py-2 text-sm font-medium text-emerald-800/65"
             >
               {p}
             </span>
@@ -450,7 +534,7 @@ function HowItWorks() {
                     <h3 className="text-3xl font-bold tracking-[-0.02em] text-emerald-950 sm:text-4xl">
                       {step.subtitle}
                     </h3>
-                    <p className="mt-4 max-w-md text-base leading-relaxed text-emerald-800/40">
+                    <p className="mt-4 max-w-md text-base leading-relaxed text-emerald-800/65">
                       {step.desc}
                     </p>
                   </div>
@@ -507,7 +591,7 @@ function TheStruggle() {
                   Banks don&apos;t see
                   <br />your grind.
                 </h2>
-                <p className="mt-4 max-w-md text-base leading-relaxed text-emerald-800/40">
+                <p className="mt-4 max-w-md text-base leading-relaxed text-emerald-800/65">
                   You&apos;re driving 12-hour shifts, delivering in the rain, picking up rides at 2am — and every bank says your income &ldquo;doesn&apos;t qualify.&rdquo;
                 </p>
                 <div className="mt-8 space-y-3">
@@ -519,7 +603,7 @@ function TheStruggle() {
                   ].map((text, i) => (
                     <div key={i} className="flex items-start gap-3">
                       <div className="mt-2 h-1 w-1 flex-shrink-0 rounded-full bg-red-300" />
-                      <p className="text-sm leading-relaxed text-emerald-800/35">{text}</p>
+                      <p className="text-sm leading-relaxed text-emerald-800/60">{text}</p>
                     </div>
                   ))}
                 </div>
@@ -559,7 +643,7 @@ function TheStruggle() {
                     for your hustle.
                   </span>
                 </h2>
-                <p className="mt-4 max-w-md text-base leading-relaxed text-emerald-800/40">
+                <p className="mt-4 max-w-md text-base leading-relaxed text-emerald-800/65">
                   Elilons exists because gig workers deserve better. We look at your actual earnings — not your credit score.
                 </p>
                 <div className="mt-8 space-y-3">
@@ -571,7 +655,7 @@ function TheStruggle() {
                   ].map((text, i) => (
                     <div key={i} className="flex items-start gap-3">
                       <div className="mt-2 h-1 w-1 flex-shrink-0 rounded-full bg-emerald-500" />
-                      <p className="text-sm leading-relaxed text-emerald-800/35">{text}</p>
+                      <p className="text-sm leading-relaxed text-emerald-800/60">{text}</p>
                     </div>
                   ))}
                 </div>
@@ -600,7 +684,7 @@ function ForGigWorkers() {
     {
       title: "Delivery Riders",
       desc: "DoorDash, Instacart, Amazon Flex — rain or shine, you show up.",
-      image: "https://images.unsplash.com/photo-1558618666-fcd25c85f82e?w=500&q=80&auto=format",
+      image: "/delivery-rider.jpg",
     },
     {
       title: "Bike Couriers",
@@ -721,7 +805,7 @@ function WhyElilons() {
               <h3 className="text-xl font-bold tracking-[-0.02em] text-emerald-900 sm:text-2xl">
                 {v.title}
               </h3>
-              <p className="mt-3 max-w-sm text-sm leading-relaxed text-emerald-800/35">
+              <p className="mt-3 max-w-sm text-sm leading-relaxed text-emerald-800/60">
                 {v.desc}
               </p>
             </motion.div>
@@ -801,14 +885,14 @@ function Testimonials() {
                 </div>
                 <div>
                   <p className="text-sm font-semibold text-emerald-900">{t.name}</p>
-                  <p className="text-[12px] text-emerald-800/30">{t.role}</p>
+                  <p className="text-[12px] text-emerald-800/55">{t.role}</p>
                 </div>
               </div>
             </motion.div>
           ))}
         </div>
 
-        <p className="mt-8 text-center text-[10px] text-emerald-800/15">
+        <p className="mt-8 text-center text-[10px] text-emerald-800/40">
           Testimonials are illustrative
         </p>
       </div>
@@ -878,7 +962,7 @@ function Footer() {
             <span className="text-xl font-bold tracking-[-0.02em] text-white">
               Elilons
             </span>
-            <p className="mt-1.5 max-w-xs text-sm text-emerald-200/25">
+            <p className="mt-1.5 max-w-xs text-sm text-emerald-200/50">
               Cash for the drivers, the dashers, the riders, and every gig worker keeping things moving.
             </p>
           </div>
@@ -889,7 +973,7 @@ function Footer() {
           </div>
         </div>
 
-        <div className="mt-12 border-t border-emerald-200/5 pt-6 text-center text-[10px] text-emerald-200/15">
+        <div className="mt-12 border-t border-emerald-200/5 pt-6 text-center text-[10px] text-emerald-200/40">
           <p>Not a bank. Loans subject to approval and verification of income. Elilons is designed exclusively for 1099 independent contractors.</p>
           <p className="mt-1">&copy; 2026 Elilons. All rights reserved.</p>
         </div>
@@ -914,6 +998,7 @@ export default function Home() {
         }
       `}</style>
       <Navbar />
+      <SocialProofToast />
       <Hero />
       <Stats />
       <PlatformTicker />
