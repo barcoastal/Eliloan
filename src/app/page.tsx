@@ -87,16 +87,23 @@ function Hero() {
           className="relative z-10 mx-auto w-full max-w-7xl px-6 sm:px-10"
           style={{ opacity, y }}
         >
+          {/* Floating gig worker story card */}
           <motion.div
-            className="mb-6 inline-flex items-center gap-2 rounded-full border border-emerald-600/20 bg-emerald-50 px-4 py-1.5"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.5 }}
+            className="mb-8 inline-flex items-center gap-3 rounded-2xl border border-emerald-600/10 bg-white/80 px-5 py-3 shadow-lg shadow-emerald-900/5 backdrop-blur-sm"
+            initial={{ opacity: 0, x: -30 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8, delay: 0.4 }}
           >
-            <div className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse" />
-            <span className="text-[12px] font-medium text-emerald-700">
-              Made exclusively for gig workers
-            </span>
+            <div className="flex h-10 w-10 items-center justify-center rounded-full bg-gradient-to-br from-emerald-400 to-green-500 shadow-md shadow-emerald-500/20">
+              <svg className="h-5 w-5 text-white" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 18.75a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h6m-9 0H3.375a1.125 1.125 0 01-1.125-1.125V14.25m17.25 4.5a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h1.125c.621 0 1.129-.504 1.09-1.124a17.902 17.902 0 00-3.213-9.193 2.056 2.056 0 00-1.58-.86H14.25M16.5 18.75h-2.25m0-11.177v-.958c0-.568-.422-1.048-.987-1.106a48.554 48.554 0 00-10.026 0 1.106 1.106 0 00-.987 1.106v7.635m12-6.677v6.677m0 4.5v-4.5m0 0h-12" />
+              </svg>
+            </div>
+            <div>
+              <p className="text-[13px] font-semibold text-emerald-900">Marcus just got funded $4,200</p>
+              <p className="text-[11px] text-emerald-700/40">DoorDash driver &middot; Atlanta, GA &middot; 2 hours ago</p>
+            </div>
+            <div className="ml-2 h-2 w-2 rounded-full bg-emerald-400 animate-pulse" />
           </motion.div>
 
           <motion.h1
@@ -127,7 +134,7 @@ function Hero() {
           </motion.p>
 
           <motion.div
-            className="mt-10 flex flex-col items-start gap-4 sm:flex-row"
+            className="mt-10 flex flex-col items-start gap-4 sm:flex-row sm:items-center"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.9 }}
@@ -147,6 +154,22 @@ function Hero() {
             >
               Check Status
             </Link>
+            {/* Social proof */}
+            <div className="hidden sm:flex items-center gap-3 ml-4">
+              <div className="flex -space-x-2">
+                {["MT", "SK", "DJ", "AR"].map((initials, i) => (
+                  <div
+                    key={initials}
+                    className="flex h-8 w-8 items-center justify-center rounded-full border-2 border-[#FAFAF7] bg-gradient-to-br from-emerald-300 to-green-400 text-[10px] font-bold text-emerald-900"
+                  >
+                    {initials}
+                  </div>
+                ))}
+              </div>
+              <p className="text-[12px] text-emerald-800/40">
+                <span className="font-semibold text-emerald-700">1,200+</span> gig workers funded
+              </p>
+            </div>
           </motion.div>
         </motion.div>
 
@@ -313,56 +336,71 @@ function HowItWorks() {
             </h2>
           </div>
 
-          {/* Progress bar */}
-          <div className="mb-12 flex items-center gap-0 max-w-xl">
-            {steps.map((step, i) => {
-              const stepProgress = useTransform(
-                scrollYProgress,
-                [i / 3, (i + 0.3) / 3],
-                [0, 1]
-              );
-              const isActive = useTransform(
-                scrollYProgress,
-                [Math.max(0, (i - 0.1) / 3), i / 3],
-                [0, 1]
-              );
+          {/* Premium step progress bar */}
+          <div className="mb-14 max-w-2xl">
+            <div className="relative flex items-start justify-between">
+              {/* Background connector track */}
+              <div className="absolute top-[22px] left-[22px] right-[22px] h-[3px] rounded-full bg-emerald-100" />
+              {/* Animated fill */}
+              <motion.div
+                className="absolute top-[22px] left-[22px] h-[3px] rounded-full bg-gradient-to-r from-emerald-500 via-green-400 to-lime-400"
+                style={{
+                  width: useTransform(scrollYProgress, [0, 0.85], ["0%", "100%"]),
+                }}
+              />
 
-              return (
-                <div key={step.num} className="flex flex-1 items-center">
-                  {/* Step dot + label */}
-                  <motion.div className="flex flex-col items-center gap-2 relative z-10">
+              {steps.map((step, i) => {
+                const isActive = useTransform(
+                  scrollYProgress,
+                  [Math.max(0, (i - 0.1) / 3), i / 3],
+                  [0, 1]
+                );
+                const iconColors = ["#059669", "#16a34a", "#65a30d"];
+                const bgColors = ["#ecfdf5", "#f0fdf4", "#f7fee7"];
+                const icons = [
+                  <svg key="upload" className="h-5 w-5" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5m-13.5-9L12 3m0 0l4.5 4.5M12 3v13.5" /></svg>,
+                  <svg key="check" className="h-5 w-5" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>,
+                  <svg key="cash" className="h-5 w-5" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" d="M12 6v12m-3-2.818l.879.659c1.171.879 3.07.879 4.242 0 1.172-.879 1.172-2.303 0-3.182C13.536 12.219 12.768 12 12 12c-.725 0-1.45-.22-2.003-.659-1.106-.879-1.106-2.303 0-3.182s2.9-.879 4.006 0l.415.33M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>,
+                ];
+
+                return (
+                  <div key={step.num} className="relative z-10 flex flex-col items-center" style={{ width: "33.33%" }}>
+                    {/* Circle with icon */}
                     <motion.div
-                      className={`flex h-12 w-12 items-center justify-center rounded-full border-2 text-sm font-bold transition-colors duration-500`}
+                      className="flex h-11 w-11 items-center justify-center rounded-full shadow-md transition-shadow duration-500"
                       style={{
-                        borderColor: useTransform(isActive, [0, 1], ["#d1d5db", step.dot === "bg-emerald-500" ? "#10b981" : step.dot === "bg-green-500" ? "#22c55e" : "#84cc16"]),
-                        backgroundColor: useTransform(isActive, [0, 1], ["#ffffff", step.dot === "bg-emerald-500" ? "#ecfdf5" : step.dot === "bg-green-500" ? "#f0fdf4" : "#f7fee7"]),
-                        color: useTransform(isActive, [0, 1], ["#9ca3af", step.dot === "bg-emerald-500" ? "#059669" : step.dot === "bg-green-500" ? "#16a34a" : "#65a30d"]),
+                        backgroundColor: useTransform(isActive, [0, 1], ["#ffffff", bgColors[i]]),
+                        borderWidth: "2px",
+                        borderStyle: "solid",
+                        borderColor: useTransform(isActive, [0, 1], ["#e5e7eb", iconColors[i]]),
+                        color: useTransform(isActive, [0, 1], ["#d1d5db", iconColors[i]]),
+                        boxShadow: useTransform(isActive, [0, 1], ["0 1px 3px rgba(0,0,0,0.05)", `0 4px 14px ${iconColors[i]}25`]),
                       }}
                     >
-                      {step.num}
+                      {icons[i]}
                     </motion.div>
+                    {/* Label */}
                     <motion.span
-                      className="text-[11px] font-semibold uppercase tracking-wider whitespace-nowrap"
+                      className="mt-3 text-[12px] font-bold tracking-wide whitespace-nowrap"
                       style={{
-                        color: useTransform(isActive, [0, 1], ["#9ca3af", step.dot === "bg-emerald-500" ? "#059669" : step.dot === "bg-green-500" ? "#16a34a" : "#65a30d"]),
+                        color: useTransform(isActive, [0, 1], ["#c0c0c0", iconColors[i]]),
                       }}
                     >
                       {step.title}
                     </motion.span>
-                  </motion.div>
-
-                  {/* Connector line */}
-                  {i < steps.length - 1 && (
-                    <div className="relative mx-2 h-[2px] flex-1 bg-gray-200 rounded-full overflow-hidden">
-                      <motion.div
-                        className="absolute inset-y-0 left-0 bg-gradient-to-r from-emerald-400 to-green-400 rounded-full"
-                        style={{ width: useTransform(stepProgress, [0, 1], ["0%", "100%"]) }}
-                      />
-                    </div>
-                  )}
-                </div>
-              );
-            })}
+                    {/* Subtitle */}
+                    <motion.span
+                      className="mt-0.5 text-[10px] whitespace-nowrap hidden sm:block"
+                      style={{
+                        color: useTransform(isActive, [0, 1], ["transparent", "#a0a0a0"]),
+                      }}
+                    >
+                      {i === 0 ? "Upload pay stubs" : i === 1 ? "No credit check" : "Cash in 48hrs"}
+                    </motion.span>
+                  </div>
+                );
+              })}
+            </div>
           </div>
 
           {/* Step content — transforms in place */}
