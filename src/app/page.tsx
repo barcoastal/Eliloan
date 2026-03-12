@@ -1,236 +1,454 @@
+"use client";
+
 import Link from "next/link";
+import { useRef } from "react";
+import {
+  motion,
+  useScroll,
+  useTransform,
+  useInView,
+  MotionValue,
+} from "framer-motion";
 
 /* ------------------------------------------------------------------ */
-/*  GigFund – Full Marketing Homepage                                  */
+/*  Utility: fade-in on scroll                                         */
 /* ------------------------------------------------------------------ */
+function FadeIn({
+  children,
+  className = "",
+  delay = 0,
+}: {
+  children: React.ReactNode;
+  className?: string;
+  delay?: number;
+}) {
+  const ref = useRef(null);
+  const inView = useInView(ref, { once: true, margin: "-100px" });
 
+  return (
+    <motion.div
+      ref={ref}
+      className={className}
+      initial={{ opacity: 0, y: 40 }}
+      animate={inView ? { opacity: 1, y: 0 } : {}}
+      transition={{ duration: 0.8, delay, ease: [0.25, 0.1, 0.25, 1] }}
+    >
+      {children}
+    </motion.div>
+  );
+}
+
+/* ------------------------------------------------------------------ */
+/*  Utility: parallax image                                             */
+/* ------------------------------------------------------------------ */
+function ParallaxImage({
+  src,
+  alt,
+  scrollYProgress,
+  outputRange = ["-10%", "10%"],
+  className = "",
+}: {
+  src: string;
+  alt: string;
+  scrollYProgress: MotionValue<number>;
+  outputRange?: string[];
+  className?: string;
+}) {
+  const y = useTransform(scrollYProgress, [0, 1], outputRange);
+
+  return (
+    <motion.div className={`overflow-hidden ${className}`} style={{ y }}>
+      <img
+        src={src}
+        alt={alt}
+        className="h-full w-full object-cover"
+        loading="lazy"
+      />
+    </motion.div>
+  );
+}
+
+/* ------------------------------------------------------------------ */
+/*  NAVBAR                                                              */
+/* ------------------------------------------------------------------ */
 function Navbar() {
   return (
-    <nav className="sticky top-0 z-50 bg-white/95 backdrop-blur shadow-sm">
-      <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 sm:px-6 lg:px-8">
-        <Link href="/" className="text-2xl font-extrabold tracking-tight">
-          <span className="bg-gradient-to-r from-purple-600 via-blue-500 to-cyan-500 bg-clip-text text-transparent">
-            GigFund
-          </span>
+    <motion.nav
+      className="fixed top-0 z-50 w-full"
+      initial={{ y: -100 }}
+      animate={{ y: 0 }}
+      transition={{ duration: 0.8, delay: 0.2, ease: [0.25, 0.1, 0.25, 1] }}
+    >
+      <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-5 sm:px-10">
+        <Link
+          href="/"
+          className="text-2xl font-bold tracking-[-0.02em] text-white"
+          style={{ fontFamily: "var(--font-geist-sans)" }}
+        >
+          gigfund
         </Link>
 
-        <div className="hidden items-center gap-6 md:flex">
-          <a href="#how-it-works" className="text-sm font-medium text-slate-600 hover:text-slate-900 transition-colors">
-            How It Works
-          </a>
-          <a href="#who-we-help" className="text-sm font-medium text-slate-600 hover:text-slate-900 transition-colors">
-            Who We Help
-          </a>
-          <a href="#why-us" className="text-sm font-medium text-slate-600 hover:text-slate-900 transition-colors">
-            Why Us
-          </a>
+        <div className="hidden items-center gap-8 md:flex">
+          {["How It Works", "Who We Help", "Why Us"].map((label) => (
+            <a
+              key={label}
+              href={`#${label.toLowerCase().replace(/\s+/g, "-")}`}
+              className="text-[13px] font-medium tracking-wide text-white/70 transition-colors hover:text-white"
+            >
+              {label}
+            </a>
+          ))}
         </div>
 
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-4">
           <Link
             href="/status"
-            className="hidden text-sm font-medium text-slate-600 hover:text-slate-900 transition-colors sm:inline-block"
+            className="hidden text-[13px] font-medium text-white/70 transition-colors hover:text-white sm:block"
           >
             Check Status
           </Link>
           <Link
             href="/apply"
-            className="rounded-full bg-orange-500 px-5 py-2 text-sm font-semibold text-white shadow-md hover:bg-orange-600 transition-colors"
+            className="rounded-full bg-white px-5 py-2 text-[13px] font-semibold text-black transition-all hover:bg-white/90 hover:scale-105"
           >
             Apply Now
           </Link>
         </div>
       </div>
-    </nav>
+    </motion.nav>
   );
 }
 
 /* ------------------------------------------------------------------ */
-
+/*  HERO — Full viewport, cinematic                                     */
+/* ------------------------------------------------------------------ */
 function Hero() {
+  const ref = useRef(null);
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start start", "end start"],
+  });
+  const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
+  const scale = useTransform(scrollYProgress, [0, 0.5], [1, 1.1]);
+  const textY = useTransform(scrollYProgress, [0, 0.5], [0, -80]);
+
   return (
-    <section className="relative overflow-hidden bg-gradient-to-br from-purple-600 via-blue-500 to-cyan-500 px-4 py-24 text-center text-white sm:py-32 lg:py-40">
-      {/* Decorative blobs */}
-      <div className="pointer-events-none absolute -top-24 -left-24 h-72 w-72 rounded-full bg-white/10 blur-3xl" />
-      <div className="pointer-events-none absolute -bottom-32 -right-32 h-96 w-96 rounded-full bg-cyan-300/20 blur-3xl" />
-      <div className="pointer-events-none absolute top-1/2 left-1/3 h-48 w-48 rounded-full bg-purple-400/15 blur-2xl" />
+    <section ref={ref} className="relative h-[100vh] overflow-hidden">
+      {/* Background image with parallax zoom */}
+      <motion.div className="absolute inset-0" style={{ scale }}>
+        <img
+          src="https://images.unsplash.com/photo-1558618666-fcd25c85f82e?w=1920&q=80&auto=format"
+          alt="Delivery rider on a bike in the city"
+          className="h-full w-full object-cover"
+        />
+        <div className="absolute inset-0 bg-black/50" />
+        <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-transparent to-black/60" />
+      </motion.div>
 
-      <div className="relative mx-auto max-w-3xl">
-        <p className="mb-4 inline-block rounded-full border border-white/30 bg-white/10 px-4 py-1.5 text-sm font-medium backdrop-blur">
-          For the drivers, the dashers, the grinders
-        </p>
-        <h1 className="text-4xl font-extrabold leading-tight tracking-tight sm:text-5xl lg:text-6xl">
-          Rent is due. Gas ain&apos;t free.
+      {/* Content */}
+      <motion.div
+        className="relative z-10 flex h-full flex-col items-center justify-center px-6 text-center"
+        style={{ opacity, y: textY }}
+      >
+        <motion.p
+          className="mb-6 text-[13px] font-medium uppercase tracking-[0.3em] text-white/60"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.5 }}
+        >
+          Built for gig workers
+        </motion.p>
+
+        <motion.h1
+          className="max-w-4xl text-5xl font-bold leading-[1.05] tracking-[-0.03em] text-white sm:text-7xl lg:text-8xl"
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1, delay: 0.3, ease: [0.25, 0.1, 0.25, 1] }}
+        >
+          Rent is due.
           <br />
-          <span className="text-amber-300">We got you.</span>
-        </h1>
-        <p className="mx-auto mt-6 max-w-xl text-lg text-white/90 sm:text-xl">
-          You work 12-hour shifts, deal with traffic, bad tippers, and algorithm changes.
-          The last thing you need is a bank telling you your income &ldquo;doesn&apos;t count.&rdquo;
-          It counts here.
-        </p>
+          Gas ain&apos;t free.
+          <br />
+          <span className="bg-gradient-to-r from-amber-300 to-orange-400 bg-clip-text text-transparent">
+            We got you.
+          </span>
+        </motion.h1>
 
-        <div className="mt-10 flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
+        <motion.p
+          className="mt-8 max-w-xl text-lg leading-relaxed text-white/70 sm:text-xl"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.7 }}
+        >
+          Up to $10,000 based on your actual earnings.
+          <br className="hidden sm:block" />
+          No credit check. Apply in 5 minutes.
+        </motion.p>
+
+        <motion.div
+          className="mt-12 flex flex-col items-center gap-4 sm:flex-row"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.9 }}
+        >
           <Link
             href="/apply"
-            className="rounded-full bg-orange-500 px-8 py-3.5 text-base font-bold text-white shadow-lg hover:bg-orange-600 transition-colors"
+            className="group rounded-full bg-white px-10 py-4 text-[15px] font-bold text-black transition-all hover:scale-105 hover:shadow-2xl hover:shadow-white/20"
           >
-            Get Cash Now
+            Get Funded
+            <span className="ml-2 inline-block transition-transform group-hover:translate-x-1">
+              &rarr;
+            </span>
           </Link>
           <Link
             href="/status"
-            className="rounded-full border-2 border-white/80 px-8 py-3.5 text-base font-bold text-white hover:bg-white/10 transition-colors"
+            className="rounded-full border border-white/30 px-10 py-4 text-[15px] font-medium text-white/90 backdrop-blur transition-all hover:border-white/60 hover:bg-white/10"
           >
-            Check Your Status
+            Check Status
           </Link>
-        </div>
+        </motion.div>
+      </motion.div>
 
-        {/* Stats row */}
-        <div className="mt-16 flex flex-wrap items-center justify-center gap-6 text-sm font-medium text-white/80 sm:gap-10 sm:text-base">
-          <div className="flex flex-col items-center">
-            <span className="text-2xl font-extrabold text-white sm:text-3xl">$2M+</span>
-            <span>Funded</span>
-          </div>
-          <div className="hidden h-8 w-px bg-white/30 sm:block" />
-          <div className="flex flex-col items-center">
-            <span className="text-2xl font-extrabold text-white sm:text-3xl">5 Min</span>
-            <span>Application</span>
-          </div>
-          <div className="hidden h-8 w-px bg-white/30 sm:block" />
-          <div className="flex flex-col items-center">
-            <span className="text-2xl font-extrabold text-white sm:text-3xl">Zero</span>
-            <span>Credit Check</span>
-          </div>
+      {/* Scroll indicator */}
+      <motion.div
+        className="absolute bottom-8 left-1/2 z-10 -translate-x-1/2"
+        animate={{ y: [0, 10, 0] }}
+        transition={{ duration: 2, repeat: Infinity }}
+      >
+        <div className="flex flex-col items-center gap-2">
+          <span className="text-[11px] font-medium uppercase tracking-[0.2em] text-white/40">
+            Scroll
+          </span>
+          <div className="h-10 w-[1px] bg-gradient-to-b from-white/40 to-transparent" />
         </div>
+      </motion.div>
+    </section>
+  );
+}
+
+/* ------------------------------------------------------------------ */
+/*  STATS — Sticky counter section                                     */
+/* ------------------------------------------------------------------ */
+function Stats() {
+  const ref = useRef(null);
+  const inView = useInView(ref, { once: true, margin: "-100px" });
+
+  const stats = [
+    { value: "$2M+", label: "Funded to gig workers" },
+    { value: "5 min", label: "Average application time" },
+    { value: "0", label: "Credit checks required" },
+    { value: "48hrs", label: "Average funding time" },
+  ];
+
+  return (
+    <section ref={ref} className="bg-black px-6 py-32 sm:py-40">
+      <div className="mx-auto grid max-w-6xl grid-cols-2 gap-12 lg:grid-cols-4 lg:gap-8">
+        {stats.map((s, i) => (
+          <motion.div
+            key={s.label}
+            className="text-center"
+            initial={{ opacity: 0, y: 30 }}
+            animate={inView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.6, delay: i * 0.15 }}
+          >
+            <div className="text-4xl font-bold tracking-[-0.02em] text-white sm:text-5xl lg:text-6xl">
+              {s.value}
+            </div>
+            <div className="mt-3 text-sm font-medium text-white/40">
+              {s.label}
+            </div>
+          </motion.div>
+        ))}
       </div>
     </section>
   );
 }
 
 /* ------------------------------------------------------------------ */
-
-function TrustBar() {
-  const platforms = ["Uber", "Lyft", "DoorDash", "Instacart", "Fiverr", "Upwork", "Amazon Flex"];
+/*  THE STRUGGLE — Side-by-side sticky scroll                          */
+/* ------------------------------------------------------------------ */
+function TheStruggle() {
+  const ref = useRef(null);
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start end", "end start"],
+  });
 
   return (
-    <section className="bg-slate-50 px-4 py-10">
-      <div className="mx-auto max-w-4xl text-center">
-        <p className="mb-5 text-sm font-medium tracking-wide text-slate-400 uppercase">
-          Built for workers on
-        </p>
-        <div className="flex flex-wrap items-center justify-center gap-3">
-          {platforms.map((p) => (
-            <span
-              key={p}
-              className="rounded-full border border-slate-200 bg-white px-5 py-1.5 text-sm font-medium text-slate-500"
-            >
-              {p}
-            </span>
-          ))}
+    <section ref={ref} className="bg-[#0a0a0a]">
+      {/* Problem */}
+      <div className="relative min-h-screen px-6 py-32 sm:py-40">
+        <div className="mx-auto grid max-w-7xl items-center gap-16 lg:grid-cols-2">
+          <FadeIn>
+            <p className="text-[13px] font-medium uppercase tracking-[0.3em] text-red-400/80">
+              The reality
+            </p>
+            <h2 className="mt-4 text-4xl font-bold leading-[1.1] tracking-[-0.02em] text-white sm:text-5xl">
+              The system wasn&apos;t
+              <br />
+              built for you.
+            </h2>
+            <div className="mt-10 space-y-6">
+              {[
+                "Car breaks down and you still gotta make rent",
+                "Slow week on the app but bills don't wait",
+                "Banks say your income 'doesn't qualify'",
+                "One bad week and you're behind on everything",
+              ].map((text, i) => (
+                <FadeIn key={i} delay={i * 0.1}>
+                  <div className="flex items-start gap-4">
+                    <div className="mt-1.5 h-2 w-2 flex-shrink-0 rounded-full bg-red-400/60" />
+                    <p className="text-lg leading-relaxed text-white/60">
+                      {text}
+                    </p>
+                  </div>
+                </FadeIn>
+              ))}
+            </div>
+          </FadeIn>
+
+          <FadeIn delay={0.2} className="relative">
+            <div className="aspect-[4/5] overflow-hidden rounded-3xl">
+              <ParallaxImage
+                src="https://images.unsplash.com/photo-1616587894289-86480e533129?w=900&q=80&auto=format"
+                alt="Person looking at phone stressed"
+                scrollYProgress={scrollYProgress}
+                outputRange={["-5%", "5%"]}
+                className="h-[110%] w-full"
+              />
+            </div>
+          </FadeIn>
         </div>
       </div>
-    </section>
-  );
-}
 
-/* ------------------------------------------------------------------ */
+      {/* Solution */}
+      <div className="relative min-h-screen px-6 py-32 sm:py-40">
+        <div className="mx-auto grid max-w-7xl items-center gap-16 lg:grid-cols-2">
+          <FadeIn delay={0.2} className="relative order-2 lg:order-1">
+            <div className="aspect-[4/5] overflow-hidden rounded-3xl">
+              <ParallaxImage
+                src="https://images.unsplash.com/photo-1601584115197-04ecc0da31d7?w=900&q=80&auto=format"
+                alt="Happy delivery driver on motorcycle"
+                scrollYProgress={scrollYProgress}
+                outputRange={["-5%", "5%"]}
+                className="h-[110%] w-full"
+              />
+            </div>
+          </FadeIn>
 
-function RealTalk() {
-  return (
-    <section className="bg-white px-4 py-20 sm:py-28">
-      <div className="mx-auto max-w-4xl">
-        <h2 className="text-center text-3xl font-extrabold text-slate-900 sm:text-4xl">
-          Let&apos;s be real for a sec
-        </h2>
-        <div className="mt-12 grid gap-6 sm:grid-cols-2">
-          <div className="rounded-2xl bg-red-50 border border-red-100 p-8">
-            <h3 className="text-lg font-bold text-red-900">The struggle is real</h3>
-            <ul className="mt-4 space-y-3 text-sm leading-relaxed text-red-800">
-              <li className="flex gap-2"><span className="mt-0.5 text-red-400">x</span> Car broke down but you still gotta make rent</li>
-              <li className="flex gap-2"><span className="mt-0.5 text-red-400">x</span> Slow week on the app and bills don&apos;t care</li>
-              <li className="flex gap-2"><span className="mt-0.5 text-red-400">x</span> Banks say your income &ldquo;doesn&apos;t qualify&rdquo;</li>
-              <li className="flex gap-2"><span className="mt-0.5 text-red-400">x</span> Payday loans charging 400% APR</li>
-              <li className="flex gap-2"><span className="mt-0.5 text-red-400">x</span> You&apos;re one bad week away from falling behind</li>
-            </ul>
-          </div>
-          <div className="rounded-2xl bg-emerald-50 border border-emerald-100 p-8">
-            <h3 className="text-lg font-bold text-emerald-900">How we show up for you</h3>
-            <ul className="mt-4 space-y-3 text-sm leading-relaxed text-emerald-800">
-              <li className="flex gap-2"><span className="mt-0.5 text-emerald-500 font-bold">&check;</span> Up to $10K based on your actual earnings</li>
-              <li className="flex gap-2"><span className="mt-0.5 text-emerald-500 font-bold">&check;</span> We read your pay stubs, not your credit score</li>
-              <li className="flex gap-2"><span className="mt-0.5 text-emerald-500 font-bold">&check;</span> Apply from your phone between rides</li>
-              <li className="flex gap-2"><span className="mt-0.5 text-emerald-500 font-bold">&check;</span> Fair terms, no predatory nonsense</li>
-              <li className="flex gap-2"><span className="mt-0.5 text-emerald-500 font-bold">&check;</span> Built by people who actually get the gig life</li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-/* ------------------------------------------------------------------ */
-
-const steps = [
-  {
-    num: 1,
-    title: "Drop your pay stubs",
-    desc: "Screenshot your earnings from the last 3 months. Uber statement, DoorDash summary, whatever you got. Takes 2 minutes.",
-    color: "from-purple-500 to-blue-500",
-    bg: "bg-purple-50",
-    icon: (
-      <svg className="h-6 w-6 text-purple-600" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor">
-        <path strokeLinecap="round" strokeLinejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5m-13.5-9L12 3m0 0l4.5 4.5M12 3v13.5" />
-      </svg>
-    ),
-  },
-  {
-    num: 2,
-    title: "We check the numbers",
-    desc: "No credit check. No invasive questions. We just look at what you earned and make sure the math works.",
-    color: "from-blue-500 to-cyan-500",
-    bg: "bg-blue-50",
-    icon: (
-      <svg className="h-6 w-6 text-blue-600" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor">
-        <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z" />
-      </svg>
-    ),
-  },
-  {
-    num: 3,
-    title: "Cash hits your account",
-    desc: "Approved? Done. No waiting around, no jumping through hoops. Money where you need it, when you need it.",
-    color: "from-cyan-500 to-emerald-500",
-    bg: "bg-emerald-50",
-    icon: (
-      <svg className="h-6 w-6 text-emerald-600" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor">
-        <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 18.75a60.07 60.07 0 0115.797 2.101c.727.198 1.453-.342 1.453-1.096V18.75M3.75 4.5v.75A.75.75 0 013 6h-.75m0 0v-.375c0-.621.504-1.125 1.125-1.125H20.25M2.25 6v9m18-10.5v.75c0 .414.336.75.75.75h.75m-1.5-1.5h.375c.621 0 1.125.504 1.125 1.125v9.75c0 .621-.504 1.125-1.125 1.125h-.375m1.5-1.5H21a.75.75 0 00-.75.75v.75m0 0H3.75m0 0h-.375a1.125 1.125 0 01-1.125-1.125V15m1.5 1.5v-.75A.75.75 0 003 15h-.75M15 10.5a3 3 0 11-6 0 3 3 0 016 0zm3 0h.008v.008H18V10.5zm-12 0h.008v.008H6V10.5z" />
-      </svg>
-    ),
-  },
-];
-
-function HowItWorks() {
-  return (
-    <section id="how-it-works" className="scroll-mt-16 bg-slate-50 px-4 py-20 sm:py-28">
-      <div className="mx-auto max-w-6xl text-center">
-        <h2 className="text-3xl font-extrabold text-slate-900 sm:text-4xl">Dead simple. Three steps.</h2>
-        <p className="mx-auto mt-3 max-w-lg text-slate-600">No paperwork avalanche. No 3-week wait. Just vibes and funding.</p>
-
-        <div className="mt-14 grid gap-8 sm:grid-cols-3">
-          {steps.map((s) => (
-            <div key={s.num} className={`relative rounded-2xl ${s.bg} p-8 text-left shadow-sm`}>
-              <span
-                className={`mb-4 inline-flex h-10 w-10 items-center justify-center rounded-full bg-gradient-to-br ${s.color} text-sm font-bold text-white shadow`}
-              >
-                {s.num}
+          <FadeIn className="order-1 lg:order-2">
+            <p className="text-[13px] font-medium uppercase tracking-[0.3em] text-emerald-400/80">
+              The solution
+            </p>
+            <h2 className="mt-4 text-4xl font-bold leading-[1.1] tracking-[-0.02em] text-white sm:text-5xl">
+              We show up
+              <br />
+              <span className="bg-gradient-to-r from-emerald-300 to-cyan-300 bg-clip-text text-transparent">
+                when they won&apos;t.
               </span>
-              <div className="mb-3 flex h-12 w-12 items-center justify-center rounded-xl bg-white shadow-sm">
-                {s.icon}
-              </div>
-              <h3 className="text-lg font-bold text-slate-900">{s.title}</h3>
-              <p className="mt-2 text-sm leading-relaxed text-slate-600">{s.desc}</p>
+            </h2>
+            <div className="mt-10 space-y-6">
+              {[
+                "Up to $10K based on your actual gig earnings",
+                "We read your pay stubs, not your credit score",
+                "Apply from your phone between rides",
+                "Fair terms — no predatory nonsense",
+              ].map((text, i) => (
+                <FadeIn key={i} delay={i * 0.1}>
+                  <div className="flex items-start gap-4">
+                    <div className="mt-1.5 h-2 w-2 flex-shrink-0 rounded-full bg-emerald-400/60" />
+                    <p className="text-lg leading-relaxed text-white/60">
+                      {text}
+                    </p>
+                  </div>
+                </FadeIn>
+              ))}
             </div>
+          </FadeIn>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ------------------------------------------------------------------ */
+/*  HOW IT WORKS — Large scroll-triggered cards                         */
+/* ------------------------------------------------------------------ */
+function HowItWorks() {
+  const steps = [
+    {
+      num: "01",
+      title: "Drop your pay stubs",
+      desc: "Screenshot your Uber earnings, DoorDash summary, whatever you got. We accept it all. Takes 2 minutes from your phone.",
+      image:
+        "https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=900&q=80&auto=format",
+      imageAlt: "Phone showing earnings",
+    },
+    {
+      num: "02",
+      title: "We check the numbers",
+      desc: "No credit check. No invasive questions. We just verify what you earned in the last 3 months and make sure the math works.",
+      image:
+        "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=900&q=80&auto=format",
+      imageAlt: "Data analysis",
+    },
+    {
+      num: "03",
+      title: "Cash hits your account",
+      desc: "Approved? Done. No waiting around, no jumping through hoops. Money where you need it, when you need it.",
+      image:
+        "https://images.unsplash.com/photo-1579621970563-ebec7560ff3e?w=900&q=80&auto=format",
+      imageAlt: "Cash money",
+    },
+  ];
+
+  return (
+    <section id="how-it-works" className="scroll-mt-16 bg-white px-6 py-32 sm:py-40">
+      <div className="mx-auto max-w-7xl">
+        <FadeIn>
+          <p className="text-[13px] font-medium uppercase tracking-[0.3em] text-black/40">
+            How it works
+          </p>
+          <h2 className="mt-4 text-4xl font-bold tracking-[-0.02em] text-black sm:text-5xl lg:text-6xl">
+            Three steps.
+            <br />
+            That&apos;s it.
+          </h2>
+        </FadeIn>
+
+        <div className="mt-24 space-y-32 lg:space-y-40">
+          {steps.map((step, i) => (
+            <FadeIn key={step.num}>
+              <div
+                className={`grid items-center gap-12 lg:grid-cols-2 lg:gap-20 ${
+                  i % 2 === 1 ? "lg:direction-rtl" : ""
+                }`}
+              >
+                <div className={i % 2 === 1 ? "lg:order-2" : ""}>
+                  <span className="text-6xl font-bold tracking-[-0.04em] text-black/[0.06] sm:text-8xl">
+                    {step.num}
+                  </span>
+                  <h3 className="mt-2 text-3xl font-bold tracking-[-0.02em] text-black sm:text-4xl">
+                    {step.title}
+                  </h3>
+                  <p className="mt-6 max-w-md text-lg leading-relaxed text-black/50">
+                    {step.desc}
+                  </p>
+                </div>
+                <div
+                  className={`aspect-[4/3] overflow-hidden rounded-3xl bg-gray-100 ${
+                    i % 2 === 1 ? "lg:order-1" : ""
+                  }`}
+                >
+                  <img
+                    src={step.image}
+                    alt={step.imageAlt}
+                    className="h-full w-full object-cover transition-transform duration-700 hover:scale-105"
+                    loading="lazy"
+                  />
+                </div>
+              </div>
+            </FadeIn>
           ))}
         </div>
       </div>
@@ -239,57 +457,70 @@ function HowItWorks() {
 }
 
 /* ------------------------------------------------------------------ */
-
-const personas = [
-  {
-    title: "Rideshare Drivers",
-    desc: "Running Uber and Lyft back to back? Yeah, that's real income. Banks don't get it. We do.",
-    bg: "bg-gradient-to-br from-purple-50 to-purple-100",
-    border: "border-purple-200",
-    accent: "bg-purple-500",
-  },
-  {
-    title: "Delivery Drivers",
-    desc: "DoorDash at lunch, Instacart at night, Amazon Flex on weekends. You're working harder than anyone. Let us help.",
-    bg: "bg-gradient-to-br from-blue-50 to-blue-100",
-    border: "border-blue-200",
-    accent: "bg-blue-500",
-  },
-  {
-    title: "Freelancers",
-    desc: "Graphic design at 2am, writing copy between gigs. Your 1099 income is real and we treat it that way.",
-    bg: "bg-gradient-to-br from-amber-50 to-amber-100",
-    border: "border-amber-200",
-    accent: "bg-amber-500",
-  },
-  {
-    title: "Contractors",
-    desc: "Plumbing, electrical, consulting — you run your own thing. When cash flow gets tight, we bridge the gap.",
-    bg: "bg-gradient-to-br from-emerald-50 to-emerald-100",
-    border: "border-emerald-200",
-    accent: "bg-emerald-500",
-  },
-];
-
+/*  WHO WE HELP — Immersive image cards                                 */
+/* ------------------------------------------------------------------ */
 function WhoWeHelp() {
-  return (
-    <section id="who-we-help" className="scroll-mt-16 bg-white px-4 py-20 sm:py-28">
-      <div className="mx-auto max-w-6xl text-center">
-        <h2 className="text-3xl font-extrabold text-slate-900 sm:text-4xl">You&apos;re not alone in this</h2>
-        <p className="mx-auto mt-3 max-w-lg text-slate-600">
-          Millions of gig workers deal with the same cash flow rollercoaster. We built GigFund for every single one of you.
-        </p>
+  const personas = [
+    {
+      title: "Rideshare Drivers",
+      desc: "Running Uber and Lyft back to back? That's real income. We see you.",
+      image:
+        "https://images.unsplash.com/photo-1449965408869-eaa3f722e40d?w=600&q=80&auto=format",
+    },
+    {
+      title: "Delivery Riders",
+      desc: "DoorDash at lunch, Instacart at night. You're working harder than anyone.",
+      image:
+        "https://images.unsplash.com/photo-1526367790999-0150786686a2?w=600&q=80&auto=format",
+    },
+    {
+      title: "Freelancers",
+      desc: "Design at 2am, code between gigs. Your 1099 income counts here.",
+      image:
+        "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=600&q=80&auto=format",
+    },
+    {
+      title: "Contractors",
+      desc: "Plumbing, electrical, consulting. When cash flow gets tight, we bridge the gap.",
+      image:
+        "https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=600&q=80&auto=format",
+    },
+  ];
 
-        <div className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-          {personas.map((p) => (
-            <div
-              key={p.title}
-              className={`rounded-2xl border ${p.border} ${p.bg} p-6 text-left shadow-sm transition-transform hover:-translate-y-1 hover:shadow-md`}
-            >
-              <div className={`mb-4 h-1.5 w-12 rounded-full ${p.accent}`} />
-              <h3 className="text-lg font-bold text-slate-900">{p.title}</h3>
-              <p className="mt-2 text-sm leading-relaxed text-slate-600">{p.desc}</p>
-            </div>
+  return (
+    <section
+      id="who-we-help"
+      className="scroll-mt-16 bg-[#0a0a0a] px-6 py-32 sm:py-40"
+    >
+      <div className="mx-auto max-w-7xl">
+        <FadeIn>
+          <p className="text-[13px] font-medium uppercase tracking-[0.3em] text-white/40">
+            Who we help
+          </p>
+          <h2 className="mt-4 max-w-lg text-4xl font-bold leading-[1.1] tracking-[-0.02em] text-white sm:text-5xl">
+            You&apos;re not alone in this
+          </h2>
+        </FadeIn>
+
+        <div className="mt-16 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          {personas.map((p, i) => (
+            <FadeIn key={p.title} delay={i * 0.1}>
+              <div className="group relative aspect-[3/4] overflow-hidden rounded-2xl cursor-pointer">
+                <img
+                  src={p.image}
+                  alt={p.title}
+                  className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
+                  loading="lazy"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+                <div className="absolute bottom-0 left-0 right-0 p-6 transition-transform duration-500">
+                  <h3 className="text-xl font-bold text-white">{p.title}</h3>
+                  <p className="mt-2 text-sm leading-relaxed text-white/60 opacity-0 transition-opacity duration-500 group-hover:opacity-100">
+                    {p.desc}
+                  </p>
+                </div>
+              </div>
+            </FadeIn>
           ))}
         </div>
       </div>
@@ -298,72 +529,52 @@ function WhoWeHelp() {
 }
 
 /* ------------------------------------------------------------------ */
-
-const values = [
-  {
-    title: "No Credit Check",
-    desc: "Your FICO score is irrelevant here. We care about what you earned, not what some algorithm thinks about you.",
-    bg: "bg-gradient-to-br from-green-50 to-emerald-50",
-    iconBg: "bg-emerald-100 text-emerald-600",
-    icon: (
-      <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor">
-        <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-      </svg>
-    ),
-  },
-  {
-    title: "Up to $10,000",
-    desc: "Enough to cover a car repair, catch up on rent, or just breathe for a minute. Real money for real life.",
-    bg: "bg-gradient-to-br from-blue-50 to-cyan-50",
-    iconBg: "bg-blue-100 text-blue-600",
-    icon: (
-      <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor">
-        <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v12m-3-2.818l.879.659c1.171.879 3.07.879 4.242 0 1.172-.879 1.172-2.303 0-3.182C13.536 12.219 12.768 12 12 12c-.725 0-1.45-.22-2.003-.659-1.106-.879-1.106-2.303 0-3.182s2.9-.879 4.006 0l.415.33M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-      </svg>
-    ),
-  },
-  {
-    title: "5-Minute App",
-    desc: "Apply between rides. Literally. Fill out the form, upload your stubs, and you're done before the next ping.",
-    bg: "bg-gradient-to-br from-amber-50 to-orange-50",
-    iconBg: "bg-amber-100 text-amber-600",
-    icon: (
-      <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor">
-        <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" />
-      </svg>
-    ),
-  },
-  {
-    title: "Built for 1099",
-    desc: "We're not a bank pretending to care. We literally built this because the system wasn't working for gig workers.",
-    bg: "bg-gradient-to-br from-purple-50 to-pink-50",
-    iconBg: "bg-purple-100 text-purple-600",
-    icon: (
-      <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor">
-        <path strokeLinecap="round" strokeLinejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" />
-      </svg>
-    ),
-  },
-];
-
+/*  WHY US — Minimal text blocks                                        */
+/* ------------------------------------------------------------------ */
 function WhyUs() {
-  return (
-    <section id="why-us" className="scroll-mt-16 bg-slate-50 px-4 py-20 sm:py-28">
-      <div className="mx-auto max-w-6xl text-center">
-        <h2 className="text-3xl font-extrabold text-slate-900 sm:text-4xl">Why people actually fw us</h2>
-        <p className="mx-auto mt-3 max-w-lg text-slate-600">
-          No cap — we built something different.
-        </p>
+  const values = [
+    {
+      title: "No Credit Check",
+      desc: "Your FICO score is irrelevant. We care about what you earned — that's it.",
+    },
+    {
+      title: "Up to $10,000",
+      desc: "Cover a car repair, catch up on rent, or just breathe for a minute.",
+    },
+    {
+      title: "5-Minute Application",
+      desc: "Apply between rides. Fill the form, upload stubs, done before the next ping.",
+    },
+    {
+      title: "Built for 1099",
+      desc: "We built this because the system wasn't working for gig workers. Period.",
+    },
+  ];
 
-        <div className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-          {values.map((v) => (
-            <div key={v.title} className={`rounded-2xl ${v.bg} p-6 text-left shadow-sm`}>
-              <div className={`mb-4 inline-flex h-10 w-10 items-center justify-center rounded-xl ${v.iconBg}`}>
-                {v.icon}
+  return (
+    <section id="why-us" className="scroll-mt-16 bg-white px-6 py-32 sm:py-40">
+      <div className="mx-auto max-w-7xl">
+        <FadeIn>
+          <p className="text-[13px] font-medium uppercase tracking-[0.3em] text-black/40">
+            Why us
+          </p>
+          <h2 className="mt-4 text-4xl font-bold tracking-[-0.02em] text-black sm:text-5xl lg:text-6xl">
+            Different by design.
+          </h2>
+        </FadeIn>
+
+        <div className="mt-20 grid gap-px overflow-hidden rounded-3xl border border-black/[0.06] bg-black/[0.06] sm:grid-cols-2">
+          {values.map((v, i) => (
+            <FadeIn key={v.title} delay={i * 0.1}>
+              <div className="group bg-white p-10 transition-colors hover:bg-gray-50 sm:p-12">
+                <h3 className="text-2xl font-bold tracking-[-0.02em] text-black sm:text-3xl">
+                  {v.title}
+                </h3>
+                <p className="mt-4 max-w-sm text-base leading-relaxed text-black/50">
+                  {v.desc}
+                </p>
               </div>
-              <h3 className="text-lg font-bold text-slate-900">{v.title}</h3>
-              <p className="mt-2 text-sm leading-relaxed text-slate-600">{v.desc}</p>
-            </div>
+            </FadeIn>
           ))}
         </div>
       </div>
@@ -372,135 +583,213 @@ function WhyUs() {
 }
 
 /* ------------------------------------------------------------------ */
-
-const testimonials = [
-  {
-    quote: "I drive Uber like 50 hours a week and Chase literally told me I don't have real income. GigFund looked at my stubs and funded me in 2 days. Insane.",
-    name: "Marcus T.",
-    role: "Rideshare Driver",
-  },
-  {
-    quote: "Slow week on DoorDash + rent due = panic mode. Applied here on a Tuesday, had cash by Thursday. No weird credit check, no judgment.",
-    name: "Sarah K.",
-    role: "Delivery Driver",
-  },
-  {
-    quote: "As a freelancer my income is up and down. Every bank treats me like I'm unemployed. These people actually understood my situation fr.",
-    name: "James R.",
-    role: "Freelance Designer",
-  },
-];
-
+/*  TESTIMONIALS                                                       */
+/* ------------------------------------------------------------------ */
 function Testimonials() {
-  return (
-    <section className="bg-gradient-to-br from-purple-50 via-blue-50 to-cyan-50 px-4 py-20 sm:py-28">
-      <div className="mx-auto max-w-6xl text-center">
-        <h2 className="text-3xl font-extrabold text-slate-900 sm:text-4xl">Don&apos;t just take our word</h2>
-        <p className="mx-auto mt-3 max-w-lg text-slate-600">
-          Real stories from people who were tired of being ignored by traditional lenders.
-        </p>
+  const testimonials = [
+    {
+      quote:
+        "I drive Uber like 50 hours a week and Chase literally told me I don't have real income. GigFund looked at my stubs and funded me in 2 days.",
+      name: "Marcus T.",
+      role: "Rideshare Driver",
+    },
+    {
+      quote:
+        "Slow week on DoorDash plus rent due equals panic mode. Applied here on a Tuesday, had cash by Thursday. No weird credit check, no judgment.",
+      name: "Sarah K.",
+      role: "Delivery Driver",
+    },
+    {
+      quote:
+        "As a freelancer my income goes up and down. Every bank treats me like I'm unemployed. These people actually understood my situation.",
+      name: "James R.",
+      role: "Freelance Designer",
+    },
+  ];
 
-        <div className="mt-14 grid gap-8 sm:grid-cols-3">
-          {testimonials.map((t) => (
-            <div key={t.name} className="rounded-2xl bg-white p-8 text-left shadow-md">
-              <div className="mb-4 flex gap-1 text-amber-400">
-                {[...Array(5)].map((_, i) => (
-                  <svg key={i} className="h-4 w-4 fill-current" viewBox="0 0 20 20">
-                    <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                  </svg>
-                ))}
-              </div>
-              <p className="text-sm leading-relaxed text-slate-700">&ldquo;{t.quote}&rdquo;</p>
-              <div className="mt-5 flex items-center gap-3">
-                <div className="flex h-10 w-10 items-center justify-center rounded-full bg-gradient-to-br from-purple-400 to-blue-400 text-sm font-bold text-white">
-                  {t.name.charAt(0)}
-                </div>
+  return (
+    <section className="bg-[#0a0a0a] px-6 py-32 sm:py-40">
+      <div className="mx-auto max-w-7xl">
+        <FadeIn>
+          <p className="text-[13px] font-medium uppercase tracking-[0.3em] text-white/40">
+            Real stories
+          </p>
+          <h2 className="mt-4 text-4xl font-bold tracking-[-0.02em] text-white sm:text-5xl">
+            Don&apos;t take our word.
+          </h2>
+        </FadeIn>
+
+        <div className="mt-16 grid gap-6 lg:grid-cols-3">
+          {testimonials.map((t, i) => (
+            <FadeIn key={t.name} delay={i * 0.15}>
+              <div className="flex h-full flex-col justify-between rounded-2xl border border-white/[0.06] bg-white/[0.03] p-8 backdrop-blur sm:p-10">
                 <div>
-                  <p className="text-sm font-bold text-slate-900">{t.name}</p>
-                  <p className="text-xs text-slate-500">{t.role}</p>
+                  <div className="flex gap-1">
+                    {[...Array(5)].map((_, j) => (
+                      <div
+                        key={j}
+                        className="h-1.5 w-6 rounded-full bg-amber-400"
+                      />
+                    ))}
+                  </div>
+                  <p className="mt-8 text-lg leading-relaxed text-white/70">
+                    &ldquo;{t.quote}&rdquo;
+                  </p>
+                </div>
+                <div className="mt-10 flex items-center gap-4">
+                  <div className="flex h-11 w-11 items-center justify-center rounded-full bg-white/10 text-sm font-bold text-white">
+                    {t.name.charAt(0)}
+                  </div>
+                  <div>
+                    <p className="text-sm font-semibold text-white">
+                      {t.name}
+                    </p>
+                    <p className="text-[13px] text-white/40">{t.role}</p>
+                  </div>
                 </div>
               </div>
-            </div>
+            </FadeIn>
           ))}
         </div>
 
-        <p className="mt-8 text-xs text-slate-400">Testimonials are illustrative.</p>
-      </div>
-    </section>
-  );
-}
-
-/* ------------------------------------------------------------------ */
-
-function CtaBanner() {
-  return (
-    <section className="relative overflow-hidden bg-gradient-to-br from-purple-600 via-blue-500 to-cyan-500 px-4 py-20 text-center text-white sm:py-28">
-      <div className="pointer-events-none absolute -top-20 -right-20 h-72 w-72 rounded-full bg-white/10 blur-3xl" />
-      <div className="pointer-events-none absolute -bottom-20 -left-20 h-72 w-72 rounded-full bg-purple-400/20 blur-3xl" />
-      <div className="relative mx-auto max-w-2xl">
-        <h2 className="text-3xl font-extrabold sm:text-4xl">
-          Stop stressing. Start applying.
-        </h2>
-        <p className="mt-4 text-lg text-white/90">
-          Takes less time than waiting for your next DoorDash order to come through. For real.
+        <p className="mt-10 text-center text-[11px] text-white/20">
+          Testimonials are illustrative
         </p>
-        <div className="mt-10 flex flex-col items-center gap-4">
-          <Link
-            href="/apply"
-            className="rounded-full bg-orange-500 px-10 py-4 text-base font-bold text-white shadow-lg hover:bg-orange-600 transition-colors"
-          >
-            Get Funded Now
-          </Link>
-          <Link href="/status" className="text-sm font-medium text-white/80 underline underline-offset-4 hover:text-white transition-colors">
-            Already applied? Check your status
-          </Link>
-        </div>
       </div>
     </section>
   );
 }
 
 /* ------------------------------------------------------------------ */
+/*  FINAL CTA — Cinematic                                               */
+/* ------------------------------------------------------------------ */
+function FinalCTA() {
+  const ref = useRef(null);
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start end", "end start"],
+  });
+  const scale = useTransform(scrollYProgress, [0, 0.5], [0.9, 1]);
+  const opacity = useTransform(scrollYProgress, [0, 0.3], [0, 1]);
 
+  return (
+    <motion.section
+      ref={ref}
+      className="relative overflow-hidden px-6 py-40 sm:py-52"
+      style={{ scale, opacity }}
+    >
+      {/* Background */}
+      <div className="absolute inset-0">
+        <img
+          src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?w=1920&q=80&auto=format"
+          alt="People working together"
+          className="h-full w-full object-cover"
+          loading="lazy"
+        />
+        <div className="absolute inset-0 bg-black/60" />
+      </div>
+
+      <div className="relative z-10 mx-auto max-w-3xl text-center">
+        <FadeIn>
+          <h2 className="text-4xl font-bold leading-[1.1] tracking-[-0.02em] text-white sm:text-5xl lg:text-7xl">
+            Stop stressing.
+            <br />
+            <span className="bg-gradient-to-r from-amber-300 to-orange-400 bg-clip-text text-transparent">
+              Start moving.
+            </span>
+          </h2>
+          <p className="mx-auto mt-8 max-w-md text-lg text-white/60">
+            Takes less time than waiting for your next order to come through.
+          </p>
+          <div className="mt-12 flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
+            <Link
+              href="/apply"
+              className="group rounded-full bg-white px-10 py-4 text-[15px] font-bold text-black transition-all hover:scale-105 hover:shadow-2xl hover:shadow-white/20"
+            >
+              Get Funded Now
+              <span className="ml-2 inline-block transition-transform group-hover:translate-x-1">
+                &rarr;
+              </span>
+            </Link>
+            <Link
+              href="/status"
+              className="text-sm font-medium text-white/60 underline underline-offset-4 transition-colors hover:text-white"
+            >
+              Already applied? Check status
+            </Link>
+          </div>
+        </FadeIn>
+      </div>
+    </motion.section>
+  );
+}
+
+/* ------------------------------------------------------------------ */
+/*  FOOTER                                                              */
+/* ------------------------------------------------------------------ */
 function Footer() {
   return (
-    <footer className="bg-slate-900 px-4 py-14 text-slate-400">
-      <div className="mx-auto flex max-w-6xl flex-col items-center gap-8 text-center sm:flex-row sm:items-start sm:justify-between sm:text-left">
-        <div>
-          <span className="text-xl font-extrabold text-white">GigFund</span>
-          <p className="mt-1 text-sm">Cash for the people who keep things moving.</p>
+    <footer className="bg-black px-6 py-20">
+      <div className="mx-auto max-w-7xl">
+        <div className="flex flex-col items-center justify-between gap-10 sm:flex-row sm:items-start">
+          <div>
+            <span className="text-2xl font-bold tracking-[-0.02em] text-white">
+              gigfund
+            </span>
+            <p className="mt-2 text-sm text-white/30">
+              Cash for the people who keep things moving.
+            </p>
+          </div>
+
+          <div className="flex gap-10 text-sm text-white/40">
+            <Link
+              href="/apply"
+              className="transition-colors hover:text-white"
+            >
+              Apply
+            </Link>
+            <Link
+              href="/status"
+              className="transition-colors hover:text-white"
+            >
+              Status
+            </Link>
+            <a
+              href="#how-it-works"
+              className="transition-colors hover:text-white"
+            >
+              How It Works
+            </a>
+          </div>
         </div>
 
-        <div className="flex gap-8 text-sm">
-          <Link href="/apply" className="hover:text-white transition-colors">Apply</Link>
-          <Link href="/status" className="hover:text-white transition-colors">Check Status</Link>
-          <a href="#how-it-works" className="hover:text-white transition-colors">How It Works</a>
+        <div className="mt-16 border-t border-white/[0.06] pt-8 text-center text-[11px] text-white/20">
+          <p>
+            Not a bank. Loans subject to approval and verification of income.
+          </p>
+          <p className="mt-1">&copy; 2026 GigFund. All rights reserved.</p>
         </div>
-      </div>
-
-      <div className="mx-auto mt-10 max-w-6xl border-t border-slate-800 pt-6 text-center text-xs text-slate-500">
-        <p>Not a bank. Loans subject to approval and verification of income.</p>
-        <p className="mt-1">&copy; 2026 GigFund. All rights reserved.</p>
       </div>
     </footer>
   );
 }
 
 /* ------------------------------------------------------------------ */
-
+/*  PAGE                                                                */
+/* ------------------------------------------------------------------ */
 export default function Home() {
   return (
-    <>
+    <main className="bg-black">
       <Navbar />
       <Hero />
-      <TrustBar />
-      <RealTalk />
+      <Stats />
+      <TheStruggle />
       <HowItWorks />
       <WhoWeHelp />
       <WhyUs />
       <Testimonials />
-      <CtaBanner />
+      <FinalCTA />
       <Footer />
-    </>
+    </main>
   );
 }
