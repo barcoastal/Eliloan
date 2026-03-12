@@ -1,0 +1,57 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "sqlite"
+}
+
+model Application {
+  id              String    @id @default(uuid())
+  applicationCode String    @unique
+  firstName       String
+  lastName        String
+  email           String
+  phone           String
+  loanAmount      Decimal
+  totalIncome     Decimal?
+  status          String    @default("PENDING")
+  rejectionReason String?
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+  documents       Document[]
+
+  @@index([status])
+  @@index([email])
+}
+
+model Document {
+  id            String   @id @default(uuid())
+  applicationId String
+  fileName      String
+  mimeType      String
+  fileSize      Int
+  storagePath   String
+  documentType  String   @default("PAY_STUB")
+  createdAt     DateTime @default(now())
+  application   Application @relation(fields: [applicationId], references: [id], onDelete: Cascade)
+
+  @@index([applicationId])
+}
+
+model LoanRule {
+  id          String   @id @default(uuid())
+  key         String   @unique
+  value       String
+  description String
+  updatedAt   DateTime @updatedAt
+}
+
+model AdminUser {
+  id           String   @id @default(uuid())
+  email        String   @unique
+  passwordHash String
+  name         String
+  createdAt    DateTime @default(now())
+}

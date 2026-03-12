@@ -46,3 +46,5 @@ uploads/
 # sqlite
 *.db
 *.db-journal
+
+/src/generated/prisma
