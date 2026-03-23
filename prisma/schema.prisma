@@ -15,15 +15,34 @@ model Application {
   email           String
   phone           String
   loanAmount      Decimal
+  loanTermMonths  Int       @default(6)
+  platform        String?
+  ssnEncrypted    String?
+  ssnHash         String?
+  plaidAccessToken String?
+  plaidAccountId  String?
+  plaidItemId     String?
+  plaidLinkStale  Boolean   @default(false)
+  monthlyIncome   Decimal?
   totalIncome     Decimal?
-  status          String    @default("PENDING")
+  riskScore       Decimal?
+  interestRate    Decimal?
+  approvedBy      String?
+  approvedAt      DateTime?
+  fundedAt        DateTime?
+  fundedAmount    Decimal?
   rejectionReason String?
+  status          String    @default("PENDING")
   createdAt       DateTime  @default(now())
   updatedAt       DateTime  @updatedAt
   documents       Document[]
+  payments        Payment[]
+  collectionEvents CollectionEvent[]
 
   @@index([status])
   @@index([email])
+  @@index([ssnHash])
+  @@index([plaidItemId])
 }
 
 model Document {
@@ -54,4 +73,72 @@ model AdminUser {
   passwordHash String
   name         String
   createdAt    DateTime @default(now())
+}
+
+model Payment {
+  id              String    @id @default(uuid())
+  applicationId   String
+  amount          Decimal
+  principal       Decimal
+  interest        Decimal
+  lateFee         Decimal   @default(0)
+  dueDate         DateTime
+  paidAt          DateTime?
+  status          String    @default("PENDING")
+  paymentNumber   Int
+  achTransferId   String?
+  retryCount      Int       @default(0)
+  lastRetryAt     DateTime?
+  createdAt       DateTime  @default(now())
+  application     Application @relation(fields: [applicationId], references: [id], onDelete: Cascade)
+
+  @@index([applicationId])
+  @@index([status])
+  @@index([dueDate])
+}
+
+model AuditLog {
+  id          String   @id @default(uuid())
+  action      String
+  entityType  String
+  entityId    String
+  performedBy String
+  details     String?
+  createdAt   DateTime @default(now())
+
+  @@index([entityType, entityId])
+  @@index([performedBy])
+  @@index([createdAt])
+}
+
+model RiskProfile {
+  id               String    @id @default(uuid())
+  applicationId    String
+  platform         String
+  monthlyIncome    Decimal
+  loanAmount       Decimal
+  loanTermMonths   Int
+  interestRate     Decimal
+  outcome          String
+  totalPaid        Decimal
+  totalOwed        Decimal
+  latePaymentCount Int       @default(0)
+  defaultedAt      DateTime?
+  completedAt      DateTime?
+  createdAt        DateTime  @default(now())
+
+  @@index([platform])
+  @@index([outcome])
+}
+
+model CollectionEvent {
+  id            String   @id @default(uuid())
+  applicationId String
+  eventType     String
+  performedBy   String?
+  notes         String?
+  createdAt     DateTime @default(now())
+  application   Application @relation(fields: [applicationId], references: [id], onDelete: Cascade)
+
+  @@index([applicationId])
 }

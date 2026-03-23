@@ -51,6 +51,76 @@ async function main() {
     },
   });
 
+  await prisma.loanRule.upsert({
+    where: { key: "min_loan" },
+    update: {},
+    create: {
+      key: "min_loan",
+      value: "100",
+      description: "Minimum loan amount in dollars",
+    },
+  });
+
+  await prisma.loanRule.upsert({
+    where: { key: "min_bank_balance" },
+    update: {},
+    create: {
+      key: "min_bank_balance",
+      value: "200",
+      description: "Minimum bank balance at time of application",
+    },
+  });
+
+  await prisma.loanRule.upsert({
+    where: { key: "max_loan_term_months" },
+    update: {},
+    create: {
+      key: "max_loan_term_months",
+      value: "18",
+      description: "Maximum repayment period in months",
+    },
+  });
+
+  await prisma.loanRule.upsert({
+    where: { key: "min_interest_rate" },
+    update: {},
+    create: {
+      key: "min_interest_rate",
+      value: "30",
+      description: "Floor interest rate (annual %)",
+    },
+  });
+
+  await prisma.loanRule.upsert({
+    where: { key: "late_fee_amount" },
+    update: {},
+    create: {
+      key: "late_fee_amount",
+      value: "25",
+      description: "Flat late fee per missed payment in dollars",
+    },
+  });
+
+  await prisma.loanRule.upsert({
+    where: { key: "late_fee_grace_days" },
+    update: {},
+    create: {
+      key: "late_fee_grace_days",
+      value: "3",
+      description: "Days after due date before late fee applies",
+    },
+  });
+
+  await prisma.loanRule.upsert({
+    where: { key: "collections_threshold_days" },
+    update: {},
+    create: {
+      key: "collections_threshold_days",
+      value: "30",
+      description: "Days overdue before collections escalation",
+    },
+  });
+
   const passwordHash = await bcrypt.hash("admin123", 12);
   await prisma.adminUser.upsert({
     where: { email: "admin@loanportal.com" },
