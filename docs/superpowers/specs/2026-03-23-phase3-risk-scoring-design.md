@@ -48,7 +48,9 @@ Interest rate via continuous formula:
 rate = minRate + (maxRate - minRate) * (riskScore / 100)
 ```
 
-Where `minRate` and `maxRate` are admin-configurable LoanRules. No tiers — continuous mapping. No auto-reject — score determines rate only, admin retains approve/reject authority.
+Where `minRate` and `maxRate` are admin-configurable LoanRules (existing `min_interest_rate` serves as floor, new `max_interest_rate` as ceiling). No tiers — continuous mapping. No auto-reject — score determines rate only, admin retains approve/reject authority.
+
+**Risk score polarity note:** Phase 1 spec defined riskScore as "0-100 (100 = safest)". Phase 3 reverses this: 100 = riskiest (probability of default). This is the standard convention in credit risk modeling. The Phase 1 riskScore field was never populated, so no existing data or UI needs migration, but any Phase 1 code comments referencing the old polarity must be updated.
 
 ---
 
@@ -58,18 +60,20 @@ Where `minRate` and `maxRate` are admin-configurable LoanRules. No tiers — con
 
 - `riskScore: Decimal` — already exists, will now be populated during evaluation
 - `bankBalance: Decimal` — **new column**, stored from Plaid balance fetch at application time
+- `riskModelId: String?` — **new column**, foreign key to `RiskModel.id`. Records which model version produced the score, for auditability.
 
 ### Modified: `Application.status` enum
 
 Add `DEFAULTED` as a terminal state after COLLECTIONS (90+ days configurable).
 
-### Existing (now used): `RiskProfile` table
+### Modified: `RiskProfile` table
 
-Already defined in schema but never populated. Will be populated when loans reach terminal states (PAID_OFF or DEFAULTED):
+Already defined in schema but never populated. Add `ssnHash String` column with an index (needed to query repayment history across multiple applications by the same borrower). Will be populated when loans reach terminal states (PAID_OFF or DEFAULTED):
 
-- `outcome`: "PAID_OFF" or "DEFAULTED"
+- `ssnHash`: copied from the source Application at creation time (new column, indexed)
+- `outcome`: "PAID_OFF" or "DEFAULTED" (Phase 1 spec's `LATE_BUT_PAID` is intentionally dropped — late payment impact is captured via `latePaymentCount` in the repayment history formula instead)
 - `totalPaid`: sum of paid payment amounts
-- `totalOwed`: original loan total
+- `totalOwed`: original loan total (sum of all payment amounts)
 - `latePaymentCount`: count of payments with late fees
 - `completedAt` / `defaultedAt`: timestamp of terminal state
 
@@ -78,7 +82,7 @@ Already defined in schema but never populated. Will be populated when loans reac
 ```prisma
 model RiskModel {
   id           String   @id @default(cuid())
-  version      Int      @default(autoincrement())
+  version      Int      // managed in app code: SELECT MAX(version) + 1
   coefficients String   // JSON: array of floats
   intercept    Float
   features     String   // JSON: feature names + normalization params
@@ -91,7 +95,7 @@ model RiskModel {
 }
 ```
 
-Only one row has `isActive = true` at a time. Previous models kept for rollback.
+Only one row has `isActive = true` at a time. Previous models kept for rollback. Version is managed in application code (not `@default(autoincrement())` which Prisma only supports on `@id` fields).
 
 ### New LoanRules
 
@@ -147,13 +151,13 @@ Only one row has `isActive = true` at a time. Previous models kept for rollback.
 
 - **`loadActiveModel()`** — queries `RiskModel` for `isActive = true`, parses JSON fields. Cached in module-level variable with 5-minute TTL to avoid repeated DB reads.
 
-- **`extractFeatures(application, activeLoansSummary, repaymentHistory)`** — builds normalized 7-element feature vector from application data, active loan exposure, and past loan performance.
+- **`extractFeatures(application, activeLoansSummary, repaymentHistory)`** — builds normalized 7-element feature vector from application data, active loan exposure, and past loan performance. **Nullable feature fallbacks:** if `bankBalance` is null (no Plaid connection), use 0.5 (neutral). If `monthlyIncome` is null, use 0.5. If `platform` is unknown/missing, use 0.5. All fallbacks use the midpoint to avoid penalizing or rewarding missing data.
 
 - **`computeRiskScore(features, model)`** — dot product + sigmoid + scale to 0-100. Pure math, ~10 lines.
 
 - **`calculateRate(riskScore)`** — loads `min_interest_rate` and `max_interest_rate` from LoanRules, applies linear formula, rounds to 2 decimal places.
 
-- **`scoreApplication(applicationId)`** — orchestrator. Loads model, queries active loans and repayment history by SSN hash, extracts features, computes score, calculates rate. Returns `{ riskScore, interestRate, features }`.
+- **`scoreApplication(applicationId)`** — orchestrator. Loads model, queries active loans and repayment history by SSN hash, extracts features, computes score, calculates rate. Returns `{ riskScore, interestRate, features, modelId }`.
 
 ### Integration
 
@@ -167,8 +171,8 @@ If no active model exists (fresh install before seed), falls back to `min_intere
 
 ### Submission Changes
 
-- Remove the duplicate SSN rejection from `submitApplication()`
-- Block only if there's a PENDING or APPROVED application for the same SSN (prevents double-submission, not repeat borrowing)
+- Remove the duplicate SSN rejection from `submitApplication()` — block only if there's a PENDING or APPROVED application for the same SSN (prevents double-submission, not repeat borrowing)
+- **Also update `evaluateApplication()` in `src/lib/rules-engine.ts`** — the rules engine has its own duplicate SSN check that rejects if ANY non-REJECTED application exists. This must be relaxed to the same logic: only block PENDING or APPROVED duplicates.
 - New applications allowed when existing loans are ACTIVE, LATE, COLLECTIONS, PAID_OFF, or DEFAULTED
 
 ### New Query: `getActiveLoansBySSN(ssnHash)`
@@ -215,7 +219,7 @@ When all payments for a loan are PAID:
 
 ### DEFAULTED (in collections cron)
 
-New escalation: if COLLECTIONS status has persisted for `default_threshold_days` (default 90):
+New escalation: the collections cron query must be updated to include COLLECTIONS in its status filter (currently only queries ACTIVE and LATE). Add a separate code path for COLLECTIONS applications: if COLLECTIONS status has persisted for `default_threshold_days` (default 90):
 1. Set application status to DEFAULTED
 2. Create `RiskProfile` row: `outcome = "DEFAULTED"`, `defaultedAt` = now, `totalPaid` = sum of collected amounts, `latePaymentCount` from payment records
 3. Increment `completed_since_last_train` LoanRule
@@ -223,14 +227,17 @@ New escalation: if COLLECTIONS status has persisted for `default_threshold_days`
 
 ### Retrain Trigger
 
-After incrementing the counter:
+After incrementing the counter (the increment + threshold check + reset must happen inside a single `prisma.$transaction` to avoid race conditions between concurrent cron runs):
 ```
-if completed_since_last_train >= retrain_threshold:
-  spawn('python3', ['scripts/train_risk_model.py', '--retrain'])
-  reset completed_since_last_train to 0
+transaction {
+  increment completed_since_last_train
+  if completed_since_last_train >= retrain_threshold:
+    reset completed_since_last_train to 0
+    spawn('python3', ['scripts/train_risk_model.py', '--retrain'])
+}
 ```
 
-Child process runs asynchronously. If training fails (accuracy too low, insufficient data), the active model is unchanged and counter resets — it will re-trigger after the next batch.
+Child process runs asynchronously. If training fails (accuracy too low, insufficient data), the active model is unchanged. The counter was already reset, so the next retrain attempt will require another full batch of completed loans — this is intentional to avoid rapid-fire failed retraining attempts.
 
 ---
 
@@ -249,7 +256,7 @@ Child process runs asynchronously. If training fails (accuracy too low, insuffic
 ### Approval Flow Change
 
 - "Approve" button no longer shows interest rate input field
-- Rate auto-set from model when admin clicks Approve
+- `approveApplication()` function signature changes: remove the `interestRate` parameter. Internally, it calls `scoreApplication()` to compute and store the risk score and interest rate. If no model is active, falls back to `min_interest_rate`.
 - Loan term input remains (admin can still adjust term)
 - Admin retains full approve/reject authority
 
@@ -285,9 +292,9 @@ New editable rules:
 
 | File | Change |
 |------|--------|
-| `prisma/schema.prisma` | Add `RiskModel` table, `bankBalance` column on Application, DEFAULTED status |
+| `prisma/schema.prisma` | Add `RiskModel` table, `bankBalance` + `riskModelId` columns on Application, `ssnHash` on RiskProfile, DEFAULTED status |
 | `prisma/seed.mts` | Add new LoanRules (max_interest_rate, retrain_threshold, etc.) |
-| `src/lib/rules-engine.ts` | Call `scoreApplication()` for rate instead of hardcoding min_interest_rate |
+| `src/lib/rules-engine.ts` | Call `scoreApplication()` for rate instead of hardcoding min_interest_rate; relax duplicate SSN check to only block PENDING/APPROVED |
 | `src/actions/applications.ts` | Remove duplicate SSN block, store riskScore on evaluation, auto-set rate on approve |
 | `src/actions/plaid.ts` | Add balance fetch after token exchange and during income refresh |
 | `src/app/admin/applications/[id]/detail-client.tsx` | Replace ad-hoc risk display with model-driven UI, remove rate input |
