@@ -1,6 +1,7 @@
 import { plaidClient } from "@/lib/plaid";
 import { decrypt } from "@/lib/encryption";
 import { prisma } from "@/lib/db";
+import { TransferType, TransferNetwork, ACHClass } from "plaid";
 
 /**
  * Initiate an ACH debit via Plaid Transfer for a payment.
@@ -30,10 +31,10 @@ export async function initiateACHDebit(paymentId: string): Promise<
     const authResponse = await plaidClient.transferAuthorizationCreate({
       access_token: accessToken,
       account_id: accountId,
-      type: "debit",
-      network: "ach",
+      type: TransferType.Debit,
+      network: TransferNetwork.Ach,
       amount: totalAmount.toFixed(2),
-      ach_class: "web",
+      ach_class: ACHClass.Web,
       user: {
         legal_name: `${payment.application.firstName} ${payment.application.lastName}`,
       },

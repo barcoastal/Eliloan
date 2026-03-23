@@ -10,14 +10,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Loader2, Search } from "lucide-react";
 import { StatusDisplay } from "@/components/status-display";
 
-type ApplicationResult = {
-  applicationCode: string;
-  firstName: string;
-  status: string;
-  loanAmount: number;
-  rejectionReason: string | null;
-  createdAt: Date;
-};
+type ApplicationResult = NonNullable<Awaited<ReturnType<typeof getApplicationByCode>>>;
 
 export function StatusChecker() {
   const [code, setCode] = useState("");
@@ -39,7 +32,7 @@ export function StatusChecker() {
 
     try {
       const app = await getApplicationByCode(trimmed);
-      setResult(app as ApplicationResult | null);
+      setResult(app ?? null);
       if (!app) {
         toast.error("Application not found");
       }
@@ -86,7 +79,10 @@ export function StatusChecker() {
         </CardContent>
       </Card>
 
-      {searched && !loading && result && <StatusDisplay application={result} />}
+      {searched && !loading && result && <StatusDisplay application={{
+        ...result,
+        loanAmount: Number(result.loanAmount),
+      }} />}
 
       {searched && !loading && !result && (
         <Card>
