@@ -109,8 +109,26 @@ export async function getApplicationByCode(code: string) {
       firstName: true,
       status: true,
       loanAmount: true,
+      loanTermMonths: true,
+      interestRate: true,
+      fundedAmount: true,
+      fundedAt: true,
       rejectionReason: true,
       createdAt: true,
+      payments: {
+        orderBy: { paymentNumber: "asc" },
+        select: {
+          id: true,
+          paymentNumber: true,
+          amount: true,
+          principal: true,
+          interest: true,
+          lateFee: true,
+          dueDate: true,
+          paidAt: true,
+          status: true,
+        },
+      },
     },
   });
 }
