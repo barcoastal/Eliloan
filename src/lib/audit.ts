@@ -8,7 +8,12 @@ export type AuditAction =
   | "VIEW_SSN"
   | "CHANGE_SETTING"
   | "LOGIN"
-  | "WAIVE_FEE";
+  | "WAIVE_FEE"
+  | "RETRY_PAYMENT"
+  | "ADD_LATE_FEE"
+  | "COLLECTIONS_ESCALATION"
+  | "PAYMENT_RECEIVED"
+  | "INITIATE_ACH";
 
 export type AuditEntityType =
   | "APPLICATION"
