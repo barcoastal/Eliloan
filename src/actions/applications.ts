@@ -8,6 +8,9 @@ import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
 import { z } from "zod";
 import { v4 as uuidv4 } from "uuid";
+import { generateSchedule } from "@/lib/amortization";
+import { loanFundedEmail } from "@/lib/emails/loan-funded";
+import { sendEmail } from "@/lib/emails/send";
 
 function generateApplicationCode(): string {
   return uuidv4().replace(/-/g, "").substring(0, 8).toUpperCase();
@@ -252,13 +255,38 @@ export async function fundApplication(applicationId: string, fundedAmount: numbe
     return { success: false, error: "Application must be APPROVED to fund" };
   }
 
-  await prisma.application.update({
-    where: { id: applicationId },
-    data: {
-      status: "ACTIVE",
-      fundedAt: new Date(),
-      fundedAmount,
-    },
+  const interestRate = Number(application.interestRate);
+  const loanTermMonths = application.loanTermMonths;
+
+  if (!interestRate || !loanTermMonths) {
+    return { success: false, error: "Missing interest rate or loan term" };
+  }
+
+  // Generate amortization schedule
+  const schedule = generateSchedule(fundedAmount, interestRate, loanTermMonths);
+
+  // Update application and create payments in a transaction
+  await prisma.$transaction(async (tx) => {
+    await tx.application.update({
+      where: { id: applicationId },
+      data: {
+        status: "ACTIVE",
+        fundedAt: new Date(),
+        fundedAmount,
+      },
+    });
+
+    await tx.payment.createMany({
+      data: schedule.map((entry) => ({
+        applicationId,
+        amount: entry.amount,
+        principal: entry.principal,
+        interest: entry.interest,
+        dueDate: entry.dueDate,
+        paymentNumber: entry.paymentNumber,
+        status: "PENDING",
+      })),
+    });
   });
 
   await logAudit({
@@ -266,7 +294,22 @@ export async function fundApplication(applicationId: string, fundedAmount: numbe
     entityType: "APPLICATION",
     entityId: applicationId,
     performedBy: session.user.email,
-    details: { fundedAmount },
+    details: { fundedAmount, paymentsCreated: schedule.length },
+  });
+
+  // Send funded email with schedule
+  await sendEmail({
+    to: application.email,
+    ...loanFundedEmail({
+      firstName: application.firstName,
+      applicationCode: application.applicationCode,
+      fundedAmount,
+      interestRate,
+      loanTermMonths,
+      monthlyPayment: schedule[0].amount,
+      firstDueDate: schedule[0].dueDate,
+      schedule,
+    }),
   });
 
   return { success: true };
