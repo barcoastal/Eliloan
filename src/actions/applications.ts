@@ -1,7 +1,7 @@
 "use server";
 
 import { prisma } from "@/lib/db";
-import { getLoanRules, decisionEngine } from "@/lib/rules-engine";
+import { getLoanRules, evaluateApplication } from "@/lib/rules-engine";
 import { encrypt, hashSSN } from "@/lib/encryption";
 import { z } from "zod";
 import { v4 as uuidv4 } from "uuid";
@@ -140,11 +140,14 @@ export async function approveApplication(id: string) {
 
   if (!application) return { error: "Application not found" };
 
-  const rules = await getLoanRules();
-  const result = decisionEngine.evaluate(application, rules);
+  const result = await evaluateApplication(application);
 
-  if (!result.eligible) {
-    return { error: result.reason };
+  if (result.recommendation === "REJECT") {
+    return { error: result.reasons.join("; ") };
+  }
+
+  if (result.recommendation === "MANUAL_REVIEW") {
+    return { error: `Manual review required: ${result.reasons.join("; ")}` };
   }
 
   await prisma.application.update({

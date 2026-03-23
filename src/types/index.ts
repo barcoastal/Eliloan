@@ -1,14 +1,11 @@
 import type { Application, Document, LoanRule } from "@/generated/prisma/client";
 
-export type { Application, Document, LoanRule };
+export type ApplicationWithDocuments = Application & { documents: Document[] };
 
-export type ApplicationWithDocuments = Application & {
-  documents: Document[];
-};
-
-export interface EligibilityResult {
-  eligible: boolean;
-  reason?: string;
+export interface EvaluationResult {
+  recommendation: "APPROVE" | "REJECT" | "MANUAL_REVIEW";
+  reasons: string[];
+  suggestedRate: number;
   rules: Record<string, string>;
 }
 
@@ -18,9 +15,5 @@ export interface StorageProvider {
   delete(storagePath: string): Promise<void>;
 }
 
-export interface DecisionEngine {
-  evaluate(
-    application: ApplicationWithDocuments,
-    rules: Record<string, string>
-  ): EligibilityResult;
-}
+// Re-export Prisma types used elsewhere
+export type { LoanRule };
