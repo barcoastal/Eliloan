@@ -6,7 +6,9 @@
 
 ## Overview
 
-A lending platform targeting gig workers (DoorDash, Uber, Lyft, etc.) that handles the full loan lifecycle: application intake, bank verification via Plaid, automated risk-based approval, ACH payment collection, and portfolio risk management. Loans range $100–$10K, up to 18 months, with dynamic interest rates that guarantee a minimum 25% return per loan while covering default risk across the portfolio.
+A lending platform targeting gig workers (DoorDash, Uber, Lyft, etc.) that handles the full loan lifecycle: application intake, bank verification via Plaid, automated risk-based approval, ACH payment collection, and portfolio risk management. Loans range $100–$10K, up to 18 months, with dynamic interest rates that guarantee a minimum 25% return across the loan portfolio (not per individual loan — some loans will default, and pricing must ensure the performing loans cover those losses plus the 25% profit target).
+
+**All times in this document are US Eastern (ET).**
 
 The platform evolves in 3 phases: rule-based decisions first, automated payment collection second, and data-driven risk scoring third as historical loan outcome data accumulates.
 
@@ -35,9 +37,11 @@ The portal has a working MVP with:
 |---|---|---|
 | `platform` | String | Gig platform (Uber, DoorDash, etc.) |
 | `ssnEncrypted` | String | AES-256 encrypted SSN |
+| `ssnHash` | String | SHA-256 hash (with fixed salt) for duplicate detection |
 | `plaidAccessToken` | String | Encrypted Plaid access token for bank |
 | `plaidAccountId` | String | Linked bank account ID |
 | `plaidItemId` | String | Plaid item reference |
+| `plaidLinkStale` | Boolean @default(false) | True if bank credentials expired, needs re-link |
 | `monthlyIncome` | Decimal | Verified income via Plaid |
 | `riskScore` | Decimal? | 0–100, calculated by risk engine |
 | `interestRate` | Decimal? | Annual %, set at approval |
@@ -58,7 +62,8 @@ interest        Decimal
 lateFee         Decimal   @default(0)
 dueDate         DateTime
 paidAt          DateTime?
-status          String    (PENDING | PAID | FAILED | LATE | COLLECTIONS)
+status          String    (PENDING | PROCESSING | PAID | FAILED | LATE | COLLECTIONS)
+paymentNumber   Int       (sequence: 1 of 12, 2 of 12, etc.)
 achTransferId   String?   (Plaid Transfer reference)
 retryCount      Int       @default(0)
 lastRetryAt     DateTime?
@@ -69,14 +74,18 @@ createdAt       DateTime  @default(now())
 
 ```
 id              String    @id @default(uuid())
+applicationId   String    (FK → Application, source loan)
 platform        String
-incomeRange     String    (e.g., "2000-3000")
-loanRange       String    (e.g., "1000-2000")
+monthlyIncome   Decimal   (actual income, for numeric similarity matching)
+loanAmount      Decimal   (actual loan amount, for numeric similarity matching)
 loanTermMonths  Int
+interestRate    Decimal
 outcome         String    (PAID_OFF | DEFAULTED | LATE_BUT_PAID)
 totalPaid       Decimal
 totalOwed       Decimal
+latePaymentCount Int      @default(0)
 defaultedAt     DateTime?
+completedAt     DateTime  (when loan reached terminal state)
 createdAt       DateTime  @default(now())
 ```
 
@@ -98,6 +107,7 @@ createdAt       DateTime  @default(now())
 id              String    @id @default(uuid())
 applicationId   String    (FK → Application)
 eventType       String    (WARNING_SENT | ESCALATED | MANUAL_NOTE | DEFAULT_MARKED)
+performedBy     String?   (admin user ID, for manual actions)
 notes           String?
 createdAt       DateTime  @default(now())
 ```
@@ -106,7 +116,7 @@ createdAt       DateTime  @default(now())
 
 #### Updated Application Flow (7 steps)
 
-1. **Loan amount** — $100–$10K slider/input
+1. **Loan amount & term** — $100–$10K slider/input + desired repayment term (3–18 months)
 2. **Personal info** — first name, last name, email, phone
 3. **Gig platform** — select from 14 platforms
 4. **SSN** — input with format validation, encrypted before storage
@@ -133,6 +143,23 @@ createdAt       DateTime  @default(now())
 - `POST /api/plaid/exchange-token` — exchanges public token for access token after bank link success
 - `GET /api/plaid/income/[applicationId]` — admin view of verified income data
 
+#### Plaid Webhooks
+
+Register a webhook endpoint at `POST /api/plaid/webhook` to handle:
+- `ITEM_LOGIN_REQUIRED` — bank credentials expired. Mark the application's Plaid link as stale, email borrower to re-link, and pause ACH attempts until re-linked.
+- `TRANSFER_EVENTS_UPDATE` — real-time transfer status updates (supplement polling).
+- `INCOME_VERIFICATION` — income data ready after async processing.
+
+#### Bank Re-Link Flow
+
+If a borrower's bank connection expires mid-loan:
+1. Plaid sends `ITEM_LOGIN_REQUIRED` webhook
+2. System marks application as `plaidLinkStale = true`
+3. Email sent to borrower with a re-link URL: `/relink/[applicationCode]`
+4. Re-link page shows Plaid Link in update mode (uses existing access token)
+5. On success: clear stale flag, resume ACH processing
+6. If not re-linked within 7 days: escalate to admin
+
 #### Cost
 
 ~$1–5 per bank link depending on products enabled. Income verification is a premium product.
@@ -145,7 +172,7 @@ createdAt       DateTime  @default(now())
 |---|---|---|
 | `loan_limit` | $10,000 | Max loan amount |
 | `min_loan` | $100 | Min loan amount |
-| `income_multiplier_ratio` | 2.0 | Verified monthly income × months ≥ ratio × loan amount |
+| `income_multiplier_ratio` | 2.0 | Verified monthly income × loan term (months) ≥ ratio × loan amount. Example: $3K/mo income, 6-month loan, ratio 2.0 → $3K × 6 = $18K ≥ 2.0 × $5K = $10K → passes |
 | `min_bank_balance` | $200 | Minimum bank balance at time of application |
 | `required_pay_stubs` | 3 | Minimum uploaded documents |
 | `max_loan_term_months` | 18 | Maximum repayment period |
@@ -160,8 +187,8 @@ createdAt       DateTime  @default(now())
 2. Check verified income (from Plaid) against income multiplier ratio
 3. Check bank balance meets minimum
 4. Check required documents uploaded
-5. Check no duplicate SSN in system
-6. Generate recommendation: APPROVE / DENY / MANUAL_REVIEW
+5. Check no duplicate SSN in system (via `ssnHash` column lookup — GCM encryption produces different ciphertext each time, so hash is needed for dedup)
+6. Generate recommendation: APPROVE / REJECT / MANUAL_REVIEW (these are recommendations, not statuses — admin makes the final status change)
 7. If APPROVE: calculate interest rate based on risk tier
 8. Admin reviews recommendation, makes final decision
 9. All actions logged to AuditLog
@@ -233,19 +260,20 @@ Each payment splits into principal and interest. Early payments are interest-hea
 #### Daily Payment Flow
 
 ```
-6:00 AM — Payment Processor Job
+6:00 AM ET — Payment Processor Job
   → Find all payments due today with status PENDING
-  → For each: initiate Plaid Transfer ACH debit
+  → For each: set status to PROCESSING (prevents double-debit from concurrent jobs)
+  → Initiate Plaid Transfer ACH debit
   → Set achTransferId on payment record
-  → Status remains PENDING until settlement
+  → Status remains PROCESSING until settlement
 
 Every 4 hours — Settlement Check Job
-  → Poll Plaid Transfer API for all pending transfers
+  → Poll Plaid Transfer API for all PROCESSING transfers
   → On success: mark payment PAID, set paidAt
   → On failure: mark payment FAILED, increment retryCount
 
-8:00 AM — Retry Job
-  → Find all FAILED payments (up to 30 days old)
+8:00 AM ET — Retry Job
+  → Find all FAILED payments (up to 30 days old, not in COLLECTIONS)
   → Retry ACH debit
   → Increment retryCount, set lastRetryAt
 ```
@@ -257,8 +285,8 @@ Every 4 hours — Settlement Check Job
 | Day | Action |
 |---|---|
 | 0 | ACH fails → status FAILED, "payment failed" email to borrower |
-| 1–2 | Daily retry attempts |
-| 3 | Late fee added (configurable amount), late fee email sent |
+| 1+ | Daily retry attempts (every day until day 30) |
+| 4 | Late fee added (late_fee_grace_days=3 means fee applies on day 4, i.e., after 3 full grace days), late fee email sent |
 | 7 | Formal warning email sent, CollectionEvent created |
 | 14 | Second warning email, loan status → LATE |
 | 30 | Stop auto-retry, loan status → COLLECTIONS, CollectionEvent escalation |
@@ -292,6 +320,14 @@ The existing status checker (`/status/[code]`) expands to show:
 - Outstanding late fees
 - Contact information for support
 
+### 2.6 Late Payment Recovery
+
+When a LATE or COLLECTIONS loan receives a successful payment:
+- If all overdue payments are now caught up: loan status reverts to ACTIVE
+- Late fees are included in the ACH pull as a single combined transaction (regular payment + accumulated late fees)
+- If only some payments caught up but others still overdue: status stays LATE
+- Admin can manually waive late fees via the detail page (logged in AuditLog)
+
 ---
 
 ## Phase 3: Risk Scoring & Dynamic Pricing
@@ -310,11 +346,12 @@ This builds automatically as loans are processed in Phase 2.
 
 **Lookup-based scoring (no ML required):**
 
-1. For a new applicant, find all historical loans with similar profiles:
-   - Same or similar gig platform
-   - Income within ±20% range
-   - Loan amount within ±30% range
-   - Similar loan term
+1. For a new applicant, query RiskProfile records with similar attributes:
+   - Same gig platform (exact match)
+   - Monthly income within ±20% of applicant's income
+   - Loan amount within ±30% of requested amount
+   - Loan term within ±3 months
+   (RiskProfile stores actual numeric values for income/loan amount, enabling percentage-based similarity queries)
 2. Calculate default rate for this cohort
 3. Adjust for specific signals:
    - Bank balance relative to loan amount
@@ -432,6 +469,98 @@ New admin page showing:
 - SOC2 certification
 
 **Recommendation:** Consult a lending compliance attorney before processing real loans.
+
+---
+
+## API Routes (Full)
+
+### Public
+| Method | Route | Purpose |
+|---|---|---|
+| POST | `/api/plaid/create-link-token` | Generate Plaid Link session |
+| POST | `/api/plaid/exchange-token` | Exchange public token after bank link |
+| POST | `/api/plaid/webhook` | Plaid webhook receiver |
+| POST | `/api/upload` | File upload (existing) |
+
+### Admin (authenticated)
+| Method | Route | Purpose |
+|---|---|---|
+| GET | `/api/admin/applications` | List applications (with status filter) |
+| GET | `/api/admin/applications/[id]` | Application detail |
+| POST | `/api/admin/applications/[id]/approve` | Approve with terms |
+| POST | `/api/admin/applications/[id]/reject` | Reject with reason |
+| POST | `/api/admin/applications/[id]/fund` | Mark as funded |
+| PUT | `/api/admin/applications/[id]/income` | Update income |
+| GET | `/api/admin/applications/[id]/ssn` | Reveal SSN (audit logged) |
+| GET | `/api/admin/applications/[id]/payments` | Payment schedule |
+| POST | `/api/admin/payments/[id]/retry` | Manual ACH retry |
+| POST | `/api/admin/payments/[id]/waive-fee` | Waive late fee |
+| GET | `/api/admin/audit-log` | Audit log (filterable) |
+| GET | `/api/admin/settings` | Get loan rules |
+| PUT | `/api/admin/settings/[key]` | Update loan rule |
+| GET | `/api/plaid/income/[applicationId]` | View Plaid income data |
+| GET | `/api/files/[...path]` | Serve uploaded files (existing) |
+
+### Borrower Self-Service
+| Method | Route | Purpose |
+|---|---|---|
+| GET | `/api/status/[code]` | Application/loan status |
+| POST | `/api/relink/[code]` | Initiate Plaid re-link |
+
+### Cron (secret-protected)
+| Method | Route | Purpose |
+|---|---|---|
+| POST | `/api/cron/payment-processor` | Initiate ACH for due payments |
+| POST | `/api/cron/payment-retry` | Retry failed ACH |
+| POST | `/api/cron/payment-status` | Poll Plaid for settlement |
+| POST | `/api/cron/late-fees` | Calculate and add late fees |
+| POST | `/api/cron/reminders` | Send payment reminder emails |
+| POST | `/api/cron/collections` | Escalate overdue to collections |
+| POST | `/api/cron/risk-refresh` | Recalculate risk scores |
+
+Note: Most admin actions currently use server actions (not API routes). This table documents the data endpoints needed; whether implemented as API routes or server actions is an implementation detail.
+
+---
+
+## Data Migration
+
+Existing applications in `dev.db` predate the new schema fields. Migration strategy:
+- New nullable fields (`platform`, `ssnEncrypted`, `ssnHash`, `plaidAccessToken`, etc.) default to `null`
+- Existing applications can still be viewed and managed but cannot be approved through the new rules engine (they lack Plaid data)
+- Admin can manually approve/reject legacy applications with a "legacy override" flag
+- No backfill needed — these are dev/test records
+
+---
+
+## Environment Variables
+
+| Variable | Purpose | Required |
+|---|---|---|
+| `DATABASE_URL` | SQLite database path | Yes |
+| `NEXTAUTH_SECRET` | NextAuth session signing | Yes |
+| `NEXTAUTH_URL` | App base URL | Yes |
+| `ENCRYPTION_KEY` | AES-256 key for SSN/token encryption (32 bytes, hex-encoded) | Yes |
+| `SSN_HASH_SALT` | Fixed salt for SSN dedup hashing | Yes |
+| `PLAID_CLIENT_ID` | Plaid API client ID | Yes |
+| `PLAID_SECRET` | Plaid API secret | Yes |
+| `PLAID_ENV` | Plaid environment: sandbox / development / production | Yes |
+| `PLAID_WEBHOOK_URL` | Public URL for Plaid webhooks | Yes (production) |
+| `RESEND_API_KEY` | Resend email API key | Yes |
+| `RESEND_FROM_EMAIL` | Sender email address | Yes |
+| `CRON_SECRET` | Secret header for cron job authentication | Yes |
+| `APP_URL` | Public app URL (for email links) | Yes |
+
+---
+
+## Rate Limiting
+
+| Endpoint | Limit |
+|---|---|
+| `POST /api/plaid/create-link-token` | 5/min per IP |
+| Application submit (server action) | 3/hour per IP |
+| Status check | 10/min per IP |
+| Admin login | 5/min per IP |
+| Cron endpoints | 1/min (secret-gated) |
 
 ---
 
