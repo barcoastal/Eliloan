@@ -2,7 +2,10 @@
 
 import { prisma } from "@/lib/db";
 import { getLoanRules, evaluateApplication } from "@/lib/rules-engine";
-import { encrypt, hashSSN } from "@/lib/encryption";
+import { encrypt, hashSSN, decrypt } from "@/lib/encryption";
+import { logAudit } from "@/lib/audit";
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/lib/auth";
 import { z } from "zod";
 import { v4 as uuidv4 } from "uuid";
 
@@ -132,41 +135,106 @@ export async function updateTotalIncome(id: string, totalIncome: number) {
   });
 }
 
-export async function approveApplication(id: string) {
+export async function approveApplication(
+  applicationId: string,
+  interestRate: number,
+  loanTermMonths?: number
+) {
+  const session = await getServerSession(authOptions);
+  if (!session?.user?.email) return { success: false, error: "Not authenticated" };
+
   const application = await prisma.application.findUnique({
-    where: { id },
+    where: { id: applicationId },
     include: { documents: true },
   });
 
-  if (!application) return { error: "Application not found" };
+  if (!application) return { success: false, error: "Application not found" };
 
-  const result = await evaluateApplication(application);
+  const evaluation = await evaluateApplication(application);
 
-  if (result.recommendation === "REJECT") {
-    return { error: result.reasons.join("; ") };
+  if (evaluation.recommendation === "REJECT") {
+    return {
+      success: false,
+      error: "Application does not meet approval criteria",
+      reasons: evaluation.reasons,
+    };
   }
 
-  if (result.recommendation === "MANUAL_REVIEW") {
-    return { error: `Manual review required: ${result.reasons.join("; ")}` };
-  }
-
-  await prisma.application.update({
-    where: { id },
-    data: { status: "APPROVED" },
+  const updatedApp = await prisma.application.update({
+    where: { id: applicationId },
+    data: {
+      status: "APPROVED",
+      interestRate,
+      loanTermMonths: loanTermMonths || application.loanTermMonths,
+      approvedBy: session.user.email,
+      approvedAt: new Date(),
+    },
   });
 
-  return { success: true };
+  await logAudit({
+    action: "APPROVE",
+    entityType: "APPLICATION",
+    entityId: applicationId,
+    performedBy: session.user.email,
+    details: {
+      interestRate,
+      loanTermMonths: loanTermMonths || application.loanTermMonths,
+      recommendation: evaluation.recommendation,
+      reasons: evaluation.reasons,
+    },
+  });
+
+  return { success: true, application: updatedApp };
 }
 
-export async function rejectApplication(id: string, reason: string) {
-  if (!reason.trim()) {
-    return { error: "Rejection reason is required" };
-  }
+export async function rejectApplication(applicationId: string, reason: string) {
+  const session = await getServerSession(authOptions);
+  if (!session?.user?.email) return { success: false, error: "Not authenticated" };
+
+  const application = await prisma.application.findUnique({
+    where: { id: applicationId },
+  });
+  if (!application) return { success: false, error: "Application not found" };
 
   await prisma.application.update({
-    where: { id },
-    data: { status: "REJECTED", rejectionReason: reason },
+    where: { id: applicationId },
+    data: {
+      status: "REJECTED",
+      rejectionReason: reason,
+    },
   });
 
-  return { success: true };
+  await logAudit({
+    action: "REJECT",
+    entityType: "APPLICATION",
+    entityId: applicationId,
+    performedBy: session.user.email,
+    details: { reason },
+  });
+
+  return { success: true, application };
+}
+
+export async function revealSSN(applicationId: string) {
+  const session = await getServerSession(authOptions);
+  if (!session?.user?.email) return { success: false, error: "Not authenticated" };
+
+  const application = await prisma.application.findUnique({
+    where: { id: applicationId },
+    select: { ssnEncrypted: true },
+  });
+
+  if (!application?.ssnEncrypted) {
+    return { success: false, error: "No SSN on file" };
+  }
+
+  await logAudit({
+    action: "VIEW_SSN",
+    entityType: "APPLICATION",
+    entityId: applicationId,
+    performedBy: session.user.email,
+  });
+
+  const ssn = decrypt(application.ssnEncrypted);
+  return { success: true, ssn };
 }
