@@ -1596,9 +1596,9 @@ export default function ApplyPage() {
         loanTermMonths,
         platform: platforms.join(", "),
         ssnRaw: form.ssn,
-        plaidAccessToken: plaidAccessToken,
-        plaidAccountId: plaidAccountId,
-        plaidItemId: plaidItemId,
+        plaidAccessToken: plaidAccessToken ?? undefined,
+        plaidAccountId: plaidAccountId ?? undefined,
+        plaidItemId: plaidItemId ?? undefined,
         files: uploadData.files,
       });
 

@@ -16,4 +16,4 @@ export interface StorageProvider {
 }
 
 // Re-export Prisma types used elsewhere
-export type { LoanRule };
+export type { Document, LoanRule };

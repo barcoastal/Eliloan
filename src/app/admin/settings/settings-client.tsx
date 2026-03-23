@@ -42,12 +42,8 @@ function RuleCard({ rule }: { rule: LoanRule }) {
   async function handleSave() {
     setSaving(true);
     try {
-      const result = await updateLoanRule(rule.id, value);
-      if (result.error) {
-        toast.error(result.error);
-      } else {
-        toast.success(`${formatKey(rule.key)} updated`);
-      }
+      await updateLoanRule(rule.id, value);
+      toast.success(`${formatKey(rule.key)} updated`);
     } catch {
       toast.error("Failed to update rule");
     } finally {
