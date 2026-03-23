@@ -971,6 +971,11 @@ function Footer() {
             <Link href="/status" className="transition-colors hover:text-emerald-300">Status</Link>
             <a href="#how-it-works" className="transition-colors hover:text-emerald-300">How It Works</a>
           </div>
+          <div className="flex gap-8 text-sm text-emerald-200/30">
+            <Link href="/terms" className="transition-colors hover:text-emerald-300">Terms</Link>
+            <Link href="/privacy" className="transition-colors hover:text-emerald-300">Privacy</Link>
+            <Link href="/disclosures" className="transition-colors hover:text-emerald-300">Disclosures</Link>
+          </div>
         </div>
 
         <div className="mt-12 border-t border-emerald-200/5 pt-6 text-center text-[10px] text-emerald-200/40">
