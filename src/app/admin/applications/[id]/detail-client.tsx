@@ -12,6 +12,7 @@ import {
 } from "@/actions/applications";
 import { evaluateApplicationAction } from "@/actions/evaluation";
 import { fetchAndStoreIncome } from "@/actions/plaid";
+import { getPaymentsSummary, retryPayment, waiveLateFee } from "@/actions/payments";
 import type { ApplicationWithDocuments } from "@/types";
 import type { EvaluationResult } from "@/types";
 
@@ -104,6 +105,15 @@ export function DetailClient({
   useEffect(() => {
     evaluateApplicationAction(application.id).then(setEvaluation);
   }, [application.id]);
+
+  /* payments */
+  const [paymentSummary, setPaymentSummary] = useState<Awaited<ReturnType<typeof getPaymentsSummary>> | null>(null);
+
+  useEffect(() => {
+    if (["ACTIVE", "LATE", "COLLECTIONS", "DEFAULTED", "PAID_OFF"].includes(application.status)) {
+      getPaymentsSummary(application.id).then(setPaymentSummary);
+    }
+  }, [application.id, application.status]);
 
   /* SSN reveal */
   const [ssn, setSsn] = useState<string | null>(null);
@@ -944,6 +954,137 @@ export function DetailClient({
                   </svg>
                   {funding ? "Funding..." : "Mark as Funded"}
                 </button>
+              </div>
+            </div>
+          )}
+
+          {/* ── Payment Schedule ── */}
+          {paymentSummary && (
+            <div className="rounded-2xl bg-white border border-gray-200 shadow-sm p-6">
+              <h2 className="text-base font-semibold text-gray-900 mb-5 flex items-center gap-2">
+                <svg className="h-5 w-5 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={1.5}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5" />
+                </svg>
+                Payment Schedule
+              </h2>
+
+              {/* Summary Cards */}
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-6">
+                <div className="rounded-xl bg-emerald-50 border border-emerald-100 p-4 text-center">
+                  <p className="text-xs font-semibold uppercase tracking-wider text-gray-500 mb-1">Total Owed</p>
+                  <p className="text-xl font-bold text-gray-900">${fmt(paymentSummary.totalOwed)}</p>
+                </div>
+                <div className="rounded-xl bg-emerald-50 border border-emerald-100 p-4 text-center">
+                  <p className="text-xs font-semibold uppercase tracking-wider text-gray-500 mb-1">Total Paid</p>
+                  <p className="text-xl font-bold text-emerald-700">${fmt(paymentSummary.totalPaid)}</p>
+                </div>
+                <div className="rounded-xl bg-emerald-50 border border-emerald-100 p-4 text-center">
+                  <p className="text-xs font-semibold uppercase tracking-wider text-gray-500 mb-1">Remaining Balance</p>
+                  <p className="text-xl font-bold text-gray-900">${fmt(paymentSummary.remainingBalance)}</p>
+                </div>
+                <div className="rounded-xl bg-amber-50 border border-amber-100 p-4 text-center">
+                  <p className="text-xs font-semibold uppercase tracking-wider text-gray-500 mb-1">Total Late Fees</p>
+                  <p className="text-xl font-bold text-amber-700">${fmt(paymentSummary.totalLateFees)}</p>
+                </div>
+              </div>
+
+              {/* Payment Table */}
+              <div className="overflow-x-auto">
+                <table className="w-full text-sm">
+                  <thead>
+                    <tr className="border-b border-gray-200">
+                      <th className="py-2.5 px-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">#</th>
+                      <th className="py-2.5 px-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">Due Date</th>
+                      <th className="py-2.5 px-3 text-right text-xs font-semibold text-gray-500 uppercase tracking-wider">Amount</th>
+                      <th className="py-2.5 px-3 text-right text-xs font-semibold text-gray-500 uppercase tracking-wider">Principal</th>
+                      <th className="py-2.5 px-3 text-right text-xs font-semibold text-gray-500 uppercase tracking-wider">Interest</th>
+                      <th className="py-2.5 px-3 text-right text-xs font-semibold text-gray-500 uppercase tracking-wider">Late Fee</th>
+                      <th className="py-2.5 px-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">Status</th>
+                      <th className="py-2.5 px-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {paymentSummary.payments.map((payment) => {
+                      const statusColors: Record<string, string> = {
+                        PAID: "bg-emerald-100 text-emerald-800",
+                        PENDING: "bg-amber-100 text-amber-800",
+                        FAILED: "bg-red-100 text-red-800",
+                        PROCESSING: "bg-blue-100 text-blue-800",
+                        LATE: "bg-orange-100 text-orange-800",
+                        COLLECTIONS: "bg-red-100 text-red-800",
+                        WAIVED: "bg-gray-100 text-gray-600",
+                      };
+                      const badgeClass = statusColors[payment.status] ?? "bg-gray-100 text-gray-600";
+                      const lateFee = Number(payment.lateFee);
+
+                      return (
+                        <tr key={payment.id} className="border-b border-gray-100 hover:bg-emerald-50/30 transition-colors">
+                          <td className="py-2.5 px-3 text-gray-700 font-medium">{payment.paymentNumber}</td>
+                          <td className="py-2.5 px-3 text-gray-700">
+                            {new Date(payment.dueDate).toLocaleDateString("en-US", {
+                              month: "short",
+                              day: "numeric",
+                              year: "numeric",
+                            })}
+                          </td>
+                          <td className="py-2.5 px-3 text-right text-gray-900 font-medium">${fmt(Number(payment.amount))}</td>
+                          <td className="py-2.5 px-3 text-right text-gray-700">${fmt(Number(payment.principal))}</td>
+                          <td className="py-2.5 px-3 text-right text-gray-500">${fmt(Number(payment.interest))}</td>
+                          <td className={`py-2.5 px-3 text-right font-medium ${lateFee > 0 ? "text-amber-700" : "text-gray-400"}`}>
+                            {lateFee > 0 ? `$${fmt(lateFee)}` : "—"}
+                          </td>
+                          <td className="py-2.5 px-3">
+                            <span className={`inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-semibold ${badgeClass}`}>
+                              {payment.status}
+                            </span>
+                          </td>
+                          <td className="py-2.5 px-3">
+                            <div className="flex items-center gap-2">
+                              {payment.status === "FAILED" && (
+                                <button
+                                  onClick={async () => {
+                                    const result = await retryPayment(payment.id);
+                                    if (result.success) {
+                                      toast.success(`Payment #${payment.paymentNumber} queued for retry`);
+                                      getPaymentsSummary(application.id).then(setPaymentSummary);
+                                    } else {
+                                      toast.error(result.error || "Failed to retry payment");
+                                    }
+                                  }}
+                                  className="inline-flex items-center gap-1 rounded-lg border border-blue-200 bg-blue-50 px-2.5 py-1 text-xs font-medium text-blue-700 hover:bg-blue-100 transition-colors"
+                                >
+                                  <svg className="h-3 w-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2}>
+                                    <path strokeLinecap="round" strokeLinejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0 3.181 3.183a8.25 8.25 0 0 0 13.803-3.7M4.031 9.865a8.25 8.25 0 0 1 13.803-3.7l3.181 3.182" />
+                                  </svg>
+                                  Retry
+                                </button>
+                              )}
+                              {lateFee > 0 && (
+                                <button
+                                  onClick={async () => {
+                                    const result = await waiveLateFee(payment.id);
+                                    if (result.success) {
+                                      toast.success(`Late fee of $${fmt(result.waivedAmount ?? 0)} waived`);
+                                      getPaymentsSummary(application.id).then(setPaymentSummary);
+                                    } else {
+                                      toast.error(result.error || "Failed to waive late fee");
+                                    }
+                                  }}
+                                  className="inline-flex items-center gap-1 rounded-lg border border-amber-200 bg-amber-50 px-2.5 py-1 text-xs font-medium text-amber-700 hover:bg-amber-100 transition-colors"
+                                >
+                                  <svg className="h-3 w-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2}>
+                                    <path strokeLinecap="round" strokeLinejoin="round" d="M6 18 18 6M6 6l12 12" />
+                                  </svg>
+                                  Waive Fee
+                                </button>
+                              )}
+                            </div>
+                          </td>
+                        </tr>
+                      );
+                    })}
+                  </tbody>
+                </table>
               </div>
             </div>
           )}
