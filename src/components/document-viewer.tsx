@@ -1,7 +1,4 @@
 import type { Document } from "@/types";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { FileTextIcon, DownloadIcon } from "lucide-react";
 
 function formatFileSize(bytes: number) {
   if (bytes < 1024) return `${bytes} B`;
@@ -12,60 +9,71 @@ function formatFileSize(bytes: number) {
 export function DocumentViewer({ documents }: { documents: Document[] }) {
   if (documents.length === 0) {
     return (
-      <Card>
-        <CardHeader>
-          <CardTitle className="text-base">Documents</CardTitle>
-        </CardHeader>
-        <CardContent>
-          <p className="text-sm text-muted-foreground">
-            No documents uploaded.
-          </p>
-        </CardContent>
-      </Card>
+      <div className="rounded-2xl bg-white border border-gray-200 p-6">
+        <h3 className="text-base font-semibold text-gray-900 mb-3">Documents</h3>
+        <p className="text-sm text-gray-500">No documents uploaded.</p>
+      </div>
     );
   }
 
   return (
-    <Card>
-      <CardHeader>
-        <CardTitle className="text-base">
-          Documents ({documents.length})
-        </CardTitle>
-      </CardHeader>
-      <CardContent>
-        <div className="space-y-2">
-          {documents.map((doc) => (
-            <div
-              key={doc.id}
-              className="flex items-center justify-between rounded-md border p-3"
-            >
-              <div className="flex items-center gap-3">
-                <FileTextIcon className="size-5 text-muted-foreground" />
-                <div>
-                  <p className="text-sm font-medium">{doc.fileName}</p>
-                  <p className="text-xs text-muted-foreground">
-                    {doc.mimeType} &middot; {formatFileSize(doc.fileSize)}
-                  </p>
-                </div>
-              </div>
-              <Button
-                variant="outline"
-                size="sm"
-                render={
-                  <a
-                    href={`/api/files/${doc.storagePath}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
+    <div className="rounded-2xl bg-white border border-gray-200 p-6">
+      <h3 className="text-base font-semibold text-gray-900 mb-4">
+        Documents ({documents.length})
+      </h3>
+      <div className="space-y-2">
+        {documents.map((doc) => (
+          <div
+            key={doc.id}
+            className="flex items-center justify-between rounded-xl border border-gray-100 bg-gray-50 p-3.5 hover:bg-emerald-50/50 transition-colors"
+          >
+            <div className="flex items-center gap-3">
+              <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-emerald-100">
+                <svg
+                  className="h-5 w-5 text-emerald-700"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  strokeWidth={1.5}
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m2.25 0H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 0 0-9-9Z"
                   />
-                }
-              >
-                <DownloadIcon className="size-3.5 mr-1" />
-                View
-              </Button>
+                </svg>
+              </div>
+              <div>
+                <p className="text-sm font-medium text-gray-900">{doc.fileName}</p>
+                <p className="text-xs text-gray-500">
+                  {doc.documentType} &middot; {formatFileSize(doc.fileSize)}
+                </p>
+              </div>
             </div>
-          ))}
-        </div>
-      </CardContent>
-    </Card>
+            <a
+              href={`/api/files/${doc.storagePath}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1.5 rounded-lg border border-emerald-200 bg-white px-3 py-1.5 text-xs font-medium text-emerald-700 hover:bg-emerald-50 transition-colors"
+            >
+              <svg
+                className="h-3.5 w-3.5"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                strokeWidth={2}
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5M16.5 12 12 16.5m0 0L7.5 12m4.5 4.5V3"
+                />
+              </svg>
+              View
+            </a>
+          </div>
+        ))}
+      </div>
+    </div>
   );
 }

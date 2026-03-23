@@ -1,42 +1,75 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { Badge } from "@/components/ui/badge";
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
 import type { ApplicationWithDocuments } from "@/types";
 
 function StatusBadge({ status }: { status: string }) {
-  switch (status) {
-    case "APPROVED":
-      return (
-        <Badge className="bg-green-100 text-green-800 border-green-200">
-          Approved
-        </Badge>
-      );
-    case "REJECTED":
-      return (
-        <Badge className="bg-red-100 text-red-800 border-red-200">
-          Rejected
-        </Badge>
-      );
-    default:
-      return (
-        <Badge className="bg-amber-100 text-amber-800 border-amber-200">
-          Pending
-        </Badge>
-      );
-  }
+  const config: Record<string, { bg: string; text: string; dot: string; label: string }> = {
+    APPROVED: {
+      bg: "bg-emerald-50",
+      text: "text-emerald-700",
+      dot: "bg-emerald-500",
+      label: "Approved",
+    },
+    REJECTED: {
+      bg: "bg-red-50",
+      text: "text-red-700",
+      dot: "bg-red-500",
+      label: "Rejected",
+    },
+    PENDING: {
+      bg: "bg-amber-50",
+      text: "text-amber-700",
+      dot: "bg-amber-500",
+      label: "Pending",
+    },
+    ACTIVE: {
+      bg: "bg-blue-50",
+      text: "text-blue-700",
+      dot: "bg-blue-500",
+      label: "Active",
+    },
+    LATE: {
+      bg: "bg-orange-50",
+      text: "text-orange-700",
+      dot: "bg-orange-500",
+      label: "Late",
+    },
+    COLLECTIONS: {
+      bg: "bg-rose-50",
+      text: "text-rose-700",
+      dot: "bg-rose-500",
+      label: "Collections",
+    },
+    DEFAULTED: {
+      bg: "bg-red-50",
+      text: "text-red-800",
+      dot: "bg-red-700",
+      label: "Defaulted",
+    },
+    PAID_OFF: {
+      bg: "bg-teal-50",
+      text: "text-teal-700",
+      dot: "bg-teal-500",
+      label: "Paid Off",
+    },
+  };
+
+  const c = config[status] ?? config.PENDING;
+
+  return (
+    <span
+      className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium ${c.bg} ${c.text}`}
+    >
+      <span className={`w-1.5 h-1.5 rounded-full ${c.dot}`} />
+      {c.label}
+    </span>
+  );
 }
 
 function formatDate(date: Date) {
-  return new Date(date).toLocaleDateString("en-US", {
+  const d = new Date(date);
+  return d.toLocaleDateString("en-US", {
     month: "short",
     day: "numeric",
     year: "numeric",
@@ -44,7 +77,12 @@ function formatDate(date: Date) {
 }
 
 function formatCurrency(amount: number) {
-  return `$${Number(amount).toLocaleString()}`;
+  return new Intl.NumberFormat("en-US", {
+    style: "currency",
+    currency: "USD",
+    minimumFractionDigits: 0,
+    maximumFractionDigits: 0,
+  }).format(amount);
 }
 
 export function ApplicationTable({
@@ -56,44 +94,118 @@ export function ApplicationTable({
 
   if (applications.length === 0) {
     return (
-      <div className="rounded-lg border bg-card p-8 text-center text-muted-foreground">
-        No applications found.
+      <div className="bg-white rounded-2xl border border-stone-200/80 p-16 text-center">
+        <div className="w-12 h-12 rounded-2xl bg-stone-100 flex items-center justify-center mx-auto mb-4">
+          <svg
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="1.5"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            className="text-stone-400"
+          >
+            <path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z" />
+            <polyline points="13 2 13 9 20 9" />
+          </svg>
+        </div>
+        <p className="text-sm font-medium text-stone-500">No applications found</p>
+        <p className="text-xs text-stone-400 mt-1">
+          Applications matching this filter will appear here.
+        </p>
       </div>
     );
   }
 
   return (
-    <div className="rounded-lg border bg-card">
-      <Table>
-        <TableHeader>
-          <TableRow>
-            <TableHead>Date</TableHead>
-            <TableHead>Name</TableHead>
-            <TableHead>Email</TableHead>
-            <TableHead>Loan Amount</TableHead>
-            <TableHead>Status</TableHead>
-          </TableRow>
-        </TableHeader>
-        <TableBody>
+    <div className="bg-white rounded-2xl border border-stone-200/80 overflow-hidden">
+      <table className="w-full">
+        <thead>
+          <tr className="border-b border-stone-100">
+            <th className="text-left text-xs font-medium text-emerald-800/50 uppercase tracking-wider px-6 py-4">
+              Date
+            </th>
+            <th className="text-left text-xs font-medium text-emerald-800/50 uppercase tracking-wider px-6 py-4">
+              Applicant
+            </th>
+            <th className="text-left text-xs font-medium text-emerald-800/50 uppercase tracking-wider px-6 py-4">
+              Code
+            </th>
+            <th className="text-left text-xs font-medium text-emerald-800/50 uppercase tracking-wider px-6 py-4">
+              Amount
+            </th>
+            <th className="text-left text-xs font-medium text-emerald-800/50 uppercase tracking-wider px-6 py-4">
+              Platform
+            </th>
+            <th className="text-left text-xs font-medium text-emerald-800/50 uppercase tracking-wider px-6 py-4">
+              Income
+            </th>
+            <th className="text-left text-xs font-medium text-emerald-800/50 uppercase tracking-wider px-6 py-4">
+              Docs
+            </th>
+            <th className="text-left text-xs font-medium text-emerald-800/50 uppercase tracking-wider px-6 py-4">
+              Status
+            </th>
+          </tr>
+        </thead>
+        <tbody className="divide-y divide-stone-100">
           {applications.map((app) => (
-            <TableRow
+            <tr
               key={app.id}
-              className="cursor-pointer"
               onClick={() => router.push(`/admin/applications/${app.id}`)}
+              className="cursor-pointer hover:bg-emerald-50/50 transition-colors duration-100"
             >
-              <TableCell>{formatDate(app.createdAt)}</TableCell>
-              <TableCell className="font-medium">
-                {app.firstName} {app.lastName}
-              </TableCell>
-              <TableCell>{app.email}</TableCell>
-              <TableCell>{formatCurrency(Number(app.loanAmount))}</TableCell>
-              <TableCell>
+              <td className="px-6 py-4 text-sm text-stone-500 whitespace-nowrap">
+                {formatDate(app.createdAt)}
+              </td>
+              <td className="px-6 py-4">
+                <div className="text-sm font-medium text-stone-900">
+                  {app.firstName} {app.lastName}
+                </div>
+                <div className="text-xs text-stone-400 mt-0.5">{app.email}</div>
+              </td>
+              <td className="px-6 py-4">
+                <span className="text-xs font-mono text-stone-500 bg-stone-50 px-2 py-1 rounded-md">
+                  {app.applicationCode}
+                </span>
+              </td>
+              <td className="px-6 py-4 text-sm font-medium text-stone-900 whitespace-nowrap">
+                {formatCurrency(Number(app.loanAmount))}
+              </td>
+              <td className="px-6 py-4 text-sm text-stone-500 whitespace-nowrap">
+                {app.platform || "—"}
+              </td>
+              <td className="px-6 py-4 text-sm text-stone-500 whitespace-nowrap">
+                {app.monthlyIncome ? `$${Number(app.monthlyIncome).toLocaleString()}/mo` : "—"}
+              </td>
+              <td className="px-6 py-4">
+                <span className="inline-flex items-center gap-1 text-xs text-stone-500">
+                  <svg
+                    width="14"
+                    height="14"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    className="text-stone-400"
+                  >
+                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                    <polyline points="14 2 14 8 20 8" />
+                  </svg>
+                  {app.documents.length}
+                </span>
+              </td>
+              <td className="px-6 py-4">
                 <StatusBadge status={app.status} />
-              </TableCell>
-            </TableRow>
+              </td>
+            </tr>
           ))}
-        </TableBody>
-      </Table>
+        </tbody>
+      </table>
     </div>
   );
 }
