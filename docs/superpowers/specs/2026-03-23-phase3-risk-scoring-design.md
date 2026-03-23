@@ -58,9 +58,9 @@ Where `minRate` and `maxRate` are admin-configurable LoanRules (existing `min_in
 
 ### Modified: `Application` table
 
-- `riskScore: Decimal` — already exists, will now be populated during evaluation
-- `bankBalance: Decimal` — **new column**, stored from Plaid balance fetch at application time
-- `riskModelId: String?` — **new column**, foreign key to `RiskModel.id`. Records which model version produced the score, for auditability.
+- `riskScore: Decimal?` — already exists (nullable), will now be populated during evaluation
+- `bankBalance: Decimal?` — **new column** (nullable — null when no Plaid connection), stored from Plaid balance fetch at application time
+- `riskModelId: String?` — **new column** (nullable), loose reference to `RiskModel.id` (not an enforced FK — just a string for audit trail). Records which model version produced the score.
 
 ### Modified: `Application.status` enum
 
@@ -70,7 +70,7 @@ Add `DEFAULTED` as a terminal state after COLLECTIONS (90+ days configurable).
 
 Already defined in schema but never populated. Add `ssnHash String` column with an index (needed to query repayment history across multiple applications by the same borrower). Will be populated when loans reach terminal states (PAID_OFF or DEFAULTED):
 
-- `ssnHash`: copied from the source Application at creation time (new column, indexed)
+- `ssnHash: String` (required, not nullable): copied from the source Application at creation time. Indexed via `@@index([ssnHash])`. Only created for terminal-state loans, so the source Application will always have an ssnHash.
 - `outcome`: "PAID_OFF" or "DEFAULTED" (Phase 1 spec's `LATE_BUT_PAID` is intentionally dropped — late payment impact is captured via `latePaymentCount` in the repayment history formula instead)
 - `totalPaid`: sum of paid payment amounts
 - `totalOwed`: original loan total (sum of all payment amounts)
@@ -81,7 +81,7 @@ Already defined in schema but never populated. Add `ssnHash String` column with 
 
 ```prisma
 model RiskModel {
-  id           String   @id @default(cuid())
+  id           String   @id @default(uuid())
   version      Int      // managed in app code: SELECT MAX(version) + 1
   coefficients String   // JSON: array of floats
   intercept    Float
