@@ -238,3 +238,36 @@ export async function revealSSN(applicationId: string) {
   const ssn = decrypt(application.ssnEncrypted);
   return { success: true, ssn };
 }
+
+export async function fundApplication(applicationId: string, fundedAmount: number) {
+  const session = await getServerSession(authOptions);
+  if (!session?.user?.email) return { success: false, error: "Not authenticated" };
+
+  const application = await prisma.application.findUnique({
+    where: { id: applicationId },
+  });
+
+  if (!application) return { success: false, error: "Application not found" };
+  if (application.status !== "APPROVED") {
+    return { success: false, error: "Application must be APPROVED to fund" };
+  }
+
+  await prisma.application.update({
+    where: { id: applicationId },
+    data: {
+      status: "ACTIVE",
+      fundedAt: new Date(),
+      fundedAmount,
+    },
+  });
+
+  await logAudit({
+    action: "FUND",
+    entityType: "APPLICATION",
+    entityId: applicationId,
+    performedBy: session.user.email,
+    details: { fundedAmount },
+  });
+
+  return { success: true };
+}
