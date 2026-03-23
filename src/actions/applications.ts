@@ -2,6 +2,7 @@
 
 import { prisma } from "@/lib/db";
 import { getLoanRules, decisionEngine } from "@/lib/rules-engine";
+import { encrypt, hashSSN } from "@/lib/encryption";
 import { z } from "zod";
 import { v4 as uuidv4 } from "uuid";
 
@@ -15,6 +16,12 @@ const submitSchema = z.object({
   email: z.string().email("Invalid email"),
   phone: z.string().min(10, "Phone number must be at least 10 digits"),
   loanAmount: z.number().positive("Loan amount must be positive"),
+  loanTermMonths: z.number().int().min(3).max(18),
+  platform: z.string().optional(),
+  ssnRaw: z.string().optional(),
+  plaidAccessToken: z.string().optional(),
+  plaidAccountId: z.string().optional(),
+  plaidItemId: z.string().optional(),
   files: z.array(
     z.object({
       fileName: z.string(),
@@ -25,8 +32,8 @@ const submitSchema = z.object({
   ),
 });
 
-export async function submitApplication(data: z.infer<typeof submitSchema>) {
-  const parsed = submitSchema.safeParse(data);
+export async function submitApplication(input: z.infer<typeof submitSchema>) {
+  const parsed = submitSchema.safeParse(input);
   if (!parsed.success) {
     return { error: parsed.error.issues[0].message };
   }
@@ -45,23 +52,41 @@ export async function submitApplication(data: z.infer<typeof submitSchema>) {
     return { error: `At least ${requiredStubs} pay stubs are required` };
   }
 
+  const data = parsed.data;
+
+  const ssnEncrypted = data.ssnRaw ? encrypt(data.ssnRaw) : null;
+  const ssnHash = data.ssnRaw ? hashSSN(data.ssnRaw) : null;
+
+  if (ssnHash) {
+    const existing = await prisma.application.findFirst({ where: { ssnHash } });
+    if (existing) {
+      return { success: false, error: "An application with this SSN already exists." };
+    }
+  }
+
   const applicationCode = generateApplicationCode();
 
-  await prisma.application.create({
+  const application = await prisma.application.create({
     data: {
       applicationCode,
-      firstName: parsed.data.firstName,
-      lastName: parsed.data.lastName,
-      email: parsed.data.email,
-      phone: parsed.data.phone,
-      loanAmount: parsed.data.loanAmount,
+      firstName: data.firstName,
+      lastName: data.lastName,
+      email: data.email,
+      phone: data.phone,
+      loanAmount: data.loanAmount,
+      loanTermMonths: data.loanTermMonths,
+      platform: data.platform || null,
+      ssnEncrypted,
+      ssnHash,
+      plaidAccessToken: data.plaidAccessToken || null,
+      plaidAccountId: data.plaidAccountId || null,
+      plaidItemId: data.plaidItemId || null,
       documents: {
-        create: parsed.data.files.map((f) => ({
-          fileName: f.fileName,
-          mimeType: f.mimeType,
-          fileSize: f.fileSize,
-          storagePath: f.storagePath,
-          documentType: "PAY_STUB",
+        create: data.files.map((file) => ({
+          fileName: file.fileName,
+          mimeType: file.mimeType,
+          fileSize: file.fileSize,
+          storagePath: file.storagePath,
         })),
       },
     },
