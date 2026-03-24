@@ -97,7 +97,7 @@ export function AdminSidebar({ userName }: { userName: string }) {
       {/* User section */}
       <div className="px-4 py-4">
         <div className="flex items-center gap-3 rounded-lg px-2 py-2">
-          <div className="flex h-8 w-8 items-center justify-center rounded-full bg-gradient-to-br from-emerald-400 to-green-500 text-[11px] font-bold text-white shadow-sm shadow-emerald-500/20">
+          <div className="flex h-8 w-8 items-center justify-center rounded-full bg-gradient-to-br from-[#15803d] to-[#15803d] text-[11px] font-bold text-white shadow-sm shadow-[#15803d]/20">
             {initials}
           </div>
           <div className="flex-1 min-w-0">

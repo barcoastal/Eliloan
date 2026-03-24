@@ -255,7 +255,7 @@ export function DetailClient({
   /* ── render ── */
 
   return (
-    <div className="min-h-screen bg-[#FAFAF7]">
+    <div className="min-h-screen bg-[#f8faf8]">
       <div className="mx-auto max-w-5xl px-4 py-8 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="mb-8 flex items-center justify-between">
@@ -466,7 +466,7 @@ export function DetailClient({
                 {application.documents.map((doc) => (
                   <div
                     key={doc.id}
-                    className="flex items-center justify-between rounded-lg bg-[#FAFAF7] p-3.5 hover:bg-gray-100 transition-colors"
+                    className="flex items-center justify-between rounded-lg bg-[#f8faf8] p-3.5 hover:bg-gray-100 transition-colors"
                   >
                     <div className="flex items-center gap-3">
                       <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-[#f0f5f0]">
@@ -556,7 +556,7 @@ export function DetailClient({
 
               <div className="space-y-4">
                 <div className="grid grid-cols-2 gap-4">
-                  <div className="rounded-lg bg-[#FAFAF7] p-4 text-center">
+                  <div className="rounded-lg bg-[#f8faf8] p-4 text-center">
                     <p className="text-[11px] uppercase tracking-[0.05em] text-[#a1a1aa] font-semibold mb-1">Risk Score</p>
                     <p className={`text-3xl font-bold ${
                       riskResult.riskScore < 33 ? "text-[#15803d]" :
@@ -567,7 +567,7 @@ export function DetailClient({
                     </p>
                     <p className="text-xs text-[#a1a1aa] mt-1">out of 100 (higher = riskier)</p>
                   </div>
-                  <div className="rounded-lg bg-[#FAFAF7] p-4 text-center">
+                  <div className="rounded-lg bg-[#f8faf8] p-4 text-center">
                     <p className="text-[11px] uppercase tracking-[0.05em] text-[#a1a1aa] font-semibold mb-1">Calculated Rate</p>
                     <p className="text-3xl font-bold text-[#1a1a1a]">{riskResult.interestRate.toFixed(2)}%</p>
                     <p className="text-xs text-[#a1a1aa] mt-1">auto-set on approval</p>
@@ -751,15 +751,15 @@ export function DetailClient({
 
               {/* Summary Cards */}
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-6">
-                <div className="rounded-lg bg-[#FAFAF7] p-4 text-center">
+                <div className="rounded-lg bg-[#f8faf8] p-4 text-center">
                   <p className="text-[11px] uppercase tracking-[0.05em] text-[#a1a1aa] font-semibold mb-1">Total Owed</p>
                   <p className="text-xl font-bold text-[#1a1a1a]">${fmt(paymentSummary.totalOwed)}</p>
                 </div>
-                <div className="rounded-lg bg-[#FAFAF7] p-4 text-center">
+                <div className="rounded-lg bg-[#f8faf8] p-4 text-center">
                   <p className="text-[11px] uppercase tracking-[0.05em] text-[#a1a1aa] font-semibold mb-1">Total Paid</p>
                   <p className="text-xl font-bold text-[#15803d]">${fmt(paymentSummary.totalPaid)}</p>
                 </div>
-                <div className="rounded-lg bg-[#FAFAF7] p-4 text-center">
+                <div className="rounded-lg bg-[#f8faf8] p-4 text-center">
                   <p className="text-[11px] uppercase tracking-[0.05em] text-[#a1a1aa] font-semibold mb-1">Remaining Balance</p>
                   <p className="text-xl font-bold text-[#1a1a1a]">${fmt(paymentSummary.remainingBalance)}</p>
                 </div>
@@ -800,7 +800,7 @@ export function DetailClient({
                       const isPaid = payment.status === "PAID";
 
                       return (
-                        <tr key={payment.id} className="border-b border-gray-50 last:border-0 hover:bg-[#FAFAF7] transition-colors">
+                        <tr key={payment.id} className="border-b border-gray-50 last:border-0 hover:bg-[#f8faf8] transition-colors">
                           <td className="py-2.5 px-3 text-[#1a1a1a] font-medium">{payment.paymentNumber}</td>
                           <td className="py-2.5 px-3 text-[#1a1a1a]">
                             {new Date(payment.dueDate).toLocaleDateString("en-US", {

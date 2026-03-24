@@ -8,7 +8,7 @@ export function applicationSubmittedEmail(params: {
   const statusUrl = `${APP_URL}/status/${params.applicationCode}`;
 
   return {
-    subject: "Application Received — 1099 Loan Portal",
+    subject: "Application Received — LimeCredit",
     html: `
       <div style="font-family: sans-serif; max-width: 600px; margin: 0 auto;">
         <h2 style="color: #16a34a;">Application Received!</h2>
@@ -19,7 +19,7 @@ export function applicationSubmittedEmail(params: {
         <p><a href="${statusUrl}" style="color: #16a34a;">${statusUrl}</a></p>
         <p>We'll review your application and get back to you soon.</p>
         <hr style="border: none; border-top: 1px solid #e5e7eb; margin: 24px 0;" />
-        <p style="color: #6b7280; font-size: 12px;">1099 Loan Portal</p>
+        <p style="color: #6b7280; font-size: 12px;">LimeCredit</p>
       </div>
     `,
   };

@@ -3,7 +3,7 @@ export function applicationRejectedEmail(params: {
   reason: string;
 }) {
   return {
-    subject: "Application Update — 1099 Loan Portal",
+    subject: "Application Update — LimeCredit",
     html: `
       <div style="font-family: sans-serif; max-width: 600px; margin: 0 auto;">
         <h2 style="color: #dc2626;">Application Update</h2>
@@ -12,7 +12,7 @@ export function applicationRejectedEmail(params: {
         <p><strong>Reason:</strong> ${params.reason}</p>
         <p>You're welcome to reapply in the future if your circumstances change.</p>
         <hr style="border: none; border-top: 1px solid #e5e7eb; margin: 24px 0;" />
-        <p style="color: #6b7280; font-size: 12px;">1099 Loan Portal</p>
+        <p style="color: #6b7280; font-size: 12px;">LimeCredit</p>
       </div>
     `,
   };

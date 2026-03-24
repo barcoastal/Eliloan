@@ -18,7 +18,7 @@ export function paymentFailedEmail(params: {
         <p>If your bank connection needs to be updated, please contact us.</p>
         <p>View your loan: <a href="${statusUrl}" style="color: #dc2626;">${statusUrl}</a></p>
         <hr style="border: none; border-top: 1px solid #e5e7eb; margin: 24px 0;" />
-        <p style="color: #6b7280; font-size: 12px;">1099 Loan Portal</p>
+        <p style="color: #6b7280; font-size: 12px;">LimeCredit</p>
       </div>
     `,
   };

@@ -745,9 +745,9 @@ function ForGigWorkers() {
 }
 
 /* ------------------------------------------------------------------ */
-/*  WHY ELILONS                                                         */
+/*  WHY LIMECREDIT                                                      */
 /* ------------------------------------------------------------------ */
-function WhyElilons() {
+function WhyLimeCredit() {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: "-100px" });
 
@@ -1003,7 +1003,7 @@ export default function Home() {
       <HowItWorks />
       <TheStruggle />
       <ForGigWorkers />
-      <WhyElilons />
+      <WhyLimeCredit />
       <Testimonials />
       <FinalCTA />
       <Footer />
