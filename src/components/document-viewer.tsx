@@ -9,7 +9,7 @@ function formatFileSize(bytes: number) {
 export function DocumentViewer({ documents }: { documents: Document[] }) {
   if (documents.length === 0) {
     return (
-      <div className="rounded-2xl bg-white border border-gray-200 p-6">
+      <div className="rounded-[10px] bg-white p-6">
         <h3 className="text-base font-semibold text-gray-900 mb-3">Documents</h3>
         <p className="text-sm text-gray-500">No documents uploaded.</p>
       </div>
@@ -17,7 +17,7 @@ export function DocumentViewer({ documents }: { documents: Document[] }) {
   }
 
   return (
-    <div className="rounded-2xl bg-white border border-gray-200 p-6">
+    <div className="rounded-[10px] bg-white p-6">
       <h3 className="text-base font-semibold text-gray-900 mb-4">
         Documents ({documents.length})
       </h3>
@@ -25,12 +25,12 @@ export function DocumentViewer({ documents }: { documents: Document[] }) {
         {documents.map((doc) => (
           <div
             key={doc.id}
-            className="flex items-center justify-between rounded-xl border border-gray-100 bg-gray-50 p-3.5 hover:bg-emerald-50/50 transition-colors"
+            className="flex items-center justify-between rounded-lg bg-[#f0f5f0] p-3.5 transition-colors"
           >
             <div className="flex items-center gap-3">
-              <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-emerald-100">
+              <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-[#d6e4d6]">
                 <svg
-                  className="h-5 w-5 text-emerald-700"
+                  className="h-5 w-5 text-[#3a5c3a]"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -54,7 +54,7 @@ export function DocumentViewer({ documents }: { documents: Document[] }) {
               href={`/api/files/${doc.storagePath}`}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-1.5 rounded-lg border border-emerald-200 bg-white px-3 py-1.5 text-xs font-medium text-emerald-700 hover:bg-emerald-50 transition-colors"
+              className="inline-flex items-center gap-1.5 rounded-lg bg-[#1a1a1a] px-3 py-1.5 text-xs font-medium text-white hover:bg-[#333333] transition-colors"
             >
               <svg
                 className="h-3.5 w-3.5"
