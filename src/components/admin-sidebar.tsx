@@ -55,15 +55,10 @@ export function AdminSidebar({ userName }: { userName: string }) {
     .slice(0, 2);
 
   return (
-    <aside className="flex w-64 flex-col border-r border-emerald-900/8 bg-white">
+    <aside className="w-[200px] bg-white h-screen fixed flex flex-col">
       {/* Logo */}
-      <div className="flex items-center gap-2.5 px-6 py-5">
-        <span className="text-xl font-bold tracking-[-0.03em] text-emerald-900">
-          Elilons
-        </span>
-        <span className="rounded-full bg-emerald-50 px-2.5 py-0.5 text-[10px] font-semibold text-emerald-600">
-          Admin
-        </span>
+      <div className="px-3 pt-5 pb-4">
+        <span className="font-extrabold text-[15px] tracking-[-0.03em]">Lime<span className="text-[#15803d]">Credit</span></span>
       </div>
 
       {/* Navigation */}
@@ -75,17 +70,13 @@ export function AdminSidebar({ userName }: { userName: string }) {
               key={item.href}
               href={item.href}
               className={
-                "group relative flex items-center gap-3 rounded-xl px-3 py-2.5 text-[13px] font-medium transition-all " +
+                "group flex items-center gap-3 rounded-lg px-3 py-2.5 text-[13px] font-medium transition-all " +
                 (active
-                  ? "bg-emerald-50 text-emerald-700"
-                  : "text-emerald-800/60 hover:bg-emerald-50/60 hover:text-emerald-800")
+                  ? "bg-[#f0f5f0] text-[#1a1a1a]"
+                  : "text-[#71717a] hover:bg-[#f0f5f0] hover:text-[#1a1a1a]")
               }
             >
-              {/* Active accent bar */}
-              {active && (
-                <span className="absolute left-0 top-1/2 h-5 w-[3px] -translate-y-1/2 rounded-r-full bg-emerald-600" />
-              )}
-              <span className={active ? "text-emerald-600" : "text-emerald-800/40 group-hover:text-emerald-600/60"}>
+              <span className={active ? "text-[#1a1a1a]" : "text-[#71717a] group-hover:text-[#1a1a1a]"}>
                 {item.icon}
               </span>
               {item.label}
@@ -95,22 +86,22 @@ export function AdminSidebar({ userName }: { userName: string }) {
       </nav>
 
       {/* User section */}
-      <div className="border-t border-emerald-900/6 px-4 py-4">
-        <div className="flex items-center gap-3 rounded-xl px-2 py-2">
+      <div className="px-4 py-4">
+        <div className="flex items-center gap-3 rounded-lg px-2 py-2">
           <div className="flex h-8 w-8 items-center justify-center rounded-full bg-gradient-to-br from-emerald-400 to-green-500 text-[11px] font-bold text-white shadow-sm shadow-emerald-500/20">
             {initials}
           </div>
           <div className="flex-1 min-w-0">
-            <p className="truncate text-[13px] font-medium text-emerald-900">
+            <p className="truncate text-[13px] font-medium text-[#1a1a1a]">
               {userName}
             </p>
           </div>
         </div>
         <button
           onClick={() => signOut({ callbackUrl: "/admin/login" })}
-          className="mt-1 flex w-full items-center gap-3 rounded-xl px-4 py-2 text-[13px] font-medium text-emerald-800/50 transition-colors hover:bg-red-50 hover:text-red-600"
+          className="mt-1 flex w-full items-center gap-3 rounded-lg px-4 py-2 text-[13px] font-medium text-[#71717a] transition-colors hover:bg-red-50 hover:text-red-600"
         >
-          <svg className="size-4" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
+          <svg className="size-[18px]" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0 0 13.5 3h-6a2.25 2.25 0 0 0-2.25 2.25v13.5A2.25 2.25 0 0 0 7.5 21h6a2.25 2.25 0 0 0 2.25-2.25V15m3 0 3-3m0 0-3-3m3 3H9" />
           </svg>
           Sign Out
