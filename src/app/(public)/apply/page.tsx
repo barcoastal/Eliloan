@@ -47,18 +47,18 @@ const formSchema = z.object({
 });
 
 /* ------------------------------------------------------------------ */
-/*  NAVBAR (same as homepage)                                           */
+/*  NAVBAR                                                              */
 /* ------------------------------------------------------------------ */
 function Navbar() {
   return (
-    <nav className="fixed top-0 z-50 w-full bg-[#FAFAF7]/90 backdrop-blur-xl border-b border-emerald-900/5">
+    <nav className="fixed top-0 z-50 w-full bg-[#FAFAF7]/90 backdrop-blur-xl border-b border-[#e5e7eb]">
       <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4 sm:px-10">
-        <Link href="/" className="text-2xl font-bold tracking-[-0.03em] text-emerald-900">
-          Elilons
+        <Link href="/">
+          <span className="font-extrabold text-lg tracking-[-0.03em]">Lime<span className="text-[#15803d]">Credit</span></span>
         </Link>
         <Link
           href="/status"
-          className="text-[13px] font-medium text-emerald-800/60 transition-colors hover:text-emerald-900"
+          className="text-[13px] text-[#71717a] transition-colors hover:text-[#1a1a1a]"
         >
           Check Status
         </Link>
@@ -72,48 +72,23 @@ function Navbar() {
 /* ------------------------------------------------------------------ */
 function StepIndicator({ current }: { current: number }) {
   return (
-    <div className="flex items-center justify-center gap-2 sm:gap-3">
-      {STEPS.map((label, i) => {
-        const done = i < current;
-        const active = i === current;
-        return (
-          <div key={label} className="flex items-center gap-2 sm:gap-3">
-            {i > 0 && (
-              <div
-                className={`h-[2px] w-6 sm:w-10 rounded-full transition-colors duration-500 ${
-                  done ? "bg-emerald-500" : "bg-emerald-900/8"
-                }`}
-              />
-            )}
-            <div className="flex items-center gap-2">
-              <div
-                className={`flex h-8 w-8 items-center justify-center rounded-full text-[12px] font-bold transition-all duration-500 ${
-                  done
-                    ? "bg-emerald-500 text-white shadow-md shadow-emerald-500/20"
-                    : active
-                    ? "bg-emerald-600 text-white shadow-lg shadow-emerald-600/25 scale-110"
-                    : "bg-emerald-900/5 text-emerald-800/30"
-                }`}
-              >
-                {done ? (
-                  <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" />
-                  </svg>
-                ) : (
-                  i + 1
-                )}
-              </div>
-              <span
-                className={`hidden text-[12px] font-medium sm:block transition-colors duration-300 ${
-                  active ? "text-emerald-900" : done ? "text-emerald-600" : "text-emerald-800/30"
-                }`}
-              >
-                {label}
-              </span>
-            </div>
-          </div>
-        );
-      })}
+    <div className="w-full">
+      {/* Progress bar */}
+      <div className="h-[3px] w-full bg-[#e5e7eb] rounded-full overflow-hidden">
+        <motion.div
+          className="h-full bg-[#1a1a1a] rounded-full"
+          initial={false}
+          animate={{ width: `${((current + 1) / STEPS.length) * 100}%` }}
+          transition={{ duration: 0.4 }}
+        />
+      </div>
+      {/* Step counter */}
+      <div className="mt-3 flex items-center justify-between">
+        <span className="text-[13px] text-[#71717a]">
+          Step {current + 1} of {STEPS.length}
+        </span>
+        <span className="text-[13px] text-[#71717a]">{STEPS[current]}</span>
+      </div>
     </div>
   );
 }
@@ -134,8 +109,8 @@ function StepAmount({
   setLoanTermMonths: (v: number) => void;
   onNext: () => void;
 }) {
-  const presets = [1000, 2500, 5000, 7500, 10000];
   const pct = ((amount - MIN_AMOUNT) / (MAX_AMOUNT - MIN_AMOUNT)) * 100;
+  const monthlyEstimate = ((amount / loanTermMonths) * 1.08).toFixed(0);
 
   return (
     <motion.div
@@ -143,58 +118,43 @@ function StepAmount({
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -20 }}
       transition={{ duration: 0.4 }}
-      className="flex flex-col items-center"
+      className="flex flex-col w-full max-w-[400px] mx-auto"
     >
-      <div className="mb-2 inline-flex items-center gap-2 rounded-full bg-emerald-50 px-4 py-1.5">
-        <div className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
-        <span className="text-[12px] font-semibold text-emerald-600">Step 1 of 7</span>
-      </div>
-
-      <h2 className="mt-4 text-center text-3xl font-bold tracking-[-0.03em] text-emerald-950 sm:text-4xl">
+      <h2 className="text-[28px] font-extrabold tracking-[-0.03em] text-[#1a1a1a]">
         How much do you need?
       </h2>
-      <p className="mt-3 text-center text-base text-emerald-800/60">
+      <p className="mt-2 text-sm text-[#71717a]">
         Choose your loan amount. Up to $10,000 for 1099 workers.
       </p>
 
       {/* Big amount display */}
-      <div className="mt-10 mb-8 text-center">
-        <div className="relative inline-block">
-          <span className="absolute -left-6 top-3 text-2xl font-bold text-emerald-600/40">$</span>
-          <motion.span
-            key={amount}
-            className="text-7xl font-bold tracking-[-0.04em] text-emerald-900 sm:text-8xl"
-            initial={{ scale: 1.05, opacity: 0.7 }}
-            animate={{ scale: 1, opacity: 1 }}
-            transition={{ duration: 0.15 }}
-          >
-            {amount.toLocaleString()}
-          </motion.span>
-        </div>
+      <div className="mt-8 mb-6 text-center">
+        <motion.span
+          key={amount}
+          className="text-[32px] font-extrabold text-[#15803d]"
+          initial={{ scale: 1.05, opacity: 0.7 }}
+          animate={{ scale: 1, opacity: 1 }}
+          transition={{ duration: 0.15 }}
+        >
+          ${amount.toLocaleString()}
+        </motion.span>
       </div>
 
       {/* Custom range slider */}
-      <div className="w-full max-w-md px-2">
-        <div className="relative h-3 w-full">
+      <div className="w-full px-1">
+        <div className="relative h-[6px] w-full">
           {/* Track bg */}
-          <div className="absolute inset-0 rounded-full bg-emerald-100" />
+          <div className="absolute inset-0 rounded-full bg-[#e5e7eb]" />
           {/* Track fill */}
           <motion.div
-            className="absolute inset-y-0 left-0 rounded-full bg-gradient-to-r from-emerald-500 to-green-400"
+            className="absolute inset-y-0 left-0 rounded-full bg-[#1a1a1a]"
             style={{ width: `${pct}%` }}
-            layout
-            transition={{ duration: 0.1 }}
-          />
-          {/* Thumb glow */}
-          <motion.div
-            className="absolute top-1/2 h-7 w-7 -translate-x-1/2 -translate-y-1/2 rounded-full bg-emerald-500/20"
-            style={{ left: `${pct}%` }}
             layout
             transition={{ duration: 0.1 }}
           />
           {/* Thumb */}
           <motion.div
-            className="absolute top-1/2 h-5 w-5 -translate-x-1/2 -translate-y-1/2 rounded-full border-[3px] border-emerald-500 bg-white shadow-lg shadow-emerald-500/20"
+            className="absolute top-1/2 h-[18px] w-[18px] -translate-x-1/2 -translate-y-1/2 rounded-full border-[3px] border-white bg-[#1a1a1a] shadow-md"
             style={{ left: `${pct}%` }}
             layout
             transition={{ duration: 0.1 }}
@@ -210,33 +170,15 @@ function StepAmount({
             className="absolute inset-0 w-full cursor-pointer opacity-0"
           />
         </div>
-        <div className="mt-2 flex justify-between text-[11px] font-medium text-emerald-800/35">
+        <div className="mt-2 flex justify-between text-[11px] text-[#a1a1aa]">
           <span>${MIN_AMOUNT.toLocaleString()}</span>
           <span>${MAX_AMOUNT.toLocaleString()}</span>
         </div>
       </div>
 
-      {/* Preset buttons */}
-      <div className="mt-8 flex flex-wrap justify-center gap-2">
-        {presets.map((p) => (
-          <button
-            key={p}
-            type="button"
-            onClick={() => setAmount(p)}
-            className={`rounded-full px-5 py-2 text-[13px] font-semibold transition-all duration-200 ${
-              amount === p
-                ? "bg-emerald-600 text-white shadow-md shadow-emerald-600/20 scale-105"
-                : "border border-emerald-900/10 bg-white text-emerald-800/60 hover:border-emerald-500/30 hover:text-emerald-700"
-            }`}
-          >
-            ${p.toLocaleString()}
-          </button>
-        ))}
-      </div>
-
       {/* Loan term selector */}
-      <div className="mt-10 w-full max-w-md">
-        <p className="mb-3 text-center text-[14px] font-medium text-emerald-800/70">
+      <div className="mt-8 w-full">
+        <p className="mb-3 text-[13px] font-semibold uppercase tracking-[0.05em] text-[#71717a]">
           Repayment Term
         </p>
         <div className="grid grid-cols-3 gap-2 sm:grid-cols-6">
@@ -245,10 +187,10 @@ function StepAmount({
               key={term}
               type="button"
               onClick={() => setLoanTermMonths(term)}
-              className={`rounded-xl px-3 py-2.5 text-[13px] font-semibold transition-all duration-200 ${
+              className={`rounded-lg px-3 py-2.5 text-[13px] font-semibold transition-all duration-200 ${
                 loanTermMonths === term
-                  ? "bg-emerald-600 text-white shadow-md shadow-emerald-600/20 scale-105"
-                  : "border border-emerald-900/10 bg-white text-emerald-800/60 hover:border-emerald-500/30 hover:text-emerald-700"
+                  ? "bg-[#1a1a1a] text-white"
+                  : "bg-[#f0f5f0] text-[#71717a] hover:bg-[#e5e7eb]"
               }`}
             >
               {term}mo
@@ -257,13 +199,14 @@ function StepAmount({
         </div>
       </div>
 
-      {/* Info note */}
-      <div className="mt-10 flex items-start gap-3 rounded-2xl bg-emerald-50/80 px-5 py-4 max-w-md">
-        <svg className="mt-0.5 h-5 w-5 flex-shrink-0 text-emerald-500" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
-          <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-        </svg>
-        <p className="text-[13px] leading-relaxed text-emerald-800/60">
-          No credit check required. Your approval is based on your gig earnings from the last 3 months.
+      {/* Monthly estimate */}
+      <div className="mt-6 bg-[#f0f5f0] rounded-[10px] p-4">
+        <div className="flex items-center justify-between">
+          <span className="text-[13px] text-[#71717a]">Estimated monthly payment</span>
+          <span className="text-[16px] font-extrabold text-[#15803d]">${monthlyEstimate}/mo</span>
+        </div>
+        <p className="mt-1 text-[11px] text-[#a1a1aa]">
+          No credit check required. Approval based on gig earnings.
         </p>
       </div>
 
@@ -271,11 +214,10 @@ function StepAmount({
       <motion.button
         type="button"
         onClick={onNext}
-        className="mt-10 group rounded-full bg-emerald-600 px-10 py-4 text-[15px] font-bold text-white shadow-lg shadow-emerald-600/20 transition-all hover:bg-emerald-500 hover:scale-105"
+        className="mt-8 w-full rounded-lg bg-[#1a1a1a] py-4 text-[15px] font-semibold text-white transition-all hover:bg-[#333333]"
         whileTap={{ scale: 0.97 }}
       >
-        Continue
-        <span className="ml-2 inline-block transition-transform group-hover:translate-x-1">&rarr;</span>
+        Continue &rarr;
       </motion.button>
     </motion.div>
   );
@@ -307,10 +249,10 @@ function StepInfo({
   };
 
   const inputClass = (field: string) =>
-    `w-full rounded-xl border bg-white px-4 py-3.5 text-[15px] text-emerald-900 placeholder:text-emerald-800/25 outline-none transition-all duration-200 ${
+    `w-full rounded-[10px] border bg-white px-4 py-3.5 text-[15px] text-[#1a1a1a] placeholder:text-[#a1a1aa] outline-none transition-all duration-200 ${
       errors[field]
         ? "border-red-300 focus:border-red-400 focus:ring-2 focus:ring-red-100"
-        : "border-emerald-900/10 focus:border-emerald-500 focus:ring-2 focus:ring-emerald-100"
+        : "border-[#e5e7eb] focus:border-[#1a1a1a] focus:ring-2 focus:ring-[#1a1a1a]/10"
     }`;
 
   return (
@@ -319,24 +261,19 @@ function StepInfo({
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -20 }}
       transition={{ duration: 0.4 }}
-      className="w-full max-w-md"
+      className="w-full max-w-[400px] mx-auto"
     >
-      <div className="mb-2 inline-flex items-center gap-2 rounded-full bg-emerald-50 px-4 py-1.5">
-        <div className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
-        <span className="text-[12px] font-semibold text-emerald-600">Step 2 of 7</span>
-      </div>
-
-      <h2 className="mt-4 text-3xl font-bold tracking-[-0.03em] text-emerald-950">
+      <h2 className="text-[28px] font-extrabold tracking-[-0.03em] text-[#1a1a1a]">
         Tell us about yourself
       </h2>
-      <p className="mt-2 text-base text-emerald-800/60">
+      <p className="mt-2 text-sm text-[#71717a]">
         Basic info so we can process your application.
       </p>
 
       <div className="mt-8 flex flex-col gap-5">
         <div className="grid grid-cols-2 gap-4">
           <div>
-            <label className="mb-1.5 block text-[13px] font-medium text-emerald-800/70">First Name</label>
+            <label className="mb-1.5 block text-[12px] font-semibold uppercase tracking-[0.05em] text-[#71717a]">First Name</label>
             <input
               value={form.firstName}
               onChange={(e) => setForm({ ...form, firstName: e.target.value })}
@@ -346,7 +283,7 @@ function StepInfo({
             {errors.firstName && <p className="mt-1 text-[12px] text-red-500">{errors.firstName}</p>}
           </div>
           <div>
-            <label className="mb-1.5 block text-[13px] font-medium text-emerald-800/70">Last Name</label>
+            <label className="mb-1.5 block text-[12px] font-semibold uppercase tracking-[0.05em] text-[#71717a]">Last Name</label>
             <input
               value={form.lastName}
               onChange={(e) => setForm({ ...form, lastName: e.target.value })}
@@ -358,7 +295,7 @@ function StepInfo({
         </div>
 
         <div>
-          <label className="mb-1.5 block text-[13px] font-medium text-emerald-800/70">Email</label>
+          <label className="mb-1.5 block text-[12px] font-semibold uppercase tracking-[0.05em] text-[#71717a]">Email</label>
           <input
             type="email"
             value={form.email}
@@ -370,7 +307,7 @@ function StepInfo({
         </div>
 
         <div>
-          <label className="mb-1.5 block text-[13px] font-medium text-emerald-800/70">Phone</label>
+          <label className="mb-1.5 block text-[12px] font-semibold uppercase tracking-[0.05em] text-[#71717a]">Phone</label>
           <input
             type="tel"
             value={form.phone}
@@ -382,8 +319,8 @@ function StepInfo({
         </div>
 
         <div>
-          <label className="mb-1.5 block text-[13px] font-medium text-emerald-800/70">
-            Social Security Number (SSN)
+          <label className="mb-1.5 block text-[12px] font-semibold uppercase tracking-[0.05em] text-[#71717a]">
+            Social Security Number
           </label>
           <div className="relative">
             <input
@@ -397,7 +334,7 @@ function StepInfo({
             <button
               type="button"
               onClick={() => setShowSsn(!showSsn)}
-              className="absolute right-3 top-1/2 -translate-y-1/2 text-emerald-800/30 hover:text-emerald-800/60 transition-colors"
+              className="absolute right-3 top-1/2 -translate-y-1/2 text-[#a1a1aa] hover:text-[#71717a] transition-colors"
             >
               {showSsn ? (
                 <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
@@ -412,33 +349,32 @@ function StepInfo({
             </button>
           </div>
           {errors.ssn && <p className="mt-1 text-[12px] text-red-500">{errors.ssn}</p>}
-          <div className="mt-2 flex items-start gap-2 rounded-xl bg-amber-50/80 px-3 py-2">
-            <svg className="mt-0.5 h-4 w-4 flex-shrink-0 text-amber-500" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
+          <div className="mt-2 flex items-start gap-2 bg-[#f0f5f0] rounded-[10px] px-3 py-2">
+            <svg className="mt-0.5 h-4 w-4 flex-shrink-0 text-[#15803d]" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z" />
             </svg>
-            <p className="text-[11px] leading-relaxed text-amber-800/60">
+            <p className="text-[11px] leading-relaxed text-[#71717a]">
               Your SSN is encrypted and only used for identity verification. We never share it.
             </p>
           </div>
         </div>
       </div>
 
-      <div className="mt-10 flex items-center gap-4">
+      <div className="mt-8 flex items-center gap-3">
         <button
           type="button"
           onClick={onBack}
-          className="rounded-full border border-emerald-900/10 bg-white px-6 py-3.5 text-[14px] font-medium text-emerald-800/60 transition-all hover:border-emerald-900/20 hover:text-emerald-900"
+          className="rounded-lg border border-[#e5e7eb] bg-white px-6 py-3.5 text-[14px] font-medium text-[#71717a] transition-all hover:border-[#1a1a1a]/20 hover:text-[#1a1a1a]"
         >
           &larr; Back
         </button>
         <motion.button
           type="button"
           onClick={onNext}
-          className="group flex-1 rounded-full bg-emerald-600 py-3.5 text-[15px] font-bold text-white shadow-lg shadow-emerald-600/20 transition-all hover:bg-emerald-500 hover:scale-[1.02]"
+          className="flex-1 rounded-lg bg-[#1a1a1a] py-3.5 text-[15px] font-semibold text-white transition-all hover:bg-[#333333]"
           whileTap={{ scale: 0.97 }}
         >
-          Continue
-          <span className="ml-2 inline-block transition-transform group-hover:translate-x-1">&rarr;</span>
+          Continue &rarr;
         </motion.button>
       </div>
     </motion.div>
@@ -481,17 +417,12 @@ function StepPlatforms({
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -20 }}
       transition={{ duration: 0.4 }}
-      className="w-full max-w-md"
+      className="w-full max-w-[400px] mx-auto"
     >
-      <div className="mb-2 inline-flex items-center gap-2 rounded-full bg-emerald-50 px-4 py-1.5">
-        <div className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
-        <span className="text-[12px] font-semibold text-emerald-600">Step 3 of 7</span>
-      </div>
-
-      <h2 className="mt-4 text-3xl font-bold tracking-[-0.03em] text-emerald-950">
+      <h2 className="text-[28px] font-extrabold tracking-[-0.03em] text-[#1a1a1a]">
         Where do you earn?
       </h2>
-      <p className="mt-2 text-base text-emerald-800/60">
+      <p className="mt-2 text-sm text-[#71717a]">
         Select the platforms you work on. Pick all that apply.
       </p>
 
@@ -504,24 +435,20 @@ function StepPlatforms({
               key={p.id}
               type="button"
               onClick={() => togglePlatform(p.id)}
-              className={`flex items-center gap-2.5 rounded-xl border px-4 py-3 text-left transition-all duration-200 ${
+              className={`flex items-center gap-2.5 rounded-lg px-4 py-3 text-left text-sm transition-all duration-200 ${
                 selected
-                  ? "border-emerald-500 bg-emerald-50 shadow-sm shadow-emerald-500/10"
-                  : "border-emerald-900/8 bg-white hover:border-emerald-500/30"
+                  ? "bg-[#1a1a1a] text-white"
+                  : "bg-[#f0f5f0] text-[#71717a] hover:bg-[#e5e7eb]"
               }`}
               whileTap={{ scale: 0.97 }}
             >
               <span className="text-lg">{p.icon}</span>
-              <span
-                className={`text-[13px] font-medium transition-colors ${
-                  selected ? "text-emerald-800" : "text-emerald-800/50"
-                }`}
-              >
+              <span className="text-[13px] font-medium">
                 {p.label}
               </span>
               {selected && (
                 <motion.div
-                  className="ml-auto flex h-5 w-5 items-center justify-center rounded-full bg-emerald-500"
+                  className="ml-auto flex h-5 w-5 items-center justify-center rounded-full bg-white/20"
                   initial={{ scale: 0 }}
                   animate={{ scale: 1 }}
                   transition={{ type: "spring", stiffness: 300, damping: 20 }}
@@ -539,24 +466,20 @@ function StepPlatforms({
         <motion.button
           type="button"
           onClick={() => togglePlatform("other")}
-          className={`flex items-center gap-2.5 rounded-xl border px-4 py-3 text-left transition-all duration-200 ${
+          className={`flex items-center gap-2.5 rounded-lg px-4 py-3 text-left text-sm transition-all duration-200 ${
             hasOther
-              ? "border-emerald-500 bg-emerald-50 shadow-sm shadow-emerald-500/10"
-              : "border-emerald-900/8 bg-white hover:border-emerald-500/30"
+              ? "bg-[#1a1a1a] text-white"
+              : "bg-[#f0f5f0] text-[#71717a] hover:bg-[#e5e7eb]"
           }`}
           whileTap={{ scale: 0.97 }}
         >
           <span className="text-lg">+</span>
-          <span
-            className={`text-[13px] font-medium transition-colors ${
-              hasOther ? "text-emerald-800" : "text-emerald-800/50"
-            }`}
-          >
+          <span className="text-[13px] font-medium">
             Other
           </span>
           {hasOther && (
             <motion.div
-              className="ml-auto flex h-5 w-5 items-center justify-center rounded-full bg-emerald-500"
+              className="ml-auto flex h-5 w-5 items-center justify-center rounded-full bg-white/20"
               initial={{ scale: 0 }}
               animate={{ scale: 1 }}
               transition={{ type: "spring", stiffness: 300, damping: 20 }}
@@ -581,7 +504,7 @@ function StepPlatforms({
             value={otherPlatform}
             onChange={(e) => setOtherPlatform(e.target.value)}
             placeholder="Enter platform name..."
-            className="w-full rounded-xl border border-emerald-900/10 bg-white px-4 py-3.5 text-[15px] text-emerald-900 placeholder:text-emerald-800/25 outline-none transition-all focus:border-emerald-500 focus:ring-2 focus:ring-emerald-100"
+            className="w-full rounded-[10px] border border-[#e5e7eb] bg-white px-4 py-3.5 text-[15px] text-[#1a1a1a] placeholder:text-[#a1a1aa] outline-none transition-all focus:border-[#1a1a1a] focus:ring-2 focus:ring-[#1a1a1a]/10"
           />
         </motion.div>
       )}
@@ -589,8 +512,8 @@ function StepPlatforms({
       {/* Selected count */}
       {platforms.length > 0 && (
         <div className="mt-4 flex items-center gap-2">
-          <div className="h-2 w-2 rounded-full bg-emerald-500" />
-          <span className="text-[13px] font-medium text-emerald-800/60">
+          <div className="h-2 w-2 rounded-full bg-[#1a1a1a]" />
+          <span className="text-[13px] font-medium text-[#71717a]">
             {platforms.length} platform{platforms.length !== 1 ? "s" : ""} selected
           </span>
         </div>
@@ -598,14 +521,14 @@ function StepPlatforms({
 
       {/* Average weekly earnings */}
       <div className="mt-8">
-        <label className="mb-1.5 block text-[13px] font-medium text-emerald-800/70">
-          Average weekly earnings (past 12 months)
+        <label className="mb-1.5 block text-[12px] font-semibold uppercase tracking-[0.05em] text-[#71717a]">
+          Avg. Weekly Earnings (past 12 months)
         </label>
-        <p className="mb-3 text-[12px] text-emerald-800/40">
+        <p className="mb-3 text-[12px] text-[#a1a1aa]">
           Your best estimate across all platforms combined.
         </p>
         <div className="relative">
-          <span className="absolute left-4 top-1/2 -translate-y-1/2 text-[15px] font-medium text-emerald-800/30">$</span>
+          <span className="absolute left-4 top-1/2 -translate-y-1/2 text-[15px] font-medium text-[#a1a1aa]">$</span>
           <input
             type="number"
             min="0"
@@ -613,13 +536,13 @@ function StepPlatforms({
             value={weeklyEarnings}
             onChange={(e) => setWeeklyEarnings(e.target.value)}
             placeholder="800"
-            className="w-full rounded-xl border border-emerald-900/10 bg-white pl-8 pr-24 py-3.5 text-[15px] text-emerald-900 placeholder:text-emerald-800/25 outline-none transition-all focus:border-emerald-500 focus:ring-2 focus:ring-emerald-100"
+            className="w-full rounded-[10px] border border-[#e5e7eb] bg-white pl-8 pr-24 py-3.5 text-[15px] text-[#1a1a1a] placeholder:text-[#a1a1aa] outline-none transition-all focus:border-[#1a1a1a] focus:ring-2 focus:ring-[#1a1a1a]/10"
           />
-          <span className="absolute right-4 top-1/2 -translate-y-1/2 text-[13px] text-emerald-800/30">/ week</span>
+          <span className="absolute right-4 top-1/2 -translate-y-1/2 text-[13px] text-[#a1a1aa]">/ week</span>
         </div>
         {weeklyEarnings && Number(weeklyEarnings) > 0 && (
           <motion.p
-            className="mt-2 text-[12px] text-emerald-600"
+            className="mt-2 text-[12px] text-[#15803d]"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
           >
@@ -628,11 +551,11 @@ function StepPlatforms({
         )}
       </div>
 
-      <div className="mt-10 flex items-center gap-4">
+      <div className="mt-8 flex items-center gap-3">
         <button
           type="button"
           onClick={onBack}
-          className="rounded-full border border-emerald-900/10 bg-white px-6 py-3.5 text-[14px] font-medium text-emerald-800/60 transition-all hover:border-emerald-900/20 hover:text-emerald-900"
+          className="rounded-lg border border-[#e5e7eb] bg-white px-6 py-3.5 text-[14px] font-medium text-[#71717a] transition-all hover:border-[#1a1a1a]/20 hover:text-[#1a1a1a]"
         >
           &larr; Back
         </button>
@@ -653,11 +576,10 @@ function StepPlatforms({
             }
             onNext();
           }}
-          className="group flex-1 rounded-full bg-emerald-600 py-3.5 text-[15px] font-bold text-white shadow-lg shadow-emerald-600/20 transition-all hover:bg-emerald-500 hover:scale-[1.02]"
+          className="flex-1 rounded-lg bg-[#1a1a1a] py-3.5 text-[15px] font-semibold text-white transition-all hover:bg-[#333333]"
           whileTap={{ scale: 0.97 }}
         >
-          Continue
-          <span className="ml-2 inline-block transition-transform group-hover:translate-x-1">&rarr;</span>
+          Continue &rarr;
         </motion.button>
       </div>
     </motion.div>
@@ -719,41 +641,36 @@ function StepIdentity({
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -20 }}
       transition={{ duration: 0.4 }}
-      className="w-full max-w-md"
+      className="w-full max-w-[400px] mx-auto"
     >
-      <div className="mb-2 inline-flex items-center gap-2 rounded-full bg-emerald-50 px-4 py-1.5">
-        <div className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
-        <span className="text-[12px] font-semibold text-emerald-600">Step 4 of 7</span>
-      </div>
-
-      <h2 className="mt-4 text-3xl font-bold tracking-[-0.03em] text-emerald-950">
+      <h2 className="text-[28px] font-extrabold tracking-[-0.03em] text-[#1a1a1a]">
         Verify your identity
       </h2>
-      <p className="mt-2 text-base text-emerald-800/60">
+      <p className="mt-2 text-sm text-[#71717a]">
         Upload a government-issued photo ID and a recent bank statement.
       </p>
 
       <div className="mt-8 flex flex-col gap-6">
         {/* Photo ID Upload */}
         <div>
-          <label className="mb-2 flex items-center gap-2 text-[13px] font-medium text-emerald-800/70">
-            <svg className="h-4 w-4 text-emerald-600" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
+          <label className="mb-2 flex items-center gap-2 text-[12px] font-semibold uppercase tracking-[0.05em] text-[#71717a]">
+            <svg className="h-4 w-4 text-[#1a1a1a]" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" d="M15 9h3.75M15 12h3.75M15 15h3.75M4.5 19.5h15a2.25 2.25 0 002.25-2.25V6.75A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25v10.5A2.25 2.25 0 004.5 19.5zm6-10.125a1.875 1.875 0 11-3.75 0 1.875 1.875 0 013.75 0zm1.294 6.336a6.721 6.721 0 01-3.17.789 6.721 6.721 0 01-3.168-.789 3.376 3.376 0 016.338 0z" />
             </svg>
             Photo ID
             <span className="text-red-400">*</span>
           </label>
-          <p className="mb-3 text-[12px] text-emerald-800/40">
+          <p className="mb-3 text-[12px] text-[#a1a1aa]">
             Driver&apos;s license, state ID, or passport. Must show your full name and photo clearly.
           </p>
 
           {photoId && idPreview ? (
-            <div className="relative rounded-2xl border border-emerald-200 bg-white overflow-hidden">
+            <div className="relative rounded-[10px] border border-[#e5e7eb] bg-white overflow-hidden">
               <img src={idPreview} alt="ID preview" className="w-full h-48 object-cover" />
               <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
               <div className="absolute bottom-0 left-0 right-0 flex items-center justify-between px-4 py-3">
                 <div className="flex items-center gap-2">
-                  <div className="flex h-6 w-6 items-center justify-center rounded-full bg-emerald-500">
+                  <div className="flex h-6 w-6 items-center justify-center rounded-full bg-[#1a1a1a]">
                     <svg className="h-3.5 w-3.5 text-white" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor">
                       <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" />
                     </svg>
@@ -775,19 +692,19 @@ function StepIdentity({
             <button
               type="button"
               onClick={() => idInputRef.current?.click()}
-              className="flex w-full flex-col items-center gap-3 rounded-2xl border-2 border-dashed border-emerald-900/10 bg-white p-8 transition-all hover:border-emerald-500/30 hover:bg-emerald-50/50"
+              className="flex w-full flex-col items-center gap-3 rounded-[10px] border-2 border-dashed border-[#e5e7eb] bg-white p-8 transition-all hover:border-[#15803d] hover:bg-[#f0f5f0]/50"
             >
-              <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-emerald-50">
-                <svg className="h-6 w-6 text-emerald-500" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
+              <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-[#f0f5f0]">
+                <svg className="h-6 w-6 text-[#71717a]" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" d="M6.827 6.175A2.31 2.31 0 015.186 7.23c-.38.054-.757.112-1.134.175C2.999 7.58 2.25 8.507 2.25 9.574V18a2.25 2.25 0 002.25 2.25h15A2.25 2.25 0 0021.75 18V9.574c0-1.067-.75-1.994-1.802-2.169a47.865 47.865 0 00-1.134-.175 2.31 2.31 0 01-1.64-1.055l-.822-1.316a2.192 2.192 0 00-1.736-1.039 48.774 48.774 0 00-5.232 0 2.192 2.192 0 00-1.736 1.039l-.821 1.316z" />
                   <path strokeLinecap="round" strokeLinejoin="round" d="M16.5 12.75a4.5 4.5 0 11-9 0 4.5 4.5 0 019 0zM18.75 10.5h.008v.008h-.008V10.5z" />
                 </svg>
               </div>
               <div className="text-center">
-                <p className="text-[14px] font-medium text-emerald-900">
-                  Take a photo or <span className="text-emerald-600">upload your ID</span>
+                <p className="text-[14px] font-medium text-[#1a1a1a]">
+                  Take a photo or <span className="text-[#15803d]">upload your ID</span>
                 </p>
-                <p className="mt-1 text-[12px] text-emerald-800/40">PNG or JPEG, max 10MB</p>
+                <p className="mt-1 text-[12px] text-[#a1a1aa]">PNG or JPEG, max 10MB</p>
               </div>
             </button>
           )}
@@ -806,41 +723,41 @@ function StepIdentity({
 
         {/* Bank Statement Upload */}
         <div>
-          <label className="mb-2 flex items-center gap-2 text-[13px] font-medium text-emerald-800/70">
-            <svg className="h-4 w-4 text-emerald-600" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
+          <label className="mb-2 flex items-center gap-2 text-[12px] font-semibold uppercase tracking-[0.05em] text-[#71717a]">
+            <svg className="h-4 w-4 text-[#1a1a1a]" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" d="M12 21v-8.25M15.75 21v-8.25M8.25 21v-8.25M3 9l9-6 9 6m-1.5 12V10.332A48.36 48.36 0 0012 9.75c-2.551 0-5.056.2-7.5.582V21M3 21h18M12 6.75h.008v.008H12V6.75z" />
             </svg>
             Bank Statement
             <span className="text-red-400">*</span>
           </label>
-          <p className="mb-3 text-[12px] text-emerald-800/40">
+          <p className="mb-3 text-[12px] text-[#a1a1aa]">
             Most recent bank statement (last 30 days) showing your name and account activity.
           </p>
 
           {bankStatement ? (
             <motion.div
-              className="flex items-center gap-3 rounded-xl border border-emerald-200 bg-white px-4 py-3"
+              className="flex items-center gap-3 rounded-lg border border-[#e5e7eb] bg-[#f0f5f0] px-4 py-3"
               initial={{ opacity: 0, x: -10 }}
               animate={{ opacity: 1, x: 0 }}
             >
-              <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-emerald-50">
-                <svg className="h-5 w-5 text-emerald-600" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
+              <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-white">
+                <svg className="h-5 w-5 text-[#1a1a1a]" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m2.25 0H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" />
                 </svg>
               </div>
               <div className="flex-1 min-w-0">
-                <p className="truncate text-[13px] font-medium text-emerald-900">{bankStatement.name}</p>
-                <p className="text-[11px] text-emerald-800/40">{(bankStatement.size / 1024).toFixed(0)} KB</p>
+                <p className="truncate text-[13px] font-medium text-[#1a1a1a]">{bankStatement.name}</p>
+                <p className="text-[11px] text-[#71717a]">{(bankStatement.size / 1024).toFixed(0)} KB</p>
               </div>
-              <div className="flex h-6 w-6 items-center justify-center rounded-full bg-emerald-100">
-                <svg className="h-3.5 w-3.5 text-emerald-600" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor">
+              <div className="flex h-6 w-6 items-center justify-center rounded-full bg-[#1a1a1a]">
+                <svg className="h-3.5 w-3.5 text-white" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" />
                 </svg>
               </div>
               <button
                 type="button"
                 onClick={() => setBankStatement(null)}
-                className="flex h-7 w-7 items-center justify-center rounded-lg text-emerald-800/30 hover:bg-red-50 hover:text-red-500 transition-colors"
+                className="flex h-7 w-7 items-center justify-center rounded-lg text-[#a1a1aa] hover:bg-red-50 hover:text-red-500 transition-colors"
               >
                 <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
@@ -851,18 +768,18 @@ function StepIdentity({
             <button
               type="button"
               onClick={() => bankInputRef.current?.click()}
-              className="flex w-full items-center gap-3 rounded-2xl border-2 border-dashed border-emerald-900/10 bg-white px-6 py-5 transition-all hover:border-emerald-500/30 hover:bg-emerald-50/50"
+              className="flex w-full items-center gap-3 rounded-[10px] border-2 border-dashed border-[#e5e7eb] bg-white px-6 py-5 transition-all hover:border-[#15803d] hover:bg-[#f0f5f0]/50"
             >
-              <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-emerald-50">
-                <svg className="h-5 w-5 text-emerald-500" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
+              <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#f0f5f0]">
+                <svg className="h-5 w-5 text-[#71717a]" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5m-13.5-9L12 3m0 0l4.5 4.5M12 3v13.5" />
                 </svg>
               </div>
               <div className="text-left">
-                <p className="text-[14px] font-medium text-emerald-900">
+                <p className="text-[14px] font-medium text-[#1a1a1a]">
                   Upload bank statement
                 </p>
-                <p className="text-[12px] text-emerald-800/40">PDF, PNG, or JPEG</p>
+                <p className="text-[12px] text-[#a1a1aa]">PDF, PNG, or JPEG</p>
               </div>
             </button>
           )}
@@ -880,20 +797,20 @@ function StepIdentity({
       </div>
 
       {/* Security note */}
-      <div className="mt-6 flex items-start gap-2 rounded-xl bg-emerald-50/80 px-4 py-3">
-        <svg className="mt-0.5 h-4 w-4 flex-shrink-0 text-emerald-500" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
+      <div className="mt-6 flex items-start gap-2 bg-[#f0f5f0] rounded-[10px] px-4 py-3">
+        <svg className="mt-0.5 h-4 w-4 flex-shrink-0 text-[#15803d]" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
           <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z" />
         </svg>
-        <p className="text-[11px] leading-relaxed text-emerald-800/55">
+        <p className="text-[11px] leading-relaxed text-[#71717a]">
           Your documents are verified automatically and encrypted with bank-level security. We check that IDs are genuine government-issued documents.
         </p>
       </div>
 
-      <div className="mt-10 flex items-center gap-4">
+      <div className="mt-8 flex items-center gap-3">
         <button
           type="button"
           onClick={onBack}
-          className="rounded-full border border-emerald-900/10 bg-white px-6 py-3.5 text-[14px] font-medium text-emerald-800/60 transition-all hover:border-emerald-900/20 hover:text-emerald-900"
+          className="rounded-lg border border-[#e5e7eb] bg-white px-6 py-3.5 text-[14px] font-medium text-[#71717a] transition-all hover:border-[#1a1a1a]/20 hover:text-[#1a1a1a]"
         >
           &larr; Back
         </button>
@@ -904,11 +821,10 @@ function StepIdentity({
             if (!bankStatement) { toast.error("Please upload your bank statement"); return; }
             onNext();
           }}
-          className="group flex-1 rounded-full bg-emerald-600 py-3.5 text-[15px] font-bold text-white shadow-lg shadow-emerald-600/20 transition-all hover:bg-emerald-500 hover:scale-[1.02]"
+          className="flex-1 rounded-lg bg-[#1a1a1a] py-3.5 text-[15px] font-semibold text-white transition-all hover:bg-[#333333]"
           whileTap={{ scale: 0.97 }}
         >
-          Continue
-          <span className="ml-2 inline-block transition-transform group-hover:translate-x-1">&rarr;</span>
+          Continue &rarr;
         </motion.button>
       </div>
     </motion.div>
@@ -996,48 +912,43 @@ function StepPlaidLink({
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -20 }}
       transition={{ duration: 0.4 }}
-      className="w-full max-w-md"
+      className="w-full max-w-[400px] mx-auto"
     >
-      <div className="mb-2 inline-flex items-center gap-2 rounded-full bg-emerald-50 px-4 py-1.5">
-        <div className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
-        <span className="text-[12px] font-semibold text-emerald-600">Step 5 of 7</span>
-      </div>
-
-      <h2 className="mt-4 text-3xl font-bold tracking-[-0.03em] text-emerald-950">
+      <h2 className="text-[28px] font-extrabold tracking-[-0.03em] text-[#1a1a1a]">
         Link your bank account
       </h2>
-      <p className="mt-2 text-base text-emerald-800/60">
+      <p className="mt-2 text-sm text-[#71717a]">
         Securely connect your bank account so we can verify your income and set up disbursement.
       </p>
 
       <div className="mt-8">
         {linked ? (
           <motion.div
-            className="flex flex-col items-center gap-4 rounded-2xl border border-emerald-200 bg-gradient-to-br from-emerald-50 to-green-50 p-8"
+            className="flex flex-col items-center gap-4 rounded-[10px] border border-[#e5e7eb] bg-[#f0f5f0] p-8"
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.4 }}
           >
-            <div className="flex h-16 w-16 items-center justify-center rounded-full bg-emerald-100">
-              <CheckCircle className="h-8 w-8 text-emerald-600" />
+            <div className="flex h-16 w-16 items-center justify-center rounded-full bg-[#1a1a1a]">
+              <CheckCircle className="h-8 w-8 text-white" />
             </div>
             <div className="text-center">
-              <p className="text-[16px] font-bold text-emerald-900">Bank Account Linked</p>
-              <p className="mt-1 text-[13px] text-emerald-800/60">
+              <p className="text-[16px] font-bold text-[#1a1a1a]">Bank Account Linked</p>
+              <p className="mt-1 text-[13px] text-[#71717a]">
                 Your bank account has been securely connected.
               </p>
             </div>
           </motion.div>
         ) : (
-          <div className="flex flex-col items-center gap-6 rounded-2xl border border-emerald-900/10 bg-white p-8">
-            <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-emerald-50">
-              <Building2 className="h-8 w-8 text-emerald-500" />
+          <div className="flex flex-col items-center gap-6 rounded-[10px] border border-[#e5e7eb] bg-white p-8">
+            <div className="flex h-16 w-16 items-center justify-center rounded-xl bg-[#f0f5f0]">
+              <Building2 className="h-8 w-8 text-[#1a1a1a]" />
             </div>
             <div className="text-center">
-              <p className="text-[15px] font-medium text-emerald-900">
+              <p className="text-[15px] font-semibold text-[#1a1a1a]">
                 Connect with Plaid
               </p>
-              <p className="mt-2 text-[13px] leading-relaxed text-emerald-800/50">
+              <p className="mt-2 text-[13px] leading-relaxed text-[#71717a]">
                 We use Plaid to securely connect to your bank. Your credentials are never shared with us directly.
               </p>
             </div>
@@ -1045,7 +956,7 @@ function StepPlaidLink({
               type="button"
               onClick={() => open()}
               disabled={!ready || loading}
-              className="w-full rounded-full bg-emerald-600 py-3.5 text-[15px] font-bold text-white shadow-lg shadow-emerald-600/20 transition-all hover:bg-emerald-500 hover:scale-[1.02] disabled:opacity-50 disabled:hover:scale-100"
+              className="w-full rounded-lg bg-[#1a1a1a] text-white py-3.5 text-[15px] font-semibold transition-all hover:bg-[#333333] disabled:opacity-50"
               whileTap={!ready || loading ? {} : { scale: 0.97 }}
             >
               {loading ? (
@@ -1068,20 +979,20 @@ function StepPlaidLink({
       </div>
 
       {/* Security note */}
-      <div className="mt-6 flex items-start gap-2 rounded-xl bg-emerald-50/80 px-4 py-3">
-        <svg className="mt-0.5 h-4 w-4 flex-shrink-0 text-emerald-500" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
+      <div className="mt-6 flex items-start gap-2 bg-[#f0f5f0] rounded-[10px] px-4 py-3">
+        <svg className="mt-0.5 h-4 w-4 flex-shrink-0 text-[#15803d]" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
           <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z" />
         </svg>
-        <p className="text-[11px] leading-relaxed text-emerald-800/55">
+        <p className="text-[11px] leading-relaxed text-[#71717a]">
           Plaid uses bank-level encryption. We never see your bank login credentials and cannot make transactions on your behalf.
         </p>
       </div>
 
-      <div className="mt-10 flex items-center gap-4">
+      <div className="mt-8 flex items-center gap-3">
         <button
           type="button"
           onClick={onBack}
-          className="rounded-full border border-emerald-900/10 bg-white px-6 py-3.5 text-[14px] font-medium text-emerald-800/60 transition-all hover:border-emerald-900/20 hover:text-emerald-900"
+          className="rounded-lg border border-[#e5e7eb] bg-white px-6 py-3.5 text-[14px] font-medium text-[#71717a] transition-all hover:border-[#1a1a1a]/20 hover:text-[#1a1a1a]"
         >
           &larr; Back
         </button>
@@ -1094,11 +1005,10 @@ function StepPlaidLink({
             }
             onNext();
           }}
-          className="group flex-1 rounded-full bg-emerald-600 py-3.5 text-[15px] font-bold text-white shadow-lg shadow-emerald-600/20 transition-all hover:bg-emerald-500 hover:scale-[1.02]"
+          className="flex-1 rounded-lg bg-[#1a1a1a] py-3.5 text-[15px] font-semibold text-white transition-all hover:bg-[#333333]"
           whileTap={{ scale: 0.97 }}
         >
-          Continue
-          <span className="ml-2 inline-block transition-transform group-hover:translate-x-1">&rarr;</span>
+          Continue &rarr;
         </motion.button>
       </div>
     </motion.div>
@@ -1139,17 +1049,12 @@ function StepUpload({
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -20 }}
       transition={{ duration: 0.4 }}
-      className="w-full max-w-md"
+      className="w-full max-w-[400px] mx-auto"
     >
-      <div className="mb-2 inline-flex items-center gap-2 rounded-full bg-emerald-50 px-4 py-1.5">
-        <div className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
-        <span className="text-[12px] font-semibold text-emerald-600">Step 6 of 7</span>
-      </div>
-
-      <h2 className="mt-4 text-3xl font-bold tracking-[-0.03em] text-emerald-950">
+      <h2 className="text-[28px] font-extrabold tracking-[-0.03em] text-[#1a1a1a]">
         Upload your pay stubs
       </h2>
-      <p className="mt-2 text-base text-emerald-800/60">
+      <p className="mt-2 text-sm text-[#71717a]">
         We need at least 3 recent pay stubs from your gig platforms.
       </p>
 
@@ -1159,22 +1064,22 @@ function StepUpload({
         onDragLeave={() => setDragOver(false)}
         onDrop={handleDrop}
         onClick={() => fileInputRef.current?.click()}
-        className={`mt-8 flex cursor-pointer flex-col items-center gap-3 rounded-2xl border-2 border-dashed p-10 transition-all duration-300 ${
+        className={`mt-8 flex cursor-pointer flex-col items-center gap-3 rounded-[10px] border-2 border-dashed p-8 transition-all duration-300 ${
           dragOver
-            ? "border-emerald-500 bg-emerald-50 scale-[1.01]"
-            : "border-emerald-900/10 bg-white hover:border-emerald-500/30 hover:bg-emerald-50/50"
+            ? "border-[#15803d] bg-[#f0f5f0] scale-[1.01]"
+            : "border-[#e5e7eb] bg-white hover:border-[#15803d]"
         }`}
       >
-        <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-emerald-50">
-          <svg className="h-7 w-7 text-emerald-500" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
+        <div className="flex h-14 w-14 items-center justify-center rounded-xl bg-[#f0f5f0]">
+          <svg className="h-7 w-7 text-[#71717a]" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5m-13.5-9L12 3m0 0l4.5 4.5M12 3v13.5" />
           </svg>
         </div>
         <div className="text-center">
-          <p className="text-[14px] font-medium text-emerald-900">
-            Drop files here or <span className="text-emerald-600">browse</span>
+          <p className="text-[14px] font-medium text-[#1a1a1a]">
+            Drop files here or <span className="text-[#15803d]">browse</span>
           </p>
-          <p className="mt-1 text-[12px] text-emerald-800/40">
+          <p className="mt-1 text-[12px] text-[#a1a1aa]">
             PDF, PNG, or JPEG - screenshots of your Uber, DoorDash, Lyft earnings
           </p>
         </div>
@@ -1193,8 +1098,8 @@ function StepUpload({
 
       {/* File count badge */}
       <div className="mt-4 flex items-center gap-2">
-        <div className={`h-2 w-2 rounded-full ${files.length >= 3 ? "bg-emerald-500" : "bg-amber-400"}`} />
-        <span className="text-[13px] font-medium text-emerald-800/60">
+        <div className={`h-2 w-2 rounded-full ${files.length >= 3 ? "bg-[#1a1a1a]" : "bg-amber-400"}`} />
+        <span className="text-[13px] font-medium text-[#71717a]">
           {files.length} of 3 minimum uploaded
         </span>
       </div>
@@ -1205,24 +1110,24 @@ function StepUpload({
           {files.map((file, i) => (
             <motion.li
               key={`${file.name}-${i}`}
-              className="flex items-center gap-3 rounded-xl border border-emerald-900/5 bg-white px-4 py-3"
+              className="flex items-center gap-3 rounded-lg bg-[#f0f5f0] px-4 py-3"
               initial={{ opacity: 0, x: -10 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.2 }}
             >
-              <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-emerald-50">
-                <svg className="h-4 w-4 text-emerald-600" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
+              <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-white">
+                <svg className="h-4 w-4 text-[#1a1a1a]" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m2.25 0H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" />
                 </svg>
               </div>
               <div className="flex-1 min-w-0">
-                <p className="truncate text-[13px] font-medium text-emerald-900">{file.name}</p>
-                <p className="text-[11px] text-emerald-800/40">{(file.size / 1024).toFixed(0)} KB</p>
+                <p className="truncate text-[13px] font-medium text-[#1a1a1a]">{file.name}</p>
+                <p className="text-[11px] text-[#71717a]">{(file.size / 1024).toFixed(0)} KB</p>
               </div>
               <button
                 type="button"
                 onClick={(e) => { e.stopPropagation(); removeFile(i); }}
-                className="flex h-7 w-7 items-center justify-center rounded-lg text-emerald-800/30 transition-colors hover:bg-red-50 hover:text-red-500"
+                className="flex h-7 w-7 items-center justify-center rounded-lg text-[#a1a1aa] transition-colors hover:bg-red-50 hover:text-red-500"
               >
                 <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
@@ -1233,11 +1138,11 @@ function StepUpload({
         </ul>
       )}
 
-      <div className="mt-10 flex items-center gap-4">
+      <div className="mt-8 flex items-center gap-3">
         <button
           type="button"
           onClick={onBack}
-          className="rounded-full border border-emerald-900/10 bg-white px-6 py-3.5 text-[14px] font-medium text-emerald-800/60 transition-all hover:border-emerald-900/20 hover:text-emerald-900"
+          className="rounded-lg border border-[#e5e7eb] bg-white px-6 py-3.5 text-[14px] font-medium text-[#71717a] transition-all hover:border-[#1a1a1a]/20 hover:text-[#1a1a1a]"
         >
           &larr; Back
         </button>
@@ -1250,11 +1155,10 @@ function StepUpload({
             }
             onNext();
           }}
-          className="group flex-1 rounded-full bg-emerald-600 py-3.5 text-[15px] font-bold text-white shadow-lg shadow-emerald-600/20 transition-all hover:bg-emerald-500 hover:scale-[1.02]"
+          className="flex-1 rounded-lg bg-[#1a1a1a] py-3.5 text-[15px] font-semibold text-white transition-all hover:bg-[#333333]"
           whileTap={{ scale: 0.97 }}
         >
-          Continue
-          <span className="ml-2 inline-block transition-transform group-hover:translate-x-1">&rarr;</span>
+          Continue &rarr;
         </motion.button>
       </div>
     </motion.div>
@@ -1262,7 +1166,7 @@ function StepUpload({
 }
 
 /* ------------------------------------------------------------------ */
-/*  STEP 5 — REVIEW & SUBMIT                                           */
+/*  STEP 7 — REVIEW & SUBMIT                                           */
 /* ------------------------------------------------------------------ */
 function StepReview({
   amount,
@@ -1310,41 +1214,39 @@ function StepReview({
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -20 }}
       transition={{ duration: 0.4 }}
-      className="w-full max-w-md"
+      className="w-full max-w-[400px] mx-auto"
     >
-      <div className="mb-2 inline-flex items-center gap-2 rounded-full bg-emerald-50 px-4 py-1.5">
-        <div className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
-        <span className="text-[12px] font-semibold text-emerald-600">Step 7 of 7</span>
-      </div>
-
-      <h2 className="mt-4 text-3xl font-bold tracking-[-0.03em] text-emerald-950">
+      <h2 className="text-[28px] font-extrabold tracking-[-0.03em] text-[#1a1a1a]">
         Review & submit
       </h2>
-      <p className="mt-2 text-base text-emerald-800/60">
+      <p className="mt-2 text-sm text-[#71717a]">
         Double check everything looks right before submitting.
       </p>
 
       <div className="mt-8 flex flex-col gap-4">
         {/* Amount card */}
-        <div className="rounded-2xl border border-emerald-200 bg-gradient-to-br from-emerald-50 to-green-50 p-6">
+        <div className="bg-[#f0f5f0] rounded-[10px] p-4">
           <div className="flex items-end justify-between">
             <div>
-              <p className="text-[12px] font-medium text-emerald-600">Loan Amount</p>
-              <p className="mt-1 text-4xl font-bold tracking-[-0.03em] text-emerald-900">
+              <p className="text-[11px] font-semibold uppercase tracking-[0.05em] text-[#71717a]">Loan Amount</p>
+              <p className="mt-1 text-[28px] font-extrabold tracking-[-0.03em] text-[#15803d]">
                 ${amount.toLocaleString()}
               </p>
             </div>
             <div className="text-right">
-              <p className="text-[12px] font-medium text-emerald-600">Repayment Term</p>
-              <p className="mt-1 text-[18px] font-bold text-emerald-900">{loanTermMonths} months</p>
+              <p className="text-[11px] font-semibold uppercase tracking-[0.05em] text-[#71717a]">Repayment Term</p>
+              <p className="mt-1 text-[18px] font-bold text-[#1a1a1a]">{loanTermMonths} months</p>
             </div>
           </div>
         </div>
 
         {/* Info card */}
-        <div className="rounded-2xl border border-emerald-900/5 bg-white p-6">
-          <p className="mb-4 text-[12px] font-medium text-emerald-600">Your Information</p>
-          <div className="grid grid-cols-2 gap-4">
+        <div className="bg-[#f0f5f0] rounded-[10px] p-4">
+          <div className="flex items-center justify-between mb-3">
+            <p className="text-[11px] font-semibold uppercase tracking-[0.05em] text-[#71717a]">Your Information</p>
+            <button type="button" className="text-[#71717a] text-sm hover:text-[#1a1a1a] transition-colors">Edit</button>
+          </div>
+          <div className="grid grid-cols-2 gap-3">
             {[
               { label: "Name", value: `${form.firstName} ${form.lastName}` },
               { label: "Email", value: form.email },
@@ -1352,24 +1254,27 @@ function StepReview({
               { label: "SSN", value: maskedSsn },
             ].map((item) => (
               <div key={item.label}>
-                <p className="text-[11px] text-emerald-800/40">{item.label}</p>
-                <p className="mt-0.5 text-[14px] font-medium text-emerald-900 truncate">{item.value}</p>
+                <p className="text-[11px] text-[#a1a1aa]">{item.label}</p>
+                <p className="mt-0.5 text-[13px] font-medium text-[#1a1a1a] truncate">{item.value}</p>
               </div>
             ))}
           </div>
         </div>
 
         {/* Platforms & Earnings card */}
-        <div className="rounded-2xl border border-emerald-900/5 bg-white p-6">
-          <p className="mb-4 text-[12px] font-medium text-emerald-600">Gig Platforms & Earnings</p>
+        <div className="bg-[#f0f5f0] rounded-[10px] p-4">
+          <div className="flex items-center justify-between mb-3">
+            <p className="text-[11px] font-semibold uppercase tracking-[0.05em] text-[#71717a]">Gig Platforms & Earnings</p>
+            <button type="button" className="text-[#71717a] text-sm hover:text-[#1a1a1a] transition-colors">Edit</button>
+          </div>
           <div className="flex flex-col gap-3">
             <div>
-              <p className="text-[11px] text-emerald-800/40">Platforms</p>
-              <p className="mt-0.5 text-[14px] font-medium text-emerald-900">{platformLabels}</p>
+              <p className="text-[11px] text-[#a1a1aa]">Platforms</p>
+              <p className="mt-0.5 text-[13px] font-medium text-[#1a1a1a]">{platformLabels}</p>
             </div>
             <div>
-              <p className="text-[11px] text-emerald-800/40">Avg. Weekly Earnings</p>
-              <p className="mt-0.5 text-[14px] font-medium text-emerald-900">
+              <p className="text-[11px] text-[#a1a1aa]">Avg. Weekly Earnings</p>
+              <p className="mt-0.5 text-[13px] font-medium text-[#15803d]">
                 ${Number(weeklyEarnings).toLocaleString()}/week (~${(Number(weeklyEarnings) * 52).toLocaleString()}/year)
               </p>
             </div>
@@ -1377,49 +1282,49 @@ function StepReview({
         </div>
 
         {/* Documents card */}
-        <div className="rounded-2xl border border-emerald-900/5 bg-white p-6">
-          <p className="mb-4 text-[12px] font-medium text-emerald-600">Documents ({totalDocs} files)</p>
+        <div className="bg-[#f0f5f0] rounded-[10px] p-4">
+          <p className="mb-3 text-[11px] font-semibold uppercase tracking-[0.05em] text-[#71717a]">Documents ({totalDocs} files)</p>
           <div className="flex flex-col gap-2">
             {photoId && (
               <div className="flex items-center gap-2 text-[13px]">
-                <div className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
-                <span className="text-emerald-800/60">Photo ID:</span>
-                <span className="font-medium text-emerald-900 truncate">{photoId.name}</span>
+                <div className="h-1.5 w-1.5 rounded-full bg-[#1a1a1a]" />
+                <span className="text-[#71717a]">Photo ID:</span>
+                <span className="font-medium text-[#1a1a1a] truncate">{photoId.name}</span>
               </div>
             )}
             {bankStatement && (
               <div className="flex items-center gap-2 text-[13px]">
-                <div className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
-                <span className="text-emerald-800/60">Bank Statement:</span>
-                <span className="font-medium text-emerald-900 truncate">{bankStatement.name}</span>
+                <div className="h-1.5 w-1.5 rounded-full bg-[#1a1a1a]" />
+                <span className="text-[#71717a]">Bank Statement:</span>
+                <span className="font-medium text-[#1a1a1a] truncate">{bankStatement.name}</span>
               </div>
             )}
             <div className="flex items-center gap-2 text-[13px]">
-              <div className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
-              <span className="text-emerald-800/60">Pay Stubs:</span>
-              <span className="font-medium text-emerald-900">{files.length} file{files.length !== 1 ? "s" : ""}</span>
+              <div className="h-1.5 w-1.5 rounded-full bg-[#1a1a1a]" />
+              <span className="text-[#71717a]">Pay Stubs:</span>
+              <span className="font-medium text-[#1a1a1a]">{files.length} file{files.length !== 1 ? "s" : ""}</span>
             </div>
           </div>
         </div>
 
         {/* Bank link card */}
-        <div className="rounded-2xl border border-emerald-900/5 bg-white p-6">
-          <p className="mb-4 text-[12px] font-medium text-emerald-600">Bank Account</p>
+        <div className="bg-[#f0f5f0] rounded-[10px] p-4">
+          <p className="mb-3 text-[11px] font-semibold uppercase tracking-[0.05em] text-[#71717a]">Bank Account</p>
           <div className="flex items-center gap-2 text-[13px]">
-            <div className={`h-1.5 w-1.5 rounded-full ${bankLinked ? "bg-emerald-500" : "bg-amber-400"}`} />
-            <span className="font-medium text-emerald-900">
+            <div className={`h-1.5 w-1.5 rounded-full ${bankLinked ? "bg-[#1a1a1a]" : "bg-amber-400"}`} />
+            <span className="font-medium text-[#1a1a1a]">
               {bankLinked ? "Bank account linked via Plaid" : "Not linked"}
             </span>
           </div>
         </div>
       </div>
 
-      <div className="mt-10 flex items-center gap-4">
+      <div className="mt-8 flex items-center gap-3">
         <button
           type="button"
           onClick={onBack}
           disabled={submitting}
-          className="rounded-full border border-emerald-900/10 bg-white px-6 py-3.5 text-[14px] font-medium text-emerald-800/60 transition-all hover:border-emerald-900/20 hover:text-emerald-900 disabled:opacity-50"
+          className="rounded-lg border border-[#e5e7eb] bg-white px-6 py-3.5 text-[14px] font-medium text-[#71717a] transition-all hover:border-[#1a1a1a]/20 hover:text-[#1a1a1a] disabled:opacity-50"
         >
           &larr; Back
         </button>
@@ -1427,7 +1332,7 @@ function StepReview({
           type="button"
           onClick={onSubmit}
           disabled={submitting}
-          className="group flex-1 rounded-full bg-emerald-600 py-3.5 text-[15px] font-bold text-white shadow-lg shadow-emerald-600/20 transition-all hover:bg-emerald-500 hover:scale-[1.02] disabled:opacity-70 disabled:hover:scale-100"
+          className="flex-1 rounded-lg bg-[#1a1a1a] py-3.5 text-[15px] font-semibold text-white transition-all hover:bg-[#333333] disabled:opacity-70"
           whileTap={submitting ? {} : { scale: 0.97 }}
         >
           {submitting ? (
@@ -1440,8 +1345,7 @@ function StepReview({
             </span>
           ) : (
             <>
-              Submit Application
-              <span className="ml-2 inline-block transition-transform group-hover:translate-x-1">&rarr;</span>
+              Submit Application &rarr;
             </>
           )}
         </motion.button>
@@ -1459,52 +1363,51 @@ function SuccessScreen({ code }: { code: string }) {
       initial={{ opacity: 0, scale: 0.95 }}
       animate={{ opacity: 1, scale: 1 }}
       transition={{ duration: 0.6 }}
-      className="flex flex-col items-center text-center"
+      className="flex flex-col items-center text-center max-w-[400px] mx-auto"
     >
       <motion.div
-        className="flex h-20 w-20 items-center justify-center rounded-full bg-emerald-100"
+        className="flex h-20 w-20 items-center justify-center rounded-full bg-[#1a1a1a]"
         initial={{ scale: 0 }}
         animate={{ scale: 1 }}
         transition={{ duration: 0.5, delay: 0.2, type: "spring", stiffness: 200 }}
       >
-        <svg className="h-10 w-10 text-emerald-600" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor">
+        <svg className="h-10 w-10 text-white" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor">
           <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" />
         </svg>
       </motion.div>
 
-      <h2 className="mt-6 text-3xl font-bold tracking-[-0.03em] text-emerald-950 sm:text-4xl">
+      <h2 className="mt-6 text-[28px] font-extrabold tracking-[-0.03em] text-[#1a1a1a]">
         You&apos;re all set!
       </h2>
-      <p className="mt-3 max-w-sm text-base text-emerald-800/60">
+      <p className="mt-3 max-w-sm text-sm text-[#71717a]">
         Your application has been submitted. Save this code to check your status.
       </p>
 
       <motion.div
-        className="mt-8 rounded-2xl border border-emerald-200 bg-gradient-to-br from-emerald-50 to-green-50 px-10 py-6"
+        className="mt-8 w-full bg-[#f0f5f0] rounded-[10px] p-6"
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.4 }}
       >
-        <p className="text-[11px] font-medium text-emerald-600 mb-2">Application Code</p>
-        <p className="text-4xl font-mono font-bold tracking-[0.15em] text-emerald-900">{code}</p>
+        <p className="text-[11px] font-semibold uppercase tracking-[0.05em] text-[#71717a] mb-2">Application Code</p>
+        <p className="text-4xl font-mono font-bold tracking-[0.15em] text-[#1a1a1a]">{code}</p>
       </motion.div>
 
       <motion.div
-        className="mt-8 flex flex-col items-center gap-3 sm:flex-row"
+        className="mt-8 flex flex-col items-center gap-3 sm:flex-row w-full"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 0.6 }}
       >
         <Link
           href={`/status/${code}`}
-          className="group rounded-full bg-emerald-600 px-8 py-3.5 text-[15px] font-bold text-white shadow-lg shadow-emerald-600/20 transition-all hover:bg-emerald-500 hover:scale-105"
+          className="w-full rounded-lg bg-[#1a1a1a] px-8 py-3.5 text-center text-[15px] font-semibold text-white transition-all hover:bg-[#333333]"
         >
-          Check Status
-          <span className="ml-2 inline-block transition-transform group-hover:translate-x-1">&rarr;</span>
+          Check Status &rarr;
         </Link>
         <Link
           href="/"
-          className="rounded-full border border-emerald-900/10 bg-white px-8 py-3.5 text-[14px] font-medium text-emerald-800/60 transition-all hover:text-emerald-900"
+          className="w-full rounded-lg border border-[#e5e7eb] bg-white px-8 py-3.5 text-center text-[14px] font-medium text-[#71717a] transition-all hover:text-[#1a1a1a]"
         >
           Back to Home
         </Link>
@@ -1616,10 +1519,10 @@ export default function ApplyPage() {
     <div className="min-h-screen bg-[#FAFAF7]">
       <Navbar />
 
-      <div className="mx-auto max-w-3xl px-6 pb-20 pt-28 sm:px-10">
+      <div className="mx-auto max-w-[400px] px-6 pb-20 pt-28">
         {!applicationCode && <StepIndicator current={step} />}
 
-        <div className="mt-12 flex justify-center">
+        <div className="mt-10 flex justify-center">
           <AnimatePresence mode="wait">
             {applicationCode ? (
               <SuccessScreen key="success" code={applicationCode} />
