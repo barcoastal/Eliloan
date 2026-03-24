@@ -1,9 +1,15 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { toast } from "sonner";
 import { updateLoanRule } from "@/actions/settings";
 import type { LoanRule } from "@/types";
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 
 function formatKey(key: string) {
   return key
@@ -91,6 +97,22 @@ function RuleCard({ rule }: { rule: LoanRule }) {
 }
 
 export function SettingsClient({ rules }: { rules: LoanRule[] }) {
+  const [modelInfo, setModelInfo] = useState<{
+    version: number;
+    accuracy: number;
+    precision: number;
+    recall: number;
+    trainingSize: number;
+    createdAt: string;
+  } | null>(null);
+
+  useEffect(() => {
+    fetch("/api/risk-model-info")
+      .then((r) => r.json())
+      .then((data) => setModelInfo(data.model ?? null))
+      .catch(() => setModelInfo(null));
+  }, []);
+
   return (
     <div className="max-w-2xl">
       <div className="mb-8">
@@ -99,6 +121,46 @@ export function SettingsClient({ rules }: { rules: LoanRule[] }) {
           Configure loan rules and parameters
         </p>
       </div>
+
+      <Card className="mb-6">
+        <CardHeader>
+          <CardTitle>Risk Model</CardTitle>
+        </CardHeader>
+        <CardContent>
+          {modelInfo ? (
+            <div className="grid grid-cols-2 md:grid-cols-3 gap-4 text-sm">
+              <div>
+                <p className="text-muted-foreground">Version</p>
+                <p className="font-medium">v{modelInfo.version}</p>
+              </div>
+              <div>
+                <p className="text-muted-foreground">Training Date</p>
+                <p className="font-medium">{new Date(modelInfo.createdAt).toLocaleDateString()}</p>
+              </div>
+              <div>
+                <p className="text-muted-foreground">Sample Size</p>
+                <p className="font-medium">{modelInfo.trainingSize}</p>
+              </div>
+              <div>
+                <p className="text-muted-foreground">Accuracy</p>
+                <p className="font-medium">{(modelInfo.accuracy * 100).toFixed(1)}%</p>
+              </div>
+              <div>
+                <p className="text-muted-foreground">Precision</p>
+                <p className="font-medium">{(modelInfo.precision * 100).toFixed(1)}%</p>
+              </div>
+              <div>
+                <p className="text-muted-foreground">Recall</p>
+                <p className="font-medium">{(modelInfo.recall * 100).toFixed(1)}%</p>
+              </div>
+            </div>
+          ) : (
+            <p className="text-sm text-amber-600">
+              No risk model loaded. Run: <code className="bg-muted px-1 rounded">python3 scripts/train_risk_model.py --seed</code>
+            </p>
+          )}
+        </CardContent>
+      </Card>
 
       {rules.length === 0 ? (
         <div className="rounded-2xl border border-emerald-900/5 bg-white p-10 text-center">
