@@ -1,5 +1,6 @@
 import { prisma } from "@/lib/db";
-import type { ApplicationWithDocuments } from "@/types";
+import { scoreApplication } from "@/lib/risk-model";
+import type { ApplicationWithDocuments, RiskScoreResult } from "@/types";
 
 export type ApprovalRecommendation = "APPROVE" | "REJECT" | "MANUAL_REVIEW";
 
@@ -8,6 +9,7 @@ export interface EvaluationResult {
   reasons: string[];
   suggestedRate: number;
   rules: Record<string, string>;
+  riskScore: RiskScoreResult | null;
 }
 
 export async function getLoanRules(): Promise<Record<string, string>> {
@@ -16,7 +18,7 @@ export async function getLoanRules(): Promise<Record<string, string>> {
 }
 
 export async function evaluateApplication(
-  application: ApplicationWithDocuments
+  application: ApplicationWithDocuments & { id: string }
 ): Promise<EvaluationResult> {
   const rules = await getLoanRules();
   const reasons: string[] = [];
@@ -85,12 +87,12 @@ export async function evaluateApplication(
       where: {
         ssnHash: application.ssnHash,
         id: { not: application.id },
-        status: { notIn: ["REJECTED"] },
+        status: { in: ["PENDING", "APPROVED"] },
       },
     });
     if (duplicates > 0) {
       recommendation = "REJECT";
-      reasons.push("Duplicate SSN found in system");
+      reasons.push("Another application with this SSN is already in progress");
     }
   }
 

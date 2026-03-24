@@ -64,9 +64,11 @@ export async function submitApplication(input: z.infer<typeof submitSchema>) {
   const ssnHash = data.ssnRaw ? hashSSN(data.ssnRaw) : null;
 
   if (ssnHash) {
-    const existing = await prisma.application.findFirst({ where: { ssnHash } });
+    const existing = await prisma.application.findFirst({
+      where: { ssnHash, status: { in: ["PENDING", "APPROVED"] } },
+    });
     if (existing) {
-      return { success: false, error: "An application with this SSN already exists." };
+      return { success: false, error: "An application with this SSN is already in progress." };
     }
   }
 
