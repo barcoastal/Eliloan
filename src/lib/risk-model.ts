@@ -352,7 +352,7 @@ export async function checkAndTriggerRetrain(): Promise<void> {
     modelCache = null;
 
     // Spawn Python retrain script in background
-    const child = spawn("python3", ["scripts/retrain_model.py"], {
+    const child = spawn("python3", ["scripts/train_risk_model.py", "--retrain"], {
       detached: true,
       stdio: "ignore",
       cwd: process.cwd(),
