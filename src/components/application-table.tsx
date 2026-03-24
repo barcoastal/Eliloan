@@ -6,51 +6,51 @@ import type { ApplicationWithDocuments } from "@/types";
 function StatusBadge({ status }: { status: string }) {
   const config: Record<string, { bg: string; text: string; dot: string; label: string }> = {
     APPROVED: {
-      bg: "bg-emerald-50",
-      text: "text-emerald-700",
-      dot: "bg-emerald-500",
+      bg: "bg-[#f0f5f0]",
+      text: "text-[#15803d]",
+      dot: "bg-[#15803d]",
       label: "Approved",
     },
     REJECTED: {
-      bg: "bg-red-50",
-      text: "text-red-700",
-      dot: "bg-red-500",
+      bg: "bg-[#fff1f2]",
+      text: "text-[#dc2626]",
+      dot: "bg-[#dc2626]",
       label: "Rejected",
     },
     PENDING: {
-      bg: "bg-amber-50",
-      text: "text-amber-700",
-      dot: "bg-amber-500",
+      bg: "bg-[#fef9ec]",
+      text: "text-[#b45309]",
+      dot: "bg-[#b45309]",
       label: "Pending",
     },
     ACTIVE: {
-      bg: "bg-blue-50",
-      text: "text-blue-700",
-      dot: "bg-blue-500",
+      bg: "bg-[#eef4ff]",
+      text: "text-[#2563eb]",
+      dot: "bg-[#2563eb]",
       label: "Active",
     },
     LATE: {
-      bg: "bg-orange-50",
-      text: "text-orange-700",
-      dot: "bg-orange-500",
+      bg: "bg-[#fff1f2]",
+      text: "text-[#dc2626]",
+      dot: "bg-[#dc2626]",
       label: "Late",
     },
     COLLECTIONS: {
-      bg: "bg-rose-50",
-      text: "text-rose-700",
-      dot: "bg-rose-500",
+      bg: "bg-[#fff1f2]",
+      text: "text-[#dc2626]",
+      dot: "bg-[#dc2626]",
       label: "Collections",
     },
     DEFAULTED: {
-      bg: "bg-red-50",
-      text: "text-red-800",
-      dot: "bg-red-700",
+      bg: "bg-[#fff1f2]",
+      text: "text-[#dc2626]",
+      dot: "bg-[#dc2626]",
       label: "Defaulted",
     },
     PAID_OFF: {
-      bg: "bg-teal-50",
-      text: "text-teal-700",
-      dot: "bg-teal-500",
+      bg: "bg-[#f0f5f0]",
+      text: "text-[#15803d]",
+      dot: "bg-[#15803d]",
       label: "Paid Off",
     },
   };
@@ -120,42 +120,42 @@ export function ApplicationTable({
   }
 
   return (
-    <div className="bg-white rounded-2xl border border-stone-200/80 overflow-hidden">
+    <div className="bg-white rounded-2xl overflow-hidden">
       <table className="w-full">
         <thead>
-          <tr className="border-b border-stone-100">
-            <th className="text-left text-xs font-medium text-emerald-800/50 uppercase tracking-wider px-6 py-4">
+          <tr>
+            <th className="text-left text-[11px] font-semibold text-[#a1a1aa] uppercase tracking-[0.05em] px-6 py-4">
               Date
             </th>
-            <th className="text-left text-xs font-medium text-emerald-800/50 uppercase tracking-wider px-6 py-4">
+            <th className="text-left text-[11px] font-semibold text-[#a1a1aa] uppercase tracking-[0.05em] px-6 py-4">
               Applicant
             </th>
-            <th className="text-left text-xs font-medium text-emerald-800/50 uppercase tracking-wider px-6 py-4">
+            <th className="text-left text-[11px] font-semibold text-[#a1a1aa] uppercase tracking-[0.05em] px-6 py-4">
               Code
             </th>
-            <th className="text-left text-xs font-medium text-emerald-800/50 uppercase tracking-wider px-6 py-4">
+            <th className="text-left text-[11px] font-semibold text-[#a1a1aa] uppercase tracking-[0.05em] px-6 py-4">
               Amount
             </th>
-            <th className="text-left text-xs font-medium text-emerald-800/50 uppercase tracking-wider px-6 py-4">
+            <th className="text-left text-[11px] font-semibold text-[#a1a1aa] uppercase tracking-[0.05em] px-6 py-4">
               Platform
             </th>
-            <th className="text-left text-xs font-medium text-emerald-800/50 uppercase tracking-wider px-6 py-4">
+            <th className="text-left text-[11px] font-semibold text-[#a1a1aa] uppercase tracking-[0.05em] px-6 py-4">
               Income
             </th>
-            <th className="text-left text-xs font-medium text-emerald-800/50 uppercase tracking-wider px-6 py-4">
+            <th className="text-left text-[11px] font-semibold text-[#a1a1aa] uppercase tracking-[0.05em] px-6 py-4">
               Docs
             </th>
-            <th className="text-left text-xs font-medium text-emerald-800/50 uppercase tracking-wider px-6 py-4">
+            <th className="text-left text-[11px] font-semibold text-[#a1a1aa] uppercase tracking-[0.05em] px-6 py-4">
               Status
             </th>
           </tr>
         </thead>
-        <tbody className="divide-y divide-stone-100">
+        <tbody>
           {applications.map((app) => (
             <tr
               key={app.id}
               onClick={() => router.push(`/admin/applications/${app.id}`)}
-              className="cursor-pointer hover:bg-emerald-50/50 transition-colors duration-100"
+              className="cursor-pointer hover:bg-[#f0f5f0] transition-colors duration-100"
             >
               <td className="px-6 py-4 text-sm text-stone-500 whitespace-nowrap">
                 {formatDate(app.createdAt)}
