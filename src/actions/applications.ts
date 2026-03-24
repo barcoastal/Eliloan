@@ -160,7 +160,6 @@ export async function updateTotalIncome(id: string, totalIncome: number) {
 
 export async function approveApplication(
   applicationId: string,
-  interestRate: number,
   loanTermMonths?: number
 ) {
   const session = await getServerSession(authOptions);
@@ -183,6 +182,11 @@ export async function approveApplication(
     };
   }
 
+  // Score application with risk model for rate
+  const { scoreApplication } = await import("@/lib/risk-model");
+  const scoring = await scoreApplication(applicationId);
+  const interestRate = scoring.interestRate;
+
   const updatedApp = await prisma.application.update({
     where: { id: applicationId },
     data: {
@@ -191,6 +195,8 @@ export async function approveApplication(
       loanTermMonths: loanTermMonths || application.loanTermMonths,
       approvedBy: session.user.email,
       approvedAt: new Date(),
+      riskScore: scoring.riskScore,
+      riskModelId: scoring.modelId,
     },
   });
 

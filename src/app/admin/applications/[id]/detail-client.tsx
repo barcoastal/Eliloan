@@ -172,19 +172,9 @@ export function DetailClient({
   const [showRejectForm, setShowRejectForm] = useState(false);
 
   /* approval inputs */
-  const [interestRate, setInterestRate] = useState<string>(
-    ""
-  );
   const [termMonths, setTermMonths] = useState<string>(
     String((application as any).loanTermMonths || 6)
   );
-
-  // Update interest rate default from evaluation when it loads
-  useEffect(() => {
-    if (evaluation?.suggestedRate && !interestRate) {
-      setInterestRate(String(evaluation.suggestedRate));
-    }
-  }, [evaluation, interestRate]);
 
   /* funding */
   const [funding, setFunding] = useState(false);
@@ -271,19 +261,14 @@ export function DetailClient({
   }
 
   async function handleApprove() {
-    const rate = parseFloat(interestRate);
     const term = parseInt(termMonths);
-    if (isNaN(rate) || rate <= 0) {
-      toast.error("Please enter a valid interest rate");
-      return;
-    }
     if (isNaN(term) || term <= 0) {
       toast.error("Please enter a valid loan term");
       return;
     }
     setApproving(true);
     try {
-      const result = await approveApplication(application.id, rate, term);
+      const result = await approveApplication(application.id, term || undefined);
       if (result.error) {
         toast.error(result.error);
         if ((result as any).reasons) {
@@ -831,27 +816,8 @@ export function DetailClient({
                 Decision
               </h2>
 
-              {/* Interest Rate & Term Inputs */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-5">
-                <div>
-                  <label htmlFor="interestRate" className="block text-sm font-medium text-gray-700 mb-1.5">
-                    Interest Rate (%)
-                  </label>
-                  <input
-                    id="interestRate"
-                    type="number"
-                    step="0.1"
-                    placeholder="30"
-                    value={interestRate}
-                    onChange={(e) => setInterestRate(e.target.value)}
-                    className="w-full rounded-xl border border-gray-300 bg-white px-4 py-2.5 text-sm text-gray-900 placeholder:text-gray-400 focus:border-emerald-500 focus:outline-none focus:ring-2 focus:ring-emerald-500/20"
-                  />
-                  {evaluation?.suggestedRate && (
-                    <p className="mt-1 text-xs text-gray-500">
-                      Suggested: {evaluation.suggestedRate}%
-                    </p>
-                  )}
-                </div>
+              {/* Term Input — interest rate is auto-set by risk model on approval */}
+              <div className="mb-5">
                 <div>
                   <label htmlFor="termMonths" className="block text-sm font-medium text-gray-700 mb-1.5">
                     Loan Term (months)
