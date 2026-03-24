@@ -38,6 +38,25 @@ export async function fetchAndStoreIncome(applicationId: string) {
       data: { monthlyIncome },
     });
 
+    // Fetch and store bank balance
+    try {
+      const balanceResponse = await plaidClient.accountsBalanceGet({
+        access_token: accessToken,
+      });
+      const account = balanceResponse.data.accounts.find(
+        (a) => a.account_id === application.plaidAccountId
+      );
+      if (account?.balances?.current != null) {
+        await prisma.application.update({
+          where: { id: applicationId },
+          data: { bankBalance: account.balances.current },
+        });
+      }
+    } catch (balanceError) {
+      console.warn("Failed to fetch bank balance:", balanceError);
+      // Non-fatal: income was already stored, balance is optional
+    }
+
     return { success: true, monthlyIncome };
   } catch (error) {
     console.error("Plaid income fetch error:", error);
