@@ -121,6 +121,56 @@ async function main() {
     },
   });
 
+  await prisma.loanRule.upsert({
+    where: { key: "max_interest_rate" },
+    update: {},
+    create: {
+      key: "max_interest_rate",
+      value: "36",
+      description: "Ceiling interest rate for highest-risk borrowers",
+    },
+  });
+
+  await prisma.loanRule.upsert({
+    where: { key: "retrain_threshold" },
+    update: {},
+    create: {
+      key: "retrain_threshold",
+      value: "50",
+      description: "Number of completed loans before auto-retraining the risk model",
+    },
+  });
+
+  await prisma.loanRule.upsert({
+    where: { key: "retrain_min_data" },
+    update: {},
+    create: {
+      key: "retrain_min_data",
+      value: "30",
+      description: "Minimum total training samples required to retrain the model",
+    },
+  });
+
+  await prisma.loanRule.upsert({
+    where: { key: "default_threshold_days" },
+    update: {},
+    create: {
+      key: "default_threshold_days",
+      value: "90",
+      description: "Days in COLLECTIONS before escalating to DEFAULTED",
+    },
+  });
+
+  await prisma.loanRule.upsert({
+    where: { key: "completed_since_last_train" },
+    update: {},
+    create: {
+      key: "completed_since_last_train",
+      value: "0",
+      description: "Counter of completed loans since last model training (internal)",
+    },
+  });
+
   const passwordHash = await bcrypt.hash("admin123", 12);
   await prisma.adminUser.upsert({
     where: { email: "admin@loanportal.com" },
