@@ -29,7 +29,7 @@ export async function POST(request: NextRequest) {
   // Find all active/late applications with failed payments
   const applications = await prisma.application.findMany({
     where: {
-      status: { in: ["ACTIVE", "LATE"] },
+      status: { in: ["ACTIVE", "LATE", "COLLECTIONS"] },
     },
     include: {
       payments: {
@@ -42,6 +42,76 @@ export async function POST(request: NextRequest) {
 
   for (const app of applications) {
     if (app.payments.length === 0) continue;
+
+      // DEFAULTED escalation: COLLECTIONS for 90+ days
+      if (app.status === "COLLECTIONS") {
+        const ruleMap = rules; // rules is already loaded as Record<string, string>
+        const defaultThreshold = parseInt(ruleMap.default_threshold_days ?? "90");
+        const collectionsEvent = await prisma.collectionEvent.findFirst({
+          where: {
+            applicationId: app.id,
+            eventType: "ESCALATED",
+          },
+          orderBy: { createdAt: "desc" },
+        });
+
+        if (collectionsEvent) {
+          const daysSinceEscalation = Math.floor(
+            (now.getTime() - collectionsEvent.createdAt.getTime()) / (1000 * 60 * 60 * 24)
+          );
+
+          if (daysSinceEscalation >= defaultThreshold) {
+            await prisma.application.update({
+              where: { id: app.id },
+              data: { status: "DEFAULTED" },
+            });
+
+            // Create RiskProfile
+            const allPayments = await prisma.payment.findMany({
+              where: { applicationId: app.id },
+            });
+            const totalPaid = allPayments
+              .filter((p) => p.status === "PAID")
+              .reduce((sum, p) => sum + Number(p.amount) + Number(p.lateFee), 0);
+            const totalOwed = allPayments
+              .reduce((sum, p) => sum + Number(p.amount), 0);
+            const latePaymentCount = allPayments
+              .filter((p) => Number(p.lateFee) > 0).length;
+
+            if (app.ssnHash) {
+              await prisma.riskProfile.create({
+                data: {
+                  applicationId: app.id,
+                  ssnHash: app.ssnHash,
+                  platform: app.platform ?? "unknown",
+                  monthlyIncome: app.monthlyIncome ?? 0,
+                  loanAmount: app.loanAmount,
+                  loanTermMonths: app.loanTermMonths ?? 12,
+                  interestRate: app.interestRate ?? 0,
+                  outcome: "DEFAULTED",
+                  totalPaid,
+                  totalOwed,
+                  latePaymentCount,
+                  defaultedAt: new Date(),
+                },
+              });
+
+              // Check retrain threshold
+              const { checkAndTriggerRetrain } = await import("@/lib/risk-model");
+              await checkAndTriggerRetrain();
+            }
+
+            await logAudit({
+              action: "COLLECTIONS_ESCALATION",
+              entityType: "APPLICATION",
+              entityId: app.id,
+              performedBy: "system:collections",
+              details: { escalatedTo: "DEFAULTED", daysSinceCollections: daysSinceEscalation },
+            });
+          }
+        }
+        continue; // COLLECTIONS apps don't need warning checks
+      }
 
     const oldestFailedDue = app.payments[0].dueDate;
     const daysOverdue = Math.floor(
