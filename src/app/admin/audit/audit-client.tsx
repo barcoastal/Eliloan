@@ -39,16 +39,17 @@ export default function AuditClient() {
 
   return (
     <div>
-      <div className="flex items-center justify-between mb-6">
-        <h1 className="text-2xl font-bold text-gray-900">Audit Log</h1>
-        <span className="text-sm text-gray-500">{total} entries</span>
+      <div className="mb-8 flex items-center justify-between">
+        <h2 className="text-[22px] font-extrabold tracking-[-0.03em] text-[#1a1a1a]">Audit Log</h2>
+        <span className="text-[13px] text-[#a1a1aa]">{total} entries</span>
       </div>
 
-      <div className="flex gap-2 mb-4 flex-wrap">
+      {/* Action filters */}
+      <div className="mb-6 flex flex-wrap gap-2">
         <button
           onClick={() => setActionFilter("")}
-          className={`px-3 py-1 rounded-full text-sm ${
-            !actionFilter ? "bg-gray-900 text-white" : "bg-gray-100 text-gray-600"
+          className={`rounded-lg px-3 py-1.5 text-[13px] font-medium transition-all ${
+            !actionFilter ? "bg-[#1a1a1a] text-white" : "bg-[#f4f4f5] text-[#71717a] hover:bg-[#e4e4e7]"
           }`}
         >
           All
@@ -57,8 +58,10 @@ export default function AuditClient() {
           <button
             key={action}
             onClick={() => setActionFilter(action)}
-            className={`px-3 py-1 rounded-full text-sm ${
-              actionFilter === action ? "bg-gray-900 text-white" : "bg-gray-100 text-gray-600"
+            className={`rounded-lg px-3 py-1.5 text-[13px] font-medium transition-all ${
+              actionFilter === action
+                ? "bg-[#1a1a1a] text-white"
+                : "bg-[#f4f4f5] text-[#71717a] hover:bg-[#e4e4e7]"
             }`}
           >
             {action}
@@ -67,35 +70,35 @@ export default function AuditClient() {
       </div>
 
       {loading ? (
-        <div className="text-center py-12 text-gray-500">Loading...</div>
+        <div className="py-12 text-center text-[#a1a1aa]">Loading...</div>
       ) : (
-        <div className="bg-white rounded-xl border overflow-hidden">
+        <div className="overflow-hidden rounded-[10px] bg-white">
           <table className="w-full">
             <thead>
-              <tr className="border-b bg-gray-50">
-                <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Time</th>
-                <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Action</th>
-                <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Entity</th>
-                <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">By</th>
-                <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Details</th>
+              <tr className="bg-[#fafafa]">
+                <th className="px-4 py-3 text-left text-[11px] font-semibold uppercase tracking-[0.05em] text-[#a1a1aa]">Time</th>
+                <th className="px-4 py-3 text-left text-[11px] font-semibold uppercase tracking-[0.05em] text-[#a1a1aa]">Action</th>
+                <th className="px-4 py-3 text-left text-[11px] font-semibold uppercase tracking-[0.05em] text-[#a1a1aa]">Entity</th>
+                <th className="px-4 py-3 text-left text-[11px] font-semibold uppercase tracking-[0.05em] text-[#a1a1aa]">By</th>
+                <th className="px-4 py-3 text-left text-[11px] font-semibold uppercase tracking-[0.05em] text-[#a1a1aa]">Details</th>
               </tr>
             </thead>
             <tbody>
               {logs.map((log) => (
-                <tr key={log.id} className="border-b last:border-0">
-                  <td className="px-4 py-3 text-sm text-gray-500">
+                <tr key={log.id} className="transition-colors hover:bg-[#fafafa]">
+                  <td className="px-4 py-3 text-[13px] text-[#a1a1aa]">
                     {new Date(log.createdAt).toLocaleString()}
                   </td>
                   <td className="px-4 py-3">
-                    <span className="px-2 py-0.5 rounded text-xs font-medium bg-gray-100">
+                    <span className="inline-flex items-center rounded-md bg-[#f4f4f5] px-2 py-0.5 text-[11px] font-semibold uppercase tracking-[0.05em] text-[#71717a]">
                       {log.action}
                     </span>
                   </td>
-                  <td className="px-4 py-3 text-sm text-gray-700">
+                  <td className="px-4 py-3 text-[13px] text-[#1a1a1a]">
                     {log.entityType} / {log.entityId.substring(0, 8)}...
                   </td>
-                  <td className="px-4 py-3 text-sm text-gray-700">{log.performedBy}</td>
-                  <td className="px-4 py-3 text-sm text-gray-500 max-w-xs truncate">
+                  <td className="px-4 py-3 text-[13px] text-[#1a1a1a]">{log.performedBy}</td>
+                  <td className="px-4 py-3 max-w-xs truncate text-[13px] text-[#a1a1aa]">
                     {log.details || "—"}
                   </td>
                 </tr>

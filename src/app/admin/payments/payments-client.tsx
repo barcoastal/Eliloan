@@ -8,17 +8,23 @@ type PaymentWithApp = Awaited<ReturnType<typeof getAllPayments>>[number];
 
 const statuses = ["ALL", "PENDING", "PROCESSING", "PAID", "FAILED", "LATE", "COLLECTIONS"];
 
-function StatusDot({ status }: { status: string }) {
-  const colors: Record<string, string> = {
-    PENDING: "bg-amber-500",
-    PROCESSING: "bg-blue-500",
-    PAID: "bg-emerald-500",
-    FAILED: "bg-red-500",
-    LATE: "bg-orange-500",
-    COLLECTIONS: "bg-rose-500",
+function StatusBadge({ status }: { status: string }) {
+  const styles: Record<string, string> = {
+    PAID: "bg-[#f0f5f0] text-[#15803d]",
+    PENDING: "bg-[#fef9ec] text-[#b45309]",
+    PROCESSING: "bg-[#fef9ec] text-[#b45309]",
+    FAILED: "bg-[#fff1f2] text-[#dc2626]",
+    LATE: "bg-[#fff1f2] text-[#dc2626]",
+    COLLECTIONS: "bg-[#fff1f2] text-[#dc2626]",
   };
   return (
-    <span className={`inline-block h-2 w-2 rounded-full ${colors[status] || "bg-gray-400"}`} />
+    <span
+      className={`inline-flex items-center rounded-md px-2 py-0.5 text-[11px] font-semibold uppercase tracking-[0.05em] ${
+        styles[status] || "bg-[#f4f4f5] text-[#71717a]"
+      }`}
+    >
+      {status}
+    </span>
   );
 }
 
@@ -39,8 +45,8 @@ export function PaymentsClient() {
   return (
     <div>
       <div className="mb-8">
-        <h1 className="text-2xl font-bold tracking-[-0.03em] text-emerald-950">Payments</h1>
-        <p className="mt-1 text-[14px] text-emerald-800/50">
+        <h2 className="text-[22px] font-extrabold tracking-[-0.03em] text-[#1a1a1a]">Payments</h2>
+        <p className="mt-1 text-[14px] text-[#71717a]">
           View and manage all loan payments
         </p>
       </div>
@@ -51,10 +57,10 @@ export function PaymentsClient() {
           <button
             key={s}
             onClick={() => setFilter(s)}
-            className={`rounded-full px-4 py-1.5 text-[13px] font-medium transition-all ${
+            className={`rounded-lg px-3 py-1.5 text-[13px] font-medium transition-all ${
               filter === s
-                ? "bg-emerald-600 text-white shadow-sm"
-                : "bg-emerald-900/5 text-emerald-800/60 hover:bg-emerald-900/10"
+                ? "bg-[#1a1a1a] text-white"
+                : "bg-[#f4f4f5] text-[#71717a] hover:bg-[#e4e4e7]"
             }`}
           >
             {s === "ALL" ? "All" : s.charAt(0) + s.slice(1).toLowerCase()}
@@ -64,23 +70,23 @@ export function PaymentsClient() {
 
       {/* Table */}
       {loading ? (
-        <div className="py-12 text-center text-emerald-800/40">Loading...</div>
+        <div className="py-12 text-center text-[#a1a1aa]">Loading...</div>
       ) : payments.length === 0 ? (
-        <div className="rounded-2xl border border-emerald-900/5 bg-white p-10 text-center">
-          <p className="text-emerald-800/40">No payments found.</p>
+        <div className="rounded-[10px] bg-white p-10 text-center">
+          <p className="text-[#a1a1aa]">No payments found.</p>
         </div>
       ) : (
-        <div className="overflow-hidden rounded-2xl border border-emerald-900/5 bg-white">
+        <div className="overflow-hidden rounded-[10px] bg-white">
           <table className="w-full text-[13px]">
             <thead>
-              <tr className="border-b border-emerald-900/5 bg-emerald-50/50">
-                <th className="px-4 py-3 text-left font-medium text-emerald-800/60">#</th>
-                <th className="px-4 py-3 text-left font-medium text-emerald-800/60">Borrower</th>
-                <th className="px-4 py-3 text-left font-medium text-emerald-800/60">Amount</th>
-                <th className="px-4 py-3 text-left font-medium text-emerald-800/60">Late Fee</th>
-                <th className="px-4 py-3 text-left font-medium text-emerald-800/60">Due Date</th>
-                <th className="px-4 py-3 text-left font-medium text-emerald-800/60">Status</th>
-                <th className="px-4 py-3 text-left font-medium text-emerald-800/60">Retries</th>
+              <tr className="bg-[#fafafa]">
+                <th className="px-4 py-3 text-left text-[11px] font-semibold uppercase tracking-[0.05em] text-[#a1a1aa]">#</th>
+                <th className="px-4 py-3 text-left text-[11px] font-semibold uppercase tracking-[0.05em] text-[#a1a1aa]">Borrower</th>
+                <th className="px-4 py-3 text-left text-[11px] font-semibold uppercase tracking-[0.05em] text-[#a1a1aa]">Amount</th>
+                <th className="px-4 py-3 text-left text-[11px] font-semibold uppercase tracking-[0.05em] text-[#a1a1aa]">Late Fee</th>
+                <th className="px-4 py-3 text-left text-[11px] font-semibold uppercase tracking-[0.05em] text-[#a1a1aa]">Due Date</th>
+                <th className="px-4 py-3 text-left text-[11px] font-semibold uppercase tracking-[0.05em] text-[#a1a1aa]">Status</th>
+                <th className="px-4 py-3 text-left text-[11px] font-semibold uppercase tracking-[0.05em] text-[#a1a1aa]">Retries</th>
               </tr>
             </thead>
             <tbody>
@@ -88,23 +94,24 @@ export function PaymentsClient() {
                 <tr
                   key={p.id}
                   onClick={() => router.push(`/admin/applications/${p.applicationId}`)}
-                  className="cursor-pointer border-b border-emerald-900/5 transition-colors hover:bg-emerald-50/30"
+                  className="cursor-pointer transition-colors hover:bg-[#fafafa]"
                 >
-                  <td className="px-4 py-3 font-mono">{p.paymentNumber}</td>
+                  <td className="px-4 py-3 font-mono text-[#1a1a1a]">{p.paymentNumber}</td>
                   <td className="px-4 py-3">
-                    {p.application.firstName} {p.application.lastName}
-                    <span className="ml-2 text-emerald-800/40">{p.application.applicationCode}</span>
-                  </td>
-                  <td className="px-4 py-3 font-medium">${Number(p.amount).toFixed(2)}</td>
-                  <td className="px-4 py-3">{Number(p.lateFee) > 0 ? `$${Number(p.lateFee).toFixed(2)}` : "—"}</td>
-                  <td className="px-4 py-3">{new Date(p.dueDate).toLocaleDateString()}</td>
-                  <td className="px-4 py-3">
-                    <span className="inline-flex items-center gap-1.5">
-                      <StatusDot status={p.status} />
-                      {p.status}
+                    <span className="text-[#1a1a1a]">
+                      {p.application.firstName} {p.application.lastName}
                     </span>
+                    <span className="ml-2 text-[#a1a1aa]">{p.application.applicationCode}</span>
                   </td>
-                  <td className="px-4 py-3">{p.retryCount > 0 ? p.retryCount : "—"}</td>
+                  <td className="px-4 py-3 font-semibold text-[#1a1a1a]">${Number(p.amount).toFixed(2)}</td>
+                  <td className="px-4 py-3 text-[#71717a]">
+                    {Number(p.lateFee) > 0 ? `$${Number(p.lateFee).toFixed(2)}` : "—"}
+                  </td>
+                  <td className="px-4 py-3 text-[#71717a]">{new Date(p.dueDate).toLocaleDateString()}</td>
+                  <td className="px-4 py-3">
+                    <StatusBadge status={p.status} />
+                  </td>
+                  <td className="px-4 py-3 text-[#71717a]">{p.retryCount > 0 ? p.retryCount : "—"}</td>
                 </tr>
               ))}
             </tbody>
