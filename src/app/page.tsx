@@ -45,24 +45,24 @@ function SocialProofToast() {
         {visible && (
           <motion.div
             key={index}
-            className="flex items-center gap-3 rounded-2xl border border-emerald-600/10 bg-white/90 px-4 py-3 shadow-xl shadow-emerald-900/10 backdrop-blur-xl"
+            className="flex items-center gap-3 bg-white rounded-[10px] shadow-[0_8px_32px_rgba(0,0,0,0.08)] p-4"
             initial={{ opacity: 0, y: 20, scale: 0.95 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: -10, scale: 0.95 }}
             transition={{ duration: 0.4 }}
           >
-            <div className="flex h-9 w-9 items-center justify-center rounded-full bg-gradient-to-br from-emerald-400 to-green-500 text-[11px] font-bold text-white shadow-md shadow-emerald-500/20">
+            <div className="flex h-9 w-9 items-center justify-center rounded-full bg-[#f0f5f0] text-[11px] font-bold text-[#15803d]">
               {item.name.charAt(0)}{item.name.split(" ")[1]?.charAt(0)}
             </div>
             <div>
-              <p className="text-[12px] font-semibold text-emerald-900">
+              <p className="text-[12px] font-semibold text-[#1a1a1a]">
                 {item.name} just got funded {item.amount}
               </p>
-              <p className="text-[10px] text-emerald-700/60">
+              <p className="text-[10px] text-[#71717a]">
                 {item.role} &middot; {item.city} &middot; {item.time}
               </p>
             </div>
-            <div className="ml-1 h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse" />
+            <div className="ml-1 h-1.5 w-1.5 rounded-full bg-[#15803d] animate-pulse" />
           </motion.div>
         )}
       </AnimatePresence>
@@ -76,22 +76,22 @@ function SocialProofToast() {
 function Navbar() {
   return (
     <motion.nav
-      className="fixed top-0 z-50 w-full bg-[#FAFAF7]/90 backdrop-blur-xl border-b border-emerald-900/5"
+      className="fixed top-0 z-50 w-full bg-[rgba(248,250,248,0.8)] backdrop-blur-xl border-b border-black/5"
       initial={{ y: -100 }}
       animate={{ y: 0 }}
       transition={{ duration: 0.8, delay: 0.2, ease: [0.25, 0.1, 0.25, 1] }}
     >
       <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4 sm:px-10">
-        <Link href="/" className="text-2xl font-bold tracking-[-0.03em] text-emerald-900">
-          Elilons
+        <Link href="/" className="font-extrabold text-lg tracking-[-0.03em]">
+          Lime<span className="text-[#15803d]">Credit</span>
         </Link>
 
         <div className="hidden items-center gap-8 md:flex">
-          {["How It Works", "For Gig Workers", "Why Elilons"].map((label) => (
+          {["How It Works", "For Gig Workers", "Why LimeCredit"].map((label) => (
             <a
               key={label}
               href={`#${label.toLowerCase().replace(/\s+/g, "-")}`}
-              className="text-[13px] font-medium text-emerald-800/70 transition-colors hover:text-emerald-900"
+              className="text-[13px] font-medium text-[#71717a] hover:text-[#1a1a1a] transition-colors"
             >
               {label}
             </a>
@@ -101,13 +101,13 @@ function Navbar() {
         <div className="flex items-center gap-4">
           <Link
             href="/status"
-            className="hidden text-[13px] font-medium text-emerald-800/70 transition-colors hover:text-emerald-900 sm:block"
+            className="hidden text-[13px] font-medium text-[#71717a] hover:text-[#1a1a1a] transition-colors sm:block"
           >
             Check Status
           </Link>
           <Link
             href="/apply"
-            className="rounded-full bg-emerald-600 px-5 py-2 text-[13px] font-semibold text-white transition-all hover:bg-emerald-500 hover:scale-105"
+            className="bg-[#1a1a1a] text-white px-5 py-2 rounded-lg text-[13px] font-semibold transition-all hover:bg-[#333]"
           >
             Apply Now
           </Link>
@@ -131,7 +131,7 @@ function Hero() {
 
   return (
     <section ref={ref} className="relative h-[200vh]">
-      <div className="sticky top-0 flex h-screen items-center overflow-hidden bg-[#FAFAF7]">
+      <div className="sticky top-0 flex h-screen items-center overflow-hidden bg-white">
         <motion.div
           className="relative z-10 mx-auto grid w-full max-w-7xl items-center gap-10 px-6 sm:px-10 lg:grid-cols-2 lg:gap-16"
           style={{ opacity, y }}
@@ -139,40 +139,33 @@ function Hero() {
           {/* Left — copy */}
           <div>
             <motion.div
-              className="mb-6 inline-flex items-center gap-2 rounded-full bg-emerald-50 px-4 py-1.5"
+              className="mb-6 inline-flex items-center gap-2 rounded-full bg-[#f0f5f0] px-3.5 py-1.5"
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.6, delay: 0.3 }}
             >
-              <div className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse" />
-              <span className="text-[12px] font-semibold text-emerald-600">Built for 1099 gig workers</span>
+              <div className="h-1.5 w-1.5 rounded-full bg-[#15803d] animate-pulse" />
+              <span className="text-xs font-semibold text-[#15803d]">Built for 1099 gig workers</span>
             </motion.div>
 
             <motion.h1
-              className="max-w-xl text-5xl font-bold leading-[1.05] tracking-[-0.03em] text-emerald-950 sm:text-6xl lg:text-7xl"
+              className="max-w-xl text-[48px] font-extrabold leading-[1.05] tracking-[-0.035em] text-[#1a1a1a]"
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 1, delay: 0.3 }}
             >
-              You drive.
+              Get funded.
               <br />
-              You deliver.
-              <br />
-              You deserve
-              <br />
-              <span className="bg-gradient-to-r from-emerald-600 to-green-500 bg-clip-text text-transparent">
-                real funding.
-              </span>
+              Keep moving.
             </motion.h1>
 
             <motion.p
-              className="mt-6 max-w-md text-lg leading-relaxed text-emerald-800/70"
+              className="mt-6 max-w-md text-base leading-relaxed text-[#71717a]"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.7 }}
             >
-              Up to $10,000 for Uber drivers, DoorDash dashers,
-              and every 1099 worker. Zero credit check.
+              Fast loans for gig workers. $100 to $10,000. Apply in 5 minutes, get approved in hours.
             </motion.p>
 
             <motion.div
@@ -183,7 +176,7 @@ function Hero() {
             >
               <Link
                 href="/apply"
-                className="group rounded-full bg-emerald-600 px-8 py-3.5 text-[15px] font-bold text-white shadow-lg shadow-emerald-600/20 transition-all hover:bg-emerald-500 hover:scale-105"
+                className="group bg-[#1a1a1a] text-white px-7 py-3.5 rounded-lg text-sm font-semibold transition-all hover:bg-[#333] hover:scale-105"
               >
                 Get Funded Now
                 <span className="ml-2 inline-block transition-transform group-hover:translate-x-1">
@@ -192,9 +185,9 @@ function Hero() {
               </Link>
               <Link
                 href="/status"
-                className="rounded-full border border-emerald-900/15 bg-white/60 px-8 py-3.5 text-[15px] font-medium text-emerald-900 backdrop-blur transition-all hover:bg-white hover:border-emerald-900/25"
+                className="text-[#71717a] text-sm font-medium hover:text-[#1a1a1a] transition-colors"
               >
-                Check Status
+                Check loan status →
               </Link>
             </motion.div>
 
@@ -209,14 +202,14 @@ function Hero() {
                 {["MT", "SK", "DJ", "AR"].map((initials) => (
                   <div
                     key={initials}
-                    className="flex h-8 w-8 items-center justify-center rounded-full border-2 border-[#FAFAF7] bg-gradient-to-br from-emerald-300 to-green-400 text-[10px] font-bold text-emerald-900"
+                    className="flex h-8 w-8 items-center justify-center rounded-full border-2 border-white bg-[#f0f5f0] text-[10px] font-bold text-[#15803d]"
                   >
                     {initials}
                   </div>
                 ))}
               </div>
-              <p className="text-[12px] text-emerald-800/65">
-                <span className="font-semibold text-emerald-700">1,200+</span> gig workers funded
+              <p className="text-[12px] text-[#71717a]">
+                <span className="font-semibold text-[#15803d]">1,200+</span> gig workers funded
               </p>
             </motion.div>
           </div>
@@ -228,31 +221,31 @@ function Hero() {
             animate={{ opacity: 1, x: 0, scale: 1 }}
             transition={{ duration: 1, delay: 0.5, ease: [0.25, 0.1, 0.25, 1] }}
           >
-            <div className="relative aspect-[4/5] overflow-hidden rounded-3xl shadow-2xl shadow-emerald-900/10 ring-1 ring-emerald-900/5">
+            <div className="relative aspect-[4/5] overflow-hidden rounded-3xl shadow-2xl shadow-black/10 ring-1 ring-black/5">
               <img
                 src="/hero-rider.jpg"
                 alt="Food delivery rider on a bike with delivery bag"
                 className="h-full w-full object-cover"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-emerald-950/40 via-transparent to-transparent" />
+              <div className="absolute inset-0 bg-gradient-to-t from-[#1a1a1a]/40 via-transparent to-transparent" />
             </div>
             {/* Floating stat badge */}
             <motion.div
-              className="absolute -bottom-4 -left-6 rounded-2xl border border-emerald-600/10 bg-white/90 px-5 py-3 shadow-xl shadow-emerald-900/10 backdrop-blur-xl"
+              className="absolute -bottom-4 -left-6 rounded-2xl border border-black/5 bg-white/90 px-5 py-3 shadow-xl shadow-black/10 backdrop-blur-xl"
               animate={{ y: [0, -6, 0] }}
               transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
             >
-              <p className="text-[11px] font-medium text-emerald-800/65">Avg. funding time</p>
-              <p className="text-2xl font-bold tracking-tight text-emerald-700">48hrs</p>
+              <p className="text-[11px] font-medium text-[#71717a]">Avg. funding time</p>
+              <p className="text-2xl font-bold tracking-tight text-[#15803d]">48hrs</p>
             </motion.div>
             {/* Floating amount badge */}
             <motion.div
-              className="absolute -top-3 -right-4 rounded-2xl border border-emerald-600/10 bg-white/90 px-5 py-3 shadow-xl shadow-emerald-900/10 backdrop-blur-xl"
+              className="absolute -top-3 -right-4 rounded-2xl border border-black/5 bg-white/90 px-5 py-3 shadow-xl shadow-black/10 backdrop-blur-xl"
               animate={{ y: [0, 6, 0] }}
               transition={{ duration: 3.5, repeat: Infinity, ease: "easeInOut", delay: 1 }}
             >
-              <p className="text-[11px] font-medium text-emerald-800/65">Up to</p>
-              <p className="text-2xl font-bold tracking-tight text-emerald-700">$10K</p>
+              <p className="text-[11px] font-medium text-[#71717a]">Up to</p>
+              <p className="text-2xl font-bold tracking-tight text-[#15803d]">$10K</p>
             </motion.div>
           </motion.div>
         </motion.div>
@@ -264,10 +257,10 @@ function Hero() {
           transition={{ duration: 2, repeat: Infinity }}
         >
           <div className="flex flex-col items-center gap-2">
-            <span className="text-[10px] font-medium uppercase tracking-[0.25em] text-emerald-800/55">
+            <span className="text-[10px] font-medium uppercase tracking-[0.25em] text-[#71717a]/60">
               Scroll
             </span>
-            <div className="h-8 w-[1px] bg-gradient-to-b from-emerald-600/30 to-transparent" />
+            <div className="h-8 w-[1px] bg-gradient-to-b from-[#1a1a1a]/20 to-transparent" />
           </div>
         </motion.div>
       </div>
@@ -286,15 +279,15 @@ function Stats() {
   });
 
   const stats = [
-    { value: "$2M+", label: "Funded to gig workers" },
-    { value: "5 min", label: "Application time" },
-    { value: "Zero", label: "Credit checks" },
-    { value: "48h", label: "Average funding" },
+    { value: "$2M+", label: "Funded to gig workers", bg: "bg-[#f0f5f0]" },
+    { value: "5 min", label: "Application time", bg: "bg-[#eaf0ea]" },
+    { value: "Zero", label: "Credit checks", bg: "bg-[#e2ebe2]" },
+    { value: "48h", label: "Average funding", bg: "bg-[#f0f5f0]" },
   ];
 
   return (
-    <section ref={ref} className="relative bg-[#FAFAF7] px-6 py-28 sm:py-36">
-      <div className="mx-auto grid max-w-5xl grid-cols-2 gap-10 lg:grid-cols-4 lg:gap-6">
+    <section ref={ref} className="relative bg-white px-6 py-28 sm:py-36">
+      <div className="mx-auto max-w-5xl rounded-xl overflow-hidden grid grid-cols-2 lg:grid-cols-4">
         {stats.map((s, i) => {
           const itemOpacity = useTransform(
             scrollYProgress,
@@ -310,13 +303,13 @@ function Stats() {
           return (
             <motion.div
               key={s.label}
-              className="text-center"
+              className={`text-center py-10 px-6 ${s.bg}`}
               style={{ opacity: itemOpacity, y: itemY }}
             >
-              <div className="text-4xl font-bold tracking-[-0.03em] text-emerald-700 sm:text-5xl">
+              <div className="text-2xl font-extrabold tracking-[-0.02em] text-[#1a1a1a]">
                 {s.value}
               </div>
-              <div className="mt-2 text-sm font-medium text-emerald-800/55">
+              <div className="mt-2 text-xs text-[#71717a]">
                 {s.label}
               </div>
             </motion.div>
@@ -337,8 +330,8 @@ function PlatformTicker() {
   ];
 
   return (
-    <section className="overflow-hidden border-y border-emerald-900/5 bg-[#F5F5F0] py-10">
-      <p className="mb-6 text-center text-[11px] font-medium uppercase tracking-[0.3em] text-emerald-800/50">
+    <section className="overflow-hidden border-y border-black/5 bg-[#f9faf9] py-10">
+      <p className="mb-6 text-center text-[11px] font-medium uppercase tracking-[0.3em] text-[#71717a]/70">
         Built for workers on every platform
       </p>
       <div className="relative">
@@ -346,7 +339,7 @@ function PlatformTicker() {
           {[...platforms, ...platforms, ...platforms].map((p, i) => (
             <span
               key={`${p}-${i}`}
-              className="flex-shrink-0 rounded-full border border-emerald-800/8 bg-white/80 px-5 py-2 text-sm font-medium text-emerald-800/65"
+              className="flex-shrink-0 rounded-full border border-black/8 bg-white px-5 py-2 text-sm font-medium text-[#71717a]"
             >
               {p}
             </span>
@@ -375,10 +368,10 @@ function HowItWorks() {
       desc: "Screenshot your Uber dashboard, DoorDash summary, or any 1099 pay stub. Upload it right from your phone between rides. Takes 2 minutes.",
       image: "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=800&q=80&auto=format",
       imageAlt: "Person using phone",
-      color: "text-emerald-600",
-      bg: "bg-emerald-50",
-      ring: "ring-emerald-200",
-      dot: "bg-emerald-500",
+      color: "text-[#15803d]",
+      bg: "bg-[#f0f5f0]",
+      ring: "ring-[#15803d]/20",
+      dot: "bg-[#15803d]",
     },
     {
       num: "02",
@@ -387,10 +380,10 @@ function HowItWorks() {
       desc: "No FICO score, no W-2, no invasive questions. We verify your last 3 months of gig earnings. If the math works, you're good.",
       image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&q=80&auto=format",
       imageAlt: "Analytics dashboard",
-      color: "text-green-600",
-      bg: "bg-green-50",
-      ring: "ring-green-200",
-      dot: "bg-green-500",
+      color: "text-[#15803d]",
+      bg: "bg-[#eaf0ea]",
+      ring: "ring-[#15803d]/20",
+      dot: "bg-[#15803d]",
     },
     {
       num: "03",
@@ -399,23 +392,23 @@ function HowItWorks() {
       desc: "Approved? Done. No more waiting around, no jumping through hoops. Money where you need it so you can fix the car, pay rent, or just breathe.",
       image: "https://images.unsplash.com/photo-1567427017947-545c5f8d16ad?w=800&q=80&auto=format",
       imageAlt: "Happy person",
-      color: "text-lime-600",
-      bg: "bg-lime-50",
-      ring: "ring-lime-200",
-      dot: "bg-lime-500",
+      color: "text-[#15803d]",
+      bg: "bg-[#e2ebe2]",
+      ring: "ring-[#15803d]/20",
+      dot: "bg-[#15803d]",
     },
   ];
 
   return (
     <section id="how-it-works" ref={ref} className="relative h-[400vh] scroll-mt-16">
-      <div className="sticky top-0 flex h-screen items-center overflow-hidden bg-[#FAFAF7]">
+      <div className="sticky top-0 flex h-screen items-center overflow-hidden bg-white">
         <div className="mx-auto w-full max-w-7xl px-6 sm:px-10">
           {/* Header — always visible */}
           <div className="mb-12">
-            <p className="text-[12px] font-medium uppercase tracking-[0.3em] text-emerald-600/50">
+            <p className="text-[12px] font-medium uppercase tracking-[0.3em] text-[#15803d]/60">
               How it works
             </p>
-            <h2 className="mt-3 text-3xl font-bold tracking-[-0.03em] text-emerald-950 sm:text-4xl">
+            <h2 className="mt-3 text-3xl font-bold tracking-[-0.03em] text-[#1a1a1a] sm:text-4xl">
               Three steps. That&apos;s it.
             </h2>
           </div>
@@ -424,10 +417,10 @@ function HowItWorks() {
           <div className="mb-14 max-w-2xl">
             <div className="relative flex items-start justify-between">
               {/* Background connector track */}
-              <div className="absolute top-[22px] left-[22px] right-[22px] h-[3px] rounded-full bg-emerald-100" />
+              <div className="absolute top-[22px] left-[22px] right-[22px] h-[3px] rounded-full bg-[#f0f5f0]" />
               {/* Animated fill */}
               <motion.div
-                className="absolute top-[22px] left-[22px] h-[3px] rounded-full bg-gradient-to-r from-emerald-500 via-green-400 to-lime-400"
+                className="absolute top-[22px] left-[22px] h-[3px] rounded-full bg-[#15803d]"
                 style={{
                   width: useTransform(scrollYProgress, [0, 0.85], ["0%", "100%"]),
                 }}
@@ -439,8 +432,8 @@ function HowItWorks() {
                   [Math.max(0, (i - 0.1) / 3), i / 3],
                   [0, 1]
                 );
-                const iconColors = ["#059669", "#16a34a", "#65a30d"];
-                const bgColors = ["#ecfdf5", "#f0fdf4", "#f7fee7"];
+                const iconColors = ["#15803d", "#15803d", "#15803d"];
+                const bgColors = ["#f0f5f0", "#eaf0ea", "#e2ebe2"];
                 const icons = [
                   <svg key="upload" className="h-5 w-5" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5m-13.5-9L12 3m0 0l4.5 4.5M12 3v13.5" /></svg>,
                   <svg key="check" className="h-5 w-5" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>,
@@ -531,14 +524,14 @@ function HowItWorks() {
                         Step {step.num}
                       </span>
                     </div>
-                    <h3 className="text-3xl font-bold tracking-[-0.02em] text-emerald-950 sm:text-4xl">
+                    <h3 className="text-3xl font-bold tracking-[-0.02em] text-[#1a1a1a] sm:text-4xl">
                       {step.subtitle}
                     </h3>
-                    <p className="mt-4 max-w-md text-base leading-relaxed text-emerald-800/65">
+                    <p className="mt-4 max-w-md text-sm leading-relaxed text-[#71717a]">
                       {step.desc}
                     </p>
                   </div>
-                  <div className={`aspect-[16/10] overflow-hidden rounded-2xl ${step.bg} ring-1 ${step.ring} shadow-lg shadow-emerald-900/5`}>
+                  <div className={`aspect-[16/10] overflow-hidden rounded-2xl ${step.bg} ring-1 ${step.ring} shadow-lg shadow-black/5`}>
                     <img
                       src={step.image}
                       alt={step.imageAlt}
@@ -573,7 +566,7 @@ function TheStruggle() {
 
   return (
     <section ref={ref} className="relative h-[300vh]">
-      <div className="sticky top-0 flex h-screen items-center overflow-hidden bg-[#FAFAF7]">
+      <div className="sticky top-0 flex h-screen items-center overflow-hidden bg-white">
         <div className="mx-auto w-full max-w-7xl px-6 sm:px-10">
 
           {/* Problem */}
@@ -587,11 +580,11 @@ function TheStruggle() {
                   <div className="h-1.5 w-1.5 rounded-full bg-red-400" />
                   <span className="text-[12px] font-semibold text-red-600">The reality</span>
                 </div>
-                <h2 className="text-4xl font-bold leading-[1.1] tracking-[-0.03em] text-emerald-950 sm:text-5xl">
+                <h2 className="text-4xl font-bold leading-[1.1] tracking-[-0.03em] text-[#1a1a1a] sm:text-5xl">
                   Banks don&apos;t see
                   <br />your grind.
                 </h2>
-                <p className="mt-4 max-w-md text-base leading-relaxed text-emerald-800/65">
+                <p className="mt-4 max-w-md text-base leading-relaxed text-[#71717a]">
                   You&apos;re driving 12-hour shifts, delivering in the rain, picking up rides at 2am — and every bank says your income &ldquo;doesn&apos;t qualify.&rdquo;
                 </p>
                 <div className="mt-8 space-y-3">
@@ -603,12 +596,12 @@ function TheStruggle() {
                   ].map((text, i) => (
                     <div key={i} className="flex items-start gap-3">
                       <div className="mt-2 h-1 w-1 flex-shrink-0 rounded-full bg-red-300" />
-                      <p className="text-sm leading-relaxed text-emerald-800/60">{text}</p>
+                      <p className="text-sm leading-relaxed text-[#71717a]">{text}</p>
                     </div>
                   ))}
                 </div>
               </div>
-              <div className="aspect-[4/5] overflow-hidden rounded-3xl ring-1 ring-emerald-900/5 shadow-xl shadow-emerald-900/5">
+              <div className="aspect-[4/5] overflow-hidden rounded-3xl ring-1 ring-black/5 shadow-xl shadow-black/5">
                 <img
                   src="https://images.unsplash.com/photo-1621976360623-004223992275?w=800&q=80&auto=format"
                   alt="Rideshare driver checking phone while waiting"
@@ -624,7 +617,7 @@ function TheStruggle() {
             style={{ opacity: solutionOpacity, y: solutionY }}
           >
             <div className="mx-auto grid max-w-7xl items-center gap-12 lg:grid-cols-2 lg:gap-20">
-              <div className="order-2 lg:order-1 aspect-[4/5] overflow-hidden rounded-3xl ring-1 ring-emerald-200 shadow-xl shadow-emerald-900/5">
+              <div className="order-2 lg:order-1 aspect-[4/5] overflow-hidden rounded-3xl ring-1 ring-[#15803d]/20 shadow-xl shadow-black/5">
                 <img
                   src="https://images.unsplash.com/photo-1601584115197-04ecc0da31d7?w=800&q=80&auto=format"
                   alt="Happy delivery rider on motorcycle"
@@ -632,19 +625,19 @@ function TheStruggle() {
                 />
               </div>
               <div className="order-1 lg:order-2">
-                <div className="inline-flex items-center gap-2 rounded-full bg-emerald-50 px-4 py-1.5 mb-4">
-                  <div className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
-                  <span className="text-[12px] font-semibold text-emerald-600">Elilons is different</span>
+                <div className="inline-flex items-center gap-2 rounded-full bg-[#f0f5f0] px-4 py-1.5 mb-4">
+                  <div className="h-1.5 w-1.5 rounded-full bg-[#15803d]" />
+                  <span className="text-[12px] font-semibold text-[#15803d]">LimeCredit is different</span>
                 </div>
-                <h2 className="text-4xl font-bold leading-[1.1] tracking-[-0.03em] text-emerald-950 sm:text-5xl">
+                <h2 className="text-4xl font-bold leading-[1.1] tracking-[-0.03em] text-[#1a1a1a] sm:text-5xl">
                   We were built
                   <br />
-                  <span className="bg-gradient-to-r from-emerald-600 to-green-500 bg-clip-text text-transparent">
+                  <span className="text-[#15803d]">
                     for your hustle.
                   </span>
                 </h2>
-                <p className="mt-4 max-w-md text-base leading-relaxed text-emerald-800/65">
-                  Elilons exists because gig workers deserve better. We look at your actual earnings — not your credit score.
+                <p className="mt-4 max-w-md text-base leading-relaxed text-[#71717a]">
+                  LimeCredit exists because gig workers deserve better. We look at your actual earnings — not your credit score.
                 </p>
                 <div className="mt-8 space-y-3">
                   {[
@@ -654,8 +647,8 @@ function TheStruggle() {
                     "Fair terms, fast funding — no predatory garbage",
                   ].map((text, i) => (
                     <div key={i} className="flex items-start gap-3">
-                      <div className="mt-2 h-1 w-1 flex-shrink-0 rounded-full bg-emerald-500" />
-                      <p className="text-sm leading-relaxed text-emerald-800/60">{text}</p>
+                      <div className="mt-2 h-1 w-1 flex-shrink-0 rounded-full bg-[#15803d]" />
+                      <p className="text-sm leading-relaxed text-[#71717a]">{text}</p>
                     </div>
                   ))}
                 </div>
@@ -702,7 +695,7 @@ function ForGigWorkers() {
     <section
       ref={ref}
       id="for-gig-workers"
-      className="scroll-mt-16 bg-[#F5F5F0] px-6 py-28 sm:py-36"
+      className="scroll-mt-16 bg-[#f9faf9] px-6 py-28 sm:py-36"
     >
       <div className="mx-auto max-w-7xl">
         <motion.div
@@ -710,13 +703,13 @@ function ForGigWorkers() {
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8 }}
         >
-          <p className="text-[12px] font-medium uppercase tracking-[0.3em] text-emerald-600/50">
+          <p className="text-[12px] font-medium uppercase tracking-[0.3em] text-[#15803d]/60">
             For gig workers
           </p>
-          <h2 className="mt-3 max-w-xl text-3xl font-bold leading-[1.1] tracking-[-0.03em] text-emerald-950 sm:text-4xl lg:text-5xl">
+          <h2 className="mt-3 max-w-xl text-3xl font-bold leading-[1.1] tracking-[-0.03em] text-[#1a1a1a] sm:text-4xl lg:text-5xl">
             If you work on an app,
             <br />
-            <span className="text-emerald-600">Elilons is for you.</span>
+            <span className="text-[#15803d]">LimeCredit is for you.</span>
           </h2>
         </motion.div>
 
@@ -724,7 +717,7 @@ function ForGigWorkers() {
           {personas.map((p, i) => (
             <motion.div
               key={p.title}
-              className="group relative aspect-[3/4] overflow-hidden rounded-2xl cursor-pointer shadow-lg shadow-emerald-900/5"
+              className="group relative aspect-[3/4] overflow-hidden rounded-2xl cursor-pointer shadow-lg shadow-black/5"
               initial={{ opacity: 0, y: 40 }}
               animate={inView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.6, delay: i * 0.1 }}
@@ -735,11 +728,11 @@ function ForGigWorkers() {
                 className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
                 loading="lazy"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-emerald-950/90 via-emerald-950/20 to-transparent" />
+              <div className="absolute inset-0 bg-gradient-to-t from-[#1a1a1a]/90 via-[#1a1a1a]/20 to-transparent" />
               <div className="absolute bottom-0 left-0 right-0 p-5">
-                <div className="mb-2 h-[2px] w-6 rounded-full bg-emerald-400 transition-all duration-500 group-hover:w-12" />
+                <div className="mb-2 h-[2px] w-6 rounded-full bg-[#15803d] transition-all duration-500 group-hover:w-12" />
                 <h3 className="text-lg font-bold text-white">{p.title}</h3>
-                <p className="mt-1.5 max-h-0 overflow-hidden text-sm leading-relaxed text-emerald-100/60 transition-all duration-500 group-hover:max-h-20">
+                <p className="mt-1.5 max-h-0 overflow-hidden text-sm leading-relaxed text-white/60 transition-all duration-500 group-hover:max-h-20">
                   {p.desc}
                 </p>
               </div>
@@ -773,23 +766,23 @@ function WhyElilons() {
     },
     {
       title: "Made for 1099 Workers",
-      desc: "This isn't a bank product. We built Elilons from scratch for people who earn on apps.",
+      desc: "This isn't a bank product. We built LimeCredit from scratch for people who earn on apps.",
     },
   ];
 
   return (
-    <section ref={ref} id="why-elilons" className="scroll-mt-16 bg-[#FAFAF7] px-6 py-28 sm:py-36">
+    <section ref={ref} id="why-limecredit" className="scroll-mt-16 bg-white px-6 py-28 sm:py-36">
       <div className="mx-auto max-w-7xl">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8 }}
         >
-          <p className="text-[12px] font-medium uppercase tracking-[0.3em] text-emerald-600/50">
-            Why Elilons
+          <p className="text-[12px] font-medium uppercase tracking-[0.3em] text-[#15803d]/60">
+            Why LimeCredit
           </p>
-          <h2 className="mt-3 text-3xl font-bold tracking-[-0.03em] text-emerald-950 sm:text-4xl lg:text-5xl">
-            Built different. <span className="text-emerald-600">Built for you.</span>
+          <h2 className="mt-3 text-3xl font-bold tracking-[-0.03em] text-[#1a1a1a] sm:text-4xl lg:text-5xl">
+            Built different. <span className="text-[#15803d]">Built for you.</span>
           </h2>
         </motion.div>
 
@@ -797,15 +790,15 @@ function WhyElilons() {
           {values.map((v, i) => (
             <motion.div
               key={v.title}
-              className="rounded-2xl border border-emerald-900/5 bg-white/70 p-8 transition-all duration-500 hover:bg-white hover:shadow-lg hover:shadow-emerald-900/5 sm:p-10"
+              className="rounded-2xl border border-black/5 bg-[#f9faf9] p-8 transition-all duration-500 hover:bg-white hover:shadow-lg hover:shadow-black/5 sm:p-10"
               initial={{ opacity: 0, y: 30 }}
               animate={inView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.6, delay: i * 0.1 }}
             >
-              <h3 className="text-xl font-bold tracking-[-0.02em] text-emerald-900 sm:text-2xl">
+              <h3 className="text-xl font-bold tracking-[-0.02em] text-[#1a1a1a] sm:text-2xl">
                 {v.title}
               </h3>
-              <p className="mt-3 max-w-sm text-sm leading-relaxed text-emerald-800/60">
+              <p className="mt-3 max-w-sm text-sm leading-relaxed text-[#71717a]">
                 {v.desc}
               </p>
             </motion.div>
@@ -825,19 +818,19 @@ function Testimonials() {
 
   const testimonials = [
     {
-      quote: "I drive Uber like 50 hours a week and Chase literally told me I don't have real income. Elilons looked at my stubs and funded me in 2 days.",
+      quote: "I drive Uber like 50 hours a week and Chase literally told me I don't have real income. LimeCredit looked at my stubs and funded me in 2 days.",
       name: "Marcus T.",
       role: "Uber Driver, Atlanta",
       initials: "MT",
     },
     {
-      quote: "Slow week on DoorDash plus rent due — instant panic. Applied on Elilons Tuesday, had cash by Thursday. They actually get the gig life.",
+      quote: "Slow week on DoorDash plus rent due — instant panic. Applied on LimeCredit Tuesday, had cash by Thursday. They actually get the gig life.",
       name: "Sarah K.",
       role: "DoorDash Dasher, Phoenix",
       initials: "SK",
     },
     {
-      quote: "I do Instacart and Amazon Flex. My income is all over the place. Every bank treats me like I'm unemployed. Elilons just said yes.",
+      quote: "I do Instacart and Amazon Flex. My income is all over the place. Every bank treats me like I'm unemployed. LimeCredit just said yes.",
       name: "DeAndre J.",
       role: "Instacart Shopper, Chicago",
       initials: "DJ",
@@ -845,18 +838,18 @@ function Testimonials() {
   ];
 
   return (
-    <section ref={ref} className="bg-[#F5F5F0] px-6 py-28 sm:py-36">
+    <section ref={ref} className="bg-[#f9faf9] px-6 py-28 sm:py-36">
       <div className="mx-auto max-w-7xl">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8 }}
         >
-          <p className="text-[12px] font-medium uppercase tracking-[0.3em] text-emerald-600/50">
+          <p className="text-[12px] font-medium uppercase tracking-[0.3em] text-[#15803d]/60">
             From the community
           </p>
-          <h2 className="mt-3 text-3xl font-bold tracking-[-0.03em] text-emerald-950 sm:text-4xl">
-            Gig workers trust Elilons.
+          <h2 className="mt-3 text-3xl font-bold tracking-[-0.03em] text-[#1a1a1a] sm:text-4xl">
+            Gig workers trust LimeCredit.
           </h2>
         </motion.div>
 
@@ -864,7 +857,7 @@ function Testimonials() {
           {testimonials.map((t, i) => (
             <motion.div
               key={t.name}
-              className="flex h-full flex-col justify-between rounded-2xl border border-emerald-900/5 bg-white/70 p-8 sm:p-9"
+              className="flex h-full flex-col justify-between rounded-2xl border border-black/5 bg-white p-8 sm:p-9"
               initial={{ opacity: 0, y: 30 }}
               animate={inView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.6, delay: i * 0.12 }}
@@ -872,27 +865,27 @@ function Testimonials() {
               <div>
                 <div className="flex gap-1">
                   {[...Array(5)].map((_, j) => (
-                    <div key={j} className="h-1 w-5 rounded-full bg-emerald-400" />
+                    <div key={j} className="h-1 w-5 rounded-full bg-[#15803d]" />
                   ))}
                 </div>
-                <p className="mt-6 text-[15px] leading-relaxed text-emerald-900/60">
+                <p className="mt-6 text-[15px] leading-relaxed text-[#71717a]">
                   &ldquo;{t.quote}&rdquo;
                 </p>
               </div>
               <div className="mt-8 flex items-center gap-3">
-                <div className="flex h-10 w-10 items-center justify-center rounded-full bg-gradient-to-br from-emerald-400 to-green-500 text-xs font-bold text-white">
+                <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[#f0f5f0] text-xs font-bold text-[#15803d]">
                   {t.initials}
                 </div>
                 <div>
-                  <p className="text-sm font-semibold text-emerald-900">{t.name}</p>
-                  <p className="text-[12px] text-emerald-800/55">{t.role}</p>
+                  <p className="text-sm font-semibold text-[#1a1a1a]">{t.name}</p>
+                  <p className="text-[12px] text-[#71717a]">{t.role}</p>
                 </div>
               </div>
             </motion.div>
           ))}
         </div>
 
-        <p className="mt-8 text-center text-[10px] text-emerald-800/40">
+        <p className="mt-8 text-center text-[10px] text-[#71717a]/60">
           Testimonials are illustrative
         </p>
       </div>
@@ -908,9 +901,9 @@ function FinalCTA() {
   const inView = useInView(ref, { once: true, margin: "-100px" });
 
   return (
-    <section ref={ref} className="relative overflow-hidden bg-emerald-600 px-6 py-28 sm:py-36">
-      <div className="pointer-events-none absolute -top-40 -right-40 h-[500px] w-[500px] rounded-full bg-green-400/20 blur-3xl" />
-      <div className="pointer-events-none absolute -bottom-40 -left-40 h-[500px] w-[500px] rounded-full bg-emerald-800/30 blur-3xl" />
+    <section ref={ref} className="relative overflow-hidden bg-[#1a1a1a] px-6 py-28 sm:py-36">
+      <div className="pointer-events-none absolute -top-40 -right-40 h-[500px] w-[500px] rounded-full bg-[#15803d]/10 blur-3xl" />
+      <div className="pointer-events-none absolute -bottom-40 -left-40 h-[500px] w-[500px] rounded-full bg-[#15803d]/15 blur-3xl" />
 
       <motion.div
         className="relative z-10 mx-auto max-w-3xl text-center"
@@ -923,7 +916,7 @@ function FinalCTA() {
           <br />
           could fund
           <br />
-          <span className="text-emerald-200">your next move.</span>
+          <span className="text-[#15803d]">your next move.</span>
         </h2>
         <p className="mx-auto mt-6 max-w-md text-lg text-white/60">
           5 minutes. That&apos;s all it takes. Apply between deliveries.
@@ -931,7 +924,7 @@ function FinalCTA() {
         <div className="mt-10 flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
           <Link
             href="/apply"
-            className="group rounded-full bg-white px-10 py-4 text-[15px] font-bold text-emerald-700 shadow-lg transition-all hover:scale-105 hover:shadow-xl"
+            className="group rounded-lg bg-white px-10 py-4 text-[15px] font-bold text-[#1a1a1a] shadow-lg transition-all hover:scale-105 hover:shadow-xl"
           >
             Get Funded Now
             <span className="ml-2 inline-block transition-transform group-hover:translate-x-1">
@@ -955,32 +948,32 @@ function FinalCTA() {
 /* ------------------------------------------------------------------ */
 function Footer() {
   return (
-    <footer className="bg-emerald-950 px-6 py-16">
+    <footer className="bg-[#1a1a1a] px-6 py-16">
       <div className="mx-auto max-w-7xl">
         <div className="flex flex-col items-center justify-between gap-8 sm:flex-row sm:items-start">
           <div>
-            <span className="text-xl font-bold tracking-[-0.02em] text-white">
-              Elilons
+            <span className="text-xl font-extrabold tracking-[-0.03em] text-white">
+              Lime<span className="text-[#15803d]">Credit</span>
             </span>
-            <p className="mt-1.5 max-w-xs text-sm text-emerald-200/50">
+            <p className="mt-1.5 max-w-xs text-[13px] text-[#a1a1aa]">
               Cash for the drivers, the dashers, the riders, and every gig worker keeping things moving.
             </p>
           </div>
-          <div className="flex gap-8 text-sm text-emerald-200/30">
-            <Link href="/apply" className="transition-colors hover:text-emerald-300">Apply</Link>
-            <Link href="/status" className="transition-colors hover:text-emerald-300">Status</Link>
-            <a href="#how-it-works" className="transition-colors hover:text-emerald-300">How It Works</a>
+          <div className="flex gap-8 text-[13px] text-[#a1a1aa]">
+            <Link href="/apply" className="transition-colors hover:text-white">Apply</Link>
+            <Link href="/status" className="transition-colors hover:text-white">Status</Link>
+            <a href="#how-it-works" className="transition-colors hover:text-white">How It Works</a>
           </div>
-          <div className="flex gap-8 text-sm text-emerald-200/30">
-            <Link href="/terms" className="transition-colors hover:text-emerald-300">Terms</Link>
-            <Link href="/privacy" className="transition-colors hover:text-emerald-300">Privacy</Link>
-            <Link href="/disclosures" className="transition-colors hover:text-emerald-300">Disclosures</Link>
+          <div className="flex gap-8 text-[13px] text-[#a1a1aa]">
+            <Link href="/terms" className="transition-colors hover:text-white">Terms</Link>
+            <Link href="/privacy" className="transition-colors hover:text-white">Privacy</Link>
+            <Link href="/disclosures" className="transition-colors hover:text-white">Disclosures</Link>
           </div>
         </div>
 
-        <div className="mt-12 border-t border-emerald-200/5 pt-6 text-center text-[10px] text-emerald-200/40">
-          <p>Not a bank. Loans subject to approval and verification of income. Elilons is designed exclusively for 1099 independent contractors.</p>
-          <p className="mt-1">&copy; 2026 Elilons. All rights reserved.</p>
+        <div className="mt-12 border-t border-white/5 pt-6 text-center text-[12px] text-[#71717a]">
+          <p>Not a bank. Loans subject to approval and verification of income. LimeCredit is designed exclusively for 1099 independent contractors.</p>
+          <p className="mt-1">&copy; 2026 LimeCredit. All rights reserved.</p>
         </div>
       </div>
     </footer>
@@ -992,7 +985,7 @@ function Footer() {
 /* ------------------------------------------------------------------ */
 export default function Home() {
   return (
-    <main className="bg-[#FAFAF7]">
+    <main className="bg-white">
       <style jsx global>{`
         @keyframes scroll {
           0% { transform: translateX(0); }
