@@ -15,5 +15,17 @@ export interface StorageProvider {
   delete(storagePath: string): Promise<void>;
 }
 
+export interface RiskScoreResult {
+  riskScore: number;
+  interestRate: number;
+  modelId: string | null;
+  features: {
+    name: string;
+    rawValue: number | null;
+    normalizedValue: number;
+    weight: number;
+  }[];
+}
+
 // Re-export Prisma types used elsewhere
 export type { Document, LoanRule };
