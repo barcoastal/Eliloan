@@ -100,10 +100,21 @@ export async function evaluateApplication(
     reasons.push("All checks passed");
   }
 
+  // Score via risk model (or fallback to min rate)
+  let suggestedRate = minInterestRate;
+  let riskScoreResult: RiskScoreResult | null = null;
+  try {
+    riskScoreResult = await scoreApplication(application.id);
+    suggestedRate = riskScoreResult.interestRate;
+  } catch (error) {
+    console.warn("Risk model scoring failed, using min_interest_rate:", error);
+  }
+
   return {
     recommendation,
     reasons,
-    suggestedRate: minInterestRate,
+    suggestedRate,
     rules,
+    riskScore: riskScoreResult,
   };
 }

@@ -7,6 +7,7 @@ export interface EvaluationResult {
   reasons: string[];
   suggestedRate: number;
   rules: Record<string, string>;
+  riskScore: RiskScoreResult | null;
 }
 
 export interface StorageProvider {

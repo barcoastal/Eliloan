@@ -18,6 +18,7 @@ export async function evaluateApplicationAction(
       reasons: ["Application not found"],
       suggestedRate: 30,
       rules: {},
+      riskScore: null,
     };
   }
 
