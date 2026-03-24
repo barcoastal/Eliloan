@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useMemo, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import Link from "next/link";
@@ -13,7 +13,7 @@ import {
 import { evaluateApplicationAction } from "@/actions/evaluation";
 import { fetchAndStoreIncome } from "@/actions/plaid";
 import { getPaymentsSummary, retryPayment, waiveLateFee } from "@/actions/payments";
-import type { ApplicationWithDocuments } from "@/types";
+import type { ApplicationWithDocuments, RiskScoreResult } from "@/types";
 import type { EvaluationResult } from "@/types";
 
 /* ── helpers ── */
@@ -57,39 +57,6 @@ function RecommendationBadge({ recommendation }: { recommendation: string }) {
   );
 }
 
-/* ── amortization ── */
-
-interface AmortRow {
-  month: number;
-  payment: number;
-  principal: number;
-  interest: number;
-  remaining: number;
-}
-
-function buildAmortization(principal: number, annualRate: number, months: number): AmortRow[] {
-  const r = annualRate / 100 / 12;
-  const M = r === 0
-    ? principal / months
-    : (principal * r * Math.pow(1 + r, months)) / (Math.pow(1 + r, months) - 1);
-
-  const rows: AmortRow[] = [];
-  let balance = principal;
-  for (let i = 1; i <= months; i++) {
-    const intPart = balance * r;
-    const princPart = M - intPart;
-    balance = Math.max(0, balance - princPart);
-    rows.push({
-      month: i,
-      payment: M,
-      principal: princPart,
-      interest: intPart,
-      remaining: balance,
-    });
-  }
-  return rows;
-}
-
 /* ── main component ── */
 
 export function DetailClient({
@@ -101,9 +68,15 @@ export function DetailClient({
 
   /* evaluation */
   const [evaluation, setEvaluation] = useState<EvaluationResult | null>(null);
+  const [riskResult, setRiskResult] = useState<RiskScoreResult | null>(null);
 
   useEffect(() => {
-    evaluateApplicationAction(application.id).then(setEvaluation);
+    evaluateApplicationAction(application.id).then((evalResult) => {
+      setEvaluation(evalResult);
+      if (evalResult.riskScore) {
+        setRiskResult(evalResult.riskScore);
+      }
+    });
   }, [application.id]);
 
   /* payments */
@@ -180,65 +153,9 @@ export function DetailClient({
   const [funding, setFunding] = useState(false);
   const [fundAmount, setFundAmount] = useState(String(Number(application.loanAmount)));
 
-  /* monthly payment input */
-  const [monthlyPaymentInput, setMonthlyPaymentInput] = useState("");
-
   /* derived values */
   const loanAmount = Number(application.loanAmount);
   const totalIncome = application.totalIncome ? Number(application.totalIncome) : null;
-  const incomeToLoanRatio = totalIncome ? totalIncome / loanAmount : null;
-
-  const risk = useMemo(() => {
-    if (incomeToLoanRatio === null) return null;
-    if (incomeToLoanRatio >= 3) return { level: "Low Risk", color: "emerald", pct: 95, recRate: 18, desc: "Strong income coverage. Standard rate recommended." };
-    if (incomeToLoanRatio >= 2) return { level: "Medium Risk", color: "amber", pct: 75, recRate: 25, desc: "Moderate income coverage. Higher rate to offset risk." };
-    return { level: "High Risk", color: "red", pct: 45, recRate: 35, desc: "Weak income coverage. Premium rate required or consider rejection." };
-  }, [incomeToLoanRatio]);
-
-  /* 25% profit calculation */
-  const targetProfit = loanAmount * 0.25;
-  const totalRepayment = loanAmount + targetProfit;
-
-  const monthlyPayment = parseFloat(monthlyPaymentInput);
-  const hasMonthly = !isNaN(monthlyPayment) && monthlyPayment > 0;
-
-  const loanTermMonthsCalc = hasMonthly ? Math.ceil(totalRepayment / monthlyPayment) : null;
-
-  const annualRate = useMemo(() => {
-    if (!loanTermMonthsCalc || loanTermMonthsCalc <= 0) return null;
-    const P = loanAmount;
-    const n = loanTermMonthsCalc;
-    const targetTotal = totalRepayment;
-
-    let lo = 0;
-    let hi = 1;
-    for (let i = 0; i < 100; i++) {
-      const mid = (lo + hi) / 2;
-      const M = mid === 0
-        ? P / n
-        : (P * mid * Math.pow(1 + mid, n)) / (Math.pow(1 + mid, n) - 1);
-      const total = M * n;
-      if (total < targetTotal) {
-        lo = mid;
-      } else {
-        hi = mid;
-      }
-    }
-    return ((lo + hi) / 2) * 12 * 100;
-  }, [loanAmount, loanTermMonthsCalc, totalRepayment]);
-
-  const amortRows = useMemo(() => {
-    if (!annualRate || !loanTermMonthsCalc) return [];
-    return buildAmortization(loanAmount, annualRate, loanTermMonthsCalc);
-  }, [loanAmount, annualRate, loanTermMonthsCalc]);
-
-  const actualMonthlyPayment = useMemo(() => {
-    if (!annualRate || !loanTermMonthsCalc) return null;
-    const r = annualRate / 100 / 12;
-    return r === 0
-      ? loanAmount / loanTermMonthsCalc
-      : (loanAmount * r * Math.pow(1 + r, loanTermMonthsCalc)) / (Math.pow(1 + r, loanTermMonthsCalc) - 1);
-  }, [loanAmount, annualRate, loanTermMonthsCalc]);
 
   /* ── handlers ── */
 
@@ -329,13 +246,6 @@ export function DetailClient({
       setFunding(false);
     }
   }
-
-  /* ── risk color helpers ── */
-  const riskColors: Record<string, { badge: string; bar: string; text: string }> = {
-    emerald: { badge: "bg-emerald-100 text-emerald-800", bar: "bg-emerald-500", text: "text-emerald-700" },
-    amber: { badge: "bg-amber-100 text-amber-800", bar: "bg-amber-500", text: "text-amber-700" },
-    red: { badge: "bg-red-100 text-red-800", bar: "bg-red-500", text: "text-red-700" },
-  };
 
   /* ── render ── */
 
@@ -633,174 +543,78 @@ export function DetailClient({
             )}
           </div>
 
-          {/* ── Loan Analysis (only when income is saved) ── */}
-          {totalIncome !== null && (
+          {/* ── Risk Assessment (model-driven) ── */}
+          {riskResult && (
             <div className="rounded-2xl bg-white border border-gray-200 shadow-sm p-6">
               <h2 className="text-base font-semibold text-gray-900 mb-5 flex items-center gap-2">
                 <svg className="h-5 w-5 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={1.5}>
                   <path strokeLinecap="round" strokeLinejoin="round" d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 0 1 3 19.875v-6.75ZM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 0 1-1.125-1.125V8.625ZM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 0 1-1.125-1.125V4.125Z" />
                 </svg>
-                Loan Analysis
+                Risk Assessment
               </h2>
 
-              {/* Risk Assessment */}
-              {risk && incomeToLoanRatio !== null && (
-                <div className="mb-6 rounded-xl bg-gray-50 border border-gray-100 p-5">
-                  <h3 className="text-sm font-semibold text-gray-900 mb-4">Risk Assessment</h3>
-
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-5">
-                    <div className={`rounded-xl p-5 text-center ${
-                      risk.color === "emerald" ? "bg-emerald-50 border border-emerald-200" :
-                      risk.color === "amber" ? "bg-amber-50 border border-amber-200" :
-                      "bg-red-50 border border-red-200"
+              <div className="space-y-4">
+                <div className="grid grid-cols-2 gap-4">
+                  <div className="rounded-lg border p-4 text-center">
+                    <p className="text-sm text-muted-foreground">Risk Score</p>
+                    <p className={`text-3xl font-bold ${
+                      riskResult.riskScore < 33 ? "text-emerald-600" :
+                      riskResult.riskScore < 66 ? "text-amber-600" :
+                      "text-red-600"
                     }`}>
-                      <p className="text-xs font-semibold uppercase tracking-wider text-gray-500 mb-1">Repayment Chance</p>
-                      <p className={`text-5xl font-black ${riskColors[risk.color].text}`}>{risk.pct}%</p>
-                      <div className="mt-3 h-3 rounded-full bg-gray-200 overflow-hidden">
-                        <div
-                          className={`h-full rounded-full ${riskColors[risk.color].bar} transition-all`}
-                          style={{ width: `${risk.pct}%` }}
-                        />
-                      </div>
-                      <span className={`mt-3 inline-flex items-center rounded-full px-3 py-1 text-xs font-semibold ${riskColors[risk.color].badge}`}>
-                        <span className={`mr-1.5 h-2 w-2 rounded-full ${riskColors[risk.color].bar}`} />
-                        {risk.level}
-                      </span>
-                    </div>
-                    <div className={`rounded-xl p-5 text-center ${
-                      risk.color === "emerald" ? "bg-emerald-50 border border-emerald-200" :
-                      risk.color === "amber" ? "bg-amber-50 border border-amber-200" :
-                      "bg-red-50 border border-red-200"
-                    }`}>
-                      <p className="text-xs font-semibold uppercase tracking-wider text-gray-500 mb-1">Recommended Interest Rate</p>
-                      <p className={`text-5xl font-black ${riskColors[risk.color].text}`}>{risk.recRate}%</p>
-                      <p className="mt-3 text-sm text-gray-600 leading-snug">{risk.desc}</p>
-                    </div>
+                      {riskResult.riskScore.toFixed(1)}
+                    </p>
+                    <p className="text-xs text-muted-foreground">out of 100 (higher = riskier)</p>
                   </div>
-
-                  <div className="rounded-lg bg-white border border-gray-100 px-4 py-3">
-                    <div className="flex items-center justify-between">
-                      <p className="text-xs text-gray-500 uppercase tracking-wider">Income-to-Loan Ratio</p>
-                      <p className="text-lg font-bold text-gray-900">{incomeToLoanRatio.toFixed(2)}x</p>
-                    </div>
+                  <div className="rounded-lg border p-4 text-center">
+                    <p className="text-sm text-muted-foreground">Calculated Rate</p>
+                    <p className="text-3xl font-bold">{riskResult.interestRate.toFixed(2)}%</p>
+                    <p className="text-xs text-muted-foreground">auto-set on approval</p>
                   </div>
                 </div>
-              )}
 
-              {/* Interest Rate for 25% Profit */}
-              <div className="mb-6 rounded-xl bg-emerald-50 border border-emerald-100 p-5">
-                <h3 className="text-sm font-semibold text-gray-900 mb-3">Interest Rate Calculator (25% Profit Target)</h3>
-                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                  <div>
-                    <p className="text-xs text-gray-500 uppercase tracking-wider">Principal</p>
-                    <p className="mt-1 text-lg font-bold text-gray-900">${fmt(loanAmount)}</p>
-                  </div>
-                  <div>
-                    <p className="text-xs text-gray-500 uppercase tracking-wider">Target Profit (25%)</p>
-                    <p className="mt-1 text-lg font-bold text-emerald-700">${fmt(targetProfit)}</p>
-                  </div>
-                  <div>
-                    <p className="text-xs text-gray-500 uppercase tracking-wider">Total Repayment</p>
-                    <p className="mt-1 text-lg font-bold text-gray-900">${fmt(totalRepayment)}</p>
+                <div>
+                  <h4 className="text-sm font-medium mb-2">Feature Breakdown</h4>
+                  <div className="rounded border">
+                    <table className="w-full text-sm">
+                      <thead>
+                        <tr className="border-b bg-muted/50">
+                          <th className="text-left p-2">Feature</th>
+                          <th className="text-right p-2">Raw Value</th>
+                          <th className="text-right p-2">Normalized</th>
+                          <th className="text-right p-2">Weight</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {riskResult.features.map((f) => (
+                          <tr key={f.name} className="border-b last:border-0">
+                            <td className="p-2 font-mono text-xs">{f.name}</td>
+                            <td className="p-2 text-right">{f.rawValue?.toFixed(2) ?? "N/A"}</td>
+                            <td className="p-2 text-right">{f.normalizedValue.toFixed(3)}</td>
+                            <td className={`p-2 text-right ${f.weight > 0 ? "text-red-600" : "text-emerald-600"}`}>
+                              {f.weight.toFixed(3)}
+                            </td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
                   </div>
                 </div>
-                {annualRate !== null && (
-                  <div className="mt-3 pt-3 border-t border-emerald-200">
-                    <p className="text-xs text-gray-500 uppercase tracking-wider">Calculated Annual Interest Rate</p>
-                    <p className="mt-1 text-2xl font-bold text-emerald-700">{annualRate.toFixed(2)}%</p>
+
+                {riskResult.features.find(f => f.name === "aggregate_exposure")?.rawValue != null &&
+                  riskResult.features.find(f => f.name === "aggregate_exposure")!.rawValue! > 0 && (
+                  <div className="rounded-lg border border-amber-200 bg-amber-50 p-3">
+                    <p className="text-sm font-medium text-amber-800">Concurrent Loans Detected</p>
+                    <p className="text-sm text-amber-700">
+                      Exposure ratio: {riskResult.features.find(f => f.name === "aggregate_exposure")?.rawValue?.toFixed(2)}
+                    </p>
                   </div>
                 )}
-              </div>
 
-              {/* Monthly Payment & Loan Term */}
-              <div className="mb-6 rounded-xl bg-gray-50 border border-gray-100 p-5">
-                <h3 className="text-sm font-semibold text-gray-900 mb-3">Monthly Payment & Loan Term</h3>
-                <div className="flex items-end gap-3 mb-4">
-                  <div className="flex-1">
-                    <label htmlFor="monthly" className="block text-sm font-medium text-gray-700 mb-1.5">
-                      How much can the applicant pay per month?
-                    </label>
-                    <div className="relative">
-                      <span className="absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400 text-sm font-medium">$</span>
-                      <input
-                        id="monthly"
-                        type="number"
-                        placeholder="0.00"
-                        value={monthlyPaymentInput}
-                        onChange={(e) => setMonthlyPaymentInput(e.target.value)}
-                        className="w-full rounded-xl border border-gray-300 bg-white pl-8 pr-4 py-2.5 text-sm text-gray-900 placeholder:text-gray-400 focus:border-emerald-500 focus:outline-none focus:ring-2 focus:ring-emerald-500/20"
-                      />
-                    </div>
-                  </div>
-                </div>
-
-                {hasMonthly && loanTermMonthsCalc !== null && annualRate !== null && actualMonthlyPayment !== null && (
-                  <>
-                    <div className="rounded-xl bg-white border border-gray-200 p-4 mb-4">
-                      <p className="text-sm text-gray-700">
-                        <span className="font-bold text-emerald-700">{loanTermMonthsCalc} months</span>
-                        {" "}({(loanTermMonthsCalc / 12).toFixed(1)} years) at{" "}
-                        <span className="font-bold text-gray-900">${fmt(actualMonthlyPayment)}/month</span>
-                      </p>
-                    </div>
-
-                    {/* Loan Summary Card */}
-                    <div className="rounded-xl bg-emerald-600 text-white p-5 mb-4">
-                      <h4 className="text-sm font-semibold mb-3 opacity-90">Loan Summary</h4>
-                      <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
-                        <div>
-                          <p className="text-xs opacity-75 uppercase tracking-wider">Principal</p>
-                          <p className="mt-0.5 text-lg font-bold">${fmt(loanAmount)}</p>
-                        </div>
-                        <div>
-                          <p className="text-xs opacity-75 uppercase tracking-wider">Interest Rate</p>
-                          <p className="mt-0.5 text-lg font-bold">{annualRate.toFixed(2)}%</p>
-                        </div>
-                        <div>
-                          <p className="text-xs opacity-75 uppercase tracking-wider">Total Interest</p>
-                          <p className="mt-0.5 text-lg font-bold">${fmt(targetProfit)}</p>
-                        </div>
-                        <div>
-                          <p className="text-xs opacity-75 uppercase tracking-wider">Total Repayment</p>
-                          <p className="mt-0.5 text-lg font-bold">${fmt(totalRepayment)}</p>
-                        </div>
-                        <div>
-                          <p className="text-xs opacity-75 uppercase tracking-wider">Monthly Payment</p>
-                          <p className="mt-0.5 text-lg font-bold">${fmt(actualMonthlyPayment)}</p>
-                        </div>
-                        <div>
-                          <p className="text-xs opacity-75 uppercase tracking-wider">Loan Term</p>
-                          <p className="mt-0.5 text-lg font-bold">{loanTermMonthsCalc} mo</p>
-                        </div>
-                      </div>
-                    </div>
-
-                    {/* Amortization Table */}
-                    <div className="overflow-x-auto">
-                      <table className="w-full text-sm">
-                        <thead>
-                          <tr className="border-b border-gray-200">
-                            <th className="py-2.5 px-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">Month</th>
-                            <th className="py-2.5 px-3 text-right text-xs font-semibold text-gray-500 uppercase tracking-wider">Payment</th>
-                            <th className="py-2.5 px-3 text-right text-xs font-semibold text-gray-500 uppercase tracking-wider">Principal</th>
-                            <th className="py-2.5 px-3 text-right text-xs font-semibold text-gray-500 uppercase tracking-wider">Interest</th>
-                            <th className="py-2.5 px-3 text-right text-xs font-semibold text-gray-500 uppercase tracking-wider">Balance</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          {amortRows.map((row) => (
-                            <tr key={row.month} className="border-b border-gray-100 hover:bg-emerald-50/30 transition-colors">
-                              <td className="py-2 px-3 text-gray-700 font-medium">{row.month}</td>
-                              <td className="py-2 px-3 text-right text-gray-900">${fmt(row.payment)}</td>
-                              <td className="py-2 px-3 text-right text-gray-700">${fmt(row.principal)}</td>
-                              <td className="py-2 px-3 text-right text-gray-500">${fmt(row.interest)}</td>
-                              <td className="py-2 px-3 text-right text-gray-900 font-medium">${fmt(Math.max(0, row.remaining))}</td>
-                            </tr>
-                          ))}
-                        </tbody>
-                      </table>
-                    </div>
-                  </>
+                {!riskResult.modelId && (
+                  <p className="text-sm text-amber-600">
+                    No risk model loaded — using default rate. Run the seed script to initialize.
+                  </p>
                 )}
               </div>
             </div>
