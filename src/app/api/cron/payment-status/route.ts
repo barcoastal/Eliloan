@@ -60,6 +60,45 @@ export async function POST(request: NextRequest) {
           where: { id: payment.applicationId },
           data: { status: "PAID_OFF" },
         });
+
+        // Create RiskProfile for training data
+        const allPayments = await prisma.payment.findMany({
+          where: { applicationId: payment.applicationId },
+        });
+        const totalPaid = allPayments
+          .filter((p) => p.status === "PAID")
+          .reduce((sum, p) => sum + Number(p.amount) + Number(p.lateFee), 0);
+        const totalOwed = allPayments
+          .reduce((sum, p) => sum + Number(p.amount), 0);
+        const latePaymentCount = allPayments
+          .filter((p) => Number(p.lateFee) > 0).length;
+
+        const app = await prisma.application.findUnique({
+          where: { id: payment.applicationId },
+        });
+
+        if (app?.ssnHash) {
+          await prisma.riskProfile.create({
+            data: {
+              applicationId: payment.applicationId,
+              ssnHash: app.ssnHash,
+              platform: app.platform ?? "unknown",
+              monthlyIncome: app.monthlyIncome ?? 0,
+              loanAmount: app.loanAmount,
+              loanTermMonths: app.loanTermMonths ?? 12,
+              interestRate: app.interestRate ?? 0,
+              outcome: "PAID_OFF",
+              totalPaid,
+              totalOwed,
+              latePaymentCount,
+              completedAt: new Date(),
+            },
+          });
+
+          // Check retrain threshold
+          const { checkAndTriggerRetrain } = await import("@/lib/risk-model");
+          await checkAndTriggerRetrain();
+        }
       } else {
         // If loan was LATE and all overdue payments caught up, revert to ACTIVE
         const overduePayments = allPayments.filter(
