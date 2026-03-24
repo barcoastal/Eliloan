@@ -1,4 +1,4 @@
-import { resend, FROM_EMAIL } from "@/lib/email";
+import { getResend, FROM_EMAIL } from "@/lib/email";
 
 export async function sendEmail(params: {
   to: string;
@@ -6,7 +6,7 @@ export async function sendEmail(params: {
   html: string;
 }) {
   try {
-    const result = await resend.emails.send({
+    const result = await getResend().emails.send({
       from: FROM_EMAIL,
       to: params.to,
       subject: params.subject,
