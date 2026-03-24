@@ -28,14 +28,14 @@ type StatusApplication = {
 
 function StatusBadge({ status }: { status: string }) {
   const config: Record<string, { bg: string; text: string; label: string }> = {
-    PENDING: { bg: "bg-amber-50", text: "text-amber-700", label: "Under Review" },
-    APPROVED: { bg: "bg-green-50", text: "text-green-700", label: "Approved" },
-    REJECTED: { bg: "bg-red-50", text: "text-red-700", label: "Rejected" },
-    ACTIVE: { bg: "bg-blue-50", text: "text-blue-700", label: "Active" },
-    LATE: { bg: "bg-orange-50", text: "text-orange-700", label: "Late" },
-    COLLECTIONS: { bg: "bg-rose-50", text: "text-rose-700", label: "Collections" },
-    DEFAULTED: { bg: "bg-red-50", text: "text-red-800", label: "Defaulted" },
-    PAID_OFF: { bg: "bg-emerald-50", text: "text-emerald-700", label: "Paid Off" },
+    PENDING: { bg: "bg-[#fef9ec]", text: "text-[#b45309]", label: "Under Review" },
+    APPROVED: { bg: "bg-[#f0f5f0]", text: "text-[#15803d]", label: "Approved" },
+    REJECTED: { bg: "bg-[#fff1f2]", text: "text-[#dc2626]", label: "Rejected" },
+    ACTIVE: { bg: "bg-[#eef4ff]", text: "text-[#2563eb]", label: "Active" },
+    LATE: { bg: "bg-[#fff1f2]", text: "text-[#dc2626]", label: "Late" },
+    COLLECTIONS: { bg: "bg-[#fff1f2]", text: "text-[#dc2626]", label: "Collections" },
+    DEFAULTED: { bg: "bg-[#fff1f2]", text: "text-[#dc2626]", label: "Defaulted" },
+    PAID_OFF: { bg: "bg-[#f0f5f0]", text: "text-[#15803d]", label: "Paid Off" },
   };
   const c = config[status] || { bg: "bg-gray-50", text: "text-gray-700", label: status };
   return (
@@ -97,7 +97,7 @@ export function StatusDisplay({ application }: { application: StatusApplication 
         </dl>
 
         {application.status === "REJECTED" && application.rejectionReason && (
-          <div className="mt-4 rounded-lg bg-red-50 p-3 text-sm text-red-800">
+          <div className="mt-4 rounded-lg bg-[#fff1f2] p-3 text-sm text-[#dc2626]">
             <p className="font-medium">Rejection Reason</p>
             <p className="mt-0.5">{application.rejectionReason}</p>
           </div>
@@ -115,7 +115,7 @@ export function StatusDisplay({ application }: { application: StatusApplication 
             </div>
             <div>
               <dt className="text-gray-500">Total Paid</dt>
-              <dd className="text-lg font-bold text-emerald-600 mt-0.5">${totalPaid.toFixed(2)}</dd>
+              <dd className="text-lg font-extrabold text-[#15803d] mt-0.5">${totalPaid.toFixed(2)}</dd>
             </div>
             <div>
               <dt className="text-gray-500">Remaining</dt>
@@ -124,15 +124,16 @@ export function StatusDisplay({ application }: { application: StatusApplication 
             {totalLateFees > 0 && (
               <div>
                 <dt className="text-gray-500">Late Fees</dt>
-                <dd className="text-lg font-bold text-orange-600 mt-0.5">${totalLateFees.toFixed(2)}</dd>
+                <dd className="text-lg font-bold text-[#dc2626] mt-0.5">${totalLateFees.toFixed(2)}</dd>
               </div>
             )}
           </dl>
           {nextPayment && (
-            <div className="mt-4 rounded-lg bg-blue-50 p-3 text-sm text-blue-800">
+            <div className="mt-4 bg-[#f0f5f0] rounded-[10px] p-4 text-sm text-[#1a1a1a]">
               <p className="font-medium">Next Payment</p>
               <p className="mt-0.5">
-                Payment #{nextPayment.paymentNumber}: ${Number(nextPayment.amount).toFixed(2)} due{" "}
+                Payment #{nextPayment.paymentNumber}:{" "}
+                <span className="text-[#15803d] font-extrabold">${Number(nextPayment.amount).toFixed(2)}</span> due{" "}
                 {new Date(nextPayment.dueDate).toLocaleDateString()}
               </p>
             </div>
@@ -147,22 +148,22 @@ export function StatusDisplay({ application }: { application: StatusApplication 
           <div className="overflow-x-auto">
             <table className="w-full text-sm">
               <thead>
-                <tr className="border-b text-left text-gray-500">
-                  <th className="pb-2 pr-4">#</th>
-                  <th className="pb-2 pr-4">Due Date</th>
-                  <th className="pb-2 pr-4">Amount</th>
-                  <th className="pb-2">Status</th>
+                <tr className="text-left">
+                  <th className="pb-2 pr-4 text-[11px] uppercase tracking-[0.05em] text-[#a1a1aa] font-semibold">#</th>
+                  <th className="pb-2 pr-4 text-[11px] uppercase tracking-[0.05em] text-[#a1a1aa] font-semibold">Due Date</th>
+                  <th className="pb-2 pr-4 text-[11px] uppercase tracking-[0.05em] text-[#a1a1aa] font-semibold">Amount</th>
+                  <th className="pb-2 text-[11px] uppercase tracking-[0.05em] text-[#a1a1aa] font-semibold">Status</th>
                 </tr>
               </thead>
               <tbody>
                 {payments.map((p) => (
-                  <tr key={p.id} className="border-b last:border-0">
+                  <tr key={p.id}>
                     <td className="py-2 pr-4">{p.paymentNumber}</td>
                     <td className="py-2 pr-4">{new Date(p.dueDate).toLocaleDateString()}</td>
                     <td className="py-2 pr-4 font-medium">
-                      ${Number(p.amount).toFixed(2)}
+                      <span className="text-[#15803d] font-extrabold">${Number(p.amount).toFixed(2)}</span>
                       {Number(p.lateFee) > 0 && (
-                        <span className="ml-1 text-xs text-orange-600">+${Number(p.lateFee).toFixed(2)} fee</span>
+                        <span className="ml-1 text-xs text-[#dc2626]">+${Number(p.lateFee).toFixed(2)} fee</span>
                       )}
                     </td>
                     <td className="py-2">
