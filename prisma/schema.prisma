@@ -26,6 +26,8 @@ model Application {
   monthlyIncome   Decimal?
   totalIncome     Decimal?
   riskScore       Decimal?
+  bankBalance     Decimal?
+  riskModelId     String?
   interestRate    Decimal?
   approvedBy      String?
   approvedAt      DateTime?
@@ -114,6 +116,7 @@ model AuditLog {
 model RiskProfile {
   id               String    @id @default(uuid())
   applicationId    String
+  ssnHash          String
   platform         String
   monthlyIncome    Decimal
   loanAmount       Decimal
@@ -129,6 +132,7 @@ model RiskProfile {
 
   @@index([platform])
   @@index([outcome])
+  @@index([ssnHash])
 }
 
 model CollectionEvent {
@@ -141,4 +145,18 @@ model CollectionEvent {
   application   Application @relation(fields: [applicationId], references: [id], onDelete: Cascade)
 
   @@index([applicationId])
+}
+
+model RiskModel {
+  id           String   @id @default(uuid())
+  version      Int
+  coefficients String
+  intercept    Float
+  features     String
+  trainingSize Int
+  accuracy     Float
+  precision    Float
+  recall       Float
+  isActive     Boolean  @default(false)
+  createdAt    DateTime @default(now())
 }
