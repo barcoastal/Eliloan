@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "prisma generate && prisma migrate deploy && npx tsx prisma/seed.mts && next build",
+    "build": "prisma generate && prisma migrate deploy && npx tsx prisma/seed.ts && next build",
     "postinstall": "prisma generate",
     "start": "next start",
     "lint": "eslint"
@@ -40,7 +40,7 @@
     "zod": "^4.3.6"
   },
   "prisma": {
-    "seed": "npx tsx prisma/seed.mts"
+    "seed": "npx tsx prisma/seed.ts"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
