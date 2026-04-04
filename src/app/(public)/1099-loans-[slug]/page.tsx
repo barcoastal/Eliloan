@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic";
+
 import { getStatePageBySlug, getPublishedStatePages } from "@/actions/content";
 import { notFound } from "next/navigation";
 import { Breadcrumbs } from "@/components/seo/breadcrumbs";

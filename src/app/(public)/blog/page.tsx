@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic";
+
 import { getPublishedArticles, getCategories } from "@/actions/content";
 import { ArticleCard } from "@/components/content/article-card";
 import { Breadcrumbs } from "@/components/seo/breadcrumbs";
