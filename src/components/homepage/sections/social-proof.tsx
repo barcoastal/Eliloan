@@ -14,13 +14,13 @@ const STATS = [
 
 const TESTIMONIALS = [
   {
-    quote: "I got denied at three banks because I drive for Uber. LimeCredit approved me in 2 hours. Literally saved my car payment.",
+    quote: "I got denied at three banks because I drive for Uber. CreditLime approved me in 2 hours. Literally saved my car payment.",
     name: "Marcus T.",
     role: "Uber & DoorDash Driver",
     location: "Atlanta, GA",
   },
   {
-    quote: "As a freelancer, income verification is always a headache. LimeCredit just connected to my Upwork earnings and that was it.",
+    quote: "As a freelancer, income verification is always a headache. CreditLime just connected to my Upwork earnings and that was it.",
     name: "Priya S.",
     role: "Upwork Freelancer",
     location: "Austin, TX",

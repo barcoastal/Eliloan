@@ -1,7 +1,7 @@
 import { StatusChecker } from "@/components/status-checker";
 
 export const metadata = {
-  title: "Check Application Status | LimeCredit",
+  title: "Check Application Status | CreditLime",
 };
 
 export default function StatusPage() {

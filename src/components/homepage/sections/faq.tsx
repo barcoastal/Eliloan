@@ -18,7 +18,7 @@ const FAQ_ENTRIES = [
   },
   {
     question: "What are the fees?",
-    answer: "LimeCredit charges a simple origination fee, no prepayment penalties, no hidden fees. Your total cost is shown clearly before you accept any loan. APR ranges from 30-60% depending on your loan amount, term, and earnings history.",
+    answer: "CreditLime charges a simple origination fee, no prepayment penalties, no hidden fees. Your total cost is shown clearly before you accept any loan. APR ranges from 30-60% depending on your loan amount, term, and earnings history.",
   },
   {
     question: "How do I apply?",
@@ -87,7 +87,7 @@ export function HomeFaq() {
           <p className="text-center text-[#71717a] text-[14px] mt-10">
             Still have questions?{" "}
             <a
-              href="mailto:support@limecredit.com"
+              href="mailto:support@creditlime.com"
               className="text-[#15803d] font-semibold hover:underline"
             >
               Email our team

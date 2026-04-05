@@ -8,7 +8,7 @@ import { Problem } from "./sections/problem";
 import { HowItWorks } from "./sections/how-it-works";
 import { PlatformShowcase } from "./sections/platform-showcase";
 import { SocialProof } from "./sections/social-proof";
-import { WhyLimecredit } from "./sections/why-limecredit";
+import { WhyLimecredit } from "./sections/why-creditlime";
 import { BlogPreview } from "./sections/blog-preview";
 import { HomeFaq } from "./sections/faq";
 import { FinalCta } from "./sections/final-cta";

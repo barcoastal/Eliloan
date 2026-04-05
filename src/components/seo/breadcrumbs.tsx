@@ -9,7 +9,7 @@ interface BreadcrumbItem {
 export function Breadcrumbs({ items }: { items: BreadcrumbItem[] }) {
   const schemaItems = items.map((item) => ({
     name: item.label,
-    url: `https://limecredit.com${item.href}`,
+    url: `https://creditlime.com${item.href}`,
   }));
 
   return (

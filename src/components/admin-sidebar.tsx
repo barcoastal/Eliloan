@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { signOut } from "next-auth/react";
+import { LogoMark } from "@/components/brand/logo";
 
 const navItems = [
   {
@@ -76,7 +77,10 @@ export function AdminSidebar({ userName }: { userName: string }) {
     <aside className="w-[200px] bg-white h-screen fixed flex flex-col">
       {/* Logo */}
       <div className="px-3 pt-5 pb-4">
-        <span className="font-extrabold text-[15px] tracking-[-0.03em]">Lime<span className="text-[#15803d]">Credit</span></span>
+        <span className="inline-flex items-center gap-2 font-extrabold text-[15px] tracking-[-0.03em]">
+          <LogoMark size={24} />
+          Credit<span className="text-[#15803d]">Lime</span>
+        </span>
       </div>
 
       {/* Navigation */}

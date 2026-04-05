@@ -93,9 +93,9 @@ export function ComparisonEditorClient({ comparison }: { comparison?: Comparison
       <div className="grid grid-cols-[1fr_300px] gap-6">
         <div className="space-y-4">
           <div className="bg-white rounded-[10px] p-4 space-y-4">
-            <div><label className={labelClass}>Title</label><input value={form.title} onChange={(e) => updateField("title", e.target.value)} className={inputClass} placeholder="LimeCredit vs Fundo" /></div>
+            <div><label className={labelClass}>Title</label><input value={form.title} onChange={(e) => updateField("title", e.target.value)} className={inputClass} placeholder="CreditLime vs Fundo" /></div>
             <div className="grid grid-cols-2 gap-4">
-              <div><label className={labelClass}>Entity A</label><input value={form.entityA} onChange={(e) => updateField("entityA", e.target.value)} className={inputClass} placeholder="LimeCredit" /></div>
+              <div><label className={labelClass}>Entity A</label><input value={form.entityA} onChange={(e) => updateField("entityA", e.target.value)} className={inputClass} placeholder="CreditLime" /></div>
               <div><label className={labelClass}>Entity B</label><input value={form.entityB} onChange={(e) => updateField("entityB", e.target.value)} className={inputClass} placeholder="Fundo" /></div>
             </div>
             <div><label className={labelClass}>Introduction</label><textarea value={form.introHtml} onChange={(e) => updateField("introHtml", e.target.value)} rows={4} className={inputClass} /></div>

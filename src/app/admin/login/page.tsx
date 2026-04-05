@@ -44,7 +44,7 @@ export default function AdminLoginPage() {
         {/* Logo */}
         <div className="mb-8 text-center">
           <span className="font-extrabold text-xl tracking-[-0.03em]">
-            Lime<span className="text-[#15803d]">Credit</span>
+            Credit<span className="text-[#15803d]">Lime</span>
           </span>
           <p className="mt-1 text-sm text-gray-400">Admin Portal</p>
         </div>
@@ -62,7 +62,7 @@ export default function AdminLoginPage() {
             <input
               id="email"
               type="email"
-              placeholder="admin@limecredit.com"
+              placeholder="admin@creditlime.com"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required

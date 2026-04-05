@@ -51,7 +51,7 @@ export function loanFundedEmail(params: {
         <p>Payments will be automatically debited from your linked bank account on each due date.</p>
         <p>Track your loan: <a href="${statusUrl}" style="color: #16a34a;">${statusUrl}</a></p>
         <hr style="border: none; border-top: 1px solid #e5e7eb; margin: 24px 0;" />
-        <p style="color: #6b7280; font-size: 12px;">LimeCredit</p>
+        <p style="color: #6b7280; font-size: 12px;">CreditLime</p>
       </div>
     `,
   };

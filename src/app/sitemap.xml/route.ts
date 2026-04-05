@@ -9,7 +9,7 @@ export async function GET() {
     prisma.comparisonPage.findMany({ where: { published: true }, select: { slug: true, updatedAt: true } }),
   ]);
 
-  const base = "https://limecredit.com";
+  const base = "https://creditlime.com";
 
   const staticPages = [
     { url: "/", priority: "1.0" },

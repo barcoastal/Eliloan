@@ -17,7 +17,7 @@ export function collectionEscalationEmail(params: {
         <p>To resolve this matter, please contact us immediately.</p>
         <p>View your loan: <a href="${statusUrl}" style="color: #dc2626;">${statusUrl}</a></p>
         <hr style="border: none; border-top: 1px solid #e5e7eb; margin: 24px 0;" />
-        <p style="color: #6b7280; font-size: 12px;">LimeCredit</p>
+        <p style="color: #6b7280; font-size: 12px;">CreditLime</p>
       </div>
     `,
   };

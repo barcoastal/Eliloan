@@ -64,7 +64,7 @@ export function LoanComparison() {
   return (
     <div className="bg-white rounded-[10px] p-6 md:p-8 border border-[#e4e4e7]">
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
-        {/* LimeCredit */}
+        {/* CreditLime */}
         <div className="bg-[#f0f5f0] border-2 border-[#15803d] rounded-[10px] p-5">
           <div className="mb-1">
             <span className="text-[10px] uppercase tracking-[0.06em] font-semibold text-[#15803d] bg-[#dcfce7] px-2 py-0.5 rounded-full">
@@ -72,7 +72,7 @@ export function LoanComparison() {
             </span>
           </div>
           <h3 className="text-[18px] font-extrabold tracking-[-0.02em] text-[#1a1a1a] mt-2 mb-1">
-            LimeCredit
+            CreditLime
           </h3>
           <p className="text-[12px] text-[#71717a]">Built for gig workers</p>
         </div>
@@ -104,7 +104,7 @@ export function LoanComparison() {
                 Feature
               </th>
               <th className="py-2 px-4 text-center text-[11px] uppercase tracking-[0.05em] text-[#15803d] font-semibold w-1/4">
-                LimeCredit
+                CreditLime
               </th>
               <th className="py-2 px-4 text-center text-[11px] uppercase tracking-[0.05em] text-[#71717a] font-medium w-1/4">
                 MCA
@@ -147,7 +147,7 @@ export function LoanComparison() {
           href="/apply"
           className="inline-block bg-[#15803d] text-white text-[13px] font-medium px-8 py-3 rounded-lg hover:bg-[#166534] transition-colors"
         >
-          Apply with LimeCredit — No Credit Check
+          Apply with CreditLime — No Credit Check
         </Link>
       </div>
     </div>

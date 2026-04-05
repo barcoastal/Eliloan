@@ -1,5 +1,5 @@
 export const metadata = {
-  title: "Privacy Policy | LimeCredit",
+  title: "Privacy Policy | CreditLime",
 };
 
 export default function PrivacyPage() {
@@ -51,8 +51,8 @@ export default function PrivacyPage() {
         </h2>
         <p className="text-[15px] text-[#71717a] leading-relaxed">
           You may request access to or deletion of your personal data by contacting us at{" "}
-          <a href="mailto:privacy@limecredit.com" className="text-[#15803d] hover:underline">
-            privacy@limecredit.com
+          <a href="mailto:privacy@creditlime.com" className="text-[#15803d] hover:underline">
+            privacy@creditlime.com
           </a>
           .
         </p>

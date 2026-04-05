@@ -3,7 +3,7 @@ import { StatusDisplay } from "@/components/status-display";
 import Link from "next/link";
 
 export const metadata = {
-  title: "Application Status | LimeCredit",
+  title: "Application Status | CreditLime",
 };
 
 export default async function StatusByCodePage({

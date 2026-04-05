@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useState } from "react";
+import { Logo } from "@/components/brand/logo";
 
 export function Navbar() {
   const [open, setOpen] = useState(false);
@@ -9,8 +10,8 @@ export function Navbar() {
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-white/90 backdrop-blur-md border-b border-[#e4e4e7]">
       <div className="max-w-6xl mx-auto px-4 flex items-center justify-between h-14">
-        <Link href="/" className="font-extrabold text-[15px] tracking-[-0.03em]">
-          Lime<span className="text-[#15803d]">Credit</span>
+        <Link href="/" aria-label="CreditLime home">
+          <Logo size={28} />
         </Link>
         <div className="hidden md:flex items-center gap-6">
           <Link href="/blog" className="text-[13px] text-[#71717a] hover:text-[#1a1a1a]">Blog</Link>

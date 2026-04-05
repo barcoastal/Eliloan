@@ -15,13 +15,13 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: {
-    default: "LimeCredit, Fast Loans for Gig Workers",
-    template: "%s | LimeCredit",
+    default: "CreditLime, Fast Loans for Gig Workers",
+    template: "%s | CreditLime",
   },
   description: "Fast loans for gig workers. $100 to $10,000. Apply in 5 minutes, get funded in hours. No credit checks.",
-  metadataBase: new URL("https://limecredit.com"),
+  metadataBase: new URL("https://creditlime.com"),
   openGraph: {
-    siteName: "LimeCredit",
+    siteName: "CreditLime",
     type: "website",
   },
   twitter: {

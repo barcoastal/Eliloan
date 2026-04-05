@@ -1,5 +1,5 @@
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://limecredit.com";
-const SITE_NAME = "LimeCredit";
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://creditlime.com";
+const SITE_NAME = "CreditLime";
 
 export function absoluteUrl(path: string) {
   return `${SITE_URL}${path}`;

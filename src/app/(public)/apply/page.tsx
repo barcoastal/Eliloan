@@ -54,7 +54,7 @@ function Navbar() {
     <nav className="fixed top-0 z-50 w-full bg-[#f8faf8]/90 backdrop-blur-xl border-b border-[#e5e7eb]">
       <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4 sm:px-10">
         <Link href="/">
-          <span className="font-extrabold text-lg tracking-[-0.03em]">Lime<span className="text-[#15803d]">Credit</span></span>
+          <span className="font-extrabold text-lg tracking-[-0.03em]">Credit<span className="text-[#15803d]">Lime</span></span>
         </Link>
         <Link
           href="/status"

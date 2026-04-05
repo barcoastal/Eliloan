@@ -1,5 +1,5 @@
 export const metadata = {
-  title: "Lending Disclosures | LimeCredit",
+  title: "Lending Disclosures | CreditLime",
 };
 
 export default function DisclosuresPage() {

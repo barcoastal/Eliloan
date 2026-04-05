@@ -1,5 +1,5 @@
 export const metadata = {
-  title: "Terms of Service | LimeCredit",
+  title: "Terms of Service | CreditLime",
 };
 
 export default function TermsPage() {
@@ -15,7 +15,7 @@ export default function TermsPage() {
           1. Acceptance of Terms
         </h2>
         <p className="text-[15px] text-[#71717a] leading-relaxed">
-          By accessing and using LimeCredit, you agree to be bound by these Terms of Service.
+          By accessing and using CreditLime, you agree to be bound by these Terms of Service.
         </p>
 
         <h2 className="text-[22px] font-extrabold tracking-[-0.03em] text-[#1a1a1a] mt-10">
@@ -55,8 +55,8 @@ export default function TermsPage() {
         </h2>
         <p className="text-[15px] text-[#71717a] leading-relaxed">
           For questions about these terms, contact us at{" "}
-          <a href="mailto:support@limecredit.com" className="text-[#15803d] hover:underline">
-            support@limecredit.com
+          <a href="mailto:support@creditlime.com" className="text-[#15803d] hover:underline">
+            support@creditlime.com
           </a>
           .
         </p>
