@@ -1,7 +1,7 @@
 import { PrismaClient } from "../src/generated/prisma/client";
 import { PrismaBetterSqlite3 } from "@prisma/adapter-better-sqlite3";
 
-const adapter = new PrismaBetterSqlite3({ url: "file:./dev.db" });
+const adapter = new PrismaBetterSqlite3({ url: process.env.DATABASE_URL || "file:./dev.db" });
 const prisma = new PrismaClient({ adapter });
 
 // ─── CATEGORIES ──────────────────────────────────────────────
@@ -2073,6 +2073,14 @@ const COMPARISON_PAGES = [
 // ─── SEED FUNCTION ───────────────────────────────────────────────
 async function main() {
   console.log("🌱 Starting content seed...");
+
+  // Idempotency: skip if already seeded (avoids wiping user edits on redeploy)
+  const existingArticles = await prisma.article.count();
+  if (existingArticles > 0 && process.env.SEED_FORCE !== "true") {
+    console.log(`Content already seeded (${existingArticles} articles). Skipping. Set SEED_FORCE=true to re-seed.`);
+    await prisma.$disconnect();
+    return;
+  }
 
   // 1. Clear existing content tables in correct order
   console.log("Clearing existing content...");
