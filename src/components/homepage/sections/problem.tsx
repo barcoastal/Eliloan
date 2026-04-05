@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import Image from "next/image";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
@@ -10,8 +11,6 @@ export function Problem() {
   const sectionRef = useRef<HTMLElement>(null);
   const leftRef = useRef<HTMLDivElement>(null);
   const rightRef = useRef<HTMLDivElement>(null);
-  const svgRef = useRef<SVGSVGElement>(null);
-
   useEffect(() => {
     if (!sectionRef.current) return;
     const ctx = gsap.context(() => {
@@ -31,31 +30,6 @@ export function Problem() {
           },
         }
       );
-
-      // Draw SVG paths on scroll
-      const paths = svgRef.current?.querySelectorAll("path, circle, rect, line");
-      if (paths) {
-        paths.forEach((path) => {
-          const el = path as SVGGeometryElement;
-          try {
-            const len = el.getTotalLength ? el.getTotalLength() : 200;
-            gsap.set(el, { strokeDasharray: len, strokeDashoffset: len });
-            gsap.to(el, {
-              strokeDashoffset: 0,
-              duration: 1.4,
-              ease: "power2.inOut",
-              scrollTrigger: {
-                trigger: sectionRef.current,
-                start: "top 65%",
-                end: "top 20%",
-                toggleActions: "play none none reverse",
-              },
-            });
-          } catch {
-            // ignore elements without getTotalLength
-          }
-        });
-      }
 
       gsap.fromTo(
         rightRef.current,
@@ -130,52 +104,15 @@ export function Problem() {
           </div>
         </div>
 
-        {/* Right: hand-drawn SVG illustration */}
+        {/* Right: illustration */}
         <div ref={rightRef} className="flex items-center justify-center">
-          <svg
-            ref={svgRef}
-            width="360"
-            height="360"
-            viewBox="0 0 360 360"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-            aria-hidden="true"
-          >
-            {/* Bank building outline — hand-drawn style */}
-            <rect x="60" y="160" width="240" height="140" rx="4" stroke="#1a1a1a" strokeWidth="3.5" strokeLinecap="round" strokeLinejoin="round" />
-            {/* Columns */}
-            <line x1="100" y1="160" x2="100" y2="300" stroke="#1a1a1a" strokeWidth="3" strokeLinecap="round" />
-            <line x1="140" y1="160" x2="140" y2="300" stroke="#1a1a1a" strokeWidth="3" strokeLinecap="round" />
-            <line x1="180" y1="160" x2="180" y2="300" stroke="#1a1a1a" strokeWidth="3" strokeLinecap="round" />
-            <line x1="220" y1="160" x2="220" y2="300" stroke="#1a1a1a" strokeWidth="3" strokeLinecap="round" />
-            <line x1="260" y1="160" x2="260" y2="300" stroke="#1a1a1a" strokeWidth="3" strokeLinecap="round" />
-            {/* Roof/pediment */}
-            <path d="M50 160 L180 80 L310 160Z" stroke="#1a1a1a" strokeWidth="3.5" strokeLinecap="round" strokeLinejoin="round" />
-            {/* Steps */}
-            <line x1="45" y1="300" x2="315" y2="300" stroke="#1a1a1a" strokeWidth="3" strokeLinecap="round" />
-            <line x1="35" y1="316" x2="325" y2="316" stroke="#1a1a1a" strokeWidth="3" strokeLinecap="round" />
-
-            {/* Big X overlay — rejected */}
-            <path d="M90 110 L270 330" stroke="#ef4444" strokeWidth="4.5" strokeLinecap="round" />
-            <path d="M270 110 L90 330" stroke="#ef4444" strokeWidth="4.5" strokeLinecap="round" />
-
-            {/* Hand-drawn circles around X */}
-            <path
-              d="M168 205 C158 185, 155 168, 175 155 C200 140, 225 150, 225 175 C225 200, 205 218, 182 215 C170 213, 162 207, 168 205Z"
-              stroke="#ef4444"
-              strokeWidth="3"
-              fill="none"
-              strokeLinecap="round"
-            />
-
-            {/* Sage green small accent — checkmark off to side */}
-            <path d="M295 80 L308 96 L328 62" stroke="#15803d" strokeWidth="3.5" strokeLinecap="round" strokeLinejoin="round" />
-            <circle cx="312" cy="82" r="22" stroke="#15803d" strokeWidth="3" />
-
-            {/* Arrow pointing away from bank */}
-            <path d="M290 200 C320 200, 340 190, 355 175" stroke="#15803d" strokeWidth="3" strokeLinecap="round" />
-            <path d="M348 168 L355 175 L346 181" stroke="#15803d" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
-          </svg>
+          <Image
+            src="/illustrations/problem-closed-door.png"
+            alt="Gig worker excluded from traditional bank — closed door illustration"
+            width={400}
+            height={400}
+            className="w-full max-w-[400px] h-auto object-contain"
+          />
         </div>
       </div>
     </section>

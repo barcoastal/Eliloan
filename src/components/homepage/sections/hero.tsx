@@ -2,6 +2,7 @@
 
 import { useEffect, useRef } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
@@ -80,7 +81,9 @@ export function Hero() {
         <div className="absolute bottom-[-5%] left-[-8%] w-[400px] h-[400px] rounded-full bg-[#d1fae5] opacity-30 blur-3xl" />
       </div>
 
-      <div className="max-w-5xl mx-auto w-full relative z-10">
+      <div className="max-w-5xl mx-auto w-full relative z-10 grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+        {/* Left column */}
+        <div>
         {/* Label */}
         <div className="inline-flex items-center gap-2 bg-[#dcfce7] text-[#15803d] text-[12px] font-semibold px-3 py-1.5 rounded-full mb-8 tracking-[0.03em]">
           <span className="w-1.5 h-1.5 bg-[#15803d] rounded-full inline-block" />
@@ -167,6 +170,19 @@ export function Hero() {
               )}
             </div>
           ))}
+        </div>
+        </div>{/* end left column */}
+
+        {/* Right column: illustration */}
+        <div className="hidden md:flex items-center justify-center">
+          <Image
+            src="/illustrations/hero-gig-worker.png"
+            alt="Gig worker illustration"
+            width={500}
+            height={500}
+            className="w-full max-w-[480px] h-auto object-contain drop-shadow-xl"
+            priority
+          />
         </div>
       </div>
     </section>
