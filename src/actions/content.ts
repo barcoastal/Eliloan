@@ -307,6 +307,47 @@ export async function deleteComparisonPage(id: string) {
   return prisma.comparisonPage.delete({ where: { id } });
 }
 
+// ─── Landing Pages ──────────────────────────────────────────
+
+export async function getLandingPages() {
+  return prisma.landingPage.findMany({ orderBy: { createdAt: "desc" } });
+}
+
+export async function getLandingPage(id: string) {
+  return prisma.landingPage.findUnique({ where: { id } });
+}
+
+export async function getLandingPageBySlug(slug: string) {
+  return prisma.landingPage.findUnique({ where: { slug } });
+}
+
+export async function getPublishedLandingPages() {
+  return prisma.landingPage.findMany({ where: { published: true }, orderBy: { createdAt: "desc" } });
+}
+
+export async function createLandingPage(data: Record<string, unknown>) {
+  const { publishedAt, ...rest } = data as Record<string, unknown> & { publishedAt?: string };
+  return prisma.landingPage.create({
+    data: {
+      ...rest,
+      publishedAt: publishedAt ? new Date(publishedAt) : (rest.published ? new Date() : null),
+    } as never,
+  });
+}
+
+export async function updateLandingPage(id: string, data: Record<string, unknown>) {
+  const { publishedAt, ...rest } = data as Record<string, unknown> & { publishedAt?: string };
+  const updateData = { ...rest } as Record<string, unknown>;
+  if (publishedAt !== undefined) {
+    updateData.publishedAt = publishedAt ? new Date(publishedAt) : null;
+  }
+  return prisma.landingPage.update({ where: { id }, data: updateData as never });
+}
+
+export async function deleteLandingPage(id: string) {
+  return prisma.landingPage.delete({ where: { id } });
+}
+
 // ─── Content Images ─────────────────────────────────────────
 
 export async function getContentImages() {

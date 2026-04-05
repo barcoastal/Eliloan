@@ -8,6 +8,7 @@ const contentTypes = [
   { label: "State Pages", href: "/admin/content/states", key: "states" as const },
   { label: "Tool Pages", href: "/admin/content/tools", key: "tools" as const },
   { label: "Comparisons", href: "/admin/content/comparisons", key: "comparisons" as const },
+  { label: "Landing Pages", href: "/admin/content/landing-pages", key: "landingPages" as const },
 ];
 
 const quickLinks = [
@@ -24,10 +25,11 @@ export function ContentDashboardClient({
     states: number;
     tools: number;
     comparisons: number;
+    landingPages: number;
     published: number;
   };
 }) {
-  const total = counts.articles + counts.platforms + counts.states + counts.tools + counts.comparisons;
+  const total = counts.articles + counts.platforms + counts.states + counts.tools + counts.comparisons + counts.landingPages;
 
   return (
     <div>

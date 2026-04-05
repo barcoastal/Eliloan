@@ -329,3 +329,51 @@ model ContentImage {
   altText     String?
   createdAt   DateTime @default(now())
 }
+
+model LandingPage {
+  id                String    @id @default(uuid())
+  slug              String    @unique
+  // SEO
+  metaTitle         String
+  metaDescription   String
+  // Header
+  phoneNumber       String?
+  // Hero
+  heroBadge         String
+  heroHeadlineLine1 String
+  heroHeadlineLine2 String?
+  heroHeadlineLine3 String?
+  heroSubtext       String
+  heroIllustration  String?
+  // Trust
+  trustItems        String    @default("[]")
+  trustStats        String    @default("[]")
+  // How it works
+  howItWorksTitle   String    @default("Three steps. No paperwork.")
+  howItWorksSubtext String?
+  howItWorksSteps   String    @default("[]")
+  // Testimonials
+  testimonialsTitle String    @default("Drivers we've funded.")
+  testimonials      String    @default("[]")
+  // FAQ
+  faqTitle          String    @default("Common questions.")
+  faqs              String    @default("[]")
+  // Final CTA
+  finalCtaHeadline  String    @default("Ready to get funded?")
+  finalCtaSubtext   String?
+  finalCtaButtonText String   @default("Apply Now")
+  // Form config
+  utmSource         String    @default("lp")
+  utmCampaign       String
+  formPlatforms     String    @default("[]")
+  defaultAmount     Int       @default(3000)
+  defaultTermWeeks  Int       @default(4)
+  // Meta
+  published         Boolean   @default(false)
+  publishedAt       DateTime?
+  createdAt         DateTime  @default(now())
+  updatedAt         DateTime  @updatedAt
+
+  @@index([slug])
+  @@index([published])
+}

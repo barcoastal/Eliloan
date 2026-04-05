@@ -6,18 +6,32 @@ import { useRouter } from "next/navigation";
 const MIN_AMOUNT = 500;
 const MAX_AMOUNT = 10000;
 const STEP_SIZE = 100;
-const LOAN_TERMS = [1, 2, 3, 4, 6, 8, 12, 16]; // weeks, max 16 wks (~4 months)
-const PLATFORMS = ["Uber", "Lyft", "Both"] as const;
+const LOAN_TERMS = [1, 2, 3, 4, 6, 8, 12, 16]; // weeks
 
-export function LandingLeadForm() {
+interface Props {
+  defaultAmount?: number;
+  defaultTermWeeks?: number;
+  platforms?: string[];
+  utmSource?: string;
+  utmCampaign?: string;
+  buttonText?: string;
+}
+
+export function LandingLeadForm({
+  defaultAmount = 3000,
+  defaultTermWeeks = 4,
+  platforms = ["Uber", "Lyft", "Both"],
+  utmSource = "lp",
+  utmCampaign = "uber-lyft",
+  buttonText = "Start My Application →",
+}: Props) {
   const router = useRouter();
-  const [amount, setAmount] = useState(3000);
-  const [termWeeks, setTermWeeks] = useState(4);
-  const [platform, setPlatform] = useState<(typeof PLATFORMS)[number]>("Uber");
+  const [amount, setAmount] = useState(defaultAmount);
+  const [termWeeks, setTermWeeks] = useState(defaultTermWeeks);
+  const [platform, setPlatform] = useState(platforms[0] ?? "Uber");
   const [submitting, setSubmitting] = useState(false);
 
   const pct = ((amount - MIN_AMOUNT) / (MAX_AMOUNT - MIN_AMOUNT)) * 100;
-  // Quick weekly payment estimate
   const weeklyEstimate = ((amount / termWeeks) * 1.08).toFixed(0);
 
   function handleStart(e: React.FormEvent) {
@@ -28,8 +42,8 @@ export function LandingLeadForm() {
       amount: String(amount),
       term: String(termWeeks),
       platform,
-      utm_source: "lp",
-      utm_campaign: "uber-lyft",
+      utm_source: utmSource,
+      utm_campaign: utmCampaign,
     });
     router.push(`/apply?${params.toString()}`);
   }
@@ -116,27 +130,29 @@ export function LandingLeadForm() {
         </div>
 
         {/* Platform */}
-        <div>
-          <label className="text-[11px] uppercase tracking-[0.05em] text-[#71717a] font-semibold block mb-2">
-            Which platform do you drive for?
-          </label>
-          <div className="grid grid-cols-3 gap-2">
-            {PLATFORMS.map((p) => (
-              <button
-                key={p}
-                type="button"
-                onClick={() => setPlatform(p)}
-                className={`py-2.5 rounded-lg text-[13px] font-bold transition-colors ${
-                  platform === p
-                    ? "bg-[#15803d] text-white"
-                    : "bg-[#f4f4f5] text-[#71717a] hover:bg-[#e4e4e7]"
-                }`}
-              >
-                {p}
-              </button>
-            ))}
+        {platforms.length > 0 && (
+          <div>
+            <label className="text-[11px] uppercase tracking-[0.05em] text-[#71717a] font-semibold block mb-2">
+              Which platform do you drive for?
+            </label>
+            <div className={`grid gap-2 grid-cols-${Math.min(platforms.length, 4)}`}>
+              {platforms.map((p) => (
+                <button
+                  key={p}
+                  type="button"
+                  onClick={() => setPlatform(p)}
+                  className={`py-2.5 rounded-lg text-[13px] font-bold transition-colors ${
+                    platform === p
+                      ? "bg-[#15803d] text-white"
+                      : "bg-[#f4f4f5] text-[#71717a] hover:bg-[#e4e4e7]"
+                  }`}
+                >
+                  {p}
+                </button>
+              ))}
+            </div>
           </div>
-        </div>
+        )}
 
         {/* Weekly estimate */}
         <div className="bg-[#f0f5f0] rounded-[10px] p-4">
@@ -157,7 +173,7 @@ export function LandingLeadForm() {
           disabled={submitting}
           className="w-full bg-[#15803d] text-white font-extrabold text-[15px] py-4 rounded-xl hover:bg-[#166534] disabled:opacity-50 disabled:cursor-not-allowed transition-colors shadow-lg shadow-green-900/20"
         >
-          {submitting ? "Loading application..." : "Start My Application →"}
+          {submitting ? "Loading application..." : buttonText}
         </button>
 
         <div className="flex items-center justify-center gap-4 text-[11px] text-[#71717a]">
