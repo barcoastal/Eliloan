@@ -45,7 +45,7 @@ const FEATURES = [
       />
     ),
     title: "Built for 1099",
-    desc: "Designed from day one for independent contractors. Your gig income is our specialty — not an afterthought.",
+    desc: "Designed from day one for independent contractors. Your gig income is our specialty, not an afterthought.",
   },
   {
     icon: (

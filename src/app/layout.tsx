@@ -15,7 +15,7 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: {
-    default: "LimeCredit — Fast Loans for Gig Workers",
+    default: "LimeCredit, Fast Loans for Gig Workers",
     template: "%s | LimeCredit",
   },
   description: "Fast loans for gig workers. $100 to $10,000. Apply in 5 minutes, get funded in hours. No credit checks.",

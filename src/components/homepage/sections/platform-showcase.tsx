@@ -87,7 +87,7 @@ export function PlatformShowcase({ platforms }: PlatformShowcaseProps) {
             </h2>
             <p className="text-[#71717a] text-[16px] mt-4 max-w-lg mx-auto">
               We accept income verification from all major gig platforms. If you
-              drive, deliver, or freelance — we&apos;ve got you.
+              drive, deliver, or freelance, we&apos;ve got you.
             </p>
           </div>
 
@@ -115,7 +115,7 @@ export function PlatformShowcase({ platforms }: PlatformShowcaseProps) {
             <a href="/apply" className="text-[#15803d] underline font-medium">
               Apply anyway
             </a>{" "}
-            — we review all gig income sources.
+           , we review all gig income sources.
           </p>
         </div>
       </div>

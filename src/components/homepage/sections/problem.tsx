@@ -78,7 +78,7 @@ export function Problem() {
                 </svg>
               </div>
               <p className="text-[#71717a] text-[16px] leading-relaxed">
-                <span className="font-bold text-[#1a1a1a]">73% of gig workers</span> say traditional loans are completely inaccessible to them — rejected for lacking W-2s or pay stubs.
+                <span className="font-bold text-[#1a1a1a]">73% of gig workers</span> say traditional loans are completely inaccessible to them, rejected for lacking W-2s or pay stubs.
               </p>
             </div>
             <div className="flex gap-4">
@@ -108,7 +108,7 @@ export function Problem() {
         <div ref={rightRef} className="flex items-center justify-center">
           <Image
             src="/illustrations/problem-closed-door.png"
-            alt="Gig worker excluded from traditional bank — closed door illustration"
+            alt="Gig worker excluded from traditional bank, closed door illustration"
             width={400}
             height={400}
             className="w-full max-w-[400px] h-auto object-contain"

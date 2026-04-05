@@ -11,7 +11,7 @@ const STEPS = [
   {
     num: "01",
     headline: "Apply in 5 minutes",
-    desc: "Fill out our short form — no lengthy paperwork, no W-2 required. Just your platform earnings and basic info.",
+    desc: "Fill out our short form, no lengthy paperwork, no W-2 required. Just your platform earnings and basic info.",
     img: "/illustrations/step-1-apply.png",
     imgAlt: "Person applying on smartphone illustration",
   },
@@ -25,7 +25,7 @@ const STEPS = [
   {
     num: "03",
     headline: "Cash to your account",
-    desc: "Approved? Funds hit your bank in as little as 24-48 hours. Back to earning — no interruptions.",
+    desc: "Approved? Funds hit your bank in as little as 24-48 hours. Back to earning, no interruptions.",
     img: "/illustrations/step-3-funded.png",
     imgAlt: "Money flowing into smartphone illustration",
   },
@@ -101,7 +101,7 @@ export function HowItWorks() {
             </h2>
           </div>
 
-          {/* Steps — stacked, animated via GSAP */}
+          {/* Steps, stacked, animated via GSAP */}
           <div className="relative h-64">
             {STEPS.map((step, i) => (
               <div

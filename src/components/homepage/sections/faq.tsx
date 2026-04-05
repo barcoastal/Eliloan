@@ -6,7 +6,7 @@ import { JsonLd, faqSchema } from "@/components/seo/json-ld";
 const FAQ_ENTRIES = [
   {
     question: "What credit score do I need?",
-    answer: "We don't check your credit score at all. We look at your platform earnings — how much you make, how consistently, and how long you've been active on your platform. A low or non-existent credit score won't hold you back.",
+    answer: "We don't check your credit score at all. We look at your platform earnings, how much you make, how consistently, and how long you've been active on your platform. A low or non-existent credit score won't hold you back.",
   },
   {
     question: "How fast can I get funded?",
@@ -14,11 +14,11 @@ const FAQ_ENTRIES = [
   },
   {
     question: "What platforms do you support?",
-    answer: "We support all major gig platforms including Uber, Lyft, DoorDash, Instacart, Amazon Flex, Grubhub, Fiverr, Upwork, TaskRabbit, Shipt, and more. If you earn income through a platform we haven't listed, apply anyway — we review all gig income sources.",
+    answer: "We support all major gig platforms including Uber, Lyft, DoorDash, Instacart, Amazon Flex, Grubhub, Fiverr, Upwork, TaskRabbit, Shipt, and more. If you earn income through a platform we haven't listed, apply anyway, we review all gig income sources.",
   },
   {
     question: "What are the fees?",
-    answer: "LimeCredit charges a simple origination fee — no prepayment penalties, no hidden fees. Your total cost is shown clearly before you accept any loan. APR ranges from 30-60% depending on your loan amount, term, and earnings history.",
+    answer: "LimeCredit charges a simple origination fee, no prepayment penalties, no hidden fees. Your total cost is shown clearly before you accept any loan. APR ranges from 30-60% depending on your loan amount, term, and earnings history.",
   },
   {
     question: "How do I apply?",
@@ -26,7 +26,7 @@ const FAQ_ENTRIES = [
   },
   {
     question: "Is it safe to connect my platform account?",
-    answer: "Yes. We use bank-grade encryption and read-only access — we can only view your earnings data, never make changes to your account or initiate payments on your behalf. Your credentials are never stored on our servers.",
+    answer: "Yes. We use bank-grade encryption and read-only access, we can only view your earnings data, never make changes to your account or initiate payments on your behalf. Your credentials are never stored on our servers.",
   },
 ];
 
