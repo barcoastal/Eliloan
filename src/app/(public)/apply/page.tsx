@@ -13,7 +13,8 @@ import { submitApplication } from "@/actions/applications";
 /*  CONSTANTS                                                           */
 /* ------------------------------------------------------------------ */
 const STEPS = ["Amount", "Your Info", "Platforms", "Identity", "Bank Link", "Documents", "Review"];
-const LOAN_TERMS = [3, 6, 9, 12, 15, 18];
+// Loan term options in WEEKS. Max 16 weeks (≈4 months). Stored in loanTermMonths column for now.
+const LOAN_TERMS = [1, 2, 3, 4, 6, 8, 12, 16];
 
 const GIG_PLATFORMS = [
   { id: "uber", label: "Uber", icon: "🚗" },
@@ -110,7 +111,8 @@ function StepAmount({
   onNext: () => void;
 }) {
   const pct = ((amount - MIN_AMOUNT) / (MAX_AMOUNT - MIN_AMOUNT)) * 100;
-  const monthlyEstimate = ((amount / loanTermMonths) * 1.08).toFixed(0);
+  // loanTermMonths field now holds WEEKS — compute weekly payment
+  const weeklyEstimate = ((amount / loanTermMonths) * 1.08).toFixed(0);
 
   return (
     <motion.div
@@ -181,7 +183,7 @@ function StepAmount({
         <p className="mb-3 text-[13px] font-semibold uppercase tracking-[0.05em] text-[#71717a]">
           Repayment Term
         </p>
-        <div className="grid grid-cols-3 gap-2 sm:grid-cols-6">
+        <div className="grid grid-cols-4 gap-2 sm:grid-cols-4">
           {LOAN_TERMS.map((term) => (
             <button
               key={term}
@@ -193,17 +195,18 @@ function StepAmount({
                   : "bg-[#f0f5f0] text-[#71717a] hover:bg-[#e5e7eb]"
               }`}
             >
-              {term}mo
+              {term} {term === 1 ? "wk" : "wks"}
             </button>
           ))}
         </div>
+        <p className="mt-2 text-[11px] text-[#a1a1aa]">Maximum term: 16 weeks (≈4 months)</p>
       </div>
 
-      {/* Monthly estimate */}
+      {/* Weekly estimate */}
       <div className="mt-6 bg-[#f0f5f0] rounded-[10px] p-4">
         <div className="flex items-center justify-between">
-          <span className="text-[13px] text-[#71717a]">Estimated monthly payment</span>
-          <span className="text-[16px] font-extrabold text-[#15803d]">${monthlyEstimate}/mo</span>
+          <span className="text-[13px] text-[#71717a]">Estimated weekly payment</span>
+          <span className="text-[16px] font-extrabold text-[#15803d]">${weeklyEstimate}/wk</span>
         </div>
         <p className="mt-1 text-[11px] text-[#a1a1aa]">
           No credit check required. Approval based on gig earnings.
@@ -1235,7 +1238,7 @@ function StepReview({
             </div>
             <div className="text-right">
               <p className="text-[11px] font-semibold uppercase tracking-[0.05em] text-[#71717a]">Repayment Term</p>
-              <p className="mt-1 text-[18px] font-bold text-[#1a1a1a]">{loanTermMonths} months</p>
+              <p className="mt-1 text-[18px] font-bold text-[#1a1a1a]">{loanTermMonths} {loanTermMonths === 1 ? "week" : "weeks"}</p>
             </div>
           </div>
         </div>
@@ -1422,7 +1425,7 @@ function SuccessScreen({ code }: { code: string }) {
 export default function ApplyPage() {
   const [step, setStep] = useState(0);
   const [loanAmount, setLoanAmount] = useState(5000);
-  const [loanTermMonths, setLoanTermMonths] = useState(6);
+  const [loanTermMonths, setLoanTermMonths] = useState(4);
   const [form, setForm] = useState({ firstName: "", lastName: "", email: "", phone: "", ssn: "" });
   const [platforms, setPlatforms] = useState<string[]>([]);
   const [otherPlatform, setOtherPlatform] = useState("");
