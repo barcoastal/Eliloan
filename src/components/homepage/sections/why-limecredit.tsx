@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import Image from "next/image";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
@@ -9,37 +10,39 @@ if (typeof window !== "undefined") gsap.registerPlugin(ScrollTrigger);
 const FEATURES = [
   {
     icon: (
-      <svg width="40" height="40" viewBox="0 0 40 40" fill="none" aria-hidden="true">
-        {/* Checkmark shield */}
-        <path d="M20 4 L34 10 L34 22 C34 30 20 36 20 36 C20 36 6 30 6 22 L6 10 Z" stroke="#15803d" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" fill="none" />
-        <path d="M13 20 L17 25 L27 15" stroke="#15803d" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
-      </svg>
+      <Image
+        src="/illustrations/why-no-credit-check.png"
+        alt="No credit check illustration"
+        width={56}
+        height={56}
+        className="w-14 h-14 object-contain"
+      />
     ),
     title: "No credit checks",
     desc: "We never pull your credit score. We evaluate income and cash flow from your platform earnings instead.",
   },
   {
     icon: (
-      <svg width="40" height="40" viewBox="0 0 40 40" fill="none" aria-hidden="true">
-        {/* Lightning bolt clock */}
-        <circle cx="20" cy="20" r="14" stroke="#15803d" strokeWidth="2.5" />
-        <path d="M20 10 L20 20 L26 24" stroke="#15803d" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
-        <path d="M30 8 L24 18 L28 18 L22 32" stroke="#15803d" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
-      </svg>
+      <Image
+        src="/illustrations/why-fast-funding.png"
+        alt="Fast funding illustration"
+        width={56}
+        height={56}
+        className="w-14 h-14 object-contain"
+      />
     ),
     title: "Same-day decisions",
     desc: "Most applications get a decision within hours. No waiting days for a bank to call you back.",
   },
   {
     icon: (
-      <svg width="40" height="40" viewBox="0 0 40 40" fill="none" aria-hidden="true">
-        {/* Person with 1099 */}
-        <circle cx="20" cy="12" r="6" stroke="#15803d" strokeWidth="2.5" fill="none" />
-        <path d="M8 34 C8 26 12 22 20 22 C28 22 32 26 32 34" stroke="#15803d" strokeWidth="2.5" strokeLinecap="round" fill="none" />
-        {/* Small badge */}
-        <rect x="25" y="4" width="12" height="10" rx="2" stroke="#15803d" strokeWidth="2" fill="#dcfce7" />
-        <path d="M27 10 L28 8 L30 12 L32 7" stroke="#15803d" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-      </svg>
+      <Image
+        src="/illustrations/why-built-for-1099.png"
+        alt="Built for 1099 workers illustration"
+        width={56}
+        height={56}
+        className="w-14 h-14 object-contain"
+      />
     ),
     title: "Built for 1099",
     desc: "Designed from day one for independent contractors. Your gig income is our specialty — not an afterthought.",

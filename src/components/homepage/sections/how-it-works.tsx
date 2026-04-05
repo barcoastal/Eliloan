@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import Image from "next/image";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
@@ -11,42 +12,22 @@ const STEPS = [
     num: "01",
     headline: "Apply in 5 minutes",
     desc: "Fill out our short form — no lengthy paperwork, no W-2 required. Just your platform earnings and basic info.",
-    svg: (
-      <svg width="56" height="56" viewBox="0 0 56 56" fill="none" aria-hidden="true">
-        <rect x="10" y="8" width="36" height="40" rx="4" stroke="#4ade80" strokeWidth="3" strokeLinecap="round" />
-        <path d="M18 20h20M18 28h14M18 36h8" stroke="#4ade80" strokeWidth="2.5" strokeLinecap="round" />
-        <path d="M42 34 C46 30, 50 34, 48 40 C46 44, 40 46, 36 42" stroke="#4ade80" strokeWidth="2.5" strokeLinecap="round" fill="none" />
-        <path d="M36 42 L34 50 L42 46" stroke="#4ade80" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
-      </svg>
-    ),
+    img: "/illustrations/step-1-apply.png",
+    imgAlt: "Person applying on smartphone illustration",
   },
   {
     num: "02",
     headline: "We check earnings, not credit",
     desc: "We connect to your platform account to verify real income. Your credit score won't be pulled. We care about cash flow.",
-    svg: (
-      <svg width="56" height="56" viewBox="0 0 56 56" fill="none" aria-hidden="true">
-        <circle cx="28" cy="28" r="20" stroke="#4ade80" strokeWidth="3" />
-        <path d="M20 28 C22 22, 26 18, 28 18 C34 18, 38 22, 38 28" stroke="#4ade80" strokeWidth="2.5" strokeLinecap="round" fill="none" />
-        <path d="M18 28 L38 28" stroke="#4ade80" strokeWidth="2.5" strokeLinecap="round" />
-        <circle cx="28" cy="28" r="4" stroke="#4ade80" strokeWidth="2.5" />
-        <path d="M28 24 L28 14M28 32 L28 42" stroke="#4ade80" strokeWidth="2.5" strokeLinecap="round" />
-      </svg>
-    ),
+    img: "/illustrations/step-2-approved.png",
+    imgAlt: "Documents with green checkmark approval illustration",
   },
   {
     num: "03",
     headline: "Cash to your account",
     desc: "Approved? Funds hit your bank in as little as 24-48 hours. Back to earning — no interruptions.",
-    svg: (
-      <svg width="56" height="56" viewBox="0 0 56 56" fill="none" aria-hidden="true">
-        <rect x="8" y="16" width="40" height="28" rx="5" stroke="#4ade80" strokeWidth="3" />
-        <circle cx="28" cy="30" r="7" stroke="#4ade80" strokeWidth="2.5" />
-        <path d="M8 24h40" stroke="#4ade80" strokeWidth="2.5" strokeLinecap="round" />
-        <path d="M40 40 L44 32 L52 28" stroke="#4ade80" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
-        <path d="M46 22 L50 18 L56 20" stroke="#4ade80" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
-      </svg>
-    ),
+    img: "/illustrations/step-3-funded.png",
+    imgAlt: "Money flowing into smartphone illustration",
   },
 ];
 
@@ -153,7 +134,15 @@ export function HowItWorks() {
                 </div>
                 {/* Content */}
                 <div className="pt-4">
-                  <div className="mb-4">{step.svg}</div>
+                  <div className="mb-4">
+                    <Image
+                      src={step.img}
+                      alt={step.imgAlt}
+                      width={72}
+                      height={72}
+                      className="w-16 h-16 object-contain"
+                    />
+                  </div>
                   <h3
                     className="font-extrabold tracking-[-0.03em] text-white leading-tight mb-3"
                     style={{ fontSize: "clamp(28px, 3.5vw, 44px)" }}

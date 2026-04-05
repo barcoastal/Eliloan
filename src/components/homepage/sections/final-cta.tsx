@@ -2,6 +2,7 @@
 
 import { useEffect, useRef } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
@@ -13,7 +14,7 @@ export function FinalCta() {
   const headlineRef = useRef<HTMLHeadingElement>(null);
   const subRef = useRef<HTMLParagraphElement>(null);
   const btnRef = useRef<HTMLAnchorElement>(null);
-  const arrowRef = useRef<SVGSVGElement>(null);
+  const arrowRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (!sectionRef.current || !pinRef.current) return;
@@ -132,31 +133,20 @@ export function FinalCta() {
           {/* CTA + hand-drawn arrow */}
           <div className="relative inline-block">
             {/* Arrow pointing to button */}
-            <svg
+            <div
               ref={arrowRef}
-              className="absolute -left-20 top-1/2 -translate-y-1/2"
-              width="70"
-              height="50"
-              viewBox="0 0 70 50"
-              fill="none"
-              aria-hidden="true"
+              className="absolute -left-24 top-1/2 -translate-y-1/2"
               style={{ opacity: 0 }}
             >
-              <path
-                d="M4 30 C10 20, 20 10, 32 12 C44 14, 52 24, 62 20"
-                stroke="#bbf7d0"
-                strokeWidth="2.5"
-                strokeLinecap="round"
-                fill="none"
+              <Image
+                src="/illustrations/final-cta-arrow.png"
+                alt=""
+                width={80}
+                height={80}
+                className="w-20 h-20 object-contain opacity-80"
+                aria-hidden="true"
               />
-              <path
-                d="M56 14 L62 20 L54 24"
-                stroke="#bbf7d0"
-                strokeWidth="2.5"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-            </svg>
+            </div>
 
             <Link
               ref={btnRef}
