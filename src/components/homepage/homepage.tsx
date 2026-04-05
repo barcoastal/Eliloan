@@ -29,7 +29,7 @@ export function Homepage({ latestArticles, platforms }: HomepageProps) {
   return (
     <>
       <Navbar />
-      <main className="pt-14">
+      <main className="pt-20">
         <Hero />
         <PainPoints />
         <Problem />

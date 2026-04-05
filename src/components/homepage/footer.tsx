@@ -7,8 +7,8 @@ export function Footer() {
       <div className="max-w-6xl mx-auto px-4">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
           <div>
-            <span className="inline-flex items-center gap-2 font-extrabold text-[15px] tracking-[-0.03em]">
-              <LogoMark size={28} />
+            <span className="inline-flex items-center gap-2 font-extrabold text-[20px] tracking-[-0.03em]">
+              <LogoMark size={40} />
               Credit<span className="text-[#4ade80]">Lime</span>
             </span>
             <p className="text-[13px] text-[#a1a1aa] mt-2">Fast loans for gig workers. $100 to $10,000.</p>
