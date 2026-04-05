@@ -1,12 +1,20 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 if (typeof window !== "undefined") gsap.registerPlugin(ScrollTrigger);
+
+const HERO_ILLUSTRATIONS = [
+  { src: "/illustrations/hero-gig-worker.png", alt: "Delivery rider on a bicycle" },
+  { src: "/illustrations/platform-rideshare.png", alt: "Rideshare driver" },
+  { src: "/illustrations/platform-delivery.png", alt: "Food delivery courier" },
+  { src: "/illustrations/platform-shopping.png", alt: "Personal shopper" },
+  { src: "/illustrations/platform-freelance.png", alt: "Freelance creative at laptop" },
+];
 
 export function Hero() {
   const sectionRef = useRef<HTMLElement>(null);
@@ -15,6 +23,15 @@ export function Hero() {
   const ctasRef = useRef<HTMLDivElement>(null);
   const statsRef = useRef<HTMLDivElement>(null);
   const pathRef = useRef<SVGPathElement>(null);
+  const [heroIndex, setHeroIndex] = useState(0);
+
+  // Cycle through illustrations every 1.5s
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setHeroIndex((i) => (i + 1) % HERO_ILLUSTRATIONS.length);
+    }, 1500);
+    return () => clearInterval(interval);
+  }, []);
 
   useEffect(() => {
     if (!sectionRef.current) return;
@@ -173,16 +190,23 @@ export function Hero() {
         </div>
         </div>{/* end left column */}
 
-        {/* Right column: illustration */}
+        {/* Right column: cycling illustrations */}
         <div className="hidden md:flex items-center justify-center">
-          <Image
-            src="/illustrations/hero-gig-worker.png"
-            alt="Gig worker illustration"
-            width={500}
-            height={500}
-            className="w-full max-w-[480px] h-auto object-contain drop-shadow-xl"
-            priority
-          />
+          <div className="relative w-full max-w-[480px] aspect-square">
+            {HERO_ILLUSTRATIONS.map((ill, i) => (
+              <Image
+                key={ill.src}
+                src={ill.src}
+                alt={ill.alt}
+                fill
+                sizes="(min-width: 768px) 480px, 0px"
+                className={`object-contain drop-shadow-xl transition-opacity duration-700 ease-in-out ${
+                  i === heroIndex ? "opacity-100" : "opacity-0"
+                }`}
+                priority={i === 0}
+              />
+            ))}
+          </div>
         </div>
       </div>
     </section>
