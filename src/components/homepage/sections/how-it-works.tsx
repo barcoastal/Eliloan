@@ -37,65 +37,52 @@ export function HowItWorks() {
   const step0Ref = useRef<HTMLDivElement>(null);
   const step1Ref = useRef<HTMLDivElement>(null);
   const step2Ref = useRef<HTMLDivElement>(null);
+  const dot0Ref = useRef<HTMLDivElement>(null);
+  const dot1Ref = useRef<HTMLDivElement>(null);
+  const dot2Ref = useRef<HTMLDivElement>(null);
 
   const stepRefs = [step0Ref, step1Ref, step2Ref];
+  const dotRefs = [dot0Ref, dot1Ref, dot2Ref];
 
   useEffect(() => {
     if (!sectionRef.current || !pinWrapRef.current) return;
     const ctx = gsap.context(() => {
-      // Pin the section for a long scroll
-      ScrollTrigger.create({
-        trigger: sectionRef.current,
-        start: "top top",
-        end: "+=200%",
-        pin: pinWrapRef.current,
-        pinSpacing: true,
-        anticipatePin: 1,
+      // Initial states: step 0 visible, others hidden
+      gsap.set(step0Ref.current, { opacity: 1, y: 0 });
+      gsap.set([step1Ref.current, step2Ref.current], { opacity: 0, y: 40 });
+      gsap.set([dot0Ref.current], { backgroundColor: "#4ade80", scale: 1.2 });
+      gsap.set([dot1Ref.current, dot2Ref.current], { backgroundColor: "#333", scale: 1 });
+
+      // Single timeline driven by scroll, pinning the wrapper
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: "top top",
+          end: "+=150%",
+          pin: pinWrapRef.current,
+          pinSpacing: true,
+          anticipatePin: 1,
+          scrub: 1,
+        },
       });
 
-      // Stagger steps in as scroll progresses
-      STEPS.forEach((_, i) => {
-        const el = stepRefs[i].current;
-        if (!el) return;
-        gsap.fromTo(
-          el,
-          { opacity: i === 0 ? 1 : 0, y: i === 0 ? 0 : 50 },
-          {
-            opacity: 1,
-            y: 0,
-            ease: "power2.out",
-            scrollTrigger: {
-              trigger: sectionRef.current,
-              start: `top+=${i * 60}% top`,
-              end: `top+=${i * 60 + 40}% top`,
-              scrub: 0.8,
-            },
-          }
-        );
-        if (i > 0) {
-          gsap.fromTo(
-            el,
-            { opacity: 1, y: 0 },
-            {
-              opacity: 0,
-              y: -50,
-              ease: "power2.in",
-              scrollTrigger: {
-                trigger: sectionRef.current,
-                start: `top+=${(i + 0.6) * 60}% top`,
-                end: `top+=${(i + 0.6) * 60 + 30}% top`,
-                scrub: 0.8,
-              },
-            }
-          );
-        }
-      });
+      // Step 0 → Step 1
+      tl.to(step0Ref.current, { opacity: 0, y: -40, duration: 1 }, 1)
+        .to(dot0Ref.current, { backgroundColor: "#333", scale: 1, duration: 1 }, 1)
+        .to(step1Ref.current, { opacity: 1, y: 0, duration: 1 }, 1.1)
+        .to(dot1Ref.current, { backgroundColor: "#4ade80", scale: 1.2, duration: 1 }, 1.1);
+
+      // Step 1 → Step 2
+      tl.to(step1Ref.current, { opacity: 0, y: -40, duration: 1 }, 3)
+        .to(dot1Ref.current, { backgroundColor: "#333", scale: 1, duration: 1 }, 3)
+        .to(step2Ref.current, { opacity: 1, y: 0, duration: 1 }, 3.1)
+        .to(dot2Ref.current, { backgroundColor: "#4ade80", scale: 1.2, duration: 1 }, 3.1);
     }, sectionRef);
     return () => ctx.revert();
   }, []);
 
   return (
-    <section ref={sectionRef} className="relative" style={{ height: "300vh" }}>
+    <section ref={sectionRef} className="relative" style={{ height: "250vh" }}>
       <div
         ref={pinWrapRef}
         className="h-screen bg-[#1a1a1a] flex items-center overflow-hidden"
@@ -162,7 +149,8 @@ export function HowItWorks() {
             {STEPS.map((_, i) => (
               <div
                 key={i}
-                className="w-2 h-2 rounded-full bg-[#333]"
+                ref={dotRefs[i]}
+                className="w-2 h-2 rounded-full"
               />
             ))}
           </div>

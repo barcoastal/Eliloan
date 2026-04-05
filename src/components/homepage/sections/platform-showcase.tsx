@@ -37,7 +37,7 @@ export function PlatformShowcase({ platforms }: PlatformShowcaseProps) {
       ScrollTrigger.create({
         trigger: sectionRef.current,
         start: "top top",
-        end: "+=80%",
+        end: "+=40%",
         pin: pinRef.current,
         pinSpacing: true,
         anticipatePin: 1,
@@ -69,7 +69,7 @@ export function PlatformShowcase({ platforms }: PlatformShowcaseProps) {
   }, [displayPlatforms]);
 
   return (
-    <section ref={sectionRef} className="relative" style={{ height: "180vh" }}>
+    <section ref={sectionRef} className="relative" style={{ height: "140vh" }}>
       <div
         ref={pinRef}
         className="h-screen bg-[#f0f5f0] flex items-center overflow-hidden"

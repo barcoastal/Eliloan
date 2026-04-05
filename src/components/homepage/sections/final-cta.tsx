@@ -2,7 +2,6 @@
 
 import { useEffect, useRef } from "react";
 import Link from "next/link";
-import Image from "next/image";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
@@ -19,11 +18,11 @@ export function FinalCta() {
   useEffect(() => {
     if (!sectionRef.current || !pinRef.current) return;
     const ctx = gsap.context(() => {
-      // Pin the section
+      // Pin the section briefly
       ScrollTrigger.create({
         trigger: sectionRef.current,
         start: "top top",
-        end: "+=60%",
+        end: "+=40%",
         pin: pinRef.current,
         pinSpacing: true,
         anticipatePin: 1,
@@ -97,7 +96,7 @@ export function FinalCta() {
   }, []);
 
   return (
-    <section ref={sectionRef} className="relative" style={{ height: "160vh" }}>
+    <section ref={sectionRef} className="relative" style={{ height: "140vh" }}>
       <div
         ref={pinRef}
         className="h-screen flex items-center justify-center overflow-hidden relative"
@@ -132,20 +131,30 @@ export function FinalCta() {
 
           {/* CTA + hand-drawn arrow */}
           <div className="relative inline-block">
-            {/* Arrow pointing to button */}
+            {/* Hand-drawn arrow pointing to button */}
             <div
               ref={arrowRef}
-              className="absolute -left-24 top-1/2 -translate-y-1/2"
+              className="absolute -left-28 top-1/2 -translate-y-1/2 hidden md:block"
               style={{ opacity: 0 }}
+              aria-hidden="true"
             >
-              <Image
-                src="/illustrations/final-cta-arrow.png"
-                alt=""
-                width={80}
-                height={80}
-                className="w-20 h-20 object-contain opacity-80"
-                aria-hidden="true"
-              />
+              <svg width="110" height="80" viewBox="0 0 110 80" fill="none">
+                <path
+                  d="M8 58 C 20 30, 45 18, 75 32 C 85 37, 92 44, 96 50"
+                  stroke="#bbf7d0"
+                  strokeWidth="3"
+                  strokeLinecap="round"
+                  fill="none"
+                />
+                <path
+                  d="M88 42 L96 50 L88 58"
+                  stroke="#bbf7d0"
+                  strokeWidth="3"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  fill="none"
+                />
+              </svg>
             </div>
 
             <Link
