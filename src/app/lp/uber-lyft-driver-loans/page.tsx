@@ -110,24 +110,39 @@ export default function UberLyftLandingPage() {
         <div className="max-w-6xl mx-auto px-4 py-12 md:py-20 relative z-10">
           <div className="grid grid-cols-1 lg:grid-cols-[1.1fr_0.9fr] gap-10 items-start">
             {/* Left: Copy */}
-            <div>
+            <div className="relative">
+              {/* Floating illustration badge */}
+              <div className="hidden md:block absolute -top-6 -right-8 w-[160px] h-[160px] z-0 opacity-90 rotate-[-6deg]">
+                <Image
+                  src="/illustrations/platform-rideshare.png"
+                  alt="Rideshare driver illustration"
+                  fill
+                  className="object-contain drop-shadow-xl"
+                  sizes="160px"
+                />
+              </div>
+
+              <div className="relative z-10">
               <div className="inline-flex items-center gap-2 bg-[#dcfce7] text-[#15803d] text-[11px] font-semibold px-3 py-1.5 rounded-full mb-5 tracking-[0.04em] uppercase">
                 <span className="w-1.5 h-1.5 bg-[#15803d] rounded-full" />
-                Built for Uber &amp; Lyft drivers
+                Hey Uber &amp; Lyft driver
               </div>
 
               <h1
-                className="font-extrabold tracking-[-0.04em] leading-[0.95] text-[#1a1a1a] mb-5"
+                className="font-extrabold tracking-[-0.04em] leading-[0.92] text-[#1a1a1a] mb-5"
                 style={{ fontSize: "clamp(42px, 6.5vw, 84px)" }}
               >
-                Loans for
+                Uber driver?
                 <br />
-                <span className="text-[#15803d]">rideshare</span> drivers.
+                Lyft driver?
+                <br />
+                <span className="text-[#15803d]">We got you.</span>
               </h1>
 
               <p className="text-[#71717a] text-[18px] leading-relaxed max-w-xl mb-6">
-                $100 to $10,000. No credit check. Same-day decisions. We verify
-                your Uber and Lyft earnings, not your credit score.
+                $100 to $10,000 in your account. No credit check. Same-day
+                decisions. We verify your Uber and Lyft earnings, not your
+                credit score.
               </p>
 
               {/* Trust row */}
@@ -167,6 +182,7 @@ export default function UberLyftLandingPage() {
                   </div>
                 ))}
               </div>
+              </div>{/* /relative z-10 */}
             </div>
 
             {/* Right: Lead form */}
