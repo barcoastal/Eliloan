@@ -1,7 +1,10 @@
 "use client";
 
+export const dynamic = "force-dynamic";
+
 import Link from "next/link";
-import { useState, useRef, useCallback, useEffect } from "react";
+import { useState, useRef, useCallback, useEffect, Suspense } from "react";
+import { useSearchParams } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { z } from "zod";
 import { toast } from "sonner";
@@ -1423,11 +1426,32 @@ function SuccessScreen({ code }: { code: string }) {
 /*  MAIN PAGE                                                           */
 /* ------------------------------------------------------------------ */
 export default function ApplyPage() {
+  return (
+    <Suspense fallback={<div className="min-h-screen bg-[#faf8f0]" />}>
+      <ApplyPageInner />
+    </Suspense>
+  );
+}
+
+function ApplyPageInner() {
+  const searchParams = useSearchParams();
   const [step, setStep] = useState(0);
-  const [loanAmount, setLoanAmount] = useState(5000);
-  const [loanTermMonths, setLoanTermMonths] = useState(4);
+  const [loanAmount, setLoanAmount] = useState(() => {
+    const a = Number(searchParams.get("amount"));
+    return a && a >= 500 && a <= 10000 ? a : 5000;
+  });
+  const [loanTermMonths, setLoanTermMonths] = useState(() => {
+    const t = Number(searchParams.get("term"));
+    return t && [1, 2, 3, 4, 6, 8, 12, 16].includes(t) ? t : 4;
+  });
   const [form, setForm] = useState({ firstName: "", lastName: "", email: "", phone: "", ssn: "" });
-  const [platforms, setPlatforms] = useState<string[]>([]);
+  const [platforms, setPlatforms] = useState<string[]>(() => {
+    const p = searchParams.get("platform");
+    if (p === "Uber") return ["uber"];
+    if (p === "Lyft") return ["lyft"];
+    if (p === "Both") return ["uber", "lyft"];
+    return [];
+  });
   const [otherPlatform, setOtherPlatform] = useState("");
   const [weeklyEarnings, setWeeklyEarnings] = useState("");
   const [photoId, setPhotoId] = useState<File | null>(null);
