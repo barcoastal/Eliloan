@@ -3,6 +3,7 @@
 import { Navbar } from "./navbar";
 import { Footer } from "./footer";
 import { Hero } from "./sections/hero";
+import { PainPoints } from "./sections/pain-points";
 import { Problem } from "./sections/problem";
 import { HowItWorks } from "./sections/how-it-works";
 import { PlatformShowcase } from "./sections/platform-showcase";
@@ -30,6 +31,7 @@ export function Homepage({ latestArticles, platforms }: HomepageProps) {
       <Navbar />
       <main className="pt-14">
         <Hero />
+        <PainPoints />
         <Problem />
         <HowItWorks />
         <PlatformShowcase platforms={platforms} />

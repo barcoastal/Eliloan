@@ -25,11 +25,11 @@ export function Hero() {
   const pathRef = useRef<SVGPathElement>(null);
   const [heroIndex, setHeroIndex] = useState(0);
 
-  // Cycle through illustrations every 1.5s
+  // Cycle through illustrations every 3.5s
   useEffect(() => {
     const interval = setInterval(() => {
       setHeroIndex((i) => (i + 1) % HERO_ILLUSTRATIONS.length);
-    }, 1500);
+    }, 3500);
     return () => clearInterval(interval);
   }, []);
 
