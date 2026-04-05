@@ -6,9 +6,25 @@ import { Breadcrumbs } from "@/components/seo/breadcrumbs";
 import { ContentCta } from "@/components/content/content-cta";
 import { generateMeta } from "@/lib/seo";
 import type { Metadata } from "next";
+import dynamicImport from "next/dynamic";
 
-// Tool components are stubbed here — real implementations come in Task 12
-const toolComponents: Record<string, React.ComponentType | undefined> = {};
+const toolComponents: Record<string, React.ComponentType | undefined> = {
+  "loan-calculator": dynamicImport(() =>
+    import("@/components/tools/loan-calculator").then((m) => m.LoanCalculator)
+  ),
+  "income-estimator": dynamicImport(() =>
+    import("@/components/tools/income-estimator").then((m) => m.IncomeEstimator)
+  ),
+  "loan-comparison": dynamicImport(() =>
+    import("@/components/tools/loan-comparison").then((m) => m.LoanComparison)
+  ),
+  "dti-calculator": dynamicImport(() =>
+    import("@/components/tools/dti-calculator").then((m) => m.DtiCalculator)
+  ),
+  "tax-estimator": dynamicImport(() =>
+    import("@/components/tools/tax-estimator").then((m) => m.TaxEstimator)
+  ),
+};
 
 export async function generateStaticParams() {
   const tools = await getPublishedToolPages();
