@@ -8,7 +8,7 @@ const TOTAL_STEPS = 7;
 type Contact = {
   id: string;
   firstName: string;
-  lastName: string;
+  lastName: string | null;
   email: string;
   phone: string | null;
   lastAppStep: number | null;

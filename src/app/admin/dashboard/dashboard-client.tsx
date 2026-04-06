@@ -21,7 +21,7 @@ type RecentActivity = {
   details?: string | null;
   performedBy?: string | null;
   createdAt: string;
-  contact: { firstName: string; lastName: string; email: string } | null;
+  contact: { firstName: string; lastName: string | null; email: string } | null;
 };
 
 function relativeTime(iso: string): string {
