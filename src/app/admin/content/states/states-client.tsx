@@ -69,7 +69,7 @@ export function StatesClient({ states }: { states: StatePageItem[] }) {
               <tr key={s.id} className="border-b border-[#f4f4f5] last:border-0 hover:bg-[#f8faf8] transition-colors">
                 <td className="px-4 py-3">
                   <Link href={`/admin/content/states/${s.id}`} className="text-[13px] font-medium text-black hover:text-[#15803d]">{s.stateName}</Link>
-                  <p className="text-[11px] text-[#a1a1aa]">/1099-loans-{s.slug}</p>
+                  <p className="text-[11px] text-[#a1a1aa]">/states/{s.slug}</p>
                 </td>
                 <td className="px-4 py-3 text-[13px] text-[#71717a]">{s.stateCode}</td>
                 <td className="px-4 py-3">

@@ -37,7 +37,7 @@ export default async function PlatformPage({ params }: { params: Promise<{ slug:
     <div className="max-w-4xl mx-auto px-4 py-12">
       <JsonLd data={loanProductSchema()} />
       <JsonLd data={faqSchema(faqs)} />
-      <Breadcrumbs items={[{ label: "Home", href: "/" }, { label: platform.platformName, href: `/loans-for-${platform.slug}` }]} />
+      <Breadcrumbs items={[{ label: "Home", href: "/" }, { label: platform.platformName, href: `/loans/${platform.slug}` }]} />
 
       <header className="mb-8">
         <h1 className="text-[32px] font-extrabold tracking-[-0.03em] text-[#1a1a1a] leading-tight">{platform.heroHeadline}</h1>

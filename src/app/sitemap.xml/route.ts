@@ -34,13 +34,13 @@ export async function GET() {
     </url>`),
     ...platforms.map((p) => `
     <url>
-      <loc>${base}/loans-for-${p.slug}</loc>
+      <loc>${base}/loans/${p.slug}</loc>
       <lastmod>${p.updatedAt.toISOString()}</lastmod>
       <priority>0.8</priority>
     </url>`),
     ...states.map((s) => `
     <url>
-      <loc>${base}/1099-loans-${s.slug}</loc>
+      <loc>${base}/states/${s.slug}</loc>
       <lastmod>${s.updatedAt.toISOString()}</lastmod>
       <priority>0.7</priority>
     </url>`),

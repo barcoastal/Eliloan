@@ -37,10 +37,10 @@ export default async function StatePageRoute({ params }: { params: Promise<{ slu
   return (
     <div className="max-w-4xl mx-auto px-4 py-12">
       <JsonLd data={loanProductSchema()} />
-      <Breadcrumbs items={[{ label: "Home", href: "/" }, { label: `${state.stateName}`, href: `/1099-loans-${state.slug}` }]} />
+      <Breadcrumbs items={[{ label: "Home", href: "/" }, { label: `${state.stateName}`, href: `/states/${state.slug}` }]} />
 
       <header className="mb-8">
-        <h1 className="text-[32px] font-extrabold tracking-[-0.03em] text-[#1a1a1a] leading-tight">{state.heroHeadline}</h1>
+        <h1 className="text-[32px] font-extrabold tracking-[-0.03em] text-black leading-tight">{state.heroHeadline}</h1>
         <p className="text-[16px] text-[#71717a] mt-2">{state.heroSubtext}</p>
         <Link href="/apply" className="inline-block mt-4 bg-[#15803d] text-white text-[14px] font-medium px-6 py-3 rounded-lg hover:bg-[#166534]">
           {state.ctaText || "Apply Now"}
@@ -52,7 +52,7 @@ export default async function StatePageRoute({ params }: { params: Promise<{ slu
           {stats.map((stat, i) => (
             <div key={i} className="bg-[#f0f5f0] rounded-[10px] p-4">
               <p className="text-[11px] uppercase tracking-[0.05em] text-[#71717a]">{stat.label}</p>
-              <p className="text-[18px] font-extrabold text-[#1a1a1a]">{stat.value}</p>
+              <p className="text-[18px] font-extrabold text-black">{stat.value}</p>
             </div>
           ))}
         </section>
@@ -60,14 +60,14 @@ export default async function StatePageRoute({ params }: { params: Promise<{ slu
 
       {state.regulationsSummary && (
         <section className="mb-8">
-          <h2 className="text-[20px] font-extrabold tracking-[-0.02em] text-[#1a1a1a] mb-3">Lending Regulations in {state.stateName}</h2>
+          <h2 className="text-[20px] font-extrabold tracking-[-0.02em] text-black mb-3">Lending Regulations in {state.stateName}</h2>
           <p className="text-[14px] text-[#71717a] leading-relaxed">{state.regulationsSummary}</p>
         </section>
       )}
 
       {state.loanAvailability && (
         <section className="mb-8">
-          <h2 className="text-[20px] font-extrabold tracking-[-0.02em] text-[#1a1a1a] mb-3">Loan Availability</h2>
+          <h2 className="text-[20px] font-extrabold tracking-[-0.02em] text-black mb-3">Loan Availability</h2>
           <p className="text-[14px] text-[#71717a] leading-relaxed">{state.loanAvailability}</p>
         </section>
       )}
