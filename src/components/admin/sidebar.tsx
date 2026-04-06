@@ -17,7 +17,7 @@ interface NavGroup {
   items: NavItem[];
 }
 
-const ICON_CLASS = "w-[18px] h-[18px]";
+const ICON_CLASS = "w-[20px] h-[20px]";
 
 // Simple SVG icons inline (avoid lucide dependency for sidebar)
 function DashboardIcon() { return <svg className={ICON_CLASS} fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6A2.25 2.25 0 0 1 6 3.75h2.25A2.25 2.25 0 0 1 10.5 6v2.25a2.25 2.25 0 0 1-2.25 2.25H6a2.25 2.25 0 0 1-2.25-2.25V6ZM3.75 15.75A2.25 2.25 0 0 1 6 13.5h2.25a2.25 2.25 0 0 1 2.25 2.25V18a2.25 2.25 0 0 1-2.25 2.25H6A2.25 2.25 0 0 1 3.75 18v-2.25ZM13.5 6a2.25 2.25 0 0 1 2.25-2.25H18A2.25 2.25 0 0 1 20.25 6v2.25A2.25 2.25 0 0 1 18 10.5h-2.25a2.25 2.25 0 0 1-2.25-2.25V6Z" /></svg>; }
@@ -67,7 +67,12 @@ const NAV_GROUPS: NavGroup[] = [
   {
     title: "CONTENT",
     items: [
-      { href: "/admin/content", label: "All Content", icon: <ContentIcon /> },
+      { href: "/admin/content", label: "Overview", icon: <ContentIcon /> },
+      { href: "/admin/content/landing-pages", label: "Landing Pages", icon: <ContentIcon /> },
+      { href: "/admin/content/articles", label: "Articles", icon: <ContentIcon /> },
+      { href: "/admin/content/platforms", label: "Platform Pages", icon: <ContentIcon /> },
+      { href: "/admin/content/states", label: "State Pages", icon: <ContentIcon /> },
+      { href: "/admin/content/form-templates", label: "Form Templates", icon: <ContentIcon /> },
     ],
   },
   {
@@ -103,16 +108,16 @@ export function AdminSidebar({ userName }: { userName: string }) {
   const initials = userName.split(" ").map((n) => n[0]).join("").toUpperCase().slice(0, 2);
 
   return (
-    <aside className={`${collapsed ? "w-[64px]" : "w-[220px]"} bg-white h-screen fixed flex flex-col border-r border-[#e4e4e7] transition-all duration-200 z-40`}>
+    <aside className={`${collapsed ? "w-[68px]" : "w-[260px]"} bg-white h-screen fixed flex flex-col border-r border-[#e4e4e7] transition-all duration-200 z-40`}>
       {/* Header */}
-      <div className="flex items-center justify-between px-3 pt-4 pb-3">
+      <div className="flex items-center justify-between px-4 pt-5 pb-4">
         {!collapsed && (
-          <span className="inline-flex items-center gap-2 font-extrabold text-[15px] tracking-[-0.03em]">
-            <LogoMark size={24} />
+          <span className="inline-flex items-center gap-2.5 font-extrabold text-[18px] tracking-[-0.03em]">
+            <LogoMark size={32} />
             Credit<span className="text-[#15803d]">Lime</span>
           </span>
         )}
-        {collapsed && <LogoMark size={24} className="mx-auto" />}
+        {collapsed && <LogoMark size={28} className="mx-auto" />}
         <button
           onClick={() => setCollapsed(!collapsed)}
           className="p-1.5 rounded-lg text-[#71717a] hover:bg-[#f4f4f5] transition-colors"
@@ -123,36 +128,36 @@ export function AdminSidebar({ userName }: { userName: string }) {
       </div>
 
       {/* Navigation */}
-      <nav className="flex-1 overflow-y-auto px-2 py-1 space-y-1">
+      <nav className="flex-1 overflow-y-auto px-3 py-2 space-y-1">
         {NAV_GROUPS.map((group) => (
           <div key={group.title}>
             {!collapsed && (
               <button
                 onClick={() => toggleGroup(group.title)}
-                className="w-full flex items-center justify-between px-2 pt-4 pb-1.5 text-[10px] font-semibold uppercase tracking-[0.08em] text-[#a1a1aa] hover:text-[#71717a]"
+                className="w-full flex items-center justify-between px-3 pt-5 pb-2 text-[11px] font-bold uppercase tracking-[0.08em] text-[#a1a1aa] hover:text-[#71717a]"
               >
                 {group.title}
-                <svg className={`w-3 h-3 transition-transform ${openGroups.has(group.title) ? "" : "-rotate-90"}`} fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" /></svg>
+                <svg className={`w-3.5 h-3.5 transition-transform ${openGroups.has(group.title) ? "" : "-rotate-90"}`} fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" /></svg>
               </button>
             )}
             {(collapsed || openGroups.has(group.title)) && (
-              <div className="space-y-0.5">
+              <div className="space-y-1">
                 {group.items.map((item) => {
-                  const active = item.href === "/admin/email"
-                    ? pathname === "/admin/email"
+                  const active = item.href === "/admin/email" || item.href === "/admin/content"
+                    ? pathname === item.href
                     : pathname.startsWith(item.href);
                   return (
                     <Link
                       key={item.href}
                       href={item.href}
                       title={collapsed ? item.label : undefined}
-                      className={`group flex items-center gap-3 rounded-lg px-3 py-2 text-[13px] font-medium transition-all ${
+                      className={`group flex items-center gap-3 rounded-xl px-3 py-2.5 text-[14px] font-medium transition-all ${
                         active
-                          ? "bg-[#f0f5f0] text-[#15803d] border-l-2 border-[#15803d]"
-                          : "text-[#71717a] hover:bg-[#f4f4f5] hover:text-[#1a1a1a]"
+                          ? "bg-[#f0f5f0] text-[#15803d] border-l-[3px] border-[#15803d]"
+                          : "text-[#52525b] hover:bg-[#f4f4f5] hover:text-[#1a1a1a]"
                       } ${collapsed ? "justify-center px-2" : ""}`}
                     >
-                      <span className={active ? "text-[#15803d]" : "text-[#a1a1aa] group-hover:text-[#71717a]"}>{item.icon}</span>
+                      <span className={active ? "text-[#15803d]" : "text-[#a1a1aa] group-hover:text-[#52525b]"}>{item.icon}</span>
                       {!collapsed && item.label}
                     </Link>
                   );
