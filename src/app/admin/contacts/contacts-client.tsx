@@ -197,17 +197,17 @@ export function ContactsClient({ contacts, total, metrics }: ContactsClientProps
                       <span className="text-[13px] text-[#71717a]">{contact.email}</span>
                     </td>
                     <td className="px-4 py-3">
-                      <span className="text-[13px] text-[#71717a]">{contact.phone || "—"}</span>
+                      <span className="text-[13px] text-[#71717a]">{contact.phone || ","}</span>
                     </td>
                     <td className="px-4 py-3">
                       <StageBadge stage={contact.stage} />
                     </td>
                     <td className="px-4 py-3">
-                      <span className="text-[13px] text-[#71717a]">{contact.source || "—"}</span>
+                      <span className="text-[13px] text-[#71717a]">{contact.source || ","}</span>
                     </td>
                     <td className="px-4 py-3">
                       <span className="text-[13px] text-[#71717a]">
-                        {contact.assignedRep?.name || "—"}
+                        {contact.assignedRep?.name || ","}
                       </span>
                     </td>
                     <td className="px-4 py-3">
@@ -231,7 +231,7 @@ export function ContactsClient({ contacts, total, metrics }: ContactsClientProps
           <span className="text-[12px] text-[#a1a1aa]">
             {totalFiltered === 0
               ? "No results"
-              : `${showingFrom}–${showingTo} of ${totalFiltered}`}
+              : `${showingFrom}-${showingTo} of ${totalFiltered}`}
           </span>
           <div className="flex items-center gap-2">
             <button

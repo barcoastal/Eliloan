@@ -214,7 +214,7 @@ export async function scoreApplication(
   const model = await loadActiveModel();
 
   if (!model) {
-    // No model available — fallback
+    // No model available, fallback
     return {
       riskScore: 50,
       interestRate: minRate,

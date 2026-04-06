@@ -183,7 +183,7 @@ export function CampaignEditorClient({ campaign }: Props) {
 
             {rules.length === 0 ? (
               <div className="bg-[#f4f4f5] rounded-xl px-4 py-3 text-[13px] text-[#a1a1aa]">
-                No rules — all contacts will be targeted. Click &quot;+ Add Rule&quot; to filter.
+                No rules, all contacts will be targeted. Click &quot;+ Add Rule&quot; to filter.
               </div>
             ) : (
               <div className="space-y-2">
@@ -267,7 +267,7 @@ export function CampaignEditorClient({ campaign }: Props) {
           <div className="bg-[#f0fdf4] border border-[#bbf7d0] rounded-xl p-4">
             <p className="text-[12px] text-[#15803d] font-medium">Audience</p>
             <p className="text-[24px] font-extrabold text-[#15803d] mt-1">
-              {audienceCount !== null ? audienceCount.toLocaleString() : "—"}
+              {audienceCount !== null ? audienceCount.toLocaleString() : ","}
             </p>
             <p className="text-[11px] text-[#166534] mt-0.5">contacts will receive this</p>
           </div>

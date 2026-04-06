@@ -124,7 +124,7 @@ export function AbandonedClient({ contacts, total, stats }: Props) {
                         <span className="text-[#a1a1aa] text-[12px]">Unknown</span>
                       )}
                     </td>
-                    <td className="px-4 py-3 text-[#71717a] text-[13px]">{contact.source ?? "—"}</td>
+                    <td className="px-4 py-3 text-[#71717a] text-[13px]">{contact.source ?? ","}</td>
                     <td className="px-4 py-3 text-[#71717a] text-[13px]">{relativeTime(contact.createdAt)}</td>
                     <td className="px-4 py-3 text-[#71717a] text-[13px]">
                       {contact.assignedRep?.name ?? <span className="text-[#a1a1aa]">Unassigned</span>}

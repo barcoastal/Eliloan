@@ -235,7 +235,7 @@ export function LandingPageEditorClient({ page }: { page?: Record<string, unknow
               <input value={form.heroHeadlineLine2} onChange={(e) => set("heroHeadlineLine2", e.target.value)} className={inputClass} placeholder="Lyft driver?" />
             </div>
             <div>
-              <label className={labelClass}>Headline Line 3 — shown in green (optional)</label>
+              <label className={labelClass}>Headline Line 3, shown in green (optional)</label>
               <input value={form.heroHeadlineLine3} onChange={(e) => set("heroHeadlineLine3", e.target.value)} className={inputClass} placeholder="We got you." />
             </div>
             <div>

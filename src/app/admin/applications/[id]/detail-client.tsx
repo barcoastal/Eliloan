@@ -232,7 +232,7 @@ export function DetailClient({
   async function handleFund() {
     setFunding(true);
     try {
-      // fundApplication may not exist yet — we call it if available
+      // fundApplication may not exist yet, we call it if available
       const { fundApplication } = await import("@/actions/applications");
       if (typeof fundApplication === "function") {
         const result = await fundApplication(application.id, parseFloat(fundAmount));
@@ -614,7 +614,7 @@ export function DetailClient({
 
                 {!riskResult.modelId && (
                   <p className="text-sm text-[#b45309]">
-                    No risk model loaded — using default rate. Run the seed script to initialize.
+                    No risk model loaded, using default rate. Run the seed script to initialize.
                   </p>
                 )}
               </div>
@@ -631,7 +631,7 @@ export function DetailClient({
                 Decision
               </h2>
 
-              {/* Term Input — interest rate is auto-set by risk model on approval */}
+              {/* Term Input, interest rate is auto-set by risk model on approval */}
               <div className="mb-5">
                 <div>
                   <label htmlFor="termMonths" className="block text-sm font-medium text-black mb-1.5">
@@ -813,7 +813,7 @@ export function DetailClient({
                           <td className="py-2.5 px-3 text-right text-black">${fmt(Number(payment.principal))}</td>
                           <td className="py-2.5 px-3 text-right text-[#a1a1aa]">${fmt(Number(payment.interest))}</td>
                           <td className={`py-2.5 px-3 text-right font-medium ${lateFee > 0 ? "text-[#b45309]" : "text-[#a1a1aa]"}`}>
-                            {lateFee > 0 ? `$${fmt(lateFee)}` : "—"}
+                            {lateFee > 0 ? `$${fmt(lateFee)}` : ","}
                           </td>
                           <td className="py-2.5 px-3">
                             <span className={`inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-semibold ${badgeClass}`}>

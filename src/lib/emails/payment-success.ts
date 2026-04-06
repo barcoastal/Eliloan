@@ -9,7 +9,7 @@ export function paymentSuccessEmail(params: {
 }) {
   const statusUrl = `${APP_URL}/status/${params.applicationCode}`;
   return {
-    subject: `Payment Received: $${params.amount.toFixed(2)} — Thank You`,
+    subject: `Payment Received: $${params.amount.toFixed(2)}, Thank You`,
     html: `
       <div style="font-family: sans-serif; max-width: 600px; margin: 0 auto;">
         <h2 style="color: #16a34a;">Payment Received</h2>

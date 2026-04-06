@@ -24,7 +24,7 @@ export function loanFundedEmail(params: {
     .join("");
 
   return {
-    subject: "Your Loan Has Been Funded — Payment Schedule Inside",
+    subject: "Your Loan Has Been Funded, Payment Schedule Inside",
     html: `
       <div style="font-family: sans-serif; max-width: 600px; margin: 0 auto;">
         <h2 style="color: #16a34a;">Your Loan Has Been Funded!</h2>

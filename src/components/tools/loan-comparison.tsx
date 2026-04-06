@@ -24,9 +24,9 @@ interface FeatureRow {
 const features: FeatureRow[] = [
   {
     label: "APR / Rate",
-    lime: { value: "30–60% APR", positive: true },
-    mca: { value: "Factor 1.2–1.5x", positive: false },
-    bank: { value: "8–36% APR", positive: true },
+    lime: { value: "30-60% APR", positive: true },
+    mca: { value: "Factor 1.2-1.5x", positive: false },
+    bank: { value: "8-36% APR", positive: true },
   },
   {
     label: "Credit Check",
@@ -38,13 +38,13 @@ const features: FeatureRow[] = [
     label: "Funding Speed",
     lime: { value: "48 hours", positive: true },
     mca: { value: "24 hours", positive: true },
-    bank: { value: "2–4 weeks", positive: false },
+    bank: { value: "2-4 weeks", positive: false },
   },
   {
     label: "Loan Range",
-    lime: { value: "$100 – $10,000", positive: true },
+    lime: { value: "$100 - $10,000", positive: true },
     mca: { value: "$5,000+", positive: false },
-    bank: { value: "$5,000 – $50,000", positive: true },
+    bank: { value: "$5,000 - $50,000", positive: true },
   },
   {
     label: "Repayment",
@@ -147,7 +147,7 @@ export function LoanComparison() {
           href="/apply"
           className="inline-block bg-[#15803d] text-white text-[13px] font-medium px-8 py-3 rounded-lg hover:bg-[#166534] transition-colors"
         >
-          Apply with PennyLime — No Credit Check
+          Apply with PennyLime, No Credit Check
         </Link>
       </div>
     </div>

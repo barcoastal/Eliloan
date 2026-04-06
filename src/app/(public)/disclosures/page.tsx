@@ -15,9 +15,9 @@ export default function DisclosuresPage() {
           Loan Terms
         </h2>
         <ul className="text-[15px] text-[#71717a] leading-relaxed space-y-2 list-disc pl-5">
-          <li><strong className="text-[#1a1a1a]">Loan amounts:</strong> $100 – $10,000</li>
-          <li><strong className="text-[#1a1a1a]">Loan terms:</strong> 3 – 18 months</li>
-          <li><strong className="text-[#1a1a1a]">APR range:</strong> 30% – 60% (varies by risk profile)</li>
+          <li><strong className="text-[#1a1a1a]">Loan amounts:</strong> $100 - $10,000</li>
+          <li><strong className="text-[#1a1a1a]">Loan terms:</strong> 3 - 18 months</li>
+          <li><strong className="text-[#1a1a1a]">APR range:</strong> 30% - 60% (varies by risk profile)</li>
           <li><strong className="text-[#1a1a1a]">Late fee:</strong> $25 per missed payment (after 3-day grace period)</li>
         </ul>
 

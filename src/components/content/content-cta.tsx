@@ -50,7 +50,7 @@ export function ContentCta({ text, subtext, variant = "default" }: { text?: stri
     );
   }
 
-  // default — end-of-article CTA
+  // default, end-of-article CTA
   return (
     <section className="mt-14 bg-gradient-to-br from-[#15803d] to-[#14532d] rounded-2xl p-8 md:p-12 text-center text-white relative overflow-hidden">
       <div className="absolute inset-0 pointer-events-none">

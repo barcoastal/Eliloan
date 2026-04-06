@@ -29,7 +29,7 @@ export default function PrivacyPage() {
           3. Data Security
         </h2>
         <p className="text-[15px] text-[#71717a] leading-relaxed">
-          Sensitive data including SSN and bank credentials are encrypted at rest using AES-256 encryption. We use Plaid for secure bank connections — your banking credentials are never stored on our servers.
+          Sensitive data including SSN and bank credentials are encrypted at rest using AES-256 encryption. We use Plaid for secure bank connections, your banking credentials are never stored on our servers.
         </p>
 
         <h2 className="text-[22px] font-extrabold tracking-[-0.03em] text-[#1a1a1a] mt-10">

@@ -97,7 +97,7 @@ export default function AuditClient() {
                   </td>
                   <td className="px-4 py-3 text-[13px] text-black">{log.performedBy}</td>
                   <td className="px-4 py-3 max-w-xs truncate text-[13px] text-[#a1a1aa]">
-                    {log.details || "—"}
+                    {log.details || ","}
                   </td>
                 </tr>
               ))}

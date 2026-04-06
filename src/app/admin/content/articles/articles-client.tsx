@@ -77,7 +77,7 @@ export function ArticlesClient({ articles }: { articles: ArticleWithRelations[] 
                   </Link>
                   <p className="text-[11px] text-[#a1a1aa]">/blog/{article.slug}</p>
                 </td>
-                <td className="px-4 py-3 text-[13px] text-[#71717a]">{article.category?.name || "—"}</td>
+                <td className="px-4 py-3 text-[13px] text-[#71717a]">{article.category?.name || ","}</td>
                 <td className="px-4 py-3">
                   <span className={`inline-block px-2 py-0.5 rounded text-[11px] font-medium ${article.published ? "bg-[#f0f5f0] text-[#15803d]" : "bg-[#f4f4f5] text-[#71717a]"}`}>
                     {article.published ? "Published" : "Draft"}

@@ -108,7 +108,7 @@ export function CampaignsClient({ campaigns }: { campaigns: Campaign[] }) {
                   <td className="px-4 py-3 text-[13px] text-black">{c.totalOpened.toLocaleString()}</td>
                   <td className="px-4 py-3 text-[13px] text-black">{c.totalClicked.toLocaleString()}</td>
                   <td className="px-4 py-3 text-[12px] text-[#71717a]">
-                    {c.scheduledAt ? new Date(c.scheduledAt).toLocaleString() : "—"}
+                    {c.scheduledAt ? new Date(c.scheduledAt).toLocaleString() : ","}
                   </td>
                 </tr>
               ))}

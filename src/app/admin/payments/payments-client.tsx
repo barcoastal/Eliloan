@@ -101,13 +101,13 @@ export function PaymentsClient() {
                   </td>
                   <td className="px-4 py-3 font-semibold text-black">${Number(p.amount).toFixed(2)}</td>
                   <td className="px-4 py-3 text-[#71717a]">
-                    {Number(p.lateFee) > 0 ? `$${Number(p.lateFee).toFixed(2)}` : "—"}
+                    {Number(p.lateFee) > 0 ? `$${Number(p.lateFee).toFixed(2)}` : ","}
                   </td>
                   <td className="px-4 py-3 text-[#71717a]">{new Date(p.dueDate).toLocaleDateString()}</td>
                   <td className="px-4 py-3">
                     <StatusBadge status={p.status} />
                   </td>
-                  <td className="px-4 py-3 text-[#71717a]">{p.retryCount > 0 ? p.retryCount : "—"}</td>
+                  <td className="px-4 py-3 text-[#71717a]">{p.retryCount > 0 ? p.retryCount : ","}</td>
                 </tr>
               ))}
             </tbody>

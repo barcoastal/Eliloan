@@ -3,7 +3,7 @@ export function applicationRejectedEmail(params: {
   reason: string;
 }) {
   return {
-    subject: "Application Update — PennyLime",
+    subject: "Application Update, PennyLime",
     html: `
       <div style="font-family: sans-serif; max-width: 600px; margin: 0 auto;">
         <h2 style="color: #dc2626;">Application Update</h2>

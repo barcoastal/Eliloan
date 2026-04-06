@@ -130,7 +130,7 @@ export function IncomeEstimator() {
                   Eligible Loan Range
                 </p>
                 <p className="text-[15px] font-bold text-[#15803d]">
-                  ${loanMin.toLocaleString()} – ${loanMax.toLocaleString()}
+                  ${loanMin.toLocaleString()} - ${loanMax.toLocaleString()}
                 </p>
               </div>
             </>

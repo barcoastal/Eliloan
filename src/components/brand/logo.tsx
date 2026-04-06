@@ -21,7 +21,7 @@ export function LogoMark({ className = "", size = 32 }: { className?: string; si
       aria-hidden="true"
     >
       <defs>
-        {/* Coin rim gradient — copper/bronze 3D */}
+        {/* Coin rim gradient, copper/bronze 3D */}
         <linearGradient id="coin-rim" x1="0" y1="0" x2="1" y2="1">
           <stop offset="0%" stopColor="#e8a54b" />
           <stop offset="30%" stopColor="#d4883a" />
@@ -50,13 +50,13 @@ export function LogoMark({ className = "", size = 32 }: { className?: string; si
       {/* Drop shadow */}
       <ellipse cx="24" cy="43" rx="16" ry="2.5" fill="#000" opacity="0.1" />
 
-      {/* Outer coin rim — copper */}
+      {/* Outer coin rim, copper */}
       <circle cx="24" cy="22" r="21" fill="url(#coin-rim)" />
 
-      {/* Inner coin face — gold */}
+      {/* Inner coin face, gold */}
       <circle cx="24" cy="22" r="18" fill="url(#coin-face)" />
 
-      {/* Raised inner edge — coin detail */}
+      {/* Raised inner edge, coin detail */}
       <circle cx="24" cy="22" r="17" fill="none" stroke="#c9903a" strokeWidth="0.8" />
 
       {/* Small dots around the rim like a real penny */}
@@ -78,7 +78,7 @@ export function LogoMark({ className = "", size = 32 }: { className?: string; si
       {/* Lime pulp */}
       <circle cx="24" cy="22" r="9.5" fill="url(#lime-fill)" />
 
-      {/* Segment dividers — thin white lines from center */}
+      {/* Segment dividers, thin white lines from center */}
       <g stroke="#dcfce7" strokeWidth="1.2" strokeLinecap="round">
         <line x1="24" y1="22" x2="24" y2="12.5" />
         <line x1="24" y1="22" x2="32.2" y2="17.25" />
@@ -106,7 +106,7 @@ export function LogoMark({ className = "", size = 32 }: { className?: string; si
       {/* Glossy highlight over the whole coin */}
       <ellipse cx="18" cy="14" rx="8" ry="5" fill="url(#coin-gloss)" />
 
-      {/* ¢ symbol — tiny, bottom right of coin */}
+      {/* ¢ symbol, tiny, bottom right of coin */}
       <text x="33" y="32" fill="#a0611e" fontSize="7" fontWeight="bold" fontFamily="serif" opacity="0.5">¢</text>
     </svg>
   );

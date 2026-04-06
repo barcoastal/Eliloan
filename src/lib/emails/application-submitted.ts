@@ -8,7 +8,7 @@ export function applicationSubmittedEmail(params: {
   const statusUrl = `${APP_URL}/status/${params.applicationCode}`;
 
   return {
-    subject: "Application Received — PennyLime",
+    subject: "Application Received, PennyLime",
     html: `
       <div style="font-family: sans-serif; max-width: 600px; margin: 0 auto;">
         <h2 style="color: #16a34a;">Application Received!</h2>

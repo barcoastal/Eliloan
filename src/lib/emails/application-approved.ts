@@ -15,12 +15,12 @@ export function applicationApprovedEmail(params: {
     (Math.pow(1 + monthlyRate, months) - 1);
 
   return {
-    subject: "Congratulations! Your Loan is Approved — PennyLime",
+    subject: "Congratulations! Your Loan is Approved, PennyLime",
     html: `
       <div style="font-family: sans-serif; max-width: 600px; margin: 0 auto;">
         <h2 style="color: #16a34a;">Your Loan Has Been Approved!</h2>
         <p>Hi ${params.firstName},</p>
-        <p>Great news — your loan application has been approved.</p>
+        <p>Great news, your loan application has been approved.</p>
         <table style="width: 100%; border-collapse: collapse; margin: 16px 0;">
           <tr><td style="padding: 8px; border-bottom: 1px solid #e5e7eb;">Loan Amount</td><td style="padding: 8px; border-bottom: 1px solid #e5e7eb; font-weight: bold;">$${params.loanAmount.toLocaleString()}</td></tr>
           <tr><td style="padding: 8px; border-bottom: 1px solid #e5e7eb;">Interest Rate</td><td style="padding: 8px; border-bottom: 1px solid #e5e7eb; font-weight: bold;">${params.interestRate}% APR</td></tr>

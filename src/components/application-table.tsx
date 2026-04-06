@@ -175,10 +175,10 @@ export function ApplicationTable({
                 {formatCurrency(Number(app.loanAmount))}
               </td>
               <td className="px-6 py-4 text-sm text-stone-500 whitespace-nowrap">
-                {app.platform || "—"}
+                {app.platform || ","}
               </td>
               <td className="px-6 py-4 text-sm text-stone-500 whitespace-nowrap">
-                {app.monthlyIncome ? `$${Number(app.monthlyIncome).toLocaleString()}/mo` : "—"}
+                {app.monthlyIncome ? `$${Number(app.monthlyIncome).toLocaleString()}/mo` : ","}
               </td>
               <td className="px-6 py-4">
                 <span className="inline-flex items-center gap-1 text-xs text-stone-500">

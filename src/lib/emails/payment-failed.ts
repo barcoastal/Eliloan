@@ -8,7 +8,7 @@ export function paymentFailedEmail(params: {
 }) {
   const statusUrl = `${APP_URL}/status/${params.applicationCode}`;
   return {
-    subject: "Payment Failed — Action May Be Required",
+    subject: "Payment Failed, Action May Be Required",
     html: `
       <div style="font-family: sans-serif; max-width: 600px; margin: 0 auto;">
         <h2 style="color: #dc2626;">Payment Failed</h2>

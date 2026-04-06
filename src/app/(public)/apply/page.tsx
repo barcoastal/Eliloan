@@ -102,7 +102,7 @@ function StepIndicator({ current, stepNames }: { current: number; stepNames: str
 }
 
 /* ------------------------------------------------------------------ */
-/*  STEP 1 — LOAN AMOUNT                                               */
+/*  STEP 1, LOAN AMOUNT                                               */
 /* ------------------------------------------------------------------ */
 function StepAmount({
   amount,
@@ -118,7 +118,7 @@ function StepAmount({
   onNext: () => void;
 }) {
   const pct = ((amount - MIN_AMOUNT) / (MAX_AMOUNT - MIN_AMOUNT)) * 100;
-  // loanTermMonths field now holds WEEKS — compute weekly payment
+  // loanTermMonths field now holds WEEKS, compute weekly payment
   const weeklyEstimate = ((amount / loanTermMonths) * 1.08).toFixed(0);
 
   return (
@@ -234,7 +234,7 @@ function StepAmount({
 }
 
 /* ------------------------------------------------------------------ */
-/*  STEP 2 — PERSONAL INFO                                             */
+/*  STEP 2, PERSONAL INFO                                             */
 /* ------------------------------------------------------------------ */
 function StepInfo({
   form,
@@ -392,7 +392,7 @@ function StepInfo({
 }
 
 /* ------------------------------------------------------------------ */
-/*  STEP 3 — GIG PLATFORMS & EARNINGS                                   */
+/*  STEP 3, GIG PLATFORMS & EARNINGS                                   */
 /* ------------------------------------------------------------------ */
 function StepPlatforms({
   platforms,
@@ -597,7 +597,7 @@ function StepPlatforms({
 }
 
 /* ------------------------------------------------------------------ */
-/*  STEP 4 — IDENTITY (Photo ID + Bank Statement)                      */
+/*  STEP 4, IDENTITY (Photo ID + Bank Statement)                      */
 /* ------------------------------------------------------------------ */
 function StepIdentity({
   photoId,
@@ -842,7 +842,7 @@ function StepIdentity({
 }
 
 /* ------------------------------------------------------------------ */
-/*  STEP 5 — PLAID BANK LINK                                           */
+/*  STEP 5, PLAID BANK LINK                                           */
 /* ------------------------------------------------------------------ */
 function StepPlaidLink({
   plaidAccessToken,
@@ -1026,7 +1026,7 @@ function StepPlaidLink({
 }
 
 /* ------------------------------------------------------------------ */
-/*  STEP 6 — PAY STUBS UPLOAD                                          */
+/*  STEP 6, PAY STUBS UPLOAD                                          */
 /* ------------------------------------------------------------------ */
 function StepUpload({
   files,
@@ -1176,7 +1176,7 @@ function StepUpload({
 }
 
 /* ------------------------------------------------------------------ */
-/*  STEP 7 — REVIEW & SUBMIT                                           */
+/*  STEP 7, REVIEW & SUBMIT                                           */
 /* ------------------------------------------------------------------ */
 function StepReview({
   amount,
@@ -1601,7 +1601,7 @@ function ApplyPageInner() {
                   );
                 }
 
-                // builtin step — map builtinKey to component
+                // builtin step, map builtinKey to component
                 const builtinKey = currentTemplateStep.builtinKey;
                 if (builtinKey === "amount") {
                   return (

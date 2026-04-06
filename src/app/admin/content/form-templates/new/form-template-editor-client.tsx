@@ -270,7 +270,7 @@ export function FormTemplateEditorClient({ template }: Props) {
                   </h3>
                   <p className="text-[11px] text-[#a1a1aa]">
                     {selectedStep.type === "builtin"
-                      ? `Key: ${selectedStep.builtinKey} — fields are hardcoded`
+                      ? `Key: ${selectedStep.builtinKey}, fields are hardcoded`
                       : "Fully configurable fields"}
                   </p>
                 </div>
