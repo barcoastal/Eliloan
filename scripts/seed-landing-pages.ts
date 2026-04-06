@@ -9,8 +9,10 @@ const FORCE = process.env.SEED_FORCE === "true";
 
 async function main() {
   const existing = await prisma.landingPage.findUnique({ where: { slug: SLUG } });
-  if (existing && !FORCE) {
-    console.log(`Landing page "${SLUG}" already exists — skipping. Set SEED_FORCE=true to overwrite.`);
+  // Re-seed if content has dashes (v2 cleanup)
+  const needsUpdate = existing?.heroSubtext?.includes("\u2013") || existing?.heroSubtext?.includes("\u2014");
+  if (existing && !FORCE && !needsUpdate) {
+    console.log(`Landing page "${SLUG}" already exists (v2). Skipping.`);
     return;
   }
 
