@@ -37,7 +37,7 @@ export function ContentDashboardClient({
     <div>
       <div className="flex items-center justify-between mb-6">
         <div>
-          <h1 className="text-[22px] font-extrabold tracking-[-0.03em] text-[#1a1a1a]">Content</h1>
+          <h1 className="text-[22px] font-extrabold tracking-[-0.03em] text-black">Content</h1>
           <p className="text-[13px] text-[#71717a] mt-1">{total} total pages · {counts.published} published</p>
         </div>
       </div>
@@ -50,7 +50,7 @@ export function ContentDashboardClient({
             className="bg-white rounded-[10px] p-4 hover:shadow-sm transition-shadow"
           >
             <p className="text-[11px] uppercase tracking-[0.05em] text-[#a1a1aa] mb-1">{type.label}</p>
-            <p className="text-[22px] font-extrabold tracking-[-0.02em] text-[#1a1a1a]">{counts[type.key]}</p>
+            <p className="text-[22px] font-extrabold tracking-[-0.02em] text-black">{counts[type.key]}</p>
           </Link>
         ))}
       </div>

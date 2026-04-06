@@ -8,7 +8,7 @@ export function ComparisonsClient({ comparisons }: { comparisons: ComparisonItem
   return (
     <div>
       <div className="flex items-center justify-between mb-6">
-        <h1 className="text-[22px] font-extrabold tracking-[-0.03em] text-[#1a1a1a]">Comparison Pages</h1>
+        <h1 className="text-[22px] font-extrabold tracking-[-0.03em] text-black">Comparison Pages</h1>
         <Link href="/admin/content/comparisons/new" className="bg-[#15803d] text-white text-[13px] font-medium px-4 py-2 rounded-lg hover:bg-[#166534]">New Comparison</Link>
       </div>
       <div className="bg-white rounded-[10px] overflow-hidden">
@@ -17,7 +17,7 @@ export function ComparisonsClient({ comparisons }: { comparisons: ComparisonItem
           <tbody>
             {comparisons.map((c) => (
               <tr key={c.id} className="border-b border-[#f4f4f5] last:border-0 hover:bg-[#f8faf8]">
-                <td className="px-4 py-3"><Link href={`/admin/content/comparisons/${c.id}`} className="text-[13px] font-medium text-[#1a1a1a] hover:text-[#15803d]">{c.title}</Link><p className="text-[11px] text-[#a1a1aa]">/compare/{c.slug}</p></td>
+                <td className="px-4 py-3"><Link href={`/admin/content/comparisons/${c.id}`} className="text-[13px] font-medium text-black hover:text-[#15803d]">{c.title}</Link><p className="text-[11px] text-[#a1a1aa]">/compare/{c.slug}</p></td>
                 <td className="px-4 py-3 text-[13px] text-[#71717a]">{c.entityA} vs {c.entityB}</td>
                 <td className="px-4 py-3"><span className={`inline-block px-2 py-0.5 rounded text-[11px] font-medium ${c.published ? "bg-[#f0f5f0] text-[#15803d]" : "bg-[#f4f4f5] text-[#71717a]"}`}>{c.published ? "Published" : "Draft"}</span></td>
               </tr>

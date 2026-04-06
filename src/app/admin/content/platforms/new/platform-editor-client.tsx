@@ -101,7 +101,7 @@ export function PlatformEditorClient({ platform }: { platform?: PlatformFormData
   return (
     <div>
       <div className="flex items-center justify-between mb-6">
-        <h1 className="text-[22px] font-extrabold tracking-[-0.03em] text-[#1a1a1a]">
+        <h1 className="text-[22px] font-extrabold tracking-[-0.03em] text-black">
           {isEdit ? `Edit: ${form.platformName}` : "New Platform Page"}
         </h1>
         <div className="flex gap-2">
@@ -190,7 +190,7 @@ export function PlatformEditorClient({ platform }: { platform?: PlatformFormData
             <p className="text-[11px] text-[#a1a1aa]">URL: /loans-for-{form.slug}</p>
           </div>
           <div className="bg-white rounded-[10px] p-4 space-y-3">
-            <h3 className="text-[13px] font-bold text-[#1a1a1a]">SEO</h3>
+            <h3 className="text-[13px] font-bold text-black">SEO</h3>
             <div>
               <div className="flex justify-between"><label className={labelClass}>Meta Title</label><span className="text-[11px] text-[#a1a1aa]">{form.metaTitle.length}/60</span></div>
               <input value={form.metaTitle} onChange={(e) => updateField("metaTitle", e.target.value)} className={inputClass} />
@@ -201,10 +201,10 @@ export function PlatformEditorClient({ platform }: { platform?: PlatformFormData
             </div>
           </div>
           <div className="bg-white rounded-[10px] p-4 space-y-3">
-            <h3 className="text-[13px] font-bold text-[#1a1a1a]">Publish</h3>
+            <h3 className="text-[13px] font-bold text-black">Publish</h3>
             <label className="flex items-center gap-2">
               <input type="checkbox" checked={form.published} onChange={(e) => updateField("published", e.target.checked)} className="rounded" />
-              <span className="text-[13px] text-[#1a1a1a]">Published</span>
+              <span className="text-[13px] text-black">Published</span>
             </label>
           </div>
         </div>

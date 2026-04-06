@@ -208,7 +208,7 @@ export function FormTemplateEditorClient({ template }: Props) {
               >
                 <div className="flex items-center justify-between gap-1">
                   <div className="flex-1 min-w-0">
-                    <p className="text-[12px] font-medium text-[#1a1a1a] truncate">{step.title}</p>
+                    <p className="text-[12px] font-medium text-black truncate">{step.title}</p>
                     <p className="text-[10px] text-[#a1a1aa]">
                       {step.type === "builtin" ? step.builtinKey : "Custom"}
                     </p>
@@ -236,12 +236,12 @@ export function FormTemplateEditorClient({ template }: Props) {
                       <button
                         onClick={(e) => { e.stopPropagation(); moveStep(i, -1); }}
                         disabled={i === 0}
-                        className="text-[#a1a1aa] hover:text-[#1a1a1a] disabled:opacity-20 leading-none text-[10px]"
+                        className="text-[#a1a1aa] hover:text-black disabled:opacity-20 leading-none text-[10px]"
                       >▲</button>
                       <button
                         onClick={(e) => { e.stopPropagation(); moveStep(i, 1); }}
                         disabled={i === steps.length - 1}
-                        className="text-[#a1a1aa] hover:text-[#1a1a1a] disabled:opacity-20 leading-none text-[10px]"
+                        className="text-[#a1a1aa] hover:text-black disabled:opacity-20 leading-none text-[10px]"
                       >▼</button>
                     </div>
                   </div>
@@ -265,7 +265,7 @@ export function FormTemplateEditorClient({ template }: Props) {
             <div className="p-5">
               <div className="flex items-center gap-3 mb-5">
                 <div>
-                  <h3 className="text-[14px] font-semibold text-[#1a1a1a]">
+                  <h3 className="text-[14px] font-semibold text-black">
                     {selectedStep.type === "builtin" ? "Built-in Step" : "Custom Step"}
                   </h3>
                   <p className="text-[11px] text-[#a1a1aa]">
@@ -331,12 +331,12 @@ export function FormTemplateEditorClient({ template }: Props) {
                               <button
                                 onClick={() => moveField(selectedStepIndex, fi, -1)}
                                 disabled={fi === 0}
-                                className="text-[#a1a1aa] hover:text-[#1a1a1a] disabled:opacity-20 text-[10px] leading-none"
+                                className="text-[#a1a1aa] hover:text-black disabled:opacity-20 text-[10px] leading-none"
                               >▲</button>
                               <button
                                 onClick={() => moveField(selectedStepIndex, fi, 1)}
                                 disabled={fi === (selectedStep.customFields?.length ?? 0) - 1}
-                                className="text-[#a1a1aa] hover:text-[#1a1a1a] disabled:opacity-20 text-[10px] leading-none"
+                                className="text-[#a1a1aa] hover:text-black disabled:opacity-20 text-[10px] leading-none"
                               >▼</button>
                             </div>
                             <div className="flex-1 grid grid-cols-2 gap-2">

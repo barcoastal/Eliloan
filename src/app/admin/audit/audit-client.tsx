@@ -92,10 +92,10 @@ export default function AuditClient() {
                       {log.action}
                     </span>
                   </td>
-                  <td className="px-4 py-3 text-[13px] text-[#1a1a1a]">
+                  <td className="px-4 py-3 text-[13px] text-black">
                     {log.entityType} / {log.entityId.substring(0, 8)}...
                   </td>
-                  <td className="px-4 py-3 text-[13px] text-[#1a1a1a]">{log.performedBy}</td>
+                  <td className="px-4 py-3 text-[13px] text-black">{log.performedBy}</td>
                   <td className="px-4 py-3 max-w-xs truncate text-[13px] text-[#a1a1aa]">
                     {log.details || "—"}
                   </td>

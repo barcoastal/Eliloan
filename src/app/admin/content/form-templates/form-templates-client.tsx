@@ -36,7 +36,7 @@ export function FormTemplatesClient({ templates }: { templates: TemplateItem[] }
             {templates.map((t) => (
               <tr key={t.id} className="border-b border-[#f4f4f5] last:border-0 hover:bg-[#f8f8f6] transition-colors">
                 <td className="px-5 py-3.5">
-                  <Link href={`/admin/content/form-templates/${t.id}`} className="text-[13px] font-medium text-[#1a1a1a] hover:text-[#15803d]">
+                  <Link href={`/admin/content/form-templates/${t.id}`} className="text-[13px] font-medium text-black hover:text-[#15803d]">
                     {t.name}
                     {t.isDefault && <span className="ml-2 text-[10px] bg-[#f0f5f0] text-[#15803d] px-1.5 py-0.5 rounded-full">Default</span>}
                   </Link>

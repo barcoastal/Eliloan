@@ -45,7 +45,7 @@ export function TemplatesClient({ templates }: { templates: Template[] }) {
                   onClick={() => router.push(`/admin/email/templates/${t.id}`)}
                 >
                   <td className="px-4 py-3">
-                    <p className="text-[13px] font-semibold text-[#1a1a1a]">{t.name}</p>
+                    <p className="text-[13px] font-semibold text-black">{t.name}</p>
                     <p className="text-[12px] text-[#71717a] truncate max-w-[300px]">{t.subject}</p>
                   </td>
                   <td className="px-4 py-3">

@@ -58,7 +58,7 @@ export function TeamClient({ members }: { members: Member[] }) {
       {/* Add member form */}
       {showAdd && (
         <div className="bg-white rounded-xl p-6 mb-6 border border-[#e4e4e7]">
-          <h3 className="text-[15px] font-bold text-[#1a1a1a] mb-4">Add Team Member</h3>
+          <h3 className="text-[15px] font-bold text-black mb-4">Add Team Member</h3>
           <div className="grid grid-cols-2 gap-4">
             <div><label className={labelClass}>Name</label><input value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} className={inputClass} placeholder="Jane Smith" /></div>
             <div><label className={labelClass}>Email</label><input value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })} className={inputClass} placeholder="jane@creditlime.com" type="email" /></div>
@@ -87,7 +87,7 @@ export function TeamClient({ members }: { members: Member[] }) {
           <tbody>
             {members.map((m) => (
               <tr key={m.id} className="border-b border-[#f4f4f5] last:border-0 hover:bg-[#f8f8f6] transition-colors">
-                <td className="px-5 py-3.5 text-[13px] font-medium text-[#1a1a1a]">{m.name}</td>
+                <td className="px-5 py-3.5 text-[13px] font-medium text-black">{m.name}</td>
                 <td className="px-5 py-3.5 text-[13px] text-[#71717a]">{m.email}</td>
                 <td className="px-5 py-3.5">
                   <select

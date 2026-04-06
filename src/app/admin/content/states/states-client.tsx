@@ -23,7 +23,7 @@ export function StatesClient({ states }: { states: StatePageItem[] }) {
   return (
     <div>
       <div className="flex items-center justify-between mb-6">
-        <h1 className="text-[22px] font-extrabold tracking-[-0.03em] text-[#1a1a1a]">State Pages</h1>
+        <h1 className="text-[22px] font-extrabold tracking-[-0.03em] text-black">State Pages</h1>
         <Link href="/admin/content/states/new" className="bg-[#15803d] text-white text-[13px] font-medium px-4 py-2 rounded-lg hover:bg-[#166534]">
           New State Page
         </Link>
@@ -68,7 +68,7 @@ export function StatesClient({ states }: { states: StatePageItem[] }) {
             {filtered.map((s) => (
               <tr key={s.id} className="border-b border-[#f4f4f5] last:border-0 hover:bg-[#f8faf8] transition-colors">
                 <td className="px-4 py-3">
-                  <Link href={`/admin/content/states/${s.id}`} className="text-[13px] font-medium text-[#1a1a1a] hover:text-[#15803d]">{s.stateName}</Link>
+                  <Link href={`/admin/content/states/${s.id}`} className="text-[13px] font-medium text-black hover:text-[#15803d]">{s.stateName}</Link>
                   <p className="text-[11px] text-[#a1a1aa]">/1099-loans-{s.slug}</p>
                 </td>
                 <td className="px-4 py-3 text-[13px] text-[#71717a]">{s.stateCode}</td>

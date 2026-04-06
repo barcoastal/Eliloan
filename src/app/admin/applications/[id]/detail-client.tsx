@@ -270,7 +270,7 @@ export function DetailClient({
               Back
             </Link>
             <div>
-              <h1 className="text-[22px] font-extrabold tracking-[-0.03em] text-[#1a1a1a]">
+              <h1 className="text-[22px] font-extrabold tracking-[-0.03em] text-black">
                 {application.firstName} {application.lastName}
               </h1>
               <p className="text-sm text-[#a1a1aa] mt-0.5">Review and analyze loan application</p>
@@ -283,7 +283,7 @@ export function DetailClient({
           {/* ── Evaluation Card ── */}
           {evaluation && (
             <div className="bg-white rounded-[10px] p-6">
-              <h2 className="text-[16px] font-bold tracking-[-0.02em] text-[#1a1a1a] mb-4 flex items-center gap-2">
+              <h2 className="text-[16px] font-bold tracking-[-0.02em] text-black mb-4 flex items-center gap-2">
                 <svg className="h-5 w-5 text-[#a1a1aa]" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={1.5}>
                   <path strokeLinecap="round" strokeLinejoin="round" d="M9.813 15.904 9 18.75l-.813-2.846a4.5 4.5 0 0 0-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 0 0 3.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 0 0 3.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 0 0-3.09 3.09ZM18.259 8.715 18 9.75l-.259-1.035a3.375 3.375 0 0 0-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 0 0 2.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 0 0 2.455 2.456L21.75 6l-1.036.259a3.375 3.375 0 0 0-2.455 2.456Z" />
                 </svg>
@@ -291,23 +291,23 @@ export function DetailClient({
               </h2>
 
               <div className="flex items-center gap-3 mb-4">
-                <span className="text-sm font-medium text-[#1a1a1a]">Recommendation:</span>
+                <span className="text-sm font-medium text-black">Recommendation:</span>
                 <RecommendationBadge recommendation={evaluation.recommendation} />
               </div>
 
               {evaluation.suggestedRate > 0 && (
                 <div className="mb-4">
                   <span className="text-sm text-[#a1a1aa]">Suggested Rate: </span>
-                  <span className="text-sm font-bold text-[#1a1a1a]">{evaluation.suggestedRate}%</span>
+                  <span className="text-sm font-bold text-black">{evaluation.suggestedRate}%</span>
                 </div>
               )}
 
               {evaluation.reasons.length > 0 && (
                 <div>
-                  <p className="text-sm font-medium text-[#1a1a1a] mb-2">Reasons:</p>
+                  <p className="text-sm font-medium text-black mb-2">Reasons:</p>
                   <ul className="space-y-1">
                     {evaluation.reasons.map((reason, i) => (
-                      <li key={i} className="flex items-start gap-2 text-sm text-[#1a1a1a]">
+                      <li key={i} className="flex items-start gap-2 text-sm text-black">
                         <span className="mt-0.5 h-1.5 w-1.5 rounded-full bg-[#a1a1aa] shrink-0" />
                         {reason}
                       </li>
@@ -320,7 +320,7 @@ export function DetailClient({
 
           {/* ── Applicant Info ── */}
           <div className="bg-white rounded-[10px] p-6">
-            <h2 className="text-[16px] font-bold tracking-[-0.02em] text-[#1a1a1a] mb-5 flex items-center gap-2">
+            <h2 className="text-[16px] font-bold tracking-[-0.02em] text-black mb-5 flex items-center gap-2">
               <svg className="h-5 w-5 text-[#a1a1aa]" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={1.5}>
                 <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z" />
               </svg>
@@ -330,17 +330,17 @@ export function DetailClient({
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
               <div>
                 <p className="text-[11px] uppercase tracking-[0.05em] text-[#a1a1aa] font-semibold">Full Name</p>
-                <p className="mt-1 text-sm font-semibold text-[#1a1a1a]">
+                <p className="mt-1 text-sm font-semibold text-black">
                   {application.firstName} {application.lastName}
                 </p>
               </div>
               <div>
                 <p className="text-[11px] uppercase tracking-[0.05em] text-[#a1a1aa] font-semibold">Email</p>
-                <p className="mt-1 text-sm text-[#1a1a1a]">{application.email}</p>
+                <p className="mt-1 text-sm text-black">{application.email}</p>
               </div>
               <div>
                 <p className="text-[11px] uppercase tracking-[0.05em] text-[#a1a1aa] font-semibold">Phone</p>
-                <p className="mt-1 text-sm text-[#1a1a1a]">{application.phone}</p>
+                <p className="mt-1 text-sm text-black">{application.phone}</p>
               </div>
               <div>
                 <p className="text-[11px] uppercase tracking-[0.05em] text-[#a1a1aa] font-semibold">Application Code</p>
@@ -356,7 +356,7 @@ export function DetailClient({
               </div>
               <div>
                 <p className="text-[11px] uppercase tracking-[0.05em] text-[#a1a1aa] font-semibold">Submitted</p>
-                <p className="mt-1 text-sm text-[#1a1a1a]">
+                <p className="mt-1 text-sm text-black">
                   {new Date(application.createdAt).toLocaleDateString("en-US", {
                     month: "short",
                     day: "numeric",
@@ -368,11 +368,11 @@ export function DetailClient({
               {/* New fields: Platform, Loan Term, Bank Link Status, SSN */}
               <div>
                 <p className="text-[11px] uppercase tracking-[0.05em] text-[#a1a1aa] font-semibold">Platform</p>
-                <p className="mt-1 text-sm text-[#1a1a1a]">{(application as any).platform || "N/A"}</p>
+                <p className="mt-1 text-sm text-black">{(application as any).platform || "N/A"}</p>
               </div>
               <div>
                 <p className="text-[11px] uppercase tracking-[0.05em] text-[#a1a1aa] font-semibold">Loan Term</p>
-                <p className="mt-1 text-sm text-[#1a1a1a]">{(application as any).loanTermMonths || "N/A"} months</p>
+                <p className="mt-1 text-sm text-black">{(application as any).loanTermMonths || "N/A"} months</p>
               </div>
               <div>
                 <p className="text-[11px] uppercase tracking-[0.05em] text-[#a1a1aa] font-semibold">Bank Link Status</p>
@@ -394,7 +394,7 @@ export function DetailClient({
                 <p className="text-[11px] uppercase tracking-[0.05em] text-[#a1a1aa] font-semibold">SSN</p>
                 <div className="mt-1">
                   {ssn ? (
-                    <p className="text-sm font-mono font-semibold text-[#1a1a1a]">{ssn}</p>
+                    <p className="text-sm font-mono font-semibold text-black">{ssn}</p>
                   ) : (
                     <button
                       onClick={handleRevealSSN}
@@ -418,7 +418,7 @@ export function DetailClient({
 
           {/* ── Plaid Income Verification ── */}
           <div className="bg-white rounded-[10px] p-6">
-            <h2 className="text-[16px] font-bold tracking-[-0.02em] text-[#1a1a1a] mb-4 flex items-center gap-2">
+            <h2 className="text-[16px] font-bold tracking-[-0.02em] text-black mb-4 flex items-center gap-2">
               <svg className="h-5 w-5 text-[#a1a1aa]" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={1.5}>
                 <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 18.75a60.07 60.07 0 0 1 15.797 2.101c.727.198 1.453-.342 1.453-1.096V18.75M3.75 4.5v.75A.75.75 0 0 1 3 6h-.75m0 0v-.375c0-.621.504-1.125 1.125-1.125H20.25M2.25 6v9m18-10.5v.75c0 .414.336.75.75.75h.75m-1.5-1.5h.375c.621 0 1.125.504 1.125 1.125v9.75c0 .621-.504 1.125-1.125 1.125h-.375m1.5-1.5H21a.75.75 0 0 0-.75.75v.75m0 0H3.75m0 0h-.375a1.125 1.125 0 0 1-1.125-1.125V15m1.5 1.5v-.75A.75.75 0 0 0 3 15h-.75M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Zm3 0h.008v.008H18V10.5Zm-12 0h.008v.008H6V10.5Z" />
               </svg>
@@ -437,7 +437,7 @@ export function DetailClient({
               <button
                 onClick={handleFetchIncome}
                 disabled={fetchingIncome || !(application as any).plaidAccessToken}
-                className="inline-flex items-center gap-2 rounded-lg border border-gray-200 bg-white px-4 py-2 text-sm font-medium text-[#1a1a1a] hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                className="inline-flex items-center gap-2 rounded-lg border border-gray-200 bg-white px-4 py-2 text-sm font-medium text-black hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
               >
                 <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2}>
                   <path strokeLinecap="round" strokeLinejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0 3.181 3.183a8.25 8.25 0 0 0 13.803-3.7M4.031 9.865a8.25 8.25 0 0 1 13.803-3.7l3.181 3.182" />
@@ -452,7 +452,7 @@ export function DetailClient({
 
           {/* ── Documents ── */}
           <div className="bg-white rounded-[10px] p-6">
-            <h2 className="text-[16px] font-bold tracking-[-0.02em] text-[#1a1a1a] mb-4 flex items-center gap-2">
+            <h2 className="text-[16px] font-bold tracking-[-0.02em] text-black mb-4 flex items-center gap-2">
               <svg className="h-5 w-5 text-[#a1a1aa]" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={1.5}>
                 <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m2.25 0H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 0 0-9-9Z" />
               </svg>
@@ -475,7 +475,7 @@ export function DetailClient({
                         </svg>
                       </div>
                       <div>
-                        <p className="text-sm font-medium text-[#1a1a1a]">{doc.fileName}</p>
+                        <p className="text-sm font-medium text-black">{doc.fileName}</p>
                         <p className="text-xs text-[#a1a1aa]">
                           {doc.documentType} &middot; {formatFileSize(doc.fileSize)}
                         </p>
@@ -485,7 +485,7 @@ export function DetailClient({
                       href={`/api/files/${doc.storagePath}`}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center gap-1.5 rounded-lg border border-gray-200 bg-white px-3 py-1.5 text-xs font-medium text-[#1a1a1a] hover:bg-gray-50 transition-colors"
+                      className="inline-flex items-center gap-1.5 rounded-lg border border-gray-200 bg-white px-3 py-1.5 text-xs font-medium text-black hover:bg-gray-50 transition-colors"
                     >
                       <svg className="h-3.5 w-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2}>
                         <path strokeLinecap="round" strokeLinejoin="round" d="M2.036 12.322a1.012 1.012 0 0 1 0-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178Z" />
@@ -501,7 +501,7 @@ export function DetailClient({
 
           {/* ── Income Entry ── */}
           <div className="bg-white rounded-[10px] p-6">
-            <h2 className="text-[16px] font-bold tracking-[-0.02em] text-[#1a1a1a] mb-4 flex items-center gap-2">
+            <h2 className="text-[16px] font-bold tracking-[-0.02em] text-black mb-4 flex items-center gap-2">
               <svg className="h-5 w-5 text-[#a1a1aa]" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={1.5}>
                 <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v12m-3-2.818.879.659c1.171.879 3.07.879 4.242 0 1.172-.879 1.172-2.303 0-3.182C13.536 12.219 12.768 12 12 12c-.725 0-1.45-.22-2.003-.659-1.106-.879-1.106-2.303 0-3.182s2.9-.879 4.006 0l.415.33M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
               </svg>
@@ -510,7 +510,7 @@ export function DetailClient({
 
             <div className="flex items-end gap-3">
               <div className="flex-1">
-                <label htmlFor="income" className="block text-sm font-medium text-[#1a1a1a] mb-1.5">
+                <label htmlFor="income" className="block text-sm font-medium text-black mb-1.5">
                   Total 3-Month Income (from pay stubs)
                 </label>
                 <div className="relative">
@@ -523,7 +523,7 @@ export function DetailClient({
                     placeholder="0.00"
                     value={income}
                     onChange={(e) => setIncome(e.target.value)}
-                    className="w-full rounded-lg border border-gray-200 bg-white pl-8 pr-4 py-2.5 text-sm text-[#1a1a1a] placeholder:text-[#a1a1aa] focus:border-[#1a1a1a] focus:outline-none focus:ring-2 focus:ring-black/10"
+                    className="w-full rounded-lg border border-gray-200 bg-white pl-8 pr-4 py-2.5 text-sm text-black placeholder:text-[#a1a1aa] focus:border-[#1a1a1a] focus:outline-none focus:ring-2 focus:ring-black/10"
                   />
                 </div>
               </div>
@@ -547,7 +547,7 @@ export function DetailClient({
           {/* ── Risk Assessment (model-driven) ── */}
           {riskResult && (
             <div className="bg-white rounded-[10px] p-6">
-              <h2 className="text-[16px] font-bold tracking-[-0.02em] text-[#1a1a1a] mb-5 flex items-center gap-2">
+              <h2 className="text-[16px] font-bold tracking-[-0.02em] text-black mb-5 flex items-center gap-2">
                 <svg className="h-5 w-5 text-[#a1a1aa]" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={1.5}>
                   <path strokeLinecap="round" strokeLinejoin="round" d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 0 1 3 19.875v-6.75ZM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 0 1-1.125-1.125V8.625ZM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 0 1-1.125-1.125V4.125Z" />
                 </svg>
@@ -569,13 +569,13 @@ export function DetailClient({
                   </div>
                   <div className="rounded-lg bg-[#f8faf8] p-4 text-center">
                     <p className="text-[11px] uppercase tracking-[0.05em] text-[#a1a1aa] font-semibold mb-1">Calculated Rate</p>
-                    <p className="text-3xl font-bold text-[#1a1a1a]">{riskResult.interestRate.toFixed(2)}%</p>
+                    <p className="text-3xl font-bold text-black">{riskResult.interestRate.toFixed(2)}%</p>
                     <p className="text-xs text-[#a1a1aa] mt-1">auto-set on approval</p>
                   </div>
                 </div>
 
                 <div>
-                  <h4 className="text-sm font-semibold text-[#1a1a1a] mb-2">Feature Breakdown</h4>
+                  <h4 className="text-sm font-semibold text-black mb-2">Feature Breakdown</h4>
                   <div className="overflow-x-auto">
                     <table className="w-full text-sm">
                       <thead>
@@ -589,9 +589,9 @@ export function DetailClient({
                       <tbody>
                         {riskResult.features.map((f) => (
                           <tr key={f.name} className="border-b border-gray-50 last:border-0">
-                            <td className="py-2.5 px-3 font-mono text-xs text-[#1a1a1a]">{f.name}</td>
-                            <td className="py-2.5 px-3 text-right text-[#1a1a1a]">{f.rawValue?.toFixed(2) ?? "N/A"}</td>
-                            <td className="py-2.5 px-3 text-right text-[#1a1a1a]">{f.normalizedValue.toFixed(3)}</td>
+                            <td className="py-2.5 px-3 font-mono text-xs text-black">{f.name}</td>
+                            <td className="py-2.5 px-3 text-right text-black">{f.rawValue?.toFixed(2) ?? "N/A"}</td>
+                            <td className="py-2.5 px-3 text-right text-black">{f.normalizedValue.toFixed(3)}</td>
                             <td className={`py-2.5 px-3 text-right font-medium ${f.weight > 0 ? "text-[#dc2626]" : "text-[#15803d]"}`}>
                               {f.weight.toFixed(3)}
                             </td>
@@ -624,7 +624,7 @@ export function DetailClient({
           {/* ── Decision Section (PENDING) ── */}
           {application.status === "PENDING" && (
             <div className="bg-white rounded-[10px] p-6">
-              <h2 className="text-[16px] font-bold tracking-[-0.02em] text-[#1a1a1a] mb-4 flex items-center gap-2">
+              <h2 className="text-[16px] font-bold tracking-[-0.02em] text-black mb-4 flex items-center gap-2">
                 <svg className="h-5 w-5 text-[#a1a1aa]" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={1.5}>
                   <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
                 </svg>
@@ -634,7 +634,7 @@ export function DetailClient({
               {/* Term Input — interest rate is auto-set by risk model on approval */}
               <div className="mb-5">
                 <div>
-                  <label htmlFor="termMonths" className="block text-sm font-medium text-[#1a1a1a] mb-1.5">
+                  <label htmlFor="termMonths" className="block text-sm font-medium text-black mb-1.5">
                     Loan Term (months)
                   </label>
                   <input
@@ -645,7 +645,7 @@ export function DetailClient({
                     placeholder="6"
                     value={termMonths}
                     onChange={(e) => setTermMonths(e.target.value)}
-                    className="w-full rounded-lg border border-gray-200 bg-white px-4 py-2.5 text-sm text-[#1a1a1a] placeholder:text-[#a1a1aa] focus:border-[#1a1a1a] focus:outline-none focus:ring-2 focus:ring-black/10"
+                    className="w-full rounded-lg border border-gray-200 bg-white px-4 py-2.5 text-sm text-black placeholder:text-[#a1a1aa] focus:border-[#1a1a1a] focus:outline-none focus:ring-2 focus:ring-black/10"
                   />
                 </div>
               </div>
@@ -683,7 +683,7 @@ export function DetailClient({
                     value={rejectionReason}
                     onChange={(e) => setRejectionReason(e.target.value)}
                     rows={3}
-                    className="w-full rounded-lg border border-[#dc2626]/30 bg-white px-4 py-2.5 text-sm text-[#1a1a1a] placeholder:text-[#a1a1aa] focus:border-[#dc2626] focus:outline-none focus:ring-2 focus:ring-[#dc2626]/20 mb-3"
+                    className="w-full rounded-lg border border-[#dc2626]/30 bg-white px-4 py-2.5 text-sm text-black placeholder:text-[#a1a1aa] focus:border-[#dc2626] focus:outline-none focus:ring-2 focus:ring-[#dc2626]/20 mb-3"
                   />
                   <button
                     onClick={handleReject}
@@ -700,7 +700,7 @@ export function DetailClient({
           {/* ── Fund Loan (APPROVED) ── */}
           {application.status === "APPROVED" && (
             <div className="bg-white rounded-[10px] p-6">
-              <h2 className="text-[16px] font-bold tracking-[-0.02em] text-[#1a1a1a] mb-4 flex items-center gap-2">
+              <h2 className="text-[16px] font-bold tracking-[-0.02em] text-black mb-4 flex items-center gap-2">
                 <svg className="h-5 w-5 text-[#a1a1aa]" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={1.5}>
                   <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 18.75a60.07 60.07 0 0 1 15.797 2.101c.727.198 1.453-.342 1.453-1.096V18.75M3.75 4.5v.75A.75.75 0 0 1 3 6h-.75m0 0v-.375c0-.621.504-1.125 1.125-1.125H20.25M2.25 6v9m18-10.5v.75c0 .414.336.75.75.75h.75m-1.5-1.5h.375c.621 0 1.125.504 1.125 1.125v9.75c0 .621-.504 1.125-1.125 1.125h-.375m1.5-1.5H21a.75.75 0 0 0-.75.75v.75m0 0H3.75m0 0h-.375a1.125 1.125 0 0 1-1.125-1.125V15m1.5 1.5v-.75A.75.75 0 0 0 3 15h-.75M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Zm3 0h.008v.008H18V10.5Zm-12 0h.008v.008H6V10.5Z" />
                 </svg>
@@ -709,7 +709,7 @@ export function DetailClient({
 
               <div className="flex items-end gap-3">
                 <div className="flex-1">
-                  <label htmlFor="fundAmount" className="block text-sm font-medium text-[#1a1a1a] mb-1.5">
+                  <label htmlFor="fundAmount" className="block text-sm font-medium text-black mb-1.5">
                     Fund Amount
                   </label>
                   <div className="relative">
@@ -721,7 +721,7 @@ export function DetailClient({
                       type="number"
                       value={fundAmount}
                       onChange={(e) => setFundAmount(e.target.value)}
-                      className="w-full rounded-lg border border-gray-200 bg-white pl-8 pr-4 py-2.5 text-sm text-[#1a1a1a] placeholder:text-[#a1a1aa] focus:border-[#1a1a1a] focus:outline-none focus:ring-2 focus:ring-black/10"
+                      className="w-full rounded-lg border border-gray-200 bg-white pl-8 pr-4 py-2.5 text-sm text-black placeholder:text-[#a1a1aa] focus:border-[#1a1a1a] focus:outline-none focus:ring-2 focus:ring-black/10"
                     />
                   </div>
                 </div>
@@ -742,7 +742,7 @@ export function DetailClient({
           {/* ── Payment Schedule ── */}
           {paymentSummary && (
             <div className="bg-white rounded-[10px] p-6">
-              <h2 className="text-[16px] font-bold tracking-[-0.02em] text-[#1a1a1a] mb-5 flex items-center gap-2">
+              <h2 className="text-[16px] font-bold tracking-[-0.02em] text-black mb-5 flex items-center gap-2">
                 <svg className="h-5 w-5 text-[#a1a1aa]" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={1.5}>
                   <path strokeLinecap="round" strokeLinejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5" />
                 </svg>
@@ -753,7 +753,7 @@ export function DetailClient({
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-6">
                 <div className="rounded-lg bg-[#f8faf8] p-4 text-center">
                   <p className="text-[11px] uppercase tracking-[0.05em] text-[#a1a1aa] font-semibold mb-1">Total Owed</p>
-                  <p className="text-xl font-bold text-[#1a1a1a]">${fmt(paymentSummary.totalOwed)}</p>
+                  <p className="text-xl font-bold text-black">${fmt(paymentSummary.totalOwed)}</p>
                 </div>
                 <div className="rounded-lg bg-[#f8faf8] p-4 text-center">
                   <p className="text-[11px] uppercase tracking-[0.05em] text-[#a1a1aa] font-semibold mb-1">Total Paid</p>
@@ -761,7 +761,7 @@ export function DetailClient({
                 </div>
                 <div className="rounded-lg bg-[#f8faf8] p-4 text-center">
                   <p className="text-[11px] uppercase tracking-[0.05em] text-[#a1a1aa] font-semibold mb-1">Remaining Balance</p>
-                  <p className="text-xl font-bold text-[#1a1a1a]">${fmt(paymentSummary.remainingBalance)}</p>
+                  <p className="text-xl font-bold text-black">${fmt(paymentSummary.remainingBalance)}</p>
                 </div>
                 <div className="rounded-lg bg-[#fef9ec] p-4 text-center">
                   <p className="text-[11px] uppercase tracking-[0.05em] text-[#a1a1aa] font-semibold mb-1">Total Late Fees</p>
@@ -801,16 +801,16 @@ export function DetailClient({
 
                       return (
                         <tr key={payment.id} className="border-b border-gray-50 last:border-0 hover:bg-[#f8faf8] transition-colors">
-                          <td className="py-2.5 px-3 text-[#1a1a1a] font-medium">{payment.paymentNumber}</td>
-                          <td className="py-2.5 px-3 text-[#1a1a1a]">
+                          <td className="py-2.5 px-3 text-black font-medium">{payment.paymentNumber}</td>
+                          <td className="py-2.5 px-3 text-black">
                             {new Date(payment.dueDate).toLocaleDateString("en-US", {
                               month: "short",
                               day: "numeric",
                               year: "numeric",
                             })}
                           </td>
-                          <td className={`py-2.5 px-3 text-right font-medium ${isPaid ? "text-[#15803d]" : "text-[#1a1a1a]"}`}>${fmt(Number(payment.amount))}</td>
-                          <td className="py-2.5 px-3 text-right text-[#1a1a1a]">${fmt(Number(payment.principal))}</td>
+                          <td className={`py-2.5 px-3 text-right font-medium ${isPaid ? "text-[#15803d]" : "text-black"}`}>${fmt(Number(payment.amount))}</td>
+                          <td className="py-2.5 px-3 text-right text-black">${fmt(Number(payment.principal))}</td>
                           <td className="py-2.5 px-3 text-right text-[#a1a1aa]">${fmt(Number(payment.interest))}</td>
                           <td className={`py-2.5 px-3 text-right font-medium ${lateFee > 0 ? "text-[#b45309]" : "text-[#a1a1aa]"}`}>
                             {lateFee > 0 ? `$${fmt(lateFee)}` : "—"}

@@ -189,7 +189,7 @@ export function ContactsClient({ contacts, total, metrics }: ContactsClientProps
                     className="border-b border-[#f4f4f5] hover:bg-[#f8f8f6] cursor-pointer transition-colors last:border-0"
                   >
                     <td className="px-4 py-3">
-                      <span className="text-[13px] font-semibold text-[#1a1a1a]">
+                      <span className="text-[13px] font-semibold text-black">
                         {contact.firstName} {contact.lastName || ""}
                       </span>
                     </td>

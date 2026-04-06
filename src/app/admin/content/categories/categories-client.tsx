@@ -59,11 +59,11 @@ export function CategoriesClient({
 
   return (
     <div>
-      <h1 className="text-[22px] font-extrabold tracking-[-0.03em] text-[#1a1a1a] mb-6">Categories & Tags</h1>
+      <h1 className="text-[22px] font-extrabold tracking-[-0.03em] text-black mb-6">Categories & Tags</h1>
 
       <div className="grid grid-cols-2 gap-8">
         <div>
-          <h2 className="text-[15px] font-bold text-[#1a1a1a] mb-4">Categories</h2>
+          <h2 className="text-[15px] font-bold text-black mb-4">Categories</h2>
           <div className="flex gap-2 mb-4">
             <input
               value={catName}
@@ -85,7 +85,7 @@ export function CategoriesClient({
             {categories.map((cat) => (
               <div key={cat.id} className="flex items-center justify-between bg-white rounded-[10px] px-4 py-3">
                 <div>
-                  <p className="text-[13px] font-medium text-[#1a1a1a]">{cat.name}</p>
+                  <p className="text-[13px] font-medium text-black">{cat.name}</p>
                   <p className="text-[11px] text-[#a1a1aa]">/{cat.slug}</p>
                 </div>
                 <button onClick={() => handleDeleteCategory(cat.id)} className="text-[11px] text-red-500 hover:underline">
@@ -97,7 +97,7 @@ export function CategoriesClient({
         </div>
 
         <div>
-          <h2 className="text-[15px] font-bold text-[#1a1a1a] mb-4">Tags</h2>
+          <h2 className="text-[15px] font-bold text-black mb-4">Tags</h2>
           <div className="flex gap-2 mb-4">
             <input
               value={tagName}
@@ -111,7 +111,7 @@ export function CategoriesClient({
           </div>
           <div className="flex flex-wrap gap-2">
             {tags.map((tag) => (
-              <span key={tag.id} className="inline-flex items-center gap-1.5 bg-white rounded-full px-3 py-1.5 text-[12px] text-[#1a1a1a]">
+              <span key={tag.id} className="inline-flex items-center gap-1.5 bg-white rounded-full px-3 py-1.5 text-[12px] text-black">
                 {tag.name}
                 <button onClick={() => handleDeleteTag(tag.id)} className="text-red-400 hover:text-red-600">×</button>
               </span>

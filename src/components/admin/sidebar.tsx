@@ -154,7 +154,7 @@ export function AdminSidebar({ userName }: { userName: string }) {
                       className={`group flex items-center gap-3 rounded-xl px-3 py-2.5 text-[14px] font-medium transition-all ${
                         active
                           ? "bg-[#f0f5f0] text-[#15803d] border-l-[3px] border-[#15803d]"
-                          : "text-[#52525b] hover:bg-[#f4f4f5] hover:text-[#1a1a1a]"
+                          : "text-[#52525b] hover:bg-[#f4f4f5] hover:text-black"
                       } ${collapsed ? "justify-center px-2" : ""}`}
                     >
                       <span className={active ? "text-[#15803d]" : "text-[#a1a1aa] group-hover:text-[#52525b]"}>{item.icon}</span>
@@ -176,7 +176,7 @@ export function AdminSidebar({ userName }: { userName: string }) {
           </div>
           {!collapsed && (
             <div className="flex-1 min-w-0">
-              <p className="truncate text-[13px] font-medium text-[#1a1a1a]">{userName}</p>
+              <p className="truncate text-[13px] font-medium text-black">{userName}</p>
             </div>
           )}
         </div>

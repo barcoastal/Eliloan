@@ -74,7 +74,7 @@ export function PipelineClient({
                     className="w-2 h-2 rounded-full"
                     style={{ backgroundColor: colors.text.replace("text-[", "").replace("]", "") }}
                   />
-                  <span className="text-[12px] font-semibold text-[#1a1a1a] uppercase tracking-[0.04em]">
+                  <span className="text-[12px] font-semibold text-black uppercase tracking-[0.04em]">
                     {stage.replace("_", " ")}
                   </span>
                 </div>
@@ -103,7 +103,7 @@ export function PipelineClient({
                     }`}
                   >
                     <Link href={`/admin/contacts/${contact.id}`} className="block">
-                      <p className="text-[13px] font-bold text-[#1a1a1a]">
+                      <p className="text-[13px] font-bold text-black">
                         {contact.firstName} {contact.lastName || ""}
                       </p>
                       <p className="text-[11px] text-[#71717a] mt-0.5 truncate">{contact.email}</p>

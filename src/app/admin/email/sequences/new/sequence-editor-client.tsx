@@ -106,7 +106,7 @@ export function SequenceEditorClient({ sequence }: Props) {
               value={name}
               onChange={(e) => setName(e.target.value)}
               placeholder="e.g. Abandoned App Re-engagement"
-              className="w-full bg-[#f4f4f5] rounded-xl px-4 py-3 text-[14px] text-[#1a1a1a] placeholder:text-[#a1a1aa] focus:outline-none focus:ring-2 focus:ring-[#15803d]/30"
+              className="w-full bg-[#f4f4f5] rounded-xl px-4 py-3 text-[14px] text-black placeholder:text-[#a1a1aa] focus:outline-none focus:ring-2 focus:ring-[#15803d]/30"
             />
           </div>
 
@@ -117,7 +117,7 @@ export function SequenceEditorClient({ sequence }: Props) {
               value={description}
               onChange={(e) => setDescription(e.target.value)}
               placeholder="Optional description"
-              className="w-full bg-[#f4f4f5] rounded-xl px-4 py-3 text-[14px] text-[#1a1a1a] placeholder:text-[#a1a1aa] focus:outline-none focus:ring-2 focus:ring-[#15803d]/30"
+              className="w-full bg-[#f4f4f5] rounded-xl px-4 py-3 text-[14px] text-black placeholder:text-[#a1a1aa] focus:outline-none focus:ring-2 focus:ring-[#15803d]/30"
             />
           </div>
 
@@ -128,7 +128,7 @@ export function SequenceEditorClient({ sequence }: Props) {
               <select
                 value={triggerType}
                 onChange={(e) => setTriggerType(e.target.value)}
-                className="w-full bg-[#f4f4f5] rounded-xl px-4 py-3 text-[14px] text-[#1a1a1a] focus:outline-none focus:ring-2 focus:ring-[#15803d]/30"
+                className="w-full bg-[#f4f4f5] rounded-xl px-4 py-3 text-[14px] text-black focus:outline-none focus:ring-2 focus:ring-[#15803d]/30"
               >
                 {TRIGGER_TYPES.map((t) => <option key={t.value} value={t.value}>{t.label}</option>)}
               </select>
@@ -140,7 +140,7 @@ export function SequenceEditorClient({ sequence }: Props) {
                   value={triggerValue}
                   onChange={(e) => setTriggerValue(e.target.value)}
                   placeholder="e.g. QUALIFIED"
-                  className="w-full bg-[#f4f4f5] rounded-xl px-4 py-3 text-[14px] text-[#1a1a1a] placeholder:text-[#a1a1aa] focus:outline-none focus:ring-2 focus:ring-[#15803d]/30"
+                  className="w-full bg-[#f4f4f5] rounded-xl px-4 py-3 text-[14px] text-black placeholder:text-[#a1a1aa] focus:outline-none focus:ring-2 focus:ring-[#15803d]/30"
                 />
               </div>
             )}
@@ -160,10 +160,10 @@ export function SequenceEditorClient({ sequence }: Props) {
                   <div className="flex items-center justify-between mb-3">
                     <span className="text-[12px] font-bold text-[#a1a1aa] uppercase tracking-[0.06em]">Step {step.order}</span>
                     <div className="flex items-center gap-1">
-                      <button type="button" onClick={() => moveStep(idx, -1)} disabled={idx === 0} className="p-1 rounded text-[#a1a1aa] hover:text-[#1a1a1a] disabled:opacity-30 transition-colors">
+                      <button type="button" onClick={() => moveStep(idx, -1)} disabled={idx === 0} className="p-1 rounded text-[#a1a1aa] hover:text-black disabled:opacity-30 transition-colors">
                         ↑
                       </button>
-                      <button type="button" onClick={() => moveStep(idx, 1)} disabled={idx === steps.length - 1} className="p-1 rounded text-[#a1a1aa] hover:text-[#1a1a1a] disabled:opacity-30 transition-colors">
+                      <button type="button" onClick={() => moveStep(idx, 1)} disabled={idx === steps.length - 1} className="p-1 rounded text-[#a1a1aa] hover:text-black disabled:opacity-30 transition-colors">
                         ↓
                       </button>
                       <button type="button" onClick={() => removeStep(idx)} className="p-1 rounded text-[#a1a1aa] hover:text-red-500 transition-colors ml-1">
@@ -185,7 +185,7 @@ export function SequenceEditorClient({ sequence }: Props) {
                     <select
                       value={step.delayUnit}
                       onChange={(e) => updateStep(idx, "delayUnit", e.target.value)}
-                      className="bg-[#f4f4f5] rounded-lg px-2 py-1.5 text-[13px] text-[#1a1a1a] focus:outline-none focus:ring-2 focus:ring-[#15803d]/30"
+                      className="bg-[#f4f4f5] rounded-lg px-2 py-1.5 text-[13px] text-black focus:outline-none focus:ring-2 focus:ring-[#15803d]/30"
                     >
                       <option value="hours">hours</option>
                       <option value="days">days</option>
@@ -197,7 +197,7 @@ export function SequenceEditorClient({ sequence }: Props) {
                     value={step.subject}
                     onChange={(e) => updateStep(idx, "subject", e.target.value)}
                     placeholder="Email subject"
-                    className="w-full bg-[#f4f4f5] rounded-lg px-3 py-2 text-[13px] text-[#1a1a1a] placeholder:text-[#a1a1aa] mb-3 focus:outline-none focus:ring-2 focus:ring-[#15803d]/30"
+                    className="w-full bg-[#f4f4f5] rounded-lg px-3 py-2 text-[13px] text-black placeholder:text-[#a1a1aa] mb-3 focus:outline-none focus:ring-2 focus:ring-[#15803d]/30"
                   />
 
                   {/* Body */}
@@ -217,11 +217,11 @@ export function SequenceEditorClient({ sequence }: Props) {
         {/* Sidebar */}
         <div className="space-y-4">
           <div className="bg-white border border-[#e4e4e7] rounded-xl p-5">
-            <h3 className="text-[13px] font-bold text-[#1a1a1a] mb-4">Settings</h3>
+            <h3 className="text-[13px] font-bold text-black mb-4">Settings</h3>
 
             {/* Active toggle */}
             <div className="flex items-center justify-between mb-4">
-              <span className="text-[13px] text-[#1a1a1a] font-medium">Active</span>
+              <span className="text-[13px] text-black font-medium">Active</span>
               <button
                 type="button"
                 onClick={() => setActive(!active)}
@@ -242,7 +242,7 @@ export function SequenceEditorClient({ sequence }: Props) {
 
           <div className="bg-[#f4f4f5] rounded-xl p-4">
             <p className="text-[12px] text-[#71717a] font-medium mb-1">Total Steps</p>
-            <p className="text-[24px] font-extrabold text-[#1a1a1a]">{steps.length}</p>
+            <p className="text-[24px] font-extrabold text-black">{steps.length}</p>
           </div>
         </div>
       </div>

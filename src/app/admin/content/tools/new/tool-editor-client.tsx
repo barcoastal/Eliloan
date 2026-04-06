@@ -71,7 +71,7 @@ export function ToolEditorClient({ tool }: { tool?: ToolFormData }) {
   return (
     <div>
       <div className="flex items-center justify-between mb-6">
-        <h1 className="text-[22px] font-extrabold tracking-[-0.03em] text-[#1a1a1a]">{isEdit ? `Edit: ${form.title}` : "New Tool Page"}</h1>
+        <h1 className="text-[22px] font-extrabold tracking-[-0.03em] text-black">{isEdit ? `Edit: ${form.title}` : "New Tool Page"}</h1>
         <div className="flex gap-2">
           {isEdit && <button onClick={handleDelete} className="text-[13px] font-medium text-red-500 px-4 py-2 rounded-lg hover:bg-red-50">Delete</button>}
           <button onClick={handleSave} disabled={saving || !form.title} className="bg-[#15803d] text-white text-[13px] font-medium px-4 py-2 rounded-lg hover:bg-[#166534] disabled:opacity-50">{saving ? "Saving..." : "Save"}</button>
@@ -97,13 +97,13 @@ export function ToolEditorClient({ tool }: { tool?: ToolFormData }) {
             <p className="text-[11px] text-[#a1a1aa]">URL: /tools/{form.slug}</p>
           </div>
           <div className="bg-white rounded-[10px] p-4 space-y-3">
-            <h3 className="text-[13px] font-bold text-[#1a1a1a]">SEO</h3>
+            <h3 className="text-[13px] font-bold text-black">SEO</h3>
             <div><div className="flex justify-between"><label className={labelClass}>Meta Title</label><span className="text-[11px] text-[#a1a1aa]">{form.metaTitle.length}/60</span></div><input value={form.metaTitle} onChange={(e) => updateField("metaTitle", e.target.value)} className={inputClass} /></div>
             <div><div className="flex justify-between"><label className={labelClass}>Meta Description</label><span className="text-[11px] text-[#a1a1aa]">{form.metaDescription.length}/160</span></div><textarea value={form.metaDescription} onChange={(e) => updateField("metaDescription", e.target.value)} rows={3} className={inputClass} /></div>
           </div>
           <div className="bg-white rounded-[10px] p-4 space-y-3">
-            <h3 className="text-[13px] font-bold text-[#1a1a1a]">Publish</h3>
-            <label className="flex items-center gap-2"><input type="checkbox" checked={form.published} onChange={(e) => updateField("published", e.target.checked)} className="rounded" /><span className="text-[13px] text-[#1a1a1a]">Published</span></label>
+            <h3 className="text-[13px] font-bold text-black">Publish</h3>
+            <label className="flex items-center gap-2"><input type="checkbox" checked={form.published} onChange={(e) => updateField("published", e.target.checked)} className="rounded" /><span className="text-[13px] text-black">Published</span></label>
           </div>
         </div>
       )}

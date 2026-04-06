@@ -21,7 +21,7 @@ export function StatCard({ label, value, icon, color = "gray" }: StatCardProps) 
         <p className="text-[11px] font-semibold uppercase tracking-[0.05em] text-[#a1a1aa]">{label}</p>
         {icon && <div className={`w-8 h-8 rounded-lg flex items-center justify-center ${c.icon}`}>{icon}</div>}
       </div>
-      <p className="text-[28px] font-extrabold tracking-[-0.03em] text-[#1a1a1a]">{value}</p>
+      <p className="text-[28px] font-extrabold tracking-[-0.03em] text-black">{value}</p>
     </div>
   );
 }

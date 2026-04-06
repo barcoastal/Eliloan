@@ -130,8 +130,8 @@ export function DashboardClient({
         {/* Conversion Funnel (recharts) */}
         <div className="bg-white rounded-xl p-6 border border-[#e4e4e7]">
           <div className="flex items-center justify-between mb-4">
-            <h3 className="text-[15px] font-bold text-[#1a1a1a]">Conversion Funnel</h3>
-            <Link href="/admin/pipeline" className="text-sm text-[#71717a] hover:text-[#1a1a1a] transition-colors">
+            <h3 className="text-[15px] font-bold text-black">Conversion Funnel</h3>
+            <Link href="/admin/pipeline" className="text-sm text-[#71717a] hover:text-black transition-colors">
               View pipeline →
             </Link>
           </div>
@@ -151,7 +151,7 @@ export function DashboardClient({
 
         {/* Activity Feed */}
         <div className="bg-white rounded-xl border border-[#e4e4e7] p-6">
-          <h2 className="text-[15px] font-semibold text-[#1a1a1a] mb-5">Recent Activity</h2>
+          <h2 className="text-[15px] font-semibold text-black mb-5">Recent Activity</h2>
           {recentActivities.length === 0 ? (
             <p className="text-[13px] text-[#a1a1aa]">No activity yet.</p>
           ) : (
@@ -170,7 +170,7 @@ export function DashboardClient({
                       </span>
                       <span className="text-[11px] text-[#a1a1aa] shrink-0">{relativeTime(activity.createdAt)}</span>
                     </div>
-                    <p className="text-[13px] font-medium text-[#1a1a1a] truncate">{activity.title}</p>
+                    <p className="text-[13px] font-medium text-black truncate">{activity.title}</p>
                     {activity.contact && (
                       <p className="text-[12px] text-[#71717a]">
                         {activity.contact.firstName} {activity.contact.lastName}
@@ -187,10 +187,10 @@ export function DashboardClient({
       {/* Row 3: Recent Applications */}
       <div>
         <div className="flex items-center justify-between mb-4">
-          <h2 className="text-[15px] font-semibold text-[#1a1a1a]">Recent Applications</h2>
+          <h2 className="text-[15px] font-semibold text-black">Recent Applications</h2>
           <Link
             href="/admin/applications"
-            className="text-sm text-[#71717a] hover:text-[#1a1a1a] transition-colors"
+            className="text-sm text-[#71717a] hover:text-black transition-colors"
           >
             View all →
           </Link>

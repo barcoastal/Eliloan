@@ -107,7 +107,7 @@ export function ArticleEditorClient({
   return (
     <div>
       <div className="flex items-center justify-between mb-6">
-        <h1 className="text-[22px] font-extrabold tracking-[-0.03em] text-[#1a1a1a]">
+        <h1 className="text-[22px] font-extrabold tracking-[-0.03em] text-black">
           {isEdit ? "Edit Article" : "New Article"}
         </h1>
         <div className="flex gap-2">
@@ -207,7 +207,7 @@ export function ArticleEditorClient({
       {activeTab === "publish" && (
         <div className="space-y-4">
           <div className="bg-white rounded-[10px] p-4 space-y-3">
-            <h3 className="text-[13px] font-bold text-[#1a1a1a]">Publish</h3>
+            <h3 className="text-[13px] font-bold text-black">Publish</h3>
             <label className="flex items-center gap-2">
               <input
                 type="checkbox"
@@ -215,7 +215,7 @@ export function ArticleEditorClient({
                 onChange={(e) => updateField("published", e.target.checked)}
                 className="rounded"
               />
-              <span className="text-[13px] text-[#1a1a1a]">Published</span>
+              <span className="text-[13px] text-black">Published</span>
             </label>
             <input
               type="datetime-local"

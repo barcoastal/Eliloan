@@ -58,7 +58,7 @@ export function ApplicationsClient({
             className={
               activeTab === tab
                 ? "bg-[#1a1a1a] text-white rounded-lg px-3 py-1.5 text-sm font-medium"
-                : "text-[#71717a] hover:text-[#1a1a1a] px-3 py-1.5 text-sm font-medium"
+                : "text-[#71717a] hover:text-black px-3 py-1.5 text-sm font-medium"
             }
           >
             {tab}
@@ -72,7 +72,7 @@ export function ApplicationsClient({
         placeholder="Search by name, email, or code..."
         value={search}
         onChange={(e) => setSearch(e.target.value)}
-        className="w-full max-w-sm rounded-xl border border-[#e4e4e7] bg-white px-4 py-2.5 text-[13px] text-[#1a1a1a] placeholder:text-[#a1a1aa] focus:outline-none focus:ring-2 focus:ring-[#e4e4e7]"
+        className="w-full max-w-sm rounded-xl border border-[#e4e4e7] bg-white px-4 py-2.5 text-[13px] text-black placeholder:text-[#a1a1aa] focus:outline-none focus:ring-2 focus:ring-[#e4e4e7]"
       />
 
       {/* Table */}

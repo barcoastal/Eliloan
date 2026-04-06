@@ -92,14 +92,14 @@ export function PaymentsClient() {
                   onClick={() => router.push(`/admin/applications/${p.applicationId}`)}
                   className="cursor-pointer transition-colors hover:bg-[#f8f8f6]"
                 >
-                  <td className="px-4 py-3 font-mono text-[#1a1a1a]">{p.paymentNumber}</td>
+                  <td className="px-4 py-3 font-mono text-black">{p.paymentNumber}</td>
                   <td className="px-4 py-3">
-                    <span className="text-[#1a1a1a]">
+                    <span className="text-black">
                       {p.application.firstName} {p.application.lastName}
                     </span>
                     <span className="ml-2 text-[#a1a1aa]">{p.application.applicationCode}</span>
                   </td>
-                  <td className="px-4 py-3 font-semibold text-[#1a1a1a]">${Number(p.amount).toFixed(2)}</td>
+                  <td className="px-4 py-3 font-semibold text-black">${Number(p.amount).toFixed(2)}</td>
                   <td className="px-4 py-3 text-[#71717a]">
                     {Number(p.lateFee) > 0 ? `$${Number(p.lateFee).toFixed(2)}` : "—"}
                   </td>

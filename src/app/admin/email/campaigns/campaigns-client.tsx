@@ -100,13 +100,13 @@ export function CampaignsClient({ campaigns }: { campaigns: Campaign[] }) {
                   onClick={() => router.push(`/admin/email/campaigns/${c.id}`)}
                 >
                   <td className="px-4 py-3">
-                    <p className="text-[13px] font-semibold text-[#1a1a1a]">{c.name}</p>
+                    <p className="text-[13px] font-semibold text-black">{c.name}</p>
                     <p className="text-[12px] text-[#71717a] truncate max-w-[240px]">{c.subject}</p>
                   </td>
                   <td className="px-4 py-3"><StatusBadge status={c.status} /></td>
-                  <td className="px-4 py-3 text-[13px] text-[#1a1a1a]">{c.totalSent.toLocaleString()}</td>
-                  <td className="px-4 py-3 text-[13px] text-[#1a1a1a]">{c.totalOpened.toLocaleString()}</td>
-                  <td className="px-4 py-3 text-[13px] text-[#1a1a1a]">{c.totalClicked.toLocaleString()}</td>
+                  <td className="px-4 py-3 text-[13px] text-black">{c.totalSent.toLocaleString()}</td>
+                  <td className="px-4 py-3 text-[13px] text-black">{c.totalOpened.toLocaleString()}</td>
+                  <td className="px-4 py-3 text-[13px] text-black">{c.totalClicked.toLocaleString()}</td>
                   <td className="px-4 py-3 text-[12px] text-[#71717a]">
                     {c.scheduledAt ? new Date(c.scheduledAt).toLocaleString() : "—"}
                   </td>

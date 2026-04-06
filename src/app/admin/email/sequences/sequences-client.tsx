@@ -80,7 +80,7 @@ export function SequencesClient({ sequences }: { sequences: Sequence[] }) {
                   onClick={() => router.push(`/admin/email/sequences/${s.id}`)}
                 >
                   <td className="px-4 py-3">
-                    <p className="text-[13px] font-semibold text-[#1a1a1a]">{s.name}</p>
+                    <p className="text-[13px] font-semibold text-black">{s.name}</p>
                     {s.description && <p className="text-[12px] text-[#71717a]">{s.description}</p>}
                   </td>
                   <td className="px-4 py-3">
@@ -88,7 +88,7 @@ export function SequencesClient({ sequences }: { sequences: Sequence[] }) {
                       {s.triggerType.replace("_", " ")}
                     </span>
                   </td>
-                  <td className="px-4 py-3 text-[13px] text-[#1a1a1a]">{stepCount(s.steps)} steps</td>
+                  <td className="px-4 py-3 text-[13px] text-black">{stepCount(s.steps)} steps</td>
                   <td className="px-4 py-3" onClick={(e) => e.stopPropagation()}>
                     <button
                       onClick={() => toggleActive(s.id, s.active)}

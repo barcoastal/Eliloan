@@ -51,7 +51,7 @@ export function ImagesClient({ initialImages }: { initialImages: ContentImage[] 
   return (
     <div>
       <div className="flex items-center justify-between mb-6">
-        <h1 className="text-[22px] font-extrabold tracking-[-0.03em] text-[#1a1a1a]">Image Library</h1>
+        <h1 className="text-[22px] font-extrabold tracking-[-0.03em] text-black">Image Library</h1>
         <label className="cursor-pointer bg-[#15803d] text-white text-[13px] font-medium px-4 py-2 rounded-lg hover:bg-[#166534] transition-colors">
           {uploading ? "Uploading..." : "Upload Image"}
           <input type="file" accept="image/*" className="hidden" onChange={handleUpload} disabled={uploading} />
@@ -65,7 +65,7 @@ export function ImagesClient({ initialImages }: { initialImages: ContentImage[] 
               <Image src={image.storagePath} alt={image.altText || image.fileName} fill className="object-cover" />
             </div>
             <div className="p-3">
-              <p className="text-[13px] font-medium text-[#1a1a1a] truncate">{image.fileName}</p>
+              <p className="text-[13px] font-medium text-black truncate">{image.fileName}</p>
               <p className="text-[11px] text-[#a1a1aa]">{(image.fileSize / 1024).toFixed(0)} KB</p>
               <div className="flex gap-2 mt-2">
                 <button

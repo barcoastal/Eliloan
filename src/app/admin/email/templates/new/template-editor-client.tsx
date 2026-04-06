@@ -68,7 +68,7 @@ export function TemplateEditorClient({ template }: Props) {
               value={name}
               onChange={(e) => setName(e.target.value)}
               placeholder="e.g. Welcome Email"
-              className="w-full bg-[#f4f4f5] rounded-xl px-4 py-3 text-[14px] text-[#1a1a1a] placeholder:text-[#a1a1aa] focus:outline-none focus:ring-2 focus:ring-[#15803d]/30"
+              className="w-full bg-[#f4f4f5] rounded-xl px-4 py-3 text-[14px] text-black placeholder:text-[#a1a1aa] focus:outline-none focus:ring-2 focus:ring-[#15803d]/30"
             />
           </div>
 
@@ -79,7 +79,7 @@ export function TemplateEditorClient({ template }: Props) {
               value={subject}
               onChange={(e) => setSubject(e.target.value)}
               placeholder="e.g. Welcome to Coastal Debt Relief"
-              className="w-full bg-[#f4f4f5] rounded-xl px-4 py-3 text-[14px] text-[#1a1a1a] placeholder:text-[#a1a1aa] focus:outline-none focus:ring-2 focus:ring-[#15803d]/30"
+              className="w-full bg-[#f4f4f5] rounded-xl px-4 py-3 text-[14px] text-black placeholder:text-[#a1a1aa] focus:outline-none focus:ring-2 focus:ring-[#15803d]/30"
             />
           </div>
 
@@ -89,7 +89,7 @@ export function TemplateEditorClient({ template }: Props) {
             <select
               value={category}
               onChange={(e) => setCategory(e.target.value)}
-              className="w-full bg-[#f4f4f5] rounded-xl px-4 py-3 text-[14px] text-[#1a1a1a] focus:outline-none focus:ring-2 focus:ring-[#15803d]/30"
+              className="w-full bg-[#f4f4f5] rounded-xl px-4 py-3 text-[14px] text-black focus:outline-none focus:ring-2 focus:ring-[#15803d]/30"
             >
               {CATEGORIES.map((c) => <option key={c.value} value={c.value}>{c.label}</option>)}
             </select>
@@ -107,7 +107,7 @@ export function TemplateEditorClient({ template }: Props) {
         {/* Sidebar */}
         <div>
           <div className="bg-white border border-[#e4e4e7] rounded-xl p-5">
-            <h3 className="text-[13px] font-bold text-[#1a1a1a] mb-4">Save Template</h3>
+            <h3 className="text-[13px] font-bold text-black mb-4">Save Template</h3>
             <button
               onClick={save}
               disabled={saving}

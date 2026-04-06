@@ -22,7 +22,7 @@ export function PlatformsClient({ platforms }: { platforms: PlatformPageItem[] }
   return (
     <div>
       <div className="flex items-center justify-between mb-6">
-        <h1 className="text-[22px] font-extrabold tracking-[-0.03em] text-[#1a1a1a]">Platform Pages</h1>
+        <h1 className="text-[22px] font-extrabold tracking-[-0.03em] text-black">Platform Pages</h1>
         <Link href="/admin/content/platforms/new" className="bg-[#15803d] text-white text-[13px] font-medium px-4 py-2 rounded-lg hover:bg-[#166534]">
           New Platform Page
         </Link>
@@ -66,7 +66,7 @@ export function PlatformsClient({ platforms }: { platforms: PlatformPageItem[] }
             {filtered.map((p) => (
               <tr key={p.id} className="border-b border-[#f4f4f5] last:border-0 hover:bg-[#f8faf8] transition-colors">
                 <td className="px-4 py-3">
-                  <Link href={`/admin/content/platforms/${p.id}`} className="text-[13px] font-medium text-[#1a1a1a] hover:text-[#15803d]">
+                  <Link href={`/admin/content/platforms/${p.id}`} className="text-[13px] font-medium text-black hover:text-[#15803d]">
                     {p.platformName}
                   </Link>
                   <p className="text-[11px] text-[#a1a1aa]">/loans-for-{p.slug}</p>

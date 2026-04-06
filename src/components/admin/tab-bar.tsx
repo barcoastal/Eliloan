@@ -22,7 +22,7 @@ export function TabBar({ tabs, activeTab, onChange }: TabBarProps) {
           className={`px-4 py-2.5 text-[13px] font-medium border-b-2 transition-colors ${
             activeTab === tab.id
               ? "border-[#15803d] text-[#15803d]"
-              : "border-transparent text-[#71717a] hover:text-[#1a1a1a]"
+              : "border-transparent text-[#71717a] hover:text-black"
           }`}
         >
           {tab.label}

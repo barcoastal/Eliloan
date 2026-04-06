@@ -107,7 +107,7 @@ export function AbandonedClient({ contacts, total, stats }: Props) {
                     }`}
                   >
                     <td className="px-4 py-3">
-                      <p className="font-medium text-[#1a1a1a]">
+                      <p className="font-medium text-black">
                         {contact.firstName} {contact.lastName}
                       </p>
                       {contact.phone && (

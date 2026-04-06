@@ -24,7 +24,7 @@ export function ArticlesClient({ articles }: { articles: ArticleWithRelations[] 
   return (
     <div>
       <div className="flex items-center justify-between mb-6">
-        <h1 className="text-[22px] font-extrabold tracking-[-0.03em] text-[#1a1a1a]">Articles</h1>
+        <h1 className="text-[22px] font-extrabold tracking-[-0.03em] text-black">Articles</h1>
         <Link
           href="/admin/content/articles/new"
           className="bg-[#15803d] text-white text-[13px] font-medium px-4 py-2 rounded-lg hover:bg-[#166534] transition-colors"
@@ -72,7 +72,7 @@ export function ArticlesClient({ articles }: { articles: ArticleWithRelations[] 
             {filtered.map((article) => (
               <tr key={article.id} className="border-b border-[#f4f4f5] last:border-0 hover:bg-[#f8faf8] transition-colors">
                 <td className="px-4 py-3">
-                  <Link href={`/admin/content/articles/${article.id}`} className="text-[13px] font-medium text-[#1a1a1a] hover:text-[#15803d]">
+                  <Link href={`/admin/content/articles/${article.id}`} className="text-[13px] font-medium text-black hover:text-[#15803d]">
                     {article.title}
                   </Link>
                   <p className="text-[11px] text-[#a1a1aa]">/blog/{article.slug}</p>

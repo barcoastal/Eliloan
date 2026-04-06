@@ -180,13 +180,13 @@ export function ContactDetailClient({ contact, team }: { contact: Contact; team:
           <div className="col-span-2 space-y-4">
             {/* Info card */}
             <div className="bg-white rounded-xl p-6 border border-[#e4e4e7]">
-              <h2 className="text-[13px] font-bold text-[#1a1a1a] mb-4 uppercase tracking-[0.05em]">Contact Info</h2>
+              <h2 className="text-[13px] font-bold text-black mb-4 uppercase tracking-[0.05em]">Contact Info</h2>
               <div className="space-y-3">
                 <div className="flex items-center gap-3">
                   <span className="text-[#a1a1aa]">
                     <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" /></svg>
                   </span>
-                  <span className="text-[13px] text-[#1a1a1a] font-medium">{fullName}</span>
+                  <span className="text-[13px] text-black font-medium">{fullName}</span>
                 </div>
                 <div className="flex items-center gap-3">
                   <span className="text-[#a1a1aa]">
@@ -293,25 +293,25 @@ export function ContactDetailClient({ contact, team }: { contact: Contact; team:
           {/* Right: quick stats */}
           <div className="space-y-4">
             <div className="bg-white rounded-xl p-6 border border-[#e4e4e7]">
-              <h2 className="text-[13px] font-bold text-[#1a1a1a] mb-4 uppercase tracking-[0.05em]">Quick Stats</h2>
+              <h2 className="text-[13px] font-bold text-black mb-4 uppercase tracking-[0.05em]">Quick Stats</h2>
               <div className="space-y-4">
                 <div>
                   <span className={labelClass}>Created</span>
-                  <p className="text-[13px] text-[#1a1a1a]">{new Date(contact.createdAt).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" })}</p>
+                  <p className="text-[13px] text-black">{new Date(contact.createdAt).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" })}</p>
                 </div>
                 <div>
                   <span className={labelClass}>Last Updated</span>
-                  <p className="text-[13px] text-[#1a1a1a]">{new Date(contact.updatedAt).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" })}</p>
+                  <p className="text-[13px] text-black">{new Date(contact.updatedAt).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" })}</p>
                 </div>
                 {contact.lastAppStep != null && (
                   <div>
                     <span className={labelClass}>Last App Step</span>
-                    <p className="text-[13px] text-[#1a1a1a]">Step {contact.lastAppStep} of {TOTAL_APP_STEPS}</p>
+                    <p className="text-[13px] text-black">Step {contact.lastAppStep} of {TOTAL_APP_STEPS}</p>
                   </div>
                 )}
                 <div>
                   <span className={labelClass}>Activities</span>
-                  <p className="text-[13px] text-[#1a1a1a]">{contact.activities.length}</p>
+                  <p className="text-[13px] text-black">{contact.activities.length}</p>
                 </div>
               </div>
             </div>
@@ -324,7 +324,7 @@ export function ContactDetailClient({ contact, team }: { contact: Contact; team:
         <div className="max-w-2xl space-y-6">
           {/* Add Note */}
           <div className="bg-white rounded-xl p-6 border border-[#e4e4e7]">
-            <h2 className="text-[13px] font-bold text-[#1a1a1a] mb-3">Add Note</h2>
+            <h2 className="text-[13px] font-bold text-black mb-3">Add Note</h2>
             <textarea
               value={noteText}
               onChange={(e) => setNoteText(e.target.value)}
@@ -343,7 +343,7 @@ export function ContactDetailClient({ contact, team }: { contact: Contact; team:
 
           {/* Timeline */}
           <div className="bg-white rounded-xl p-6 border border-[#e4e4e7]">
-            <h2 className="text-[13px] font-bold text-[#1a1a1a] mb-4">Timeline</h2>
+            <h2 className="text-[13px] font-bold text-black mb-4">Timeline</h2>
             {contact.activities.length === 0 ? (
               <p className="text-[13px] text-[#a1a1aa]">No activity yet.</p>
             ) : (
@@ -355,7 +355,7 @@ export function ContactDetailClient({ contact, team }: { contact: Contact; team:
                     </div>
                     <div className="flex-1 min-w-0">
                       <div className="flex items-baseline justify-between gap-2">
-                        <span className="text-[13px] font-medium text-[#1a1a1a]">{a.title}</span>
+                        <span className="text-[13px] font-medium text-black">{a.title}</span>
                         <span className="text-[11px] text-[#a1a1aa] whitespace-nowrap">{relativeTime(a.createdAt)}</span>
                       </div>
                       {a.details && <p className="text-[12px] text-[#71717a] mt-0.5">{a.details}</p>}
@@ -373,11 +373,11 @@ export function ContactDetailClient({ contact, team }: { contact: Contact; team:
         <div className="max-w-xl">
           {contact.application ? (
             <div className="bg-white rounded-xl p-6 border border-[#e4e4e7] space-y-4">
-              <h2 className="text-[13px] font-bold text-[#1a1a1a] uppercase tracking-[0.05em]">Application</h2>
+              <h2 className="text-[13px] font-bold text-black uppercase tracking-[0.05em]">Application</h2>
               <div className="grid grid-cols-2 gap-4">
                 <div>
                   <span className={labelClass}>Application Code</span>
-                  <p className="text-[13px] font-mono text-[#1a1a1a]">{contact.application.applicationCode}</p>
+                  <p className="text-[13px] font-mono text-black">{contact.application.applicationCode}</p>
                 </div>
                 <div>
                   <span className={labelClass}>Status</span>
@@ -385,11 +385,11 @@ export function ContactDetailClient({ contact, team }: { contact: Contact; team:
                 </div>
                 <div>
                   <span className={labelClass}>Loan Amount</span>
-                  <p className="text-[13px] text-[#1a1a1a]">${contact.application.loanAmount.toLocaleString()}</p>
+                  <p className="text-[13px] text-black">${contact.application.loanAmount.toLocaleString()}</p>
                 </div>
                 <div>
                   <span className={labelClass}>Submitted</span>
-                  <p className="text-[13px] text-[#1a1a1a]">{new Date(contact.application.createdAt).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" })}</p>
+                  <p className="text-[13px] text-black">{new Date(contact.application.createdAt).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" })}</p>
                 </div>
               </div>
               <Link
@@ -402,7 +402,7 @@ export function ContactDetailClient({ contact, team }: { contact: Contact; team:
             </div>
           ) : (
             <div className="bg-white rounded-xl p-6 border border-[#e4e4e7]">
-              <h2 className="text-[13px] font-bold text-[#1a1a1a] mb-4 uppercase tracking-[0.05em]">Application Status</h2>
+              <h2 className="text-[13px] font-bold text-black mb-4 uppercase tracking-[0.05em]">Application Status</h2>
               {contact.lastAppStep != null ? (
                 <div className="space-y-3">
                   <p className="text-[13px] text-[#71717a]">Completed {contact.lastAppStep} of {TOTAL_APP_STEPS} steps</p>

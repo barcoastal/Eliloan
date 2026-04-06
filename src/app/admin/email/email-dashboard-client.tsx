@@ -32,7 +32,7 @@ export function EmailDashboardClient({ metrics }: { metrics: Metrics }) {
           { label: "Templates", desc: "Reusable email templates", href: "/admin/email/templates", cta: "View Templates" },
         ].map((item) => (
           <Link key={item.href} href={item.href} className="bg-white rounded-xl p-6 border border-[#e4e4e7] hover:shadow-sm transition-shadow">
-            <h3 className="text-[15px] font-bold text-[#1a1a1a] mb-1">{item.label}</h3>
+            <h3 className="text-[15px] font-bold text-black mb-1">{item.label}</h3>
             <p className="text-[13px] text-[#71717a] mb-4">{item.desc}</p>
             <span className="text-[13px] font-medium text-[#15803d]">{item.cta} &rarr;</span>
           </Link>

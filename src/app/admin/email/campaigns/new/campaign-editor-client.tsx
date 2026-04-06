@@ -138,7 +138,7 @@ export function CampaignEditorClient({ campaign }: Props) {
               value={name}
               onChange={(e) => setName(e.target.value)}
               placeholder="e.g. April Newsletter"
-              className="w-full bg-[#f4f4f5] rounded-xl px-4 py-3 text-[14px] text-[#1a1a1a] placeholder:text-[#a1a1aa] focus:outline-none focus:ring-2 focus:ring-[#15803d]/30"
+              className="w-full bg-[#f4f4f5] rounded-xl px-4 py-3 text-[14px] text-black placeholder:text-[#a1a1aa] focus:outline-none focus:ring-2 focus:ring-[#15803d]/30"
             />
           </div>
 
@@ -149,7 +149,7 @@ export function CampaignEditorClient({ campaign }: Props) {
               value={subject}
               onChange={(e) => setSubject(e.target.value)}
               placeholder="e.g. Your debt relief options are ready"
-              className="w-full bg-[#f4f4f5] rounded-xl px-4 py-3 text-[14px] text-[#1a1a1a] placeholder:text-[#a1a1aa] focus:outline-none focus:ring-2 focus:ring-[#15803d]/30"
+              className="w-full bg-[#f4f4f5] rounded-xl px-4 py-3 text-[14px] text-black placeholder:text-[#a1a1aa] focus:outline-none focus:ring-2 focus:ring-[#15803d]/30"
             />
           </div>
 
@@ -192,14 +192,14 @@ export function CampaignEditorClient({ campaign }: Props) {
                     <select
                       value={rule.field}
                       onChange={(e) => updateRule(idx, "field", e.target.value)}
-                      className="bg-white border border-[#e4e4e7] rounded-lg px-2 py-1.5 text-[13px] text-[#1a1a1a] focus:outline-none focus:ring-2 focus:ring-[#15803d]/30"
+                      className="bg-white border border-[#e4e4e7] rounded-lg px-2 py-1.5 text-[13px] text-black focus:outline-none focus:ring-2 focus:ring-[#15803d]/30"
                     >
                       {FIELDS.map((f) => <option key={f.value} value={f.value}>{f.label}</option>)}
                     </select>
                     <select
                       value={rule.operator}
                       onChange={(e) => updateRule(idx, "operator", e.target.value)}
-                      className="bg-white border border-[#e4e4e7] rounded-lg px-2 py-1.5 text-[13px] text-[#1a1a1a] focus:outline-none focus:ring-2 focus:ring-[#15803d]/30"
+                      className="bg-white border border-[#e4e4e7] rounded-lg px-2 py-1.5 text-[13px] text-black focus:outline-none focus:ring-2 focus:ring-[#15803d]/30"
                     >
                       {OPERATORS.map((o) => <option key={o.value} value={o.value}>{o.label}</option>)}
                     </select>
@@ -207,7 +207,7 @@ export function CampaignEditorClient({ campaign }: Props) {
                       value={rule.value}
                       onChange={(e) => updateRule(idx, "value", e.target.value)}
                       placeholder="value"
-                      className="flex-1 bg-white border border-[#e4e4e7] rounded-lg px-2 py-1.5 text-[13px] text-[#1a1a1a] focus:outline-none focus:ring-2 focus:ring-[#15803d]/30"
+                      className="flex-1 bg-white border border-[#e4e4e7] rounded-lg px-2 py-1.5 text-[13px] text-black focus:outline-none focus:ring-2 focus:ring-[#15803d]/30"
                     />
                     <button
                       type="button"
@@ -226,7 +226,7 @@ export function CampaignEditorClient({ campaign }: Props) {
         {/* Sidebar */}
         <div className="space-y-4">
           <div className="bg-white border border-[#e4e4e7] rounded-xl p-5">
-            <h3 className="text-[13px] font-bold text-[#1a1a1a] mb-4">Publish</h3>
+            <h3 className="text-[13px] font-bold text-black mb-4">Publish</h3>
 
             {/* Schedule datetime */}
             <div className="mb-4">
@@ -235,7 +235,7 @@ export function CampaignEditorClient({ campaign }: Props) {
                 type="datetime-local"
                 value={scheduledAt}
                 onChange={(e) => setScheduledAt(e.target.value)}
-                className="w-full bg-[#f4f4f5] rounded-lg px-3 py-2 text-[13px] text-[#1a1a1a] focus:outline-none focus:ring-2 focus:ring-[#15803d]/30"
+                className="w-full bg-[#f4f4f5] rounded-lg px-3 py-2 text-[13px] text-black focus:outline-none focus:ring-2 focus:ring-[#15803d]/30"
               />
             </div>
 
@@ -243,7 +243,7 @@ export function CampaignEditorClient({ campaign }: Props) {
               <button
                 onClick={() => save("DRAFT")}
                 disabled={saving}
-                className="w-full bg-[#f4f4f5] text-[#1a1a1a] text-[13px] font-medium px-4 py-2.5 rounded-xl hover:bg-[#e4e4e7] transition-colors disabled:opacity-50"
+                className="w-full bg-[#f4f4f5] text-black text-[13px] font-medium px-4 py-2.5 rounded-xl hover:bg-[#e4e4e7] transition-colors disabled:opacity-50"
               >
                 Save as Draft
               </button>

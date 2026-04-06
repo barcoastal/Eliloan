@@ -23,7 +23,7 @@ export function LandingPagesClient({ pages }: { pages: LandingPageItem[] }) {
   return (
     <div>
       <div className="flex items-center justify-between mb-6">
-        <h1 className="text-[22px] font-extrabold tracking-[-0.03em] text-[#1a1a1a]">Landing Pages</h1>
+        <h1 className="text-[22px] font-extrabold tracking-[-0.03em] text-black">Landing Pages</h1>
         <Link
           href="/admin/content/landing-pages/new"
           className="bg-[#15803d] text-white text-[13px] font-medium px-4 py-2 rounded-lg hover:bg-[#166534]"
@@ -74,7 +74,7 @@ export function LandingPagesClient({ pages }: { pages: LandingPageItem[] }) {
                 <td className="px-4 py-3">
                   <Link
                     href={`/admin/content/landing-pages/${p.id}`}
-                    className="text-[13px] font-medium text-[#1a1a1a] hover:text-[#15803d]"
+                    className="text-[13px] font-medium text-black hover:text-[#15803d]"
                   >
                     {p.slug}
                   </Link>
