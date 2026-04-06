@@ -17,7 +17,7 @@ const INDUSTRIES = [
     description: "Drive passengers, earn on your schedule. Average Uber driver makes $20-30/hour before expenses. Whether full-time or side hustle, we fund rideshare drivers in 48 hours.",
     stats: { avgEarnings: "$45K/yr", drivers: "1.5M+" },
     color: "bg-[#eff6ff]",
-    href: "/loans-for-uber-drivers",
+    href: "/loans-for-uber",
   },
   {
     name: "Food Delivery",
@@ -28,7 +28,7 @@ const INDUSTRIES = [
     description: "Deliver meals across your city. Peak hours, bad weather bonuses, and tips add up fast. When your bike needs replacing or your car needs repairs, we fund your business costs instantly.",
     stats: { avgEarnings: "$38K/yr", drivers: "2M+" },
     color: "bg-[#fef9ec]",
-    href: "/loans-for-doordash-drivers",
+    href: "/loans-for-doordash",
   },
   {
     name: "Grocery & Shopping",
@@ -39,7 +39,7 @@ const INDUSTRIES = [
     description: "Shop and deliver groceries on demand. Consistent income with tip potential. Instacart shoppers handle 3-5 batches daily. We fund personal shoppers same-day.",
     stats: { avgEarnings: "$32K/yr", drivers: "600K+" },
     color: "bg-[#f0fdf4]",
-    href: "/loans-for-instacart-drivers",
+    href: "/loans-for-instacart",
   },
   {
     name: "Freelance & Creative",
@@ -50,7 +50,7 @@ const INDUSTRIES = [
     description: "Designers, developers, writers, marketers. Invoices take 30+ days to clear but bills don't wait. We fund freelancers based on platform earnings, not credit.",
     stats: { avgEarnings: "$52K/yr", drivers: "3M+" },
     color: "bg-[#faf5ff]",
-    href: "/loans-for-fiverr-drivers",
+    href: "/loans-for-fiverr",
   },
   {
     name: "Home Services",
@@ -61,7 +61,7 @@ const INDUSTRIES = [
     description: "Handymen, movers, cleaners, assemblers. Physical work with variable demand. Equipment costs, van maintenance, and slow months happen. We fund in hours.",
     stats: { avgEarnings: "$42K/yr", drivers: "800K+" },
     color: "bg-[#fff7ed]",
-    href: "/loans-for-taskrabbit-drivers",
+    href: "/loans-for-taskrabbit",
   },
   {
     name: "Auto & Transport",
@@ -72,7 +72,7 @@ const INDUSTRIES = [
     description: "Deliver packages or list your car. Amazon Flex drivers run 3-5 hour blocks. Turo hosts earn passive income. When vehicle maintenance costs spike, we fund it fast.",
     stats: { avgEarnings: "$35K/yr", drivers: "500K+" },
     color: "bg-[#fef2f2]",
-    href: "/loans-for-amazon-flex-drivers",
+    href: "/loans-for-amazon-flex",
   },
 ];
 
