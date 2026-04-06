@@ -1,14 +1,16 @@
 import { getArticles, getPlatformPages, getStatePages, getToolPages, getComparisonPages, getLandingPages } from "@/actions/content";
+import { getFormTemplates } from "@/actions/form-templates";
 import { ContentDashboardClient } from "./content-dashboard-client";
 
 export default async function ContentDashboardPage() {
-  const [articles, platforms, states, tools, comparisons, landingPages] = await Promise.all([
+  const [articles, platforms, states, tools, comparisons, landingPages, formTemplates] = await Promise.all([
     getArticles(),
     getPlatformPages(),
     getStatePages(),
     getToolPages(),
     getComparisonPages(),
     getLandingPages(),
+    getFormTemplates(),
   ]);
 
   return (
@@ -20,6 +22,7 @@ export default async function ContentDashboardPage() {
         tools: tools.length,
         comparisons: comparisons.length,
         landingPages: landingPages.length,
+        formTemplates: formTemplates.length,
         published: [
           ...articles.filter((a) => a.published),
           ...platforms.filter((p) => p.published),

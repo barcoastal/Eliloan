@@ -366,6 +366,7 @@ model LandingPage {
   finalCtaSubtext   String?
   finalCtaButtonText String   @default("Apply Now")
   // Form config
+  formTemplateSlug  String?
   utmSource         String    @default("lp")
   utmCampaign       String
   formPlatforms     String    @default("[]")
@@ -434,4 +435,18 @@ model Activity {
   @@index([contactId])
   @@index([type])
   @@index([createdAt])
+}
+
+model FormTemplate {
+  id          String   @id @default(uuid())
+  name        String   @unique
+  slug        String   @unique
+  description String?
+  steps       String   @default("[]")
+  isDefault   Boolean  @default(false)
+  published   Boolean  @default(false)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([slug])
 }

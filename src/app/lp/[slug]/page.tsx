@@ -157,6 +157,7 @@ export default async function LandingPageRoute({ params }: Props) {
                 utmSource={page.utmSource}
                 utmCampaign={page.utmCampaign}
                 buttonText={page.finalCtaButtonText}
+                formTemplateSlug={page.formTemplateSlug ?? undefined}
               />
             </div>
           </div>

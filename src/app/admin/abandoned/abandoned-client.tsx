@@ -2,10 +2,11 @@
 
 import { PageHeader } from "@/components/admin/page-header";
 import { EmptyState } from "@/components/admin/empty-state";
+import { StatCard } from "@/components/admin/stat-card";
 
 const TOTAL_STEPS = 7;
 
-type Contact = {
+type ContactItem = {
   id: string;
   firstName: string;
   lastName: string | null;
@@ -14,9 +15,20 @@ type Contact = {
   lastAppStep: number | null;
   source: string | null;
   createdAt: string;
+  updatedAt: string;
   assignedRep: { id: string; name: string } | null;
   tags: string[];
 };
+
+interface Props {
+  contacts: ContactItem[];
+  total: number;
+  stats: {
+    thisWeek: number;
+    stepCounts: Record<number, number>;
+    total: number;
+  };
+}
 
 function relativeTime(iso: string): string {
   const diff = Date.now() - new Date(iso).getTime();
@@ -39,15 +51,11 @@ const STEP_NAMES: Record<number, string> = {
   7: "Review",
 };
 
-export function AbandonedClient({
-  contacts,
-  total,
-}: {
-  contacts: Contact[];
-  total: number;
-}) {
+export function AbandonedClient({ contacts, total, stats }: Props) {
   // Sort by lastAppStep descending (warmest leads first)
   const sorted = [...contacts].sort((a, b) => (b.lastAppStep ?? 0) - (a.lastAppStep ?? 0));
+
+  const topStep = Object.entries(stats.stepCounts).sort(([, a], [, b]) => b - a)[0]?.[0];
 
   return (
     <div>
@@ -55,6 +63,17 @@ export function AbandonedClient({
         title="Abandoned Applications"
         description={`${total} contact${total !== 1 ? "s" : ""} who started but did not complete their application`}
       />
+
+      <div className="grid grid-cols-4 gap-4 mb-6">
+        <StatCard label="Total Abandoned" value={stats.total} color="red" />
+        <StatCard label="This Week" value={stats.thisWeek} color="amber" />
+        <StatCard
+          label="Top Dropout Step"
+          value={topStep ? `Step ${topStep}` : "N/A"}
+          color="gray"
+        />
+        <StatCard label="Recovery Rate" value="0%" color="green" />
+      </div>
 
       {sorted.length === 0 ? (
         <div className="bg-white rounded-xl border border-[#e4e4e7]">
