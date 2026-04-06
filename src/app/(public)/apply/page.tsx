@@ -11,6 +11,8 @@ import { toast } from "sonner";
 import { usePlaidLink } from "react-plaid-link";
 import { CheckCircle, Building2 } from "lucide-react";
 import { submitApplication } from "@/actions/applications";
+import { upsertContact, updateContactLastStep, linkContactApplication } from "@/actions/contacts";
+import { logActivity } from "@/actions/activities";
 
 /* ------------------------------------------------------------------ */
 /*  CONSTANTS                                                           */
@@ -1534,6 +1536,9 @@ function ApplyPageInner() {
 
       if (result.error) throw new Error(result.error);
       if (result.applicationCode) setApplicationCode(result.applicationCode);
+      if (result.applicationId) {
+        try { if (form.email) await linkContactApplication(form.email, result.applicationId); } catch {}
+      }
     } catch (err) {
       toast.error(err instanceof Error ? err.message : "Something went wrong");
     } finally {
@@ -1568,8 +1573,24 @@ function ApplyPageInner() {
                 form={form}
                 setForm={setForm}
                 errors={errors}
-                onNext={() => {
-                  if (validateStep2()) setStep(2);
+                onNext={async () => {
+                  if (validateStep2()) {
+                    try {
+                      const contact = await upsertContact({
+                        email: form.email,
+                        firstName: form.firstName,
+                        lastName: form.lastName,
+                        phone: form.phone,
+                        source: searchParams.get("utm_campaign") ? `lp:${searchParams.get("utm_campaign")}` : "direct",
+                        utmSource: searchParams.get("utm_source") || undefined,
+                        utmCampaign: searchParams.get("utm_campaign") || undefined,
+                        lastAppStep: 2,
+                      });
+                      await logActivity({ contactId: contact.id, type: "app_started", title: "Application started" });
+                      try { sessionStorage.setItem("creditlime_contact_id", contact.id); } catch {}
+                    } catch {}
+                    setStep(2);
+                  }
                 }}
                 onBack={() => setStep(0)}
               />
@@ -1582,7 +1603,7 @@ function ApplyPageInner() {
                 setOtherPlatform={setOtherPlatform}
                 weeklyEarnings={weeklyEarnings}
                 setWeeklyEarnings={setWeeklyEarnings}
-                onNext={() => setStep(3)}
+                onNext={async () => { try { if (form.email) await updateContactLastStep(form.email, 3); } catch {} setStep(3); }}
                 onBack={() => setStep(1)}
               />
             ) : step === 3 ? (
@@ -1592,7 +1613,7 @@ function ApplyPageInner() {
                 setPhotoId={setPhotoId}
                 bankStatement={bankStatement}
                 setBankStatement={setBankStatement}
-                onNext={() => setStep(4)}
+                onNext={async () => { try { if (form.email) await updateContactLastStep(form.email, 4); } catch {} setStep(4); }}
                 onBack={() => setStep(2)}
               />
             ) : step === 4 ? (
@@ -1606,7 +1627,7 @@ function ApplyPageInner() {
                   setPlaidAccountId(accountId);
                   setPlaidItemId(itemId);
                 }}
-                onNext={() => setStep(5)}
+                onNext={async () => { try { if (form.email) await updateContactLastStep(form.email, 5); } catch {} setStep(5); }}
                 onBack={() => setStep(3)}
               />
             ) : step === 5 ? (
@@ -1615,7 +1636,7 @@ function ApplyPageInner() {
                 files={files}
                 addFiles={addFiles}
                 removeFile={removeFile}
-                onNext={() => setStep(6)}
+                onNext={async () => { try { if (form.email) await updateContactLastStep(form.email, 6); } catch {} setStep(6); }}
                 onBack={() => setStep(4)}
               />
             ) : (

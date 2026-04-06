@@ -100,7 +100,7 @@ export async function submitApplication(input: z.infer<typeof submitSchema>) {
     },
   });
 
-  return { success: true, applicationCode };
+  return { success: true, applicationCode, applicationId: application.id };
 }
 
 export async function getApplicationByCode(code: string) {

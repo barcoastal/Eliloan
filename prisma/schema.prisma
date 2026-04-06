@@ -40,6 +40,7 @@ model Application {
   documents       Document[]
   payments        Payment[]
   collectionEvents CollectionEvent[]
+  contact         Contact?
 
   @@index([status])
   @@index([email])
@@ -70,11 +71,13 @@ model LoanRule {
 }
 
 model AdminUser {
-  id           String   @id @default(uuid())
-  email        String   @unique
+  id           String    @id @default(uuid())
+  email        String    @unique
   passwordHash String
   name         String
-  createdAt    DateTime @default(now())
+  role         String    @default("ADMIN")
+  createdAt    DateTime  @default(now())
+  contacts     Contact[]
 }
 
 model Payment {
@@ -376,4 +379,59 @@ model LandingPage {
 
   @@index([slug])
   @@index([published])
+}
+
+// ─── CRM ─────────────────────────────────────────────────────
+
+model Contact {
+  id              String    @id @default(uuid())
+  firstName       String
+  lastName        String?
+  email           String    @unique
+  phone           String?
+  stage           String    @default("LEAD")
+  assignedRepId   String?
+  assignedRep     AdminUser? @relation(fields: [assignedRepId], references: [id])
+  source          String?
+  utmSource       String?
+  utmCampaign     String?
+  utmMedium       String?
+  applicationId   String?   @unique
+  application     Application? @relation(fields: [applicationId], references: [id])
+  lastAppStep     Int?
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+  tags            ContactTag[]
+  activities      Activity[]
+
+  @@index([stage])
+  @@index([assignedRepId])
+  @@index([email])
+  @@index([createdAt])
+}
+
+model ContactTag {
+  id        String  @id @default(uuid())
+  contactId String
+  tag       String
+  contact   Contact @relation(fields: [contactId], references: [id], onDelete: Cascade)
+
+  @@unique([contactId, tag])
+  @@index([contactId])
+  @@index([tag])
+}
+
+model Activity {
+  id          String   @id @default(uuid())
+  contactId   String
+  type        String
+  title       String
+  details     String?
+  performedBy String?
+  contact     Contact  @relation(fields: [contactId], references: [id], onDelete: Cascade)
+  createdAt   DateTime @default(now())
+
+  @@index([contactId])
+  @@index([type])
+  @@index([createdAt])
 }
