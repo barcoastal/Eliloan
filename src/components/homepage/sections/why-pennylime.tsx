@@ -123,7 +123,7 @@ export function WhyLimecredit() {
             className="font-extrabold tracking-[-0.04em] leading-[0.95] text-[#1a1a1a]"
             style={{ fontSize: "clamp(36px, 5vw, 60px)" }}
           >
-            Why CreditLime.
+            Why PennyLime.
           </h2>
           <p className="text-[#71717a] text-[16px] mt-4 max-w-xl">
             We built the product we wish existed when we drove gig for the first

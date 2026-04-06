@@ -98,7 +98,7 @@ export function Problem() {
                 </svg>
               </div>
               <p className="text-[#71717a] text-[16px] leading-relaxed">
-                <span className="font-bold text-[#1a1a1a]">CreditLime reads your earnings</span>, not your credit score. We built this for how you actually work.
+                <span className="font-bold text-[#1a1a1a]">PennyLime reads your earnings</span>, not your credit score. We built this for how you actually work.
               </p>
             </div>
           </div>

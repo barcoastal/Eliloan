@@ -114,7 +114,7 @@ export function AdminSidebar({ userName }: { userName: string }) {
         {!collapsed && (
           <span className="inline-flex items-center gap-2.5 font-extrabold text-[18px] tracking-[-0.03em]">
             <LogoMark size={32} />
-            Credit<span className="text-[#15803d]">Lime</span>
+            Penny<span className="text-[#15803d]">Lime</span>
           </span>
         )}
         {collapsed && <LogoMark size={28} className="mx-auto" />}

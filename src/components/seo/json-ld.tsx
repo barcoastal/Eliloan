@@ -11,10 +11,10 @@ export function organizationSchema() {
   return {
     "@context": "https://schema.org",
     "@type": "Organization",
-    name: "CreditLime",
-    url: "https://creditlime.com",
+    name: "PennyLime",
+    url: "https://pennylime.com",
     description: "Fast loans for gig workers. $100 to $10,000.",
-    contactPoint: { "@type": "ContactPoint", email: "support@creditlime.com" },
+    contactPoint: { "@type": "ContactPoint", email: "support@pennylime.com" },
   };
 }
 
@@ -29,11 +29,11 @@ export function articleSchema(article: {
     "@context": "https://schema.org",
     "@type": "Article",
     headline: article.title,
-    url: `https://creditlime.com/blog/${article.slug}`,
+    url: `https://pennylime.com/blog/${article.slug}`,
     ...(article.excerpt && { description: article.excerpt }),
     ...(article.publishedAt && { datePublished: article.publishedAt.toISOString() }),
     dateModified: article.updatedAt.toISOString(),
-    publisher: { "@type": "Organization", name: "CreditLime" },
+    publisher: { "@type": "Organization", name: "PennyLime" },
   };
 }
 
@@ -53,11 +53,11 @@ export function loanProductSchema() {
   return {
     "@context": "https://schema.org",
     "@type": "LoanOrCredit",
-    name: "CreditLime Gig Worker Loan",
+    name: "PennyLime Gig Worker Loan",
     amount: { "@type": "MonetaryAmount", currency: "USD", minValue: 100, maxValue: 10000 },
     annualPercentageRate: { "@type": "QuantitativeValue", minValue: 30, maxValue: 60 },
     loanTerm: { "@type": "QuantitativeValue", minValue: 3, maxValue: 18, unitCode: "MON" },
-    provider: { "@type": "Organization", name: "CreditLime" },
+    provider: { "@type": "Organization", name: "PennyLime" },
   };
 }
 

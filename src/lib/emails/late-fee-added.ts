@@ -24,7 +24,7 @@ export function lateFeeAddedEmail(params: {
         <p>Please ensure your bank account has sufficient funds. We will continue to attempt collection.</p>
         <p>View your loan: <a href="${statusUrl}" style="color: #ea580c;">${statusUrl}</a></p>
         <hr style="border: none; border-top: 1px solid #e5e7eb; margin: 24px 0;" />
-        <p style="color: #6b7280; font-size: 12px;">CreditLime</p>
+        <p style="color: #6b7280; font-size: 12px;">PennyLime</p>
       </div>
     `,
   };

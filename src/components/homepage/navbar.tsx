@@ -10,7 +10,7 @@ export function Navbar() {
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-white/90 backdrop-blur-md border-b border-[#e4e4e7]">
       <div className="max-w-6xl mx-auto px-4 flex items-center justify-between h-20">
-        <Link href="/" aria-label="CreditLime home">
+        <Link href="/" aria-label="PennyLime home">
           <Logo size={48} textClassName="font-extrabold text-[22px] tracking-[-0.03em]" />
         </Link>
         <div className="hidden md:flex items-center gap-6">

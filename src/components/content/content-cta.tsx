@@ -8,7 +8,7 @@ export function ContentCta({ text, subtext, variant = "default" }: { text?: stri
         <div className="flex-1">
           <div className="flex items-center gap-2 mb-2">
             <LogoMark size={24} />
-            <span className="text-[12px] font-bold uppercase tracking-[0.06em] text-[#bbf7d0]">CreditLime</span>
+            <span className="text-[12px] font-bold uppercase tracking-[0.06em] text-[#bbf7d0]">PennyLime</span>
           </div>
           <p className="text-[18px] font-extrabold tracking-[-0.02em] mb-1">
             {text || "Need cash between gigs?"}
@@ -40,7 +40,7 @@ export function ContentCta({ text, subtext, variant = "default" }: { text?: stri
             {text || "Did you know?"}
           </p>
           <p className="text-[14px] text-[#52525b] leading-relaxed mb-4">
-            {subtext || "CreditLime doesn't check your credit score. We verify your gig platform earnings directly, so a low credit score won't hold you back."}
+            {subtext || "PennyLime doesn't check your credit score. We verify your gig platform earnings directly, so a low credit score won't hold you back."}
           </p>
           <Link href="/apply" className="text-[14px] font-bold text-[#15803d] hover:underline">
             Check your eligibility &rarr;

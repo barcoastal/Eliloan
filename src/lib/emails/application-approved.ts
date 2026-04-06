@@ -15,7 +15,7 @@ export function applicationApprovedEmail(params: {
     (Math.pow(1 + monthlyRate, months) - 1);
 
   return {
-    subject: "Congratulations! Your Loan is Approved — CreditLime",
+    subject: "Congratulations! Your Loan is Approved — PennyLime",
     html: `
       <div style="font-family: sans-serif; max-width: 600px; margin: 0 auto;">
         <h2 style="color: #16a34a;">Your Loan Has Been Approved!</h2>
@@ -30,7 +30,7 @@ export function applicationApprovedEmail(params: {
         <p>Next steps: We will wire the funds to your linked bank account. You'll receive a confirmation once the funds are sent.</p>
         <p>Track your loan at: <a href="${statusUrl}" style="color: #16a34a;">${statusUrl}</a></p>
         <hr style="border: none; border-top: 1px solid #e5e7eb; margin: 24px 0;" />
-        <p style="color: #6b7280; font-size: 12px;">CreditLime</p>
+        <p style="color: #6b7280; font-size: 12px;">PennyLime</p>
       </div>
     `,
   };

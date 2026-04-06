@@ -22,7 +22,7 @@ async function main() {
   await prisma.landingPage.create({
     data: {
       slug: SLUG,
-      metaTitle: "Loans for Uber & Lyft Drivers | $100 - $10,000 | CreditLime",
+      metaTitle: "Loans for Uber & Lyft Drivers | $100 - $10,000 | PennyLime",
       metaDescription:
         "Fast loans for rideshare drivers. $100 to $10,000. No credit check. Same-day decisions. Built for Uber and Lyft drivers. Apply in 5 minutes.",
       phoneNumber: "1-800-555-1234",
@@ -72,14 +72,14 @@ async function main() {
       testimonials: JSON.stringify([
         {
           quote:
-            "Got approved in under 3 hours. My transmission went out and I needed cash fast to get back on the road. CreditLime understood that without the car, there's no income.",
+            "Got approved in under 3 hours. My transmission went out and I needed cash fast to get back on the road. PennyLime understood that without the car, there's no income.",
           name: "Marcus T.",
           role: "Uber Driver · Atlanta, GA",
           amount: "$4,200",
         },
         {
           quote:
-            "Every other lender wanted W-2s I don't have. CreditLime just looked at my Lyft earnings. Applied Monday, funded Wednesday. Simple.",
+            "Every other lender wanted W-2s I don't have. PennyLime just looked at my Lyft earnings. Applied Monday, funded Wednesday. Simple.",
           name: "Sofia R.",
           role: "Lyft Driver · Phoenix, AZ",
           amount: "$3,500",
@@ -97,7 +97,7 @@ async function main() {
         {
           question: "Do I need a W-2 or pay stubs to qualify?",
           answer:
-            "No. We built CreditLime specifically for Uber and Lyft drivers who don't have traditional W-2 income. Instead, we verify your earnings directly from your rideshare account.",
+            "No. We built PennyLime specifically for Uber and Lyft drivers who don't have traditional W-2 income. Instead, we verify your earnings directly from your rideshare account.",
         },
         {
           question: "Will this hurt my credit score?",

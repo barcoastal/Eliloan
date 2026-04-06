@@ -143,7 +143,7 @@ export function Hero() {
           ref={subtitleRef}
           className="text-[#71717a] text-[18px] leading-relaxed max-w-xl mb-10"
         >
-          CreditLime offers $100 - $10,000 loans built for Uber, DoorDash, Lyft
+          PennyLime offers $100 - $10,000 loans built for Uber, DoorDash, Lyft
           drivers, and independent contractors. No W-2 required. Decisions in
           minutes.
         </p>

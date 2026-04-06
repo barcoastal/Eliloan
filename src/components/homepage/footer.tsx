@@ -9,7 +9,7 @@ export function Footer() {
           <div>
             <span className="inline-flex items-center gap-2 font-extrabold text-[20px] tracking-[-0.03em]">
               <LogoMark size={40} />
-              Credit<span className="text-[#4ade80]">Lime</span>
+              Penny<span className="text-[#4ade80]">Lime</span>
             </span>
             <p className="text-[13px] text-[#a1a1aa] mt-2">Fast loans for gig workers. $100 to $10,000.</p>
           </div>
@@ -26,7 +26,7 @@ export function Footer() {
             <div className="space-y-2">
               <Link href="/tools/loan-calculator" className="block text-[13px] text-[#d4d4d8] hover:text-white">Loan Calculator</Link>
               <Link href="/blog/category/guides" className="block text-[13px] text-[#d4d4d8] hover:text-white">Guides</Link>
-              <Link href="/compare/creditlime-vs-fundo" className="block text-[13px] text-[#d4d4d8] hover:text-white">Comparisons</Link>
+              <Link href="/compare/pennylime-vs-fundo" className="block text-[13px] text-[#d4d4d8] hover:text-white">Comparisons</Link>
             </div>
           </div>
           <div>
@@ -39,7 +39,7 @@ export function Footer() {
           </div>
         </div>
         <div className="mt-12 pt-6 border-t border-[#333] text-[12px] text-[#71717a]">
-          &copy; {new Date().getFullYear()} CreditLime. All rights reserved.
+          &copy; {new Date().getFullYear()} PennyLime. All rights reserved.
         </div>
       </div>
     </footer>

@@ -61,7 +61,7 @@ export function TeamClient({ members }: { members: Member[] }) {
           <h3 className="text-[15px] font-bold text-black mb-4">Add Team Member</h3>
           <div className="grid grid-cols-2 gap-4">
             <div><label className={labelClass}>Name</label><input value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} className={inputClass} placeholder="Jane Smith" /></div>
-            <div><label className={labelClass}>Email</label><input value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })} className={inputClass} placeholder="jane@creditlime.com" type="email" /></div>
+            <div><label className={labelClass}>Email</label><input value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })} className={inputClass} placeholder="jane@pennylime.com" type="email" /></div>
             <div><label className={labelClass}>Password</label><input value={form.password} onChange={(e) => setForm({ ...form, password: e.target.value })} className={inputClass} type="password" placeholder="Minimum 8 characters" /></div>
             <div><label className={labelClass}>Role</label><select value={form.role} onChange={(e) => setForm({ ...form, role: e.target.value })} className={inputClass}><option value="ADMIN">Admin</option><option value="REP">Rep</option></select></div>
           </div>

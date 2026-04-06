@@ -60,7 +60,7 @@ const ARTICLES = [
 <ul>
   <li><strong>Bank statement loans:</strong> The lender reviews 3–12 months of bank statements to verify average monthly deposits. This is the most popular option for gig workers.</li>
   <li><strong>Non-QM personal loans:</strong> Non-qualified mortgage style underwriting applied to personal loans — lenders consider your full financial picture rather than just W-2 income.</li>
-  <li><strong>Platform-income loans:</strong> Some fintech lenders (like CreditLime) connect directly to gig platforms to verify your earnings in real time, bypassing the need for traditional income documents entirely.</li>
+  <li><strong>Platform-income loans:</strong> Some fintech lenders (like PennyLime) connect directly to gig platforms to verify your earnings in real time, bypassing the need for traditional income documents entirely.</li>
   <li><strong>Stated income loans:</strong> Less common and higher risk — you state your income and the lender verifies it loosely. These typically carry higher interest rates.</li>
 </ul>
 
@@ -80,7 +80,7 @@ const ARTICLES = [
 <h3>Bank Statement Analysis</h3>
 <p>Instead of a pay stub, the lender downloads or reviews 3–12 months of your bank statements. They look at your average monthly deposits, your lowest month, your highest month, and how consistent your cash flow is. A DoorDash driver averaging $2,800/month over 12 months is a much clearer borrower than someone who had $8,000 in one month and zero in others.</p>
 <h3>Platform Income Verification</h3>
-<p>Fintech lenders like CreditLime can connect directly to your Uber, Lyft, DoorDash, or Instacart earnings account via API. This gives them real-time, verified income data — more accurate than bank statements because it separates your gig earnings from other deposits or transfers.</p>
+<p>Fintech lenders like PennyLime can connect directly to your Uber, Lyft, DoorDash, or Instacart earnings account via API. This gives them real-time, verified income data — more accurate than bank statements because it separates your gig earnings from other deposits or transfers.</p>
 <h3>Credit Score</h3>
 <p>Your credit score still matters significantly. Most 1099 lenders look for a score of at least 600, with better rates available above 680. The key difference: they won't disqualify you solely based on income type.</p>
 <h3>Time in Business</h3>
@@ -96,7 +96,7 @@ const ARTICLES = [
   <li><strong>Government-issued ID:</strong> Driver's license or passport.</li>
   <li><strong>Social Security Number:</strong> Required for all credit checks.</li>
 </ul>
-<p>If you connect your gig account directly to CreditLime, the platform pulls your earnings automatically — you may not need to upload any statements at all.</p>
+<p>If you connect your gig account directly to PennyLime, the platform pulls your earnings automatically — you may not need to upload any statements at all.</p>
 
 <h2>Interest Rates and Terms for 1099 Loans</h2>
 <p>Here's the honest truth: 1099 loans typically carry higher interest rates than loans offered to W-2 employees with identical credit scores. The reason is lender risk — your income is variable, and the cost of alternative underwriting is passed along.</p>
@@ -118,11 +118,11 @@ const ARTICLES = [
 <h3>Pay Down Existing Debt</h3>
 <p>Your debt-to-income ratio (DTI) is a key factor. If you can pay down credit card balances before applying, your DTI improves and your approval odds go up.</p>
 <h3>Apply with a Lender Who Understands Gig Work</h3>
-<p>This is probably the most important step. CreditLime was built specifically for platform workers. Our underwriting model is trained on gig income patterns — we don't penalize you for seasonal dips or off-peak weeks.</p>
+<p>This is probably the most important step. PennyLime was built specifically for platform workers. Our underwriting model is trained on gig income patterns — we don't penalize you for seasonal dips or off-peak weeks.</p>
 
 <h2>Conclusion</h2>
-<p>Being a 1099 worker doesn't mean you're shut out of credit. It means you need a lender with an underwriting model built for how you actually earn money. Bank statement loans, platform income verification, and fintech lenders like CreditLime have all emerged to fill the gap left by traditional banks.</p>
-<p>Ready to check your rate? CreditLime takes 3 minutes to apply and won't impact your credit score until you accept an offer.</p>`,
+<p>Being a 1099 worker doesn't mean you're shut out of credit. It means you need a lender with an underwriting model built for how you actually earn money. Bank statement loans, platform income verification, and fintech lenders like PennyLime have all emerged to fill the gap left by traditional banks.</p>
+<p>Ready to check your rate? PennyLime takes 3 minutes to apply and won't impact your credit score until you accept an offer.</p>`,
   },
 
   // ── ARTICLE 2 ────────────────────────────────────────────────
@@ -141,7 +141,7 @@ const ARTICLES = [
 <h2>How the Process Works</h2>
 <p>When you apply for a bank statement loan, the lender will typically ask for 3, 6, or 12 months of bank statements (the longer the period, the more accurate the income picture). They then calculate your average monthly deposits, often excluding large one-time transfers or refunds that don't represent recurring income.</p>
 <p>Most lenders apply an "expense factor" — typically 50–70% — to your gross deposits to estimate your net income. If you deposit an average of $4,000/month and the lender applies a 50% expense factor, they'll calculate your usable income as $2,000/month for underwriting purposes.</p>
-<p>CreditLime uses a more sophisticated approach: by connecting directly to your gig platform account, we can see your actual net earnings (after platform fees and before personal expenses) which often results in a higher qualifying income than a blanket expense-factor formula.</p>
+<p>PennyLime uses a more sophisticated approach: by connecting directly to your gig platform account, we can see your actual net earnings (after platform fees and before personal expenses) which often results in a higher qualifying income than a blanket expense-factor formula.</p>
 
 <h2>Advantages for Gig Workers</h2>
 <ul>
@@ -169,9 +169,9 @@ const ARTICLES = [
   <li>Drive or work consistently to build up a steady deposit history</li>
 </ul>
 
-<h2>CreditLime's Approach</h2>
-<p>CreditLime streamlines bank statement underwriting by connecting directly to your Uber, DoorDash, Instacart, or other platform account. This means we see verified earnings data — not raw deposits that include rent payments from a roommate or a tax refund — which gives us a cleaner income picture and often results in better terms for you.</p>
-<p>Apply in minutes at CreditLime.com and see your rate without affecting your credit score.</p>`,
+<h2>PennyLime's Approach</h2>
+<p>PennyLime streamlines bank statement underwriting by connecting directly to your Uber, DoorDash, Instacart, or other platform account. This means we see verified earnings data — not raw deposits that include rent payments from a roommate or a tax refund — which gives us a cleaner income picture and often results in better terms for you.</p>
+<p>Apply in minutes at PennyLime.com and see your rate without affecting your credit score.</p>`,
   },
 
   // ── ARTICLE 3 ────────────────────────────────────────────────
@@ -182,7 +182,7 @@ const ARTICLES = [
     tagSlugs: ["uber", "emergency-loan", "1099", "loans", "gig-work"],
     excerpt: "Car breakdown, medical bill, or unexpected expense? Here's how Uber drivers can get emergency cash fast — even without a W-2.",
     metaTitle: "Emergency Loans for Uber Drivers — Fast Approval",
-    metaDescription: "Uber drivers can qualify for emergency loans using gig income. No W-2 needed. Get approved in minutes with CreditLime.",
+    metaDescription: "Uber drivers can qualify for emergency loans using gig income. No W-2 needed. Get approved in minutes with PennyLime.",
     body: `<h2>When Emergencies Hit, Uber Drivers Need Fast Solutions</h2>
 <p>Your car breaks down. A medical bill arrives. Your phone — the tool your entire income depends on — dies. As an Uber driver, emergencies don't just cost money; they cost earnings. Every hour your car is in the shop is an hour you're not making money.</p>
 <p>The problem: most emergency loan lenders weren't designed for 1099 workers. They want W-2s, employer verification, and 2 years of consistent payroll history. You have none of that. You have bank statements and a DoorDash earnings screenshot.</p>
@@ -190,7 +190,7 @@ const ARTICLES = [
 
 <h2>Your Options for Emergency Loans</h2>
 <h3>Gig-Worker Specific Lenders</h3>
-<p>The fastest option for most Uber drivers. Lenders like CreditLime are built for platform workers and can verify your earnings directly through the Uber Driver API. You can often get approved the same day and funded within 24 hours.</p>
+<p>The fastest option for most Uber drivers. Lenders like PennyLime are built for platform workers and can verify your earnings directly through the Uber Driver API. You can often get approved the same day and funded within 24 hours.</p>
 <p>What you'll typically need: government ID, 3+ months of driving history on the platform, and a credit score above 580. No W-2, no employer call, no weeks of waiting.</p>
 
 <h3>Personal Loans from Online Banks</h3>
@@ -200,14 +200,14 @@ const ARTICLES = [
 <p>If you have a credit card with available credit, a cash advance gives you immediate access to funds. The downside: cash advance APRs are extremely high (often 25–29%) and interest accrues immediately with no grace period. Use this as an absolute last resort.</p>
 
 <h3>Payday Loans</h3>
-<p>Avoid these. Payday loans carry APRs of 300–400% and are structured to trap borrowers in debt cycles. A gig-specific personal loan from CreditLime will always be cheaper and safer.</p>
+<p>Avoid these. Payday loans carry APRs of 300–400% and are structured to trap borrowers in debt cycles. A gig-specific personal loan from PennyLime will always be cheaper and safer.</p>
 
 <h2>What to Do Right Now</h2>
 <ol>
   <li><strong>Calculate exactly how much you need.</strong> Borrow the minimum necessary — don't borrow $3,000 for a $800 repair bill.</li>
   <li><strong>Check your credit score</strong> (Credit Karma, Credit Sesame, or your bank's app) before applying so you know what to expect.</li>
   <li><strong>Gather your bank statements</strong> — last 3 months at minimum.</li>
-  <li><strong>Apply at CreditLime.com.</strong> The application takes 3 minutes and doesn't affect your credit score until you accept an offer.</li>
+  <li><strong>Apply at PennyLime.com.</strong> The application takes 3 minutes and doesn't affect your credit score until you accept an offer.</li>
 </ol>
 
 <h2>Getting Back on the Road Fast</h2>
@@ -218,7 +218,7 @@ const ARTICLES = [
   <li>Check if your auto insurance covers the issue before paying out of pocket</li>
   <li>Look into Uber's vehicle repair partnerships in your city — some offer discounted services for drivers</li>
 </ul>
-<p>The faster you get back on the road, the faster you're earning again. CreditLime funds approved loans within 24 hours — so you can get your car fixed and your income stream restored as quickly as possible.</p>`,
+<p>The faster you get back on the road, the faster you're earning again. PennyLime funds approved loans within 24 hours — so you can get your car fixed and your income stream restored as quickly as possible.</p>`,
   },
 
   // ── ARTICLE 4 ────────────────────────────────────────────────
@@ -282,7 +282,7 @@ const ARTICLES = [
 
 <h2>What If You Can't Pay?</h2>
 <p>If you reach a quarterly due date and don't have enough saved, pay whatever you can. A partial payment reduces your penalty. Then file on time in April regardless — failure-to-file penalties are worse than failure-to-pay penalties.</p>
-<p>If you're short on cash for taxes, a short-term personal loan from CreditLime may be cheaper than IRS penalties and interest. The IRS charges an underpayment penalty of approximately 8% annually right now — compare that to loan rates before deciding.</p>`,
+<p>If you're short on cash for taxes, a short-term personal loan from PennyLime may be cheaper than IRS penalties and interest. The IRS charges an underpayment penalty of approximately 8% annually right now — compare that to loan rates before deciding.</p>`,
   },
 
   // ── ARTICLE 5 ────────────────────────────────────────────────
@@ -293,10 +293,10 @@ const ARTICLES = [
     tagSlugs: ["doordash", "1099", "loans", "bank-statement-loan", "gig-work"],
     excerpt: "DoorDash drivers can qualify for personal loans using their delivery earnings. Here's what lenders look for and how to get approved.",
     metaTitle: "DoorDash Driver Loans: Qualify Using Gig Income",
-    metaDescription: "DoorDash drivers can get personal loans using their delivery earnings instead of W-2s. Learn what lenders require and how CreditLime helps.",
+    metaDescription: "DoorDash drivers can get personal loans using their delivery earnings instead of W-2s. Learn what lenders require and how PennyLime helps.",
     body: `<h2>Borrowing Money as a DoorDash Driver</h2>
 <p>DoorDash is one of the top income sources for gig workers across the United States — over 7 million active Dashers deliver food, groceries, and packages every year. But when those drivers need a loan, many find themselves stuck between the high rates of payday lenders and the rejection of traditional banks that don't know how to read a 1099.</p>
-<p>CreditLime was built for exactly this situation. We understand DoorDash earnings — the hourly fluctuations, the peak incentive pay, the weekly direct deposits — and we've built an underwriting model that evaluates your income the way it actually works.</p>
+<p>PennyLime was built for exactly this situation. We understand DoorDash earnings — the hourly fluctuations, the peak incentive pay, the weekly direct deposits — and we've built an underwriting model that evaluates your income the way it actually works.</p>
 
 <h2>How Much Do DoorDash Drivers Earn?</h2>
 <p>DoorDash drivers earn through a combination of base pay, tips, and promotional incentives. Average earnings vary significantly by market:</p>
@@ -312,9 +312,9 @@ const ARTICLES = [
 <h3>Income Consistency</h3>
 <p>How regularly do you dash? A driver with 6 months of consistent weekly deposits looks far better than someone who drove heavily for 2 months and then went inactive. Lenders want to see that your income is a reliable ongoing source, not a one-time gig.</p>
 <h3>Average Monthly Net</h3>
-<p>Most lenders will average your last 3–6 months of deposits to determine your qualifying income. They may apply an expense factor to account for fuel and wear on your vehicle. CreditLime connects directly to your DoorDash earnings account to see your actual net platform earnings (after DoorDash's fees), which often gives a more favorable income picture than raw bank deposits.</p>
+<p>Most lenders will average your last 3–6 months of deposits to determine your qualifying income. They may apply an expense factor to account for fuel and wear on your vehicle. PennyLime connects directly to your DoorDash earnings account to see your actual net platform earnings (after DoorDash's fees), which often gives a more favorable income picture than raw bank deposits.</p>
 <h3>Credit Score</h3>
-<p>While DoorDash-specific lenders are more flexible on income documentation, your credit score still matters. CreditLime considers applications from drivers with scores as low as 580, with competitive rates for scores above 660.</p>
+<p>While DoorDash-specific lenders are more flexible on income documentation, your credit score still matters. PennyLime considers applications from drivers with scores as low as 580, with competitive rates for scores above 660.</p>
 
 <h2>Documents to Have Ready</h2>
 <ul>
@@ -324,7 +324,7 @@ const ARTICLES = [
   <li>Social Security Number</li>
   <li>Proof of vehicle insurance (for delivery income verification)</li>
 </ul>
-<p>If you use CreditLime's platform connection feature, you may not need to upload any documents at all — we pull your earnings directly from DoorDash with your permission.</p>
+<p>If you use PennyLime's platform connection feature, you may not need to upload any documents at all — we pull your earnings directly from DoorDash with your permission.</p>
 
 <h2>Common Reasons DoorDash Drivers Get Declined</h2>
 <ul>
@@ -334,8 +334,8 @@ const ARTICLES = [
   <li><strong>Income too low for the requested amount:</strong> Most lenders cap loans at 30–40% of monthly income. If you earn $2,000/month, don't expect a $10,000 loan approval.</li>
 </ul>
 
-<h2>How CreditLime Works for DoorDash Drivers</h2>
-<p>CreditLime offers personal loans from $500 to $10,000 for DoorDash drivers. Here's the process:</p>
+<h2>How PennyLime Works for DoorDash Drivers</h2>
+<p>PennyLime offers personal loans from $500 to $10,000 for DoorDash drivers. Here's the process:</p>
 <ol>
   <li><strong>Apply in 3 minutes</strong> — basic personal and financial information</li>
   <li><strong>Connect your DoorDash account</strong> — we verify your earnings directly (optional but recommended for best rates)</li>
@@ -379,7 +379,7 @@ const ARTICLES = [
 
 <h2>Non-QM Loan Rates: What to Expect</h2>
 <p>Non-QM loans typically carry interest rates 1–3% higher than comparable QM loans. For personal loans, this means you might pay 18–28% APR where a W-2 employee with the same credit score pays 12–18%. This premium compensates the lender for the additional underwriting complexity.</p>
-<p>As the market matures and more data emerges showing that self-employed borrowers actually have excellent repayment rates, this premium is slowly shrinking. Fintech lenders like CreditLime are driving this change by using better data sources.</p>
+<p>As the market matures and more data emerges showing that self-employed borrowers actually have excellent repayment rates, this premium is slowly shrinking. Fintech lenders like PennyLime are driving this change by using better data sources.</p>
 
 <h2>How to Find a Non-QM Lender</h2>
 <p>Not all lenders offer non-QM products. To find one:</p>
@@ -387,7 +387,7 @@ const ARTICLES = [
   <li>Search specifically for "bank statement loans," "1099 loans," or "self-employed loans"</li>
   <li>Look for fintech lenders that specialize in gig workers or independent contractors</li>
   <li>Ask your credit union — some are more flexible than big banks</li>
-  <li>Consider CreditLime, which was purpose-built for this borrower category</li>
+  <li>Consider PennyLime, which was purpose-built for this borrower category</li>
 </ul>`,
   },
 
@@ -440,7 +440,7 @@ const ARTICLES = [
 
 <h2>The Verdict: Drive Both</h2>
 <p>The highest-earning rideshare drivers don't choose Lyft OR Uber — they run both apps simultaneously and accept whichever ride pays better. On slow hours, they focus on whichever app has active bonuses. During surge periods, they prioritize whichever zone is hotter.</p>
-<p>As a gig worker running multiple income streams, you're exactly the type of borrower CreditLime was built for. We aggregate income across platforms to give you the most favorable loan qualification possible.</p>`,
+<p>As a gig worker running multiple income streams, you're exactly the type of borrower PennyLime was built for. We aggregate income across platforms to give you the most favorable loan qualification possible.</p>`,
   },
 
   // ── ARTICLE 8 ────────────────────────────────────────────────
@@ -485,8 +485,8 @@ const ARTICLES = [
 <h2>Working Multiple Apps</h2>
 <p>During slow Instacart periods, consider running DoorDash or Shipt simultaneously. Use Instacart as your primary but switch to delivery apps when batches dry up. Multi-apping can add $200–$400/month to earnings during off-peak periods.</p>
 
-<h2>Using CreditLime as a Financial Safety Net</h2>
-<p>Even the most strategic Instacart shoppers face slow weeks — holidays, bad weather, app outages, or simply low batch availability in their area. Having access to emergency credit through CreditLime means those slow weeks don't derail your finances. Apply once, know your limit, and use it only when you need it.</p>`,
+<h2>Using PennyLime as a Financial Safety Net</h2>
+<p>Even the most strategic Instacart shoppers face slow weeks — holidays, bad weather, app outages, or simply low batch availability in their area. Having access to emergency credit through PennyLime means those slow weeks don't derail your finances. Apply once, know your limit, and use it only when you need it.</p>`,
   },
 
   // ── ARTICLE 9 ────────────────────────────────────────────────
@@ -497,7 +497,7 @@ const ARTICLES = [
     tagSlugs: ["amazon-flex", "loans", "1099", "bank-statement-loan", "gig-work"],
     excerpt: "Amazon Flex drivers earn steady income but often struggle to get approved for traditional loans. Here's how to use your Flex earnings to qualify.",
     metaTitle: "Amazon Flex Loans: Use Delivery Earnings to Qualify",
-    metaDescription: "Amazon Flex drivers can qualify for personal loans using their delivery income. No W-2 required. CreditLime verifies Flex earnings directly.",
+    metaDescription: "Amazon Flex drivers can qualify for personal loans using their delivery income. No W-2 required. PennyLime verifies Flex earnings directly.",
     body: `<h2>Amazon Flex: Solid Income, Loan Challenges</h2>
 <p>Amazon Flex offers one of the most consistent income opportunities in the gig economy. Unlike rideshare (which fluctuates with rider demand) or food delivery (which depends on restaurant activity), Flex routes are tied to Amazon's massive fulfillment operations — which rarely slow down. Full-time Flex drivers in competitive markets can reliably earn $3,000–$5,000/month.</p>
 <p>But that income is 1099-based, which creates the same problem Flex drivers share with all gig workers: traditional lenders don't know how to evaluate it.</p>
@@ -526,7 +526,7 @@ const ARTICLES = [
   <li>Government ID and SSN</li>
 </ul>
 <h3>Step 2: Choose the Right Lender</h3>
-<p>Apply with a lender who specifically accepts gig income. CreditLime can connect directly to your Amazon Flex account to verify earnings without requiring manual uploads.</p>
+<p>Apply with a lender who specifically accepts gig income. PennyLime can connect directly to your Amazon Flex account to verify earnings without requiring manual uploads.</p>
 <h3>Step 3: Know Your Numbers</h3>
 <p>Before applying, calculate your average monthly Flex income over the last 3–6 months. This is the number lenders will use. If you've had slow months recently (due to block scarcity or personal schedule), it may be worth waiting for a stronger period to apply.</p>
 
@@ -538,7 +538,7 @@ const ARTICLES = [
   <li><strong>Phone upgrade:</strong> The Flex app requires a relatively modern smartphone; older phones can lock you out of blocks</li>
   <li><strong>Emergency bridging:</strong> Covering expenses during periods of low block availability</li>
 </ul>
-<p>CreditLime offers flexible loan amounts from $500 to $10,000 with terms of 3–24 months, sized to fit your actual need rather than forcing you to borrow more than necessary.</p>`,
+<p>PennyLime offers flexible loan amounts from $500 to $10,000 with terms of 3–24 months, sized to fit your actual need rather than forcing you to borrow more than necessary.</p>`,
   },
 
   // ── ARTICLE 10 ────────────────────────────────────────────────
@@ -577,7 +577,7 @@ const ARTICLES = [
 <ul>
   <li><strong>720+:</strong> Excellent — qualify for best rates at any lender</li>
   <li><strong>680–719:</strong> Good — qualify at most lenders with competitive rates</li>
-  <li><strong>640–679:</strong> Fair — qualify at gig-friendly lenders like CreditLime; expect higher rates</li>
+  <li><strong>640–679:</strong> Fair — qualify at gig-friendly lenders like PennyLime; expect higher rates</li>
   <li><strong>600–639:</strong> Poor — limited options; focus on credit building before borrowing</li>
   <li><strong>Below 600:</strong> Very poor — prioritize credit repair; most loans require a cosigner or collateral</li>
 </ul>
@@ -601,7 +601,7 @@ const ARTICLES = [
     tagSlugs: ["fiverr", "self-employed", "loans", "1099", "bank-statement-loan"],
     excerpt: "Fiverr sellers earn real income — but traditional banks don't know how to verify it. Here's how to turn your Fiverr earnings into loan approval.",
     metaTitle: "Fiverr Income Loans: Qualify as a Freelance Seller",
-    metaDescription: "Fiverr freelancers can qualify for personal loans using their platform earnings. Learn how CreditLime verifies gig income without W-2s.",
+    metaDescription: "Fiverr freelancers can qualify for personal loans using their platform earnings. Learn how PennyLime verifies gig income without W-2s.",
     body: `<h2>Fiverr Sellers and the Loan Problem</h2>
 <p>Fiverr has created a massive ecosystem of freelancers earning real money — logo designers, voice actors, copywriters, video editors, web developers, and thousands of other skill categories. Top Fiverr sellers earn $5,000–$20,000+ per month. Yet these same high earners are routinely rejected by banks that can't verify income without a W-2.</p>
 <p>The issue is documentation. Fiverr pays through direct bank transfer or PayPal, with no standard pay stub or employer letter. To a traditional bank, a Fiverr seller looks like someone with inconsistent, unverifiable income — even if they've been earning consistently for three years.</p>
@@ -624,9 +624,9 @@ const ARTICLES = [
   <li><strong>Account tenure:</strong> A 3-year Fiverr account with Level 2 or Pro status demonstrates established business</li>
 </ul>
 
-<h2>CreditLime for Fiverr Sellers</h2>
-<p>CreditLime accepts Fiverr earnings reports as income documentation and can verify your seller status directly. Our underwriting model understands the project-based nature of freelance income and doesn't penalize you for natural month-to-month variation.</p>
-<p>Apply at CreditLime.com in minutes. We'll review your Fiverr earnings and offer you a loan sized to your actual income — not the income a bank assumes you have because they can't figure out your 1099s.</p>`,
+<h2>PennyLime for Fiverr Sellers</h2>
+<p>PennyLime accepts Fiverr earnings reports as income documentation and can verify your seller status directly. Our underwriting model understands the project-based nature of freelance income and doesn't penalize you for natural month-to-month variation.</p>
+<p>Apply at PennyLime.com in minutes. We'll review your Fiverr earnings and offer you a loan sized to your actual income — not the income a bank assumes you have because they can't figure out your 1099s.</p>`,
   },
 
   {
@@ -636,7 +636,7 @@ const ARTICLES = [
     tagSlugs: ["upwork", "self-employed", "loans", "1099", "bank-statement-loan"],
     excerpt: "Upwork contract income can qualify you for a personal loan — if you apply with the right lender and the right documentation.",
     metaTitle: "Upwork Freelancer Loans: Contract Income Accepted",
-    metaDescription: "Upwork contractors can get personal loans using their platform earnings. Learn what documentation you need and how CreditLime helps freelancers.",
+    metaDescription: "Upwork contractors can get personal loans using their platform earnings. Learn what documentation you need and how PennyLime helps freelancers.",
     body: `<h2>Upwork Income Is Real Income</h2>
 <p>Upwork facilitates billions of dollars in freelance contracts annually. Developers, designers, writers, virtual assistants, and project managers earn consistent, substantial income through the platform. Many Upwork contractors earn more than the average W-2 employee — yet they face the same loan access barriers as other 1099 workers.</p>
 
@@ -655,8 +655,8 @@ const ARTICLES = [
 <h2>Long-Term Client Relationships Help</h2>
 <p>An Upwork profile showing 2–3 ongoing long-term client relationships is far more reassuring to a lender than 50 one-time projects. If you have active contracts with clients you've worked with for 6+ months, mention this in your application notes.</p>
 
-<h2>Getting Approved with CreditLime</h2>
-<p>CreditLime accepts Upwork transaction reports as income verification. We assess your 12-month average earnings, note the consistency of your client relationships, and offer loan terms calibrated to your actual financial situation. Apply in minutes with no impact to your credit score until you accept.</p>`,
+<h2>Getting Approved with PennyLime</h2>
+<p>PennyLime accepts Upwork transaction reports as income verification. We assess your 12-month average earnings, note the consistency of your client relationships, and offer loan terms calibrated to your actual financial situation. Apply in minutes with no impact to your credit score until you accept.</p>`,
   },
 
   {
@@ -691,7 +691,7 @@ const ARTICLES = [
 <h2>How to Calculate Your Total Loan Cost</h2>
 <p>Formula: Total repaid = (Monthly payment × Number of months). Subtract the loan principal to get total interest paid.</p>
 <p>Example: $3,000 loan at 24% APR over 12 months → monthly payment of ~$284 → total repaid: $3,408 → total interest: $408.</p>
-<p>Use CreditLime's loan calculator to model your exact loan before applying — no guessing required.</p>`,
+<p>Use PennyLime's loan calculator to model your exact loan before applying — no guessing required.</p>`,
   },
 
   {
@@ -792,8 +792,8 @@ const ARTICLES = [
 <p>Refinancing often involves fees (origination, processing). To determine if it's worth it, calculate your break-even point: how many months until the monthly savings exceed the upfront costs?</p>
 <p>Example: $100 in fees on a loan that saves you $25/month → break-even in 4 months. If you plan to keep the loan longer than 4 months, refinancing makes sense.</p>
 
-<h2>CreditLime Refinancing</h2>
-<p>If you originally took out a high-rate loan from another lender and have since built a stronger credit profile or income history, CreditLime may offer you better terms. Apply in minutes and compare our refinancing offer to your current loan — if we can save you money, we'll tell you; if not, there's no obligation.</p>`,
+<h2>PennyLime Refinancing</h2>
+<p>If you originally took out a high-rate loan from another lender and have since built a stronger credit profile or income history, PennyLime may offer you better terms. Apply in minutes and compare our refinancing offer to your current loan — if we can save you money, we'll tell you; if not, there's no obligation.</p>`,
   },
 
   {
@@ -833,7 +833,7 @@ const ARTICLES = [
 </ul>
 
 <h2>Choosing the Right Lender</h2>
-<p>The single most impactful decision is applying to a lender who is specifically built for gig workers rather than using a generic personal loan lender who doesn't understand your income type. CreditLime's underwriting model was built specifically for platform workers — we approve applications that traditional lenders would reject.</p>`,
+<p>The single most impactful decision is applying to a lender who is specifically built for gig workers rather than using a generic personal loan lender who doesn't understand your income type. PennyLime's underwriting model was built specifically for platform workers — we approve applications that traditional lenders would reject.</p>`,
   },
 
   {
@@ -877,8 +877,8 @@ const ARTICLES = [
 </ol>
 <p>This increases hourly earnings by 15–30% by eliminating dead time between orders.</p>
 
-<h2>Income Stability with CreditLime</h2>
-<p>No matter which platform you prioritize, your income will have slow weeks. CreditLime's credit line provides a safety net — apply once and access funds whenever a slow week creates a shortfall, without reapplying each time.</p>`,
+<h2>Income Stability with PennyLime</h2>
+<p>No matter which platform you prioritize, your income will have slow weeks. PennyLime's credit line provides a safety net — apply once and access funds whenever a slow week creates a shortfall, without reapplying each time.</p>`,
   },
 
   {
@@ -926,7 +926,7 @@ const ARTICLES = [
     tagSlugs: ["loans", "1099", "bank-statement-loan", "gig-work", "self-employed"],
     excerpt: "Turo hosts earn steady passive income from their vehicles. Here's how to use that income to qualify for a loan to expand your fleet.",
     metaTitle: "Turo Host Loans: Use Car Rental Income to Qualify",
-    metaDescription: "Turo hosts can qualify for personal loans using rental income. Learn how CreditLime accepts platform income for loan approval.",
+    metaDescription: "Turo hosts can qualify for personal loans using rental income. Learn how PennyLime accepts platform income for loan approval.",
     body: `<h2>Turo Hosting as Income</h2>
 <p>Turo has created a new category of income: peer-to-peer car rental earnings. Hosts with 1–5 vehicles can earn $500–$3,000+ per month in rental income, often with minimal active effort once vehicles are listed and automated. This is real, documented, recurring income — but it's not always recognized by traditional lenders.</p>
 
@@ -949,7 +949,7 @@ const ARTICLES = [
 </ul>
 
 <h2>Getting Approved</h2>
-<p>Turo income is treated as self-employment income for lending purposes. Apply with CreditLime, submit your Turo earnings reports and bank statements, and we'll evaluate your average monthly net rental income as your qualifying income. Fleet expansion loans can be particularly compelling if your existing vehicle's earnings clearly exceed the new loan's monthly payment.</p>`,
+<p>Turo income is treated as self-employment income for lending purposes. Apply with PennyLime, submit your Turo earnings reports and bank statements, and we'll evaluate your average monthly net rental income as your qualifying income. Fleet expansion loans can be particularly compelling if your existing vehicle's earnings clearly exceed the new loan's monthly payment.</p>`,
   },
 
   {
@@ -990,7 +990,7 @@ const ARTICLES = [
   <li>Vehicle repair that's grounding their ability to reach clients</li>
   <li>Bridging income gaps during slow seasons or personal emergencies</li>
 </ul>
-<p>CreditLime evaluates TaskRabbit income using your platform earnings history and bank statements. Apply in minutes and get a decision without impacting your credit score.</p>`,
+<p>PennyLime evaluates TaskRabbit income using your platform earnings history and bank statements. Apply in minutes and get a decision without impacting your credit score.</p>`,
   },
 
   {
@@ -1025,8 +1025,8 @@ const ARTICLES = [
   <li><strong>Liquid but not instant:</strong> A 1-day transfer time from a HYSA is appropriate. Not so accessible that you raid it, not so restricted you can't get it in an emergency.</li>
 </ul>
 
-<h2>CreditLime as a Supplement</h2>
-<p>An emergency fund takes time to build. While you're building it, having access to a CreditLime loan provides a secondary safety net for genuine emergencies. Think of it as supplementary protection — available if needed, but not a replacement for the discipline of actual savings.</p>`,
+<h2>PennyLime as a Supplement</h2>
+<p>An emergency fund takes time to build. While you're building it, having access to a PennyLime loan provides a secondary safety net for genuine emergencies. Think of it as supplementary protection — available if needed, but not a replacement for the discipline of actual savings.</p>`,
   },
 
   {
@@ -1049,14 +1049,14 @@ const ARTICLES = [
 </ul>
 
 <h2>Combining Shipt with Other Gig Income</h2>
-<p>Many Shipt shoppers also work Instacart, DoorDash, or Amazon Fresh. Lenders who work with gig workers can often count all verifiable platform income streams together. Make sure your bank statements clearly show deposits from each platform, or connect each platform account to your CreditLime application.</p>
+<p>Many Shipt shoppers also work Instacart, DoorDash, or Amazon Fresh. Lenders who work with gig workers can often count all verifiable platform income streams together. Make sure your bank statements clearly show deposits from each platform, or connect each platform account to your PennyLime application.</p>
 
 <h2>Applying for a Loan as a Shipt Shopper</h2>
 <p>Steps to maximize your approval odds:</p>
 <ol>
   <li>Download your Shipt earnings summary from the app</li>
   <li>Gather 6 months of bank statements showing Shipt deposits</li>
-  <li>Apply with CreditLime — we accept Shipt as qualifying income</li>
+  <li>Apply with PennyLime — we accept Shipt as qualifying income</li>
   <li>Connect any additional platform accounts for higher qualifying income</li>
 </ol>`,
   },
@@ -1135,7 +1135,7 @@ const ARTICLES = [
 <h2>Alternatives to a Cosigner</h2>
 <p>Before asking someone to cosign, explore these alternatives:</p>
 <ul>
-  <li>Apply with a gig-specific lender like CreditLime that evaluates platform income, not just credit score</li>
+  <li>Apply with a gig-specific lender like PennyLime that evaluates platform income, not just credit score</li>
   <li>Start with a smaller loan amount that you can qualify for independently</li>
   <li>Spend 3–6 months building credit with a secured card before reapplying</li>
   <li>Ask the potential cosigner for a direct loan between family members instead — simpler and no impact on their credit</li>
@@ -1149,7 +1149,7 @@ const ARTICLES = [
     tagSlugs: ["gig-work", "1099", "loans", "self-employed"],
     excerpt: "Rover sitters and dog walkers earn real income caring for pets. Here's how to document and use that income to qualify for a personal loan.",
     metaTitle: "Rover Pet Sitter Loans: Use Pet Care Income to Qualify",
-    metaDescription: "Rover sitters and dog walkers can qualify for personal loans using their pet care earnings. Learn how CreditLime accepts gig platform income.",
+    metaDescription: "Rover sitters and dog walkers can qualify for personal loans using their pet care earnings. Learn how PennyLime accepts gig platform income.",
     body: `<h2>Pet Care as Gig Income</h2>
 <p>Rover has grown into a major pet services platform, with sitters earning $25–$80+/day for boarding, $15–$30/walk for dog walking, and $40–$100+/night for in-home pet sitting. Full-time Rover sitters in major markets can earn $2,000–$4,000/month — genuine professional income that deserves proper financial services access.</p>
 
@@ -1171,7 +1171,7 @@ const ARTICLES = [
 </ul>
 
 <h2>Qualifying for a Loan</h2>
-<p>CreditLime accepts Rover income as qualifying income for personal loans. We look at your average monthly Rover earnings over the last 6–12 months and size your loan offer accordingly. Apply at CreditLime.com — no W-2 required.</p>`,
+<p>PennyLime accepts Rover income as qualifying income for personal loans. We look at your average monthly Rover earnings over the last 6–12 months and size your loan offer accordingly. Apply at PennyLime.com — no W-2 required.</p>`,
   },
 
   {
@@ -1201,7 +1201,7 @@ const ARTICLES = [
 <ul>
   <li>Traditional lenders may use your net income from Schedule C (after deductions) — often much lower than your gross earnings</li>
   <li>Bank statement lenders typically use your average monthly deposits (often after applying an expense factor)</li>
-  <li>Platform-connected lenders like CreditLime use your verified net platform earnings — usually the most favorable approach</li>
+  <li>Platform-connected lenders like PennyLime use your verified net platform earnings — usually the most favorable approach</li>
 </ul>
 <p>Because income documentation method varies, your effective DTI calculation can differ significantly between lenders. This is why applying with a gig-friendly lender often results in better outcomes.</p>
 
@@ -1245,8 +1245,8 @@ const ARTICLES = [
 <h2>The Two-Platform Strategy</h2>
 <p>Most experienced delivery drivers run both apps. DoorDash as primary, Uber Eats as secondary — accept whichever has the better order at any given moment. Earnings increase 20–30% with this approach versus running a single platform.</p>
 
-<h2>Gig Platform Income + CreditLime</h2>
-<p>Whether you deliver for DoorDash, Uber Eats, or both, CreditLime can verify your income and offer a loan sized to your actual earnings. We aggregate income across platforms — so running multiple apps doesn't complicate your loan application; it often helps it.</p>`,
+<h2>Gig Platform Income + PennyLime</h2>
+<p>Whether you deliver for DoorDash, Uber Eats, or both, PennyLime can verify your income and offer a loan sized to your actual earnings. We aggregate income across platforms — so running multiple apps doesn't complicate your loan application; it often helps it.</p>`,
   },
 
   {
@@ -1311,8 +1311,8 @@ const ARTICLES = [
   <li><strong>Slow season bridging:</strong> Home services are often seasonal — a loan bridges January and February for contractors whose busy season is spring/summer</li>
 </ul>
 
-<h2>Applying with CreditLime</h2>
-<p>CreditLime evaluates Thumbtack Pro income through bank statements and platform earnings reports. Our underwriting model is built to assess the realistic income patterns of skilled tradespeople and service professionals, not just delivery drivers. Apply at CreditLime.com in minutes.</p>`,
+<h2>Applying with PennyLime</h2>
+<p>PennyLime evaluates Thumbtack Pro income through bank statements and platform earnings reports. Our underwriting model is built to assess the realistic income patterns of skilled tradespeople and service professionals, not just delivery drivers. Apply at PennyLime.com in minutes.</p>`,
   },
 
   {
@@ -1339,7 +1339,7 @@ const ARTICLES = [
 <h2>Personal Loans vs Business Loans for Gig Workers</h2>
 <p>For most individual gig workers needing under $20,000:</p>
 <ul>
-  <li><strong>Personal loans (like CreditLime):</strong> Faster, simpler approval; no business age requirements; lower documentation burden</li>
+  <li><strong>Personal loans (like PennyLime):</strong> Faster, simpler approval; no business age requirements; lower documentation burden</li>
   <li><strong>Business loans:</strong> Higher amounts possible; may build business credit; often require more established business history</li>
 </ul>
 <p>Start with a personal loan if you need under $15,000 and need funds quickly. Graduate to business loans as your business history and revenue grow.</p>`,
@@ -1429,7 +1429,7 @@ const ARTICLES = [
 <p>In some states, lenders and collections agencies can sue for the debt. If they win a judgment, they may be able to garnish wages — though for gig workers, "wage garnishment" typically means garnishing bank account deposits rather than a paycheck.</p>
 
 <h2>What to Do Before You Default</h2>
-<p>Contact your lender immediately if you anticipate difficulty making payments. Many lenders (including CreditLime) offer:</p>
+<p>Contact your lender immediately if you anticipate difficulty making payments. Many lenders (including PennyLime) offer:</p>
 <ul>
   <li><strong>Payment deferrals:</strong> Temporarily postponing 1–2 payments with interest paused</li>
   <li><strong>Hardship plans:</strong> Reduced payments for a period during financial difficulty</li>
@@ -1478,7 +1478,7 @@ const ARTICLES = [
   <li>Maintain at least 2 credit cards — use them for regular purchases and pay in full monthly</li>
   <li>Keep overall utilization under 30%</li>
   <li>Review your credit report quarterly at annualcreditreport.com</li>
-  <li>Establish a relationship with a gig-friendly lender like CreditLime before you need to borrow</li>
+  <li>Establish a relationship with a gig-friendly lender like PennyLime before you need to borrow</li>
 </ul>
 
 <h2>Insurance Checklist</h2>
@@ -1502,13 +1502,13 @@ const ARTICLES = [
   },
 
   {
-    title: "CreditLime vs Payday Loans: Why the Difference Matters",
-    slug: "creditlime-vs-payday-loans-difference-matters",
+    title: "PennyLime vs Payday Loans: Why the Difference Matters",
+    slug: "pennylime-vs-payday-loans-difference-matters",
     categorySlug: "loan-education",
     tagSlugs: ["loans", "apr", "credit", "emergency-loan", "1099"],
-    excerpt: "Payday loans seem easy and fast, but they're financial traps. Here's how CreditLime compares — and why the difference is life-changing.",
-    metaTitle: "CreditLime vs Payday Loans: The Real Difference",
-    metaDescription: "Comparing CreditLime personal loans to payday loans for gig workers. Why APR, terms, and structure matter — and how to avoid the debt trap.",
+    excerpt: "Payday loans seem easy and fast, but they're financial traps. Here's how PennyLime compares — and why the difference is life-changing.",
+    metaTitle: "PennyLime vs Payday Loans: The Real Difference",
+    metaDescription: "Comparing PennyLime personal loans to payday loans for gig workers. Why APR, terms, and structure matter — and how to avoid the debt trap.",
     body: `<h2>The Payday Loan Trap</h2>
 <p>Payday loans are short-term, high-cost loans typically due on your next payday. They're designed to be easy to get and difficult to escape. For gig workers in financial distress, they're a dangerous temptation. Here's why.</p>
 
@@ -1516,7 +1516,7 @@ const ARTICLES = [
 <p>A typical payday loan: $500, due in 14 days, $75 fee. That $75 fee on a 14-day loan equals an APR of 391%. If you can't repay in 14 days (most borrowers can't — that's why they borrowed), you "roll over" the loan by paying another $75 fee. Two months later, you've paid $300 in fees on a $500 loan and still owe $500.</p>
 <p>This is not hyperbole. The Consumer Financial Protection Bureau found that 80% of payday loans are rolled over or reborrowed within two weeks.</p>
 
-<h2>CreditLime: A Real Alternative</h2>
+<h2>PennyLime: A Real Alternative</h2>
 <ul>
   <li><strong>APR:</strong> 12–60% (vs. 200–400% for payday loans)</li>
   <li><strong>Term:</strong> 3–24 months (vs. 14 days for payday loans)</li>
@@ -1528,12 +1528,12 @@ const ARTICLES = [
 <h2>Real Cost Comparison: $500 Loan</h2>
 <ul>
   <li><strong>Payday loan (rolled over 4 times):</strong> $300 in fees, total cost $800 to borrow $500 for 2 months</li>
-  <li><strong>CreditLime at 36% APR, 6 months:</strong> ~$57 in total interest, total repaid $557</li>
+  <li><strong>PennyLime at 36% APR, 6 months:</strong> ~$57 in total interest, total repaid $557</li>
 </ul>
 <p>The difference is $243 — nearly half the original loan amount. For a gig worker, that's real money that stays in your pocket.</p>
 
 <h2>If a Payday Lender Is Your Only Option</h2>
-<p>If you've been rejected elsewhere and are considering a payday loan, contact CreditLime first. We're not a last resort — we're a better first choice for gig workers who may not know better alternatives exist. Our approval process takes 3 minutes and we'll tell you immediately what we can offer.</p>`,
+<p>If you've been rejected elsewhere and are considering a payday loan, contact PennyLime first. We're not a last resort — we're a better first choice for gig workers who may not know better alternatives exist. Our approval process takes 3 minutes and we'll tell you immediately what we can offer.</p>`,
   },
 
 ];
@@ -1541,13 +1541,13 @@ const ARTICLES = [
 // ─── PLATFORM PAGES ─────────────────────────────────────────────
 function platformFaqs(platformName: string, avgHourly: string): string {
   return JSON.stringify([
-    { question: `How does CreditLime verify my ${platformName} income?`, answer: `CreditLime connects directly to your ${platformName} driver/worker account via API to pull your verified earnings history. You can also upload bank statements showing your ${platformName} deposits as an alternative.` },
+    { question: `How does PennyLime verify my ${platformName} income?`, answer: `PennyLime connects directly to your ${platformName} driver/worker account via API to pull your verified earnings history. You can also upload bank statements showing your ${platformName} deposits as an alternative.` },
     { question: `How much can I borrow using my ${platformName} earnings?`, answer: `Loan amounts are based on your average monthly ${platformName} income over the last 3–6 months. Most ${platformName} workers qualify for $500–$8,000. Your credit score also influences the maximum amount.` },
-    { question: `Do I need a W-2 to qualify?`, answer: `No. CreditLime was built specifically for gig workers and independent contractors. Your ${platformName} earnings and bank statements replace the W-2 requirement entirely.` },
+    { question: `Do I need a W-2 to qualify?`, answer: `No. PennyLime was built specifically for gig workers and independent contractors. Your ${platformName} earnings and bank statements replace the W-2 requirement entirely.` },
     { question: `How quickly will I receive funds?`, answer: `Once approved, funds are typically deposited to your bank account within 24 hours. Some applicants receive same-day funding depending on their bank's processing time.` },
-    { question: `Will applying affect my credit score?`, answer: `Checking your rate on CreditLime uses a soft credit pull, which does not affect your credit score. A hard pull only occurs if you formally accept a loan offer.` },
-    { question: `What credit score do I need?`, answer: `CreditLime works with ${platformName} drivers who have credit scores as low as 580. Better scores unlock lower interest rates, but a less-than-perfect credit score won't automatically disqualify you.` },
-    { question: `Can I repay my loan early?`, answer: `Yes. CreditLime charges no prepayment penalties. If your ${platformName} earnings are strong in a given month, you can pay extra or pay off the loan entirely without any extra fees.` },
+    { question: `Will applying affect my credit score?`, answer: `Checking your rate on PennyLime uses a soft credit pull, which does not affect your credit score. A hard pull only occurs if you formally accept a loan offer.` },
+    { question: `What credit score do I need?`, answer: `PennyLime works with ${platformName} drivers who have credit scores as low as 580. Better scores unlock lower interest rates, but a less-than-perfect credit score won't automatically disqualify you.` },
+    { question: `Can I repay my loan early?`, answer: `Yes. PennyLime charges no prepayment penalties. If your ${platformName} earnings are strong in a given month, you can pay extra or pay off the loan entirely without any extra fees.` },
   ]);
 }
 
@@ -1557,14 +1557,14 @@ const PLATFORMS = [
     slug: "uber",
     heroHeadline: "Loans for Uber Drivers — No W-2 Required",
     heroSubtext: "Get approved using your Uber earnings. Fast decisions, same-day funding available.",
-    platformDescription: "Uber is the world's largest rideshare platform, with millions of drivers earning flexible income across the US. Whether you drive part-time or full-time, your Uber earnings can qualify you for a personal loan through CreditLime — no W-2, no employer verification, no waiting weeks for a decision.",
+    platformDescription: "Uber is the world's largest rideshare platform, with millions of drivers earning flexible income across the US. Whether you drive part-time or full-time, your Uber earnings can qualify you for a personal loan through PennyLime — no W-2, no employer verification, no waiting weeks for a decision.",
     avgEarnings: "$18–$28/hour including tips",
     topEarnerRange: "$4,000–$7,000/month (full-time, top markets)",
-    loanDetailsHtml: "<p>CreditLime evaluates your Uber income by connecting directly to your Uber Driver account or by reviewing your bank statements showing Uber deposits. We look at your 3–6 month average to determine your qualifying income — meaning slow weeks don't define you. Apply in 3 minutes and see your rate instantly.</p>",
+    loanDetailsHtml: "<p>PennyLime evaluates your Uber income by connecting directly to your Uber Driver account or by reviewing your bank statements showing Uber deposits. We look at your 3–6 month average to determine your qualifying income — meaning slow weeks don't define you. Apply in 3 minutes and see your rate instantly.</p>",
     ctaText: "Check My Rate",
     ctaSubtext: "No credit score impact. 3-minute application.",
-    metaTitle: "Uber Driver Loans | CreditLime",
-    metaDescription: "Loans for Uber drivers using your rideshare income. No W-2 required. Apply in 3 minutes with CreditLime.",
+    metaTitle: "Uber Driver Loans | PennyLime",
+    metaDescription: "Loans for Uber drivers using your rideshare income. No W-2 required. Apply in 3 minutes with PennyLime.",
     faqEntries: platformFaqs("Uber", "$18–$28"),
   },
   {
@@ -1572,14 +1572,14 @@ const PLATFORMS = [
     slug: "lyft",
     heroHeadline: "Loans for Lyft Drivers — Based on Your Earnings",
     heroSubtext: "Your Lyft income qualifies you. Forget W-2s — we speak gig.",
-    platformDescription: "Lyft drivers across the country earn reliable income picking up passengers, yet traditional banks often reject them for lack of traditional pay documentation. CreditLime changes that. We verify your Lyft earnings directly and offer loans sized to your actual driving income — not some bureaucrat's idea of what counts as real income.",
+    platformDescription: "Lyft drivers across the country earn reliable income picking up passengers, yet traditional banks often reject them for lack of traditional pay documentation. PennyLime changes that. We verify your Lyft earnings directly and offer loans sized to your actual driving income — not some bureaucrat's idea of what counts as real income.",
     avgEarnings: "$17–$26/hour including tips",
     topEarnerRange: "$3,500–$6,500/month (full-time, high-demand areas)",
-    loanDetailsHtml: "<p>Connect your Lyft driver account to CreditLime and we'll pull your verified earnings history. Alternatively, submit 3–6 months of bank statements showing your weekly Lyft deposits. Decisions in minutes, funds in 24 hours.</p>",
+    loanDetailsHtml: "<p>Connect your Lyft driver account to PennyLime and we'll pull your verified earnings history. Alternatively, submit 3–6 months of bank statements showing your weekly Lyft deposits. Decisions in minutes, funds in 24 hours.</p>",
     ctaText: "See My Loan Options",
     ctaSubtext: "Soft pull only — won't affect your credit.",
-    metaTitle: "Lyft Driver Loans | CreditLime",
-    metaDescription: "Personal loans for Lyft drivers using their rideshare income. No employer required. Fast approval through CreditLime.",
+    metaTitle: "Lyft Driver Loans | PennyLime",
+    metaDescription: "Personal loans for Lyft drivers using their rideshare income. No employer required. Fast approval through PennyLime.",
     faqEntries: platformFaqs("Lyft", "$17–$26"),
   },
   {
@@ -1587,14 +1587,14 @@ const PLATFORMS = [
     slug: "doordash",
     heroHeadline: "DoorDash Loans — Get Cash Based on What You Deliver",
     heroSubtext: "Over 7 million Dashers trust their income. So do we.",
-    platformDescription: "DoorDash is America's largest food delivery platform. Dashers work flexible hours and earn income that's real, recurring, and verifiable — yet traditional banks treat it as invisible. CreditLime connects directly to your DoorDash earnings account and offers loans based on what you actually earn, not just what a W-2 says.",
+    platformDescription: "DoorDash is America's largest food delivery platform. Dashers work flexible hours and earn income that's real, recurring, and verifiable — yet traditional banks treat it as invisible. PennyLime connects directly to your DoorDash earnings account and offers loans based on what you actually earn, not just what a W-2 says.",
     avgEarnings: "$18–$28/hour including tips and bonuses",
     topEarnerRange: "$3,500–$6,000/month (full-time, top markets)",
-    loanDetailsHtml: "<p>DoorDash drivers qualify for CreditLime loans by connecting their Dasher account or submitting recent bank statements. We average your last 3–6 months of delivery earnings to establish your income for underwriting. Most Dashers see their rate in under 3 minutes.</p>",
+    loanDetailsHtml: "<p>DoorDash drivers qualify for PennyLime loans by connecting their Dasher account or submitting recent bank statements. We average your last 3–6 months of delivery earnings to establish your income for underwriting. Most Dashers see their rate in under 3 minutes.</p>",
     ctaText: "Apply in 3 Minutes",
     ctaSubtext: "No W-2, no problem. Check your rate risk-free.",
-    metaTitle: "DoorDash Driver Loans | CreditLime",
-    metaDescription: "Loans for DoorDash Dashers using delivery income. No W-2 needed. Get your rate in 3 minutes with CreditLime.",
+    metaTitle: "DoorDash Driver Loans | PennyLime",
+    metaDescription: "Loans for DoorDash Dashers using delivery income. No W-2 needed. Get your rate in 3 minutes with PennyLime.",
     faqEntries: platformFaqs("DoorDash", "$18–$28"),
   },
   {
@@ -1602,14 +1602,14 @@ const PLATFORMS = [
     slug: "instacart",
     heroHeadline: "Instacart Shopper Loans — Your Shopping Income Counts",
     heroSubtext: "Verified grocery delivery income. Real loans. Real fast.",
-    platformDescription: "Instacart shoppers and drivers provide an essential service and earn real, consistent income doing it. CreditLime recognizes Instacart earnings as qualifying income for personal loans — no W-2 or employer letter required. Whether you're a full-service shopper or in-store shopper, your earnings history is all we need.",
+    platformDescription: "Instacart shoppers and drivers provide an essential service and earn real, consistent income doing it. PennyLime recognizes Instacart earnings as qualifying income for personal loans — no W-2 or employer letter required. Whether you're a full-service shopper or in-store shopper, your earnings history is all we need.",
     avgEarnings: "$15–$23/hour including tips",
     topEarnerRange: "$2,500–$5,000/month (full-time, strategic shoppers)",
-    loanDetailsHtml: "<p>CreditLime verifies Instacart income through bank statements or by connecting your shopper account. We look at the consistency and average of your deposits over the past 3–6 months. Apply in minutes and see your personalized loan offer without any impact to your credit score.</p>",
+    loanDetailsHtml: "<p>PennyLime verifies Instacart income through bank statements or by connecting your shopper account. We look at the consistency and average of your deposits over the past 3–6 months. Apply in minutes and see your personalized loan offer without any impact to your credit score.</p>",
     ctaText: "Get My Rate",
     ctaSubtext: "Soft credit check only. See your offer instantly.",
-    metaTitle: "Instacart Shopper Loans | CreditLime",
-    metaDescription: "Personal loans for Instacart shoppers using grocery delivery income. No W-2 needed. CreditLime verifies gig earnings directly.",
+    metaTitle: "Instacart Shopper Loans | PennyLime",
+    metaDescription: "Personal loans for Instacart shoppers using grocery delivery income. No W-2 needed. PennyLime verifies gig earnings directly.",
     faqEntries: platformFaqs("Instacart", "$15–$23"),
   },
   {
@@ -1617,14 +1617,14 @@ const PLATFORMS = [
     slug: "amazon-flex",
     heroHeadline: "Amazon Flex Loans — Deliver Packages, Build Credit",
     heroSubtext: "Your Amazon Flex earnings qualify for real personal loans.",
-    platformDescription: "Amazon Flex offers one of the most consistent pay structures in the gig economy — block-based shifts that pay $18–$25/hour with twice-weekly deposits. CreditLime accepts your Flex earnings as proof of income and offers personal loans sized to your delivery schedule and income history.",
+    platformDescription: "Amazon Flex offers one of the most consistent pay structures in the gig economy — block-based shifts that pay $18–$25/hour with twice-weekly deposits. PennyLime accepts your Flex earnings as proof of income and offers personal loans sized to your delivery schedule and income history.",
     avgEarnings: "$18–$25/hour (flat block rate)",
     topEarnerRange: "$3,000–$5,500/month (full-time, multiple block types)",
-    loanDetailsHtml: "<p>Amazon Flex pays via direct deposit twice weekly, making your income particularly easy to verify through bank statements. CreditLime reviews your Flex deposit history and extends credit based on your actual earning pattern. Twice-weekly deposits mean your 3-month bank statement contains 24 data points — excellent income visibility for underwriters.</p>",
+    loanDetailsHtml: "<p>Amazon Flex pays via direct deposit twice weekly, making your income particularly easy to verify through bank statements. PennyLime reviews your Flex deposit history and extends credit based on your actual earning pattern. Twice-weekly deposits mean your 3-month bank statement contains 24 data points — excellent income visibility for underwriters.</p>",
     ctaText: "Check My Rate Now",
     ctaSubtext: "3-minute application. No credit impact to check.",
-    metaTitle: "Amazon Flex Driver Loans | CreditLime",
-    metaDescription: "Loans for Amazon Flex drivers using delivery block income. Twice-weekly pay makes verification easy. Apply with CreditLime.",
+    metaTitle: "Amazon Flex Driver Loans | PennyLime",
+    metaDescription: "Loans for Amazon Flex drivers using delivery block income. Twice-weekly pay makes verification easy. Apply with PennyLime.",
     faqEntries: platformFaqs("Amazon Flex", "$18–$25"),
   },
   {
@@ -1632,14 +1632,14 @@ const PLATFORMS = [
     slug: "grubhub",
     heroHeadline: "Grubhub Driver Loans — Get Funded Fast",
     heroSubtext: "Your Grubhub delivery income earns you real borrowing power.",
-    platformDescription: "Grubhub drivers in Chicago, New York, and major East Coast markets earn strong delivery income with the platform's block scheduling and competitive market share. CreditLime works with Grubhub drivers to provide personal loans based on your verified delivery earnings — not a W-2 that you don't have.",
+    platformDescription: "Grubhub drivers in Chicago, New York, and major East Coast markets earn strong delivery income with the platform's block scheduling and competitive market share. PennyLime works with Grubhub drivers to provide personal loans based on your verified delivery earnings — not a W-2 that you don't have.",
     avgEarnings: "$17–$25/hour including tips",
     topEarnerRange: "$3,000–$5,500/month (full-time, major markets)",
-    loanDetailsHtml: "<p>Submit 3–6 months of bank statements showing your Grubhub deposits, or connect your driver account for automated income verification. CreditLime evaluates your average earnings and offers a personalized loan amount and rate within minutes.</p>",
+    loanDetailsHtml: "<p>Submit 3–6 months of bank statements showing your Grubhub deposits, or connect your driver account for automated income verification. PennyLime evaluates your average earnings and offers a personalized loan amount and rate within minutes.</p>",
     ctaText: "Apply Today",
     ctaSubtext: "No W-2 required. Fast approval for delivery drivers.",
-    metaTitle: "Grubhub Driver Loans | CreditLime",
-    metaDescription: "Personal loans for Grubhub drivers based on delivery income. No W-2 needed. CreditLime approves gig workers fast.",
+    metaTitle: "Grubhub Driver Loans | PennyLime",
+    metaDescription: "Personal loans for Grubhub drivers based on delivery income. No W-2 needed. PennyLime approves gig workers fast.",
     faqEntries: platformFaqs("Grubhub", "$17–$25"),
   },
   {
@@ -1647,14 +1647,14 @@ const PLATFORMS = [
     slug: "postmates",
     heroHeadline: "Postmates / Uber Eats Loans for Delivery Drivers",
     heroSubtext: "Postmates merged with Uber Eats — your earnings still qualify.",
-    platformDescription: "Postmates became part of Uber Eats in 2021. If you were a Postmates courier, your earnings now show as Uber Eats in your bank statements. CreditLime accepts Uber Eats/Postmates delivery income as qualifying income for personal loans. Same fast approval, same gig-friendly underwriting.",
+    platformDescription: "Postmates became part of Uber Eats in 2021. If you were a Postmates courier, your earnings now show as Uber Eats in your bank statements. PennyLime accepts Uber Eats/Postmates delivery income as qualifying income for personal loans. Same fast approval, same gig-friendly underwriting.",
     avgEarnings: "$16–$26/hour including tips and surge",
     topEarnerRange: "$3,000–$5,000/month (full-time urban markets)",
-    loanDetailsHtml: "<p>Former Postmates couriers now earning through Uber Eats can apply using bank statements showing 'Uber Eats' deposits (which replaced Postmates payments post-merger). CreditLime evaluates your delivery income regardless of which Uber-branded platform label appears in your bank history.</p>",
+    loanDetailsHtml: "<p>Former Postmates couriers now earning through Uber Eats can apply using bank statements showing 'Uber Eats' deposits (which replaced Postmates payments post-merger). PennyLime evaluates your delivery income regardless of which Uber-branded platform label appears in your bank history.</p>",
     ctaText: "See My Rate",
     ctaSubtext: "Delivery driver? You're pre-qualified to check your rate.",
-    metaTitle: "Postmates / Uber Eats Driver Loans | CreditLime",
-    metaDescription: "Loans for Postmates and Uber Eats delivery drivers. Gig income accepted. Fast approval and funding through CreditLime.",
+    metaTitle: "Postmates / Uber Eats Driver Loans | PennyLime",
+    metaDescription: "Loans for Postmates and Uber Eats delivery drivers. Gig income accepted. Fast approval and funding through PennyLime.",
     faqEntries: platformFaqs("Postmates", "$16–$26"),
   },
   {
@@ -1662,14 +1662,14 @@ const PLATFORMS = [
     slug: "fiverr",
     heroHeadline: "Fiverr Seller Loans — Your Freelance Skills Pay Off",
     heroSubtext: "Turn your Fiverr earnings into borrowing power. No W-2 needed.",
-    platformDescription: "Fiverr has created millions of freelance income streams for designers, writers, developers, marketers, and more. Top Fiverr sellers earn thousands per month — but standard banks don't know how to evaluate it. CreditLime accepts Fiverr earnings reports as qualifying income and offers loans to sellers at every level.",
+    platformDescription: "Fiverr has created millions of freelance income streams for designers, writers, developers, marketers, and more. Top Fiverr sellers earn thousands per month — but standard banks don't know how to evaluate it. PennyLime accepts Fiverr earnings reports as qualifying income and offers loans to sellers at every level.",
     avgEarnings: "$1,000–$5,000+/month (varies by niche and seller level)",
     topEarnerRange: "$10,000–$30,000+/month (Pro and top-rated sellers)",
-    loanDetailsHtml: "<p>Fiverr sellers can submit earnings reports from their Fiverr Revenue page along with bank statements showing corresponding deposits. CreditLime reviews your 12-month average seller income and offers a loan sized to your actual freelance earnings. Fiverr Pro sellers and Top-Rated Sellers typically qualify for the highest loan amounts.</p>",
+    loanDetailsHtml: "<p>Fiverr sellers can submit earnings reports from their Fiverr Revenue page along with bank statements showing corresponding deposits. PennyLime reviews your 12-month average seller income and offers a loan sized to your actual freelance earnings. Fiverr Pro sellers and Top-Rated Sellers typically qualify for the highest loan amounts.</p>",
     ctaText: "Check My Freelancer Rate",
     ctaSubtext: "Fiverr income accepted. Decisions in minutes.",
-    metaTitle: "Fiverr Seller Loans | CreditLime",
-    metaDescription: "Personal loans for Fiverr sellers using freelance earnings. No W-2 required. CreditLime verifies Fiverr income for loan approval.",
+    metaTitle: "Fiverr Seller Loans | PennyLime",
+    metaDescription: "Personal loans for Fiverr sellers using freelance earnings. No W-2 required. PennyLime verifies Fiverr income for loan approval.",
     faqEntries: platformFaqs("Fiverr", "variable"),
   },
   {
@@ -1677,14 +1677,14 @@ const PLATFORMS = [
     slug: "upwork",
     heroHeadline: "Upwork Contractor Loans — Contract Income, Real Loans",
     heroSubtext: "Your Upwork contract history is your income documentation.",
-    platformDescription: "Upwork connects skilled freelancers with clients for software development, design, writing, marketing, and hundreds of other professional services. Many Upwork contractors earn $50–$150+/hour — often more than their former employer paid. CreditLime recognizes Upwork contract income and offers loans based on your verified hourly and project earnings.",
+    platformDescription: "Upwork connects skilled freelancers with clients for software development, design, writing, marketing, and hundreds of other professional services. Many Upwork contractors earn $50–$150+/hour — often more than their former employer paid. PennyLime recognizes Upwork contract income and offers loans based on your verified hourly and project earnings.",
     avgEarnings: "$30–$100+/hour depending on skill category",
     topEarnerRange: "$8,000–$20,000+/month (Expert-Vetted contractors)",
-    loanDetailsHtml: "<p>Upwork contractors submit their transaction history and earnings reports alongside bank statements showing Upwork deposit patterns. CreditLime calculates your 6–12 month average earnings and determines your qualifying loan amount. Long-term client relationships and high job success scores strengthen your application.</p>",
+    loanDetailsHtml: "<p>Upwork contractors submit their transaction history and earnings reports alongside bank statements showing Upwork deposit patterns. PennyLime calculates your 6–12 month average earnings and determines your qualifying loan amount. Long-term client relationships and high job success scores strengthen your application.</p>",
     ctaText: "Apply as a Freelancer",
     ctaSubtext: "Contract income accepted. Check your rate in 3 minutes.",
-    metaTitle: "Upwork Contractor Loans | CreditLime",
-    metaDescription: "Loans for Upwork freelancers using contract income. No employer required. CreditLime evaluates Upwork earnings for loan approval.",
+    metaTitle: "Upwork Contractor Loans | PennyLime",
+    metaDescription: "Loans for Upwork freelancers using contract income. No employer required. PennyLime evaluates Upwork earnings for loan approval.",
     faqEntries: platformFaqs("Upwork", "$30–$100"),
   },
   {
@@ -1692,14 +1692,14 @@ const PLATFORMS = [
     slug: "taskrabbit",
     heroHeadline: "TaskRabbit Tasker Loans — Your Skills Earn You Credit",
     heroSubtext: "Handy work deserves a lender who understands gig income.",
-    platformDescription: "TaskRabbit Taskers are skilled professionals — handymen, movers, cleaners, assemblers — who set their own rates and build their own client base. CreditLime recognizes TaskRabbit income as valid proof of earning capacity and offers personal loans to Taskers who need financing without the W-2 they don't have.",
+    platformDescription: "TaskRabbit Taskers are skilled professionals — handymen, movers, cleaners, assemblers — who set their own rates and build their own client base. PennyLime recognizes TaskRabbit income as valid proof of earning capacity and offers personal loans to Taskers who need financing without the W-2 they don't have.",
     avgEarnings: "$25–$65/hour (varies by task category)",
     topEarnerRange: "$4,000–$8,000/month (full-time, in-demand skill categories)",
     loanDetailsHtml: "<p>TaskRabbit Taskers submit bank statements showing TaskRabbit deposits or TaskRabbit earnings reports. Since TaskRabbit handles payment processing for all jobs, bank deposits are cleanly labeled and easy for our underwriters to verify. Apply in 3 minutes and get a decision without affecting your credit score.</p>",
     ctaText: "Get My Rate",
     ctaSubtext: "TaskRabbit income qualifies. Apply risk-free.",
-    metaTitle: "TaskRabbit Tasker Loans | CreditLime",
-    metaDescription: "Personal loans for TaskRabbit Taskers using home service income. No W-2 required. Fast gig-worker loan approval through CreditLime.",
+    metaTitle: "TaskRabbit Tasker Loans | PennyLime",
+    metaDescription: "Personal loans for TaskRabbit Taskers using home service income. No W-2 required. Fast gig-worker loan approval through PennyLime.",
     faqEntries: platformFaqs("TaskRabbit", "$25–$65"),
   },
   {
@@ -1707,14 +1707,14 @@ const PLATFORMS = [
     slug: "shipt",
     heroHeadline: "Shipt Shopper Loans — Grocery Income That Gets You Funded",
     heroSubtext: "Your Shipt earnings open the door to real personal loans.",
-    platformDescription: "Shipt — owned by Target — is one of the higher-paying grocery delivery platforms, with shoppers earning solid hourly rates plus tips. CreditLime accepts Shipt shopper income as qualifying income and offers personal loans to shoppers who need access to credit without traditional employment verification.",
+    platformDescription: "Shipt — owned by Target — is one of the higher-paying grocery delivery platforms, with shoppers earning solid hourly rates plus tips. PennyLime accepts Shipt shopper income as qualifying income and offers personal loans to shoppers who need access to credit without traditional employment verification.",
     avgEarnings: "$16–$23/hour including tips",
     topEarnerRange: "$2,800–$5,000/month (full-time Metro Shoppers)",
-    loanDetailsHtml: "<p>Shipt pays shoppers via weekly direct deposit, with deposits clearly labeled in bank statements. Submit 3–6 months of statements showing your Shipt income, and CreditLime will evaluate your average weekly earnings to determine your qualifying loan amount. Instacart and other grocery delivery income can be combined with Shipt earnings for higher qualification.</p>",
+    loanDetailsHtml: "<p>Shipt pays shoppers via weekly direct deposit, with deposits clearly labeled in bank statements. Submit 3–6 months of statements showing your Shipt income, and PennyLime will evaluate your average weekly earnings to determine your qualifying loan amount. Instacart and other grocery delivery income can be combined with Shipt earnings for higher qualification.</p>",
     ctaText: "See My Loan Options",
     ctaSubtext: "Shipt income counts. No W-2 needed.",
-    metaTitle: "Shipt Shopper Loans | CreditLime",
-    metaDescription: "Loans for Shipt shoppers using grocery delivery income. No W-2 required. CreditLime accepts Shipt earnings for fast loan approval.",
+    metaTitle: "Shipt Shopper Loans | PennyLime",
+    metaDescription: "Loans for Shipt shoppers using grocery delivery income. No W-2 required. PennyLime accepts Shipt earnings for fast loan approval.",
     faqEntries: platformFaqs("Shipt", "$16–$23"),
   },
   {
@@ -1722,14 +1722,14 @@ const PLATFORMS = [
     slug: "turo",
     heroHeadline: "Turo Host Loans — Use Your Rental Income to Borrow",
     heroSubtext: "Car rental income is real income. We'll prove it to you.",
-    platformDescription: "Turo hosts earn passive or semi-passive income by renting their vehicles to travelers. With the right vehicle and market, Turo hosting generates $800–$3,000+/month per vehicle. CreditLime accepts Turo host earnings as qualifying income for personal loans — including fleet expansion loans designed to help you add vehicles and grow your rental business.",
+    platformDescription: "Turo hosts earn passive or semi-passive income by renting their vehicles to travelers. With the right vehicle and market, Turo hosting generates $800–$3,000+/month per vehicle. PennyLime accepts Turo host earnings as qualifying income for personal loans — including fleet expansion loans designed to help you add vehicles and grow your rental business.",
     avgEarnings: "$800–$2,000/month per vehicle",
     topEarnerRange: "$3,000–$8,000+/month (multi-vehicle hosts)",
-    loanDetailsHtml: "<p>Turo hosts submit 6–12 months of host earnings reports from the Turo dashboard, along with bank statements confirming deposit amounts. CreditLime evaluates net rental income (after Turo's commission) as your qualifying income. Multi-vehicle hosts with longer track records qualify for higher loan amounts, including fleet expansion financing.</p>",
+    loanDetailsHtml: "<p>Turo hosts submit 6–12 months of host earnings reports from the Turo dashboard, along with bank statements confirming deposit amounts. PennyLime evaluates net rental income (after Turo's commission) as your qualifying income. Multi-vehicle hosts with longer track records qualify for higher loan amounts, including fleet expansion financing.</p>",
     ctaText: "Apply as a Turo Host",
     ctaSubtext: "Car rental income accepted. Expand your fleet.",
-    metaTitle: "Turo Host Loans | CreditLime",
-    metaDescription: "Loans for Turo hosts using car rental income. Expand your fleet or access emergency funds. CreditLime accepts Turo earnings.",
+    metaTitle: "Turo Host Loans | PennyLime",
+    metaDescription: "Loans for Turo hosts using car rental income. Expand your fleet or access emergency funds. PennyLime accepts Turo earnings.",
     faqEntries: platformFaqs("Turo", "variable"),
   },
   {
@@ -1737,14 +1737,14 @@ const PLATFORMS = [
     slug: "rover",
     heroHeadline: "Rover Sitter Loans — Caring for Pets Pays Off",
     heroSubtext: "Your pet care income qualifies for real personal loans.",
-    platformDescription: "Rover pet sitters, dog walkers, and boarding hosts earn real income providing essential pet care services. Full-time Rover sitters in strong markets can earn $2,000–$4,000/month caring for pets. CreditLime accepts Rover platform earnings as qualifying income — no W-2, no employer call, just your actual pet care earnings.",
+    platformDescription: "Rover pet sitters, dog walkers, and boarding hosts earn real income providing essential pet care services. Full-time Rover sitters in strong markets can earn $2,000–$4,000/month caring for pets. PennyLime accepts Rover platform earnings as qualifying income — no W-2, no employer call, just your actual pet care earnings.",
     avgEarnings: "$25–$60/day (boarding) or $15–$30/walk",
     topEarnerRange: "$2,000–$4,000/month (full-time sitters, major markets)",
-    loanDetailsHtml: "<p>Rover pays sitters via direct bank transfer, typically within 24–48 hours of service completion. Bank statements clearly show Rover deposits. Submit 6+ months of statements showing your pet care income history, and CreditLime will evaluate your average monthly Rover earnings to determine your loan amount and rate.</p>",
+    loanDetailsHtml: "<p>Rover pays sitters via direct bank transfer, typically within 24–48 hours of service completion. Bank statements clearly show Rover deposits. Submit 6+ months of statements showing your pet care income history, and PennyLime will evaluate your average monthly Rover earnings to determine your loan amount and rate.</p>",
     ctaText: "Get My Pet Care Loan Rate",
     ctaSubtext: "Rover income accepted. Apply in 3 minutes.",
-    metaTitle: "Rover Pet Sitter Loans | CreditLime",
-    metaDescription: "Personal loans for Rover sitters and dog walkers using pet care income. No W-2 needed. CreditLime verifies gig pet care earnings.",
+    metaTitle: "Rover Pet Sitter Loans | PennyLime",
+    metaDescription: "Personal loans for Rover sitters and dog walkers using pet care income. No W-2 needed. PennyLime verifies gig pet care earnings.",
     faqEntries: platformFaqs("Rover", "variable"),
   },
   {
@@ -1752,14 +1752,14 @@ const PLATFORMS = [
     slug: "thumbtack",
     heroHeadline: "Thumbtack Pro Loans — Fund Your Home Services Business",
     heroSubtext: "Your professional skills deserve professional financing.",
-    platformDescription: "Thumbtack connects skilled professionals — plumbers, photographers, personal trainers, landscapers, wedding planners — with local customers. Thumbtack Pros often earn premium rates for specialized services and build established businesses over time. CreditLime recognizes Thumbtack Pro income and offers loans to help you invest in tools, equipment, marketing, and growth.",
+    platformDescription: "Thumbtack connects skilled professionals — plumbers, photographers, personal trainers, landscapers, wedding planners — with local customers. Thumbtack Pros often earn premium rates for specialized services and build established businesses over time. PennyLime recognizes Thumbtack Pro income and offers loans to help you invest in tools, equipment, marketing, and growth.",
     avgEarnings: "$30–$100+/hour depending on service category",
     topEarnerRange: "$5,000–$12,000+/month (established Pros in high-demand categories)",
-    loanDetailsHtml: "<p>Thumbtack Pros can submit a combination of bank statements, Thumbtack earnings history, and invoices (if they collect payment directly from clients). CreditLime evaluates your average monthly professional service income and offers loans sized to your actual earning capacity. Service-based business loans are available for equipment, vehicle, and business investment purposes.</p>",
+    loanDetailsHtml: "<p>Thumbtack Pros can submit a combination of bank statements, Thumbtack earnings history, and invoices (if they collect payment directly from clients). PennyLime evaluates your average monthly professional service income and offers loans sized to your actual earning capacity. Service-based business loans are available for equipment, vehicle, and business investment purposes.</p>",
     ctaText: "Apply as a Thumbtack Pro",
     ctaSubtext: "Professional gig income accepted. Fast approval.",
-    metaTitle: "Thumbtack Pro Loans | CreditLime",
-    metaDescription: "Loans for Thumbtack Pros using home service and professional earnings. Fund tools, vehicles, and business growth with CreditLime.",
+    metaTitle: "Thumbtack Pro Loans | PennyLime",
+    metaDescription: "Loans for Thumbtack Pros using home service and professional earnings. Fund tools, vehicles, and business growth with PennyLime.",
     faqEntries: platformFaqs("Thumbtack", "$30–$100"),
   },
 ];
@@ -1769,23 +1769,23 @@ function statePageContent(stateName: string, stateCode: string, gigWorkerCount: 
   return {
     heroHeadline: `Gig Worker Loans in ${stateName}`,
     heroSubtext: `${stateName}-based Uber, DoorDash, and gig workers can qualify for personal loans using platform earnings — no W-2 required.`,
-    regulationsSummary: `${stateName} state law regulates consumer lending under the ${stateName} Consumer Finance Act (and applicable federal TILA requirements). CreditLime complies fully with ${stateName} lending regulations. ${lendingNote}`,
-    loanAvailability: `CreditLime offers personal loans to qualifying gig workers in ${stateName}. Loan amounts range from $500 to $10,000 depending on income verification and credit profile.`,
+    regulationsSummary: `${stateName} state law regulates consumer lending under the ${stateName} Consumer Finance Act (and applicable federal TILA requirements). PennyLime complies fully with ${stateName} lending regulations. ${lendingNote}`,
+    loanAvailability: `PennyLime offers personal loans to qualifying gig workers in ${stateName}. Loan amounts range from $500 to $10,000 depending on income verification and credit profile.`,
     localStats: JSON.stringify([
       { label: "Estimated Gig Workers", value: gigWorkerCount },
       { label: "Avg Rideshare Hourly", value: "$18–$26/hr incl tips" },
-      { label: "CreditLime Loan Range", value: "$500 – $10,000" },
+      { label: "PennyLime Loan Range", value: "$500 – $10,000" },
     ]),
     faqEntries: JSON.stringify([
-      { question: `Is CreditLime available in ${stateName}?`, answer: `Yes. CreditLime offers personal loans to gig workers in ${stateName}. Apply online in minutes — no branch visit required.` },
-      { question: `What income documentation do I need in ${stateName}?`, answer: `Connect your gig platform account or submit 3–6 months of bank statements showing your gig earnings. CreditLime does not require a W-2 or employer verification.` },
-      { question: `Are there ${stateName}-specific interest rate caps?`, answer: `${stateName} has lending regulations that CreditLime complies with fully. ${lendingNote} Your personalized rate is shown before you accept any offer.` },
+      { question: `Is PennyLime available in ${stateName}?`, answer: `Yes. PennyLime offers personal loans to gig workers in ${stateName}. Apply online in minutes — no branch visit required.` },
+      { question: `What income documentation do I need in ${stateName}?`, answer: `Connect your gig platform account or submit 3–6 months of bank statements showing your gig earnings. PennyLime does not require a W-2 or employer verification.` },
+      { question: `Are there ${stateName}-specific interest rate caps?`, answer: `${stateName} has lending regulations that PennyLime complies with fully. ${lendingNote} Your personalized rate is shown before you accept any offer.` },
       { question: `How fast can I get funded in ${stateName}?`, answer: `Most approved ${stateName} applicants receive funds within 24 hours of accepting their loan offer. Same-day funding may be available depending on your bank.` },
       { question: `Do I need to be a full-time gig worker in ${stateName}?`, answer: `No. Part-time gig workers in ${stateName} can also qualify as long as you have at least 3 months of consistent platform income and meet the minimum income threshold.` },
     ]),
     ctaText: `Apply for a Gig Worker Loan in ${stateName}`,
-    metaTitle: `Gig Worker Loans in ${stateName} | CreditLime`,
-    metaDescription: `1099 and gig workers in ${stateName} can qualify for personal loans using platform earnings. No W-2 required. Fast approval through CreditLime.`,
+    metaTitle: `Gig Worker Loans in ${stateName} | PennyLime`,
+    metaDescription: `1099 and gig workers in ${stateName} can qualify for personal loans using platform earnings. No W-2 required. Fast approval through PennyLime.`,
   };
 }
 
@@ -1793,53 +1793,53 @@ const STATES = [
   { stateName: "Alabama", stateCode: "AL", gigWorkerCount: "180,000+", lendingNote: "Alabama has no strict rate cap for personal loans above $1,500." },
   { stateName: "Alaska", stateCode: "AK", gigWorkerCount: "35,000+", lendingNote: "Alaska follows federal lending guidelines with no unusual restrictions for personal loans." },
   { stateName: "Arizona", stateCode: "AZ", gigWorkerCount: "420,000+", lendingNote: "Arizona has a thriving gig economy in Phoenix and Tucson with competitive personal loan rates available." },
-  { stateName: "Arkansas", stateCode: "AR", gigWorkerCount: "120,000+", lendingNote: "Arkansas has a 17% usury cap; CreditLime's products are structured to comply with Arkansas lending law." },
+  { stateName: "Arkansas", stateCode: "AR", gigWorkerCount: "120,000+", lendingNote: "Arkansas has a 17% usury cap; PennyLime's products are structured to comply with Arkansas lending law." },
   { stateName: "California", stateCode: "CA", gigWorkerCount: "2,100,000+", lendingNote: "California has significant gig worker populations and lending regulations under the DFPI. Rates and terms comply with California Finance Lenders Law." },
-  { stateName: "Colorado", stateCode: "CO", gigWorkerCount: "370,000+", lendingNote: "Colorado caps consumer loan rates at 36% APR under COLIDRA; CreditLime complies fully." },
-  { stateName: "Connecticut", stateCode: "CT", gigWorkerCount: "210,000+", lendingNote: "Connecticut regulates consumer lending through the Department of Banking. CreditLime is licensed and compliant." },
-  { stateName: "Delaware", stateCode: "DE", gigWorkerCount: "75,000+", lendingNote: "Delaware has flexible lending laws and is home to many financial institutions. CreditLime offers competitive rates to Delaware gig workers." },
+  { stateName: "Colorado", stateCode: "CO", gigWorkerCount: "370,000+", lendingNote: "Colorado caps consumer loan rates at 36% APR under COLIDRA; PennyLime complies fully." },
+  { stateName: "Connecticut", stateCode: "CT", gigWorkerCount: "210,000+", lendingNote: "Connecticut regulates consumer lending through the Department of Banking. PennyLime is licensed and compliant." },
+  { stateName: "Delaware", stateCode: "DE", gigWorkerCount: "75,000+", lendingNote: "Delaware has flexible lending laws and is home to many financial institutions. PennyLime offers competitive rates to Delaware gig workers." },
   { stateName: "Florida", stateCode: "FL", gigWorkerCount: "1,400,000+", lendingNote: "Florida has one of the largest gig worker populations in the US. State lending laws are favorable for personal loan access." },
   { stateName: "Georgia", stateCode: "GA", gigWorkerCount: "700,000+", lendingNote: "Georgia is a major gig economy state with Atlanta as a top rideshare and delivery market. Standard personal loan regulations apply." },
-  { stateName: "Hawaii", stateCode: "HI", gigWorkerCount: "85,000+", lendingNote: "Hawaii's tourism-driven economy supports a significant gig workforce. CreditLime serves Hawaii residents online." },
+  { stateName: "Hawaii", stateCode: "HI", gigWorkerCount: "85,000+", lendingNote: "Hawaii's tourism-driven economy supports a significant gig workforce. PennyLime serves Hawaii residents online." },
   { stateName: "Idaho", stateCode: "ID", gigWorkerCount: "95,000+", lendingNote: "Idaho has no state income tax and a growing gig economy in Boise. Lending regulations are standard." },
   { stateName: "Illinois", stateCode: "IL", gigWorkerCount: "850,000+", lendingNote: "Illinois has strong gig worker protections and Chicago is a top market for Grubhub and rideshare. Lending is regulated by the IDFPR." },
   { stateName: "Indiana", stateCode: "IN", gigWorkerCount: "380,000+", lendingNote: "Indiana has a growing gig economy centered on Indianapolis. Standard personal lending regulations apply." },
   { stateName: "Iowa", stateCode: "IA", gigWorkerCount: "160,000+", lendingNote: "Iowa has a growing delivery and rideshare market in Des Moines. Lending regulations are standard and borrower-friendly." },
-  { stateName: "Kansas", stateCode: "KS", gigWorkerCount: "155,000+", lendingNote: "Kansas has standard personal lending regulations. CreditLime is available to all Kansas-based gig workers." },
-  { stateName: "Kentucky", stateCode: "KY", gigWorkerCount: "210,000+", lendingNote: "Kentucky gig workers in Louisville and Lexington can qualify for CreditLime loans using platform earnings." },
+  { stateName: "Kansas", stateCode: "KS", gigWorkerCount: "155,000+", lendingNote: "Kansas has standard personal lending regulations. PennyLime is available to all Kansas-based gig workers." },
+  { stateName: "Kentucky", stateCode: "KY", gigWorkerCount: "210,000+", lendingNote: "Kentucky gig workers in Louisville and Lexington can qualify for PennyLime loans using platform earnings." },
   { stateName: "Louisiana", stateCode: "LA", gigWorkerCount: "230,000+", lendingNote: "Louisiana has a strong gig economy driven by New Orleans and Baton Rouge. Standard consumer lending rules apply." },
-  { stateName: "Maine", stateCode: "ME", gigWorkerCount: "70,000+", lendingNote: "Maine has a smaller but growing gig workforce. CreditLime serves Maine residents fully online." },
+  { stateName: "Maine", stateCode: "ME", gigWorkerCount: "70,000+", lendingNote: "Maine has a smaller but growing gig workforce. PennyLime serves Maine residents fully online." },
   { stateName: "Maryland", stateCode: "MD", gigWorkerCount: "380,000+", lendingNote: "Maryland gig workers in the DC metro area form one of the country's highest-earning rideshare populations. State has a 33% APR cap." },
   { stateName: "Massachusetts", stateCode: "MA", gigWorkerCount: "480,000+", lendingNote: "Massachusetts has strong consumer lending protections. The state's gig economy is concentrated in Boston, Cambridge, and Worcester." },
   { stateName: "Michigan", stateCode: "MI", gigWorkerCount: "520,000+", lendingNote: "Michigan has a strong gig economy in Detroit and Grand Rapids. State lending is regulated by DIFS." },
   { stateName: "Minnesota", stateCode: "MN", gigWorkerCount: "340,000+", lendingNote: "Minnesota has passed gig worker earning floor legislation. The Twin Cities are a major rideshare and delivery market." },
-  { stateName: "Mississippi", stateCode: "MS", gigWorkerCount: "130,000+", lendingNote: "Mississippi has standard consumer lending regulations. CreditLime is fully available to Mississippi gig workers." },
+  { stateName: "Mississippi", stateCode: "MS", gigWorkerCount: "130,000+", lendingNote: "Mississippi has standard consumer lending regulations. PennyLime is fully available to Mississippi gig workers." },
   { stateName: "Missouri", stateCode: "MO", gigWorkerCount: "330,000+", lendingNote: "Missouri has a large gig economy in Kansas City and St. Louis. Standard consumer lending laws apply." },
-  { stateName: "Montana", stateCode: "MT", gigWorkerCount: "55,000+", lendingNote: "Montana has a rate cap of 36% APR for consumer loans. CreditLime complies fully and offers competitive rates within this limit." },
+  { stateName: "Montana", stateCode: "MT", gigWorkerCount: "55,000+", lendingNote: "Montana has a rate cap of 36% APR for consumer loans. PennyLime complies fully and offers competitive rates within this limit." },
   { stateName: "Nebraska", stateCode: "NE", gigWorkerCount: "120,000+", lendingNote: "Nebraska has a growing gig economy in Omaha and Lincoln. Standard lending regulations apply." },
   { stateName: "Nevada", stateCode: "NV", gigWorkerCount: "350,000+", lendingNote: "Nevada — especially Las Vegas — has one of the highest concentrations of rideshare drivers per capita. No rate cap for personal loans." },
-  { stateName: "New Hampshire", stateCode: "NH", gigWorkerCount: "80,000+", lendingNote: "New Hampshire has no income tax and standard lending regulations. CreditLime serves NH gig workers fully online." },
+  { stateName: "New Hampshire", stateCode: "NH", gigWorkerCount: "80,000+", lendingNote: "New Hampshire has no income tax and standard lending regulations. PennyLime serves NH gig workers fully online." },
   { stateName: "New Jersey", stateCode: "NJ", gigWorkerCount: "580,000+", lendingNote: "New Jersey is a major gig market serving both NYC and Philadelphia metros. State regulates consumer lenders through the DBI." },
-  { stateName: "New Mexico", stateCode: "NM", gigWorkerCount: "110,000+", lendingNote: "New Mexico has a 36% APR cap on consumer loans. CreditLime is structured to comply and offers competitive rates." },
+  { stateName: "New Mexico", stateCode: "NM", gigWorkerCount: "110,000+", lendingNote: "New Mexico has a 36% APR cap on consumer loans. PennyLime is structured to comply and offers competitive rates." },
   { stateName: "New York", stateCode: "NY", gigWorkerCount: "1,800,000+", lendingNote: "New York has one of the world's largest gig economies. NYC Uber and Lyft drivers have minimum earnings floors. DFS regulates lending." },
   { stateName: "North Carolina", stateCode: "NC", gigWorkerCount: "620,000+", lendingNote: "North Carolina has strong gig activity in Charlotte, Raleigh, and Durham. Consumer lending is regulated by the NC Commissioner of Banks." },
   { stateName: "North Dakota", stateCode: "ND", gigWorkerCount: "45,000+", lendingNote: "North Dakota has a small but growing gig economy in Fargo and Bismarck. Standard lending regulations apply." },
   { stateName: "Ohio", stateCode: "OH", gigWorkerCount: "680,000+", lendingNote: "Ohio has a thriving gig economy across Columbus, Cleveland, and Cincinnati. Consumer lending is regulated by the Ohio Division of Financial Institutions." },
-  { stateName: "Oklahoma", stateCode: "OK", gigWorkerCount: "230,000+", lendingNote: "Oklahoma gig workers in OKC and Tulsa can qualify for CreditLime loans. Standard consumer lending laws apply." },
-  { stateName: "Oregon", stateCode: "OR", gigWorkerCount: "280,000+", lendingNote: "Oregon has a 36% APR cap on consumer loans. Portland has a strong gig economy. CreditLime complies with Oregon lending law." },
+  { stateName: "Oklahoma", stateCode: "OK", gigWorkerCount: "230,000+", lendingNote: "Oklahoma gig workers in OKC and Tulsa can qualify for PennyLime loans. Standard consumer lending laws apply." },
+  { stateName: "Oregon", stateCode: "OR", gigWorkerCount: "280,000+", lendingNote: "Oregon has a 36% APR cap on consumer loans. Portland has a strong gig economy. PennyLime complies with Oregon lending law." },
   { stateName: "Pennsylvania", stateCode: "PA", gigWorkerCount: "760,000+", lendingNote: "Pennsylvania has a large gig workforce across Philadelphia and Pittsburgh. Lending is regulated by the PA Department of Banking and Securities." },
-  { stateName: "Rhode Island", stateCode: "RI", gigWorkerCount: "65,000+", lendingNote: "Rhode Island has standard consumer lending regulations. CreditLime is available to all Rhode Island gig workers online." },
-  { stateName: "South Carolina", stateCode: "SC", gigWorkerCount: "270,000+", lendingNote: "South Carolina gig workers in Charleston and Columbia can qualify for CreditLime loans. Standard personal lending rules apply." },
+  { stateName: "Rhode Island", stateCode: "RI", gigWorkerCount: "65,000+", lendingNote: "Rhode Island has standard consumer lending regulations. PennyLime is available to all Rhode Island gig workers online." },
+  { stateName: "South Carolina", stateCode: "SC", gigWorkerCount: "270,000+", lendingNote: "South Carolina gig workers in Charleston and Columbia can qualify for PennyLime loans. Standard personal lending rules apply." },
   { stateName: "South Dakota", stateCode: "SD", gigWorkerCount: "55,000+", lendingNote: "South Dakota has no interest rate cap for personal loans, making it a lender-friendly state. Competitive rates available." },
   { stateName: "Tennessee", stateCode: "TN", gigWorkerCount: "410,000+", lendingNote: "Tennessee has a strong gig economy in Nashville, Memphis, and Knoxville. Standard consumer lending regulations apply." },
   { stateName: "Texas", stateCode: "TX", gigWorkerCount: "1,900,000+", lendingNote: "Texas has one of the largest gig worker populations in the country. No state income tax makes gig work financially attractive. Standard lending laws apply." },
   { stateName: "Utah", stateCode: "UT", gigWorkerCount: "230,000+", lendingNote: "Utah has no interest rate cap for personal loans and a growing gig economy in Salt Lake City. Competitive rates available." },
-  { stateName: "Vermont", stateCode: "VT", gigWorkerCount: "40,000+", lendingNote: "Vermont has standard consumer lending regulations. CreditLime is fully available to Vermont gig workers online." },
+  { stateName: "Vermont", stateCode: "VT", gigWorkerCount: "40,000+", lendingNote: "Vermont has standard consumer lending regulations. PennyLime is fully available to Vermont gig workers online." },
   { stateName: "Virginia", stateCode: "VA", gigWorkerCount: "520,000+", lendingNote: "Virginia has a 36% APR cap for consumer loans (as of 2021). Strong gig market in Northern Virginia and Richmond." },
   { stateName: "Washington", stateCode: "WA", gigWorkerCount: "560,000+", lendingNote: "Washington state has gig worker income protections in Seattle. No state income tax. Consumer lending is regulated by the DFI." },
   { stateName: "West Virginia", stateCode: "WV", gigWorkerCount: "80,000+", lendingNote: "West Virginia has a growing gig economy despite its smaller population. Standard consumer lending laws apply." },
   { stateName: "Wisconsin", stateCode: "WI", gigWorkerCount: "330,000+", lendingNote: "Wisconsin has a growing gig economy in Milwaukee and Madison. Consumer lending is regulated by the Wisconsin DFI." },
-  { stateName: "Wyoming", stateCode: "WY", gigWorkerCount: "35,000+", lendingNote: "Wyoming has no state income tax and standard lending regulations. CreditLime serves Wyoming gig workers fully online." },
+  { stateName: "Wyoming", stateCode: "WY", gigWorkerCount: "35,000+", lendingNote: "Wyoming has no state income tax and standard lending regulations. PennyLime serves Wyoming gig workers fully online." },
 ];
 
 // ─── TOOL PAGES ─────────────────────────────────────────────────
@@ -1858,10 +1858,10 @@ const TOOL_PAGES = [
   <li><strong>Total Repaid:</strong> Principal + interest — the full amount leaving your bank</li>
 </ul>
 <h3>Tips for Gig Workers</h3>
-<p>When entering your estimated APR, use the rate shown on your CreditLime offer letter. If you're still shopping, enter a range to compare scenarios. CreditLime rates typically range from 18–36% for gig workers depending on credit score and income stability.</p>`,
+<p>When entering your estimated APR, use the rate shown on your PennyLime offer letter. If you're still shopping, enter a range to compare scenarios. PennyLime rates typically range from 18–36% for gig workers depending on credit score and income stability.</p>`,
     relatedArticleSlugs: JSON.stringify(["1099-loans-complete-guide-gig-workers", "apr-explained-gig-workers-guide", "bank-statement-loans-explained-gig-workers"]),
-    metaTitle: "Loan Calculator for Gig Workers | CreditLime",
-    metaDescription: "Calculate your monthly payments and total loan cost as a gig worker. Free loan calculator from CreditLime.",
+    metaTitle: "Loan Calculator for Gig Workers | PennyLime",
+    metaDescription: "Calculate your monthly payments and total loan cost as a gig worker. Free loan calculator from PennyLime.",
   },
   {
     title: "1099 Income Estimator",
@@ -1871,12 +1871,12 @@ const TOOL_PAGES = [
     body: `<h2>Why Income Estimation Matters for Gig Worker Loans</h2>
 <p>Lenders evaluate your borrowing power based on your average monthly income. As a gig worker with variable earnings, calculating this average accurately is essential for knowing what loan amount to apply for.</p>
 <h3>How to Use This Tool</h3>
-<p>Enter your earnings from each platform for the last 3–6 months. The estimator calculates your average monthly income across all platforms, which is the figure CreditLime uses to determine your maximum qualifying loan amount.</p>
+<p>Enter your earnings from each platform for the last 3–6 months. The estimator calculates your average monthly income across all platforms, which is the figure PennyLime uses to determine your maximum qualifying loan amount.</p>
 <h3>Multi-Platform Income</h3>
-<p>If you drive for Uber and also deliver for DoorDash, enter both income streams. CreditLime aggregates income from multiple verified platforms — your combined earnings give you higher borrowing power than any single platform would.</p>`,
+<p>If you drive for Uber and also deliver for DoorDash, enter both income streams. PennyLime aggregates income from multiple verified platforms — your combined earnings give you higher borrowing power than any single platform would.</p>`,
     relatedArticleSlugs: JSON.stringify(["1099-loans-complete-guide-gig-workers", "debt-to-income-ratio-gig-workers", "loan-approval-tips-gig-workers"]),
-    metaTitle: "1099 Income Estimator for Gig Workers | CreditLime",
-    metaDescription: "Estimate your qualifying income as a 1099 gig worker. See how much you might borrow using CreditLime's income estimator tool.",
+    metaTitle: "1099 Income Estimator for Gig Workers | PennyLime",
+    metaDescription: "Estimate your qualifying income as a 1099 gig worker. See how much you might borrow using PennyLime's income estimator tool.",
   },
   {
     title: "Loan Comparison Tool",
@@ -1894,9 +1894,9 @@ const TOOL_PAGES = [
 </ul>
 <h3>Red Flags to Watch For</h3>
 <p>Avoid loans with prepayment penalties (fees for paying early), variable rates that can climb above your initial quote, or origination fees above 5% of the loan amount.</p>`,
-    relatedArticleSlugs: JSON.stringify(["apr-explained-gig-workers-guide", "creditlime-vs-payday-loans-difference-matters", "refinancing-loan-gig-worker-when-how"]),
-    metaTitle: "Loan Comparison Tool for Gig Workers | CreditLime",
-    metaDescription: "Compare two personal loan offers side-by-side. Find the true lowest cost loan as a gig worker with CreditLime's comparison tool.",
+    relatedArticleSlugs: JSON.stringify(["apr-explained-gig-workers-guide", "pennylime-vs-payday-loans-difference-matters", "refinancing-loan-gig-worker-when-how"]),
+    metaTitle: "Loan Comparison Tool for Gig Workers | PennyLime",
+    metaDescription: "Compare two personal loan offers side-by-side. Find the true lowest cost loan as a gig worker with PennyLime's comparison tool.",
   },
   {
     title: "Debt-to-Income Calculator",
@@ -1915,8 +1915,8 @@ const TOOL_PAGES = [
   <li><strong>44%+:</strong> High — most lenders decline; aggressively pay down debt before applying</li>
 </ul>`,
     relatedArticleSlugs: JSON.stringify(["debt-to-income-ratio-gig-workers", "loan-approval-tips-gig-workers", "credit-score-guide-1099-workers"]),
-    metaTitle: "DTI Calculator for Gig Workers | CreditLime",
-    metaDescription: "Calculate your debt-to-income ratio as a gig worker. Understand your loan approval odds and optimize before applying with CreditLime.",
+    metaTitle: "DTI Calculator for Gig Workers | PennyLime",
+    metaDescription: "Calculate your debt-to-income ratio as a gig worker. Understand your loan approval odds and optimize before applying with PennyLime.",
   },
   {
     title: "Gig Worker Tax Estimator",
@@ -1936,137 +1936,137 @@ const TOOL_PAGES = [
 </ul>
 <p>Remember: this estimator provides estimates only. Consult a tax professional for complex situations or if you have significant income from other sources.</p>`,
     relatedArticleSlugs: JSON.stringify(["quarterly-taxes-gig-workers-guide", "gig-worker-tax-deductions-complete-list-2024", "income-tax-basics-new-1099-workers-first-year"]),
-    metaTitle: "Gig Worker Tax Estimator | CreditLime",
-    metaDescription: "Estimate your quarterly and annual taxes as a 1099 gig worker. Calculate self-employment tax and plan your payments with CreditLime's tax tool.",
+    metaTitle: "Gig Worker Tax Estimator | PennyLime",
+    metaDescription: "Estimate your quarterly and annual taxes as a 1099 gig worker. Calculate self-employment tax and plan your payments with PennyLime's tax tool.",
   },
 ];
 
 // ─── COMPARISON PAGES ────────────────────────────────────────────
 const COMPARISON_PAGES = [
   {
-    title: "CreditLime vs Fundo: Which Loan Is Better for Gig Workers?",
-    slug: "creditlime-vs-fundo",
-    entityA: "CreditLime",
+    title: "PennyLime vs Fundo: Which Loan Is Better for Gig Workers?",
+    slug: "pennylime-vs-fundo",
+    entityA: "PennyLime",
     entityB: "Fundo",
-    introHtml: `<p>CreditLime and Fundo both target gig workers and 1099 earners who struggle to qualify with traditional banks. But their approaches, rates, and terms differ in meaningful ways. This comparison breaks down exactly how they stack up so you can choose the right lender for your situation.</p>`,
+    introHtml: `<p>PennyLime and Fundo both target gig workers and 1099 earners who struggle to qualify with traditional banks. But their approaches, rates, and terms differ in meaningful ways. This comparison breaks down exactly how they stack up so you can choose the right lender for your situation.</p>`,
     comparisonGrid: JSON.stringify([
-      { feature: "Loan Amount Range", creditlime: "$500 – $10,000", competitor: "$500 – $5,000" },
-      { feature: "APR Range", creditlime: "18% – 60%", competitor: "25% – 75%" },
-      { feature: "Loan Terms", creditlime: "3 – 24 months", competitor: "3 – 12 months" },
-      { feature: "Income Verification", creditlime: "Direct platform API or bank statements", competitor: "Bank statements only" },
-      { feature: "Platforms Accepted", creditlime: "Uber, Lyft, DoorDash, Instacart, 14+ platforms", competitor: "Select platforms" },
-      { feature: "Credit Score Minimum", creditlime: "580", competitor: "600" },
-      { feature: "Funding Speed", creditlime: "24 hours after approval", competitor: "1–3 business days" },
-      { feature: "Prepayment Penalty", creditlime: "None", competitor: "None" },
+      { feature: "Loan Amount Range", pennylime: "$500 – $10,000", competitor: "$500 – $5,000" },
+      { feature: "APR Range", pennylime: "18% – 60%", competitor: "25% – 75%" },
+      { feature: "Loan Terms", pennylime: "3 – 24 months", competitor: "3 – 12 months" },
+      { feature: "Income Verification", pennylime: "Direct platform API or bank statements", competitor: "Bank statements only" },
+      { feature: "Platforms Accepted", pennylime: "Uber, Lyft, DoorDash, Instacart, 14+ platforms", competitor: "Select platforms" },
+      { feature: "Credit Score Minimum", pennylime: "580", competitor: "600" },
+      { feature: "Funding Speed", pennylime: "24 hours after approval", competitor: "1–3 business days" },
+      { feature: "Prepayment Penalty", pennylime: "None", competitor: "None" },
     ]),
-    verdict: "CreditLime offers higher loan amounts, more platform integrations, faster funding, and competitive rates compared to Fundo. For gig workers who need more than $5,000 or earn from multiple platforms, CreditLime is the stronger choice.",
+    verdict: "PennyLime offers higher loan amounts, more platform integrations, faster funding, and competitive rates compared to Fundo. For gig workers who need more than $5,000 or earn from multiple platforms, PennyLime is the stronger choice.",
     faqEntries: JSON.stringify([
-      { question: "Can I apply with both CreditLime and Fundo to compare offers?", answer: "Yes. Both lenders use soft pulls for rate checks, so checking your rate with both doesn't affect your credit score. Compare the actual APR, total cost, and monthly payment before deciding." },
-      { question: "Which is better for DoorDash drivers?", answer: "CreditLime integrates directly with DoorDash for income verification, which often results in better qualifying income assessment and lower rates than lenders who rely solely on bank statements." },
-      { question: "Does Fundo accept Upwork income?", answer: "Fundo's platform acceptance list is more limited than CreditLime's. If you earn from freelance platforms like Upwork or Fiverr, CreditLime is more likely to verify and count that income." },
+      { question: "Can I apply with both PennyLime and Fundo to compare offers?", answer: "Yes. Both lenders use soft pulls for rate checks, so checking your rate with both doesn't affect your credit score. Compare the actual APR, total cost, and monthly payment before deciding." },
+      { question: "Which is better for DoorDash drivers?", answer: "PennyLime integrates directly with DoorDash for income verification, which often results in better qualifying income assessment and lower rates than lenders who rely solely on bank statements." },
+      { question: "Does Fundo accept Upwork income?", answer: "Fundo's platform acceptance list is more limited than PennyLime's. If you earn from freelance platforms like Upwork or Fiverr, PennyLime is more likely to verify and count that income." },
     ]),
-    metaTitle: "CreditLime vs Fundo: Gig Worker Loan Comparison",
-    metaDescription: "Compare CreditLime and Fundo personal loans for gig workers. Rates, amounts, platforms accepted, and funding speed compared side-by-side.",
+    metaTitle: "PennyLime vs Fundo: Gig Worker Loan Comparison",
+    metaDescription: "Compare PennyLime and Fundo personal loans for gig workers. Rates, amounts, platforms accepted, and funding speed compared side-by-side.",
   },
   {
-    title: "CreditLime vs Traditional Banks: Why Gig Workers Choose Us",
-    slug: "creditlime-vs-traditional-banks",
-    entityA: "CreditLime",
+    title: "PennyLime vs Traditional Banks: Why Gig Workers Choose Us",
+    slug: "pennylime-vs-traditional-banks",
+    entityA: "PennyLime",
     entityB: "Traditional Banks",
-    introHtml: `<p>Traditional banks have served W-2 employees for decades. They excel at processing standard income documentation — pay stubs, W-2s, employer verification letters. For the 60+ million Americans who earn income through gig work and independent contracting, traditional banks are largely inaccessible. Here's why CreditLime was built to fill that gap.</p>`,
+    introHtml: `<p>Traditional banks have served W-2 employees for decades. They excel at processing standard income documentation — pay stubs, W-2s, employer verification letters. For the 60+ million Americans who earn income through gig work and independent contracting, traditional banks are largely inaccessible. Here's why PennyLime was built to fill that gap.</p>`,
     comparisonGrid: JSON.stringify([
-      { feature: "Income Verification", creditlime: "Platform API, bank statements, 1099s", competitor: "W-2 and pay stubs only" },
-      { feature: "Self-Employed Accepted", creditlime: "Yes — designed for 1099 workers", competitor: "Rarely — requires 2 years tax returns" },
-      { feature: "Application Time", creditlime: "3 minutes online", competitor: "30–60+ minutes, often branch visit" },
-      { feature: "Decision Speed", creditlime: "Instant rate offer", competitor: "3–14 business days" },
-      { feature: "Funding Speed", creditlime: "Within 24 hours", competitor: "5–10 business days" },
-      { feature: "Credit Score Minimum", creditlime: "580", competitor: "Often 700+" },
-      { feature: "Loan Amounts", creditlime: "$500 – $10,000", competitor: "$5,000 – $50,000+" },
-      { feature: "Income History Required", creditlime: "3–6 months platform history", competitor: "2 years W-2 history" },
+      { feature: "Income Verification", pennylime: "Platform API, bank statements, 1099s", competitor: "W-2 and pay stubs only" },
+      { feature: "Self-Employed Accepted", pennylime: "Yes — designed for 1099 workers", competitor: "Rarely — requires 2 years tax returns" },
+      { feature: "Application Time", pennylime: "3 minutes online", competitor: "30–60+ minutes, often branch visit" },
+      { feature: "Decision Speed", pennylime: "Instant rate offer", competitor: "3–14 business days" },
+      { feature: "Funding Speed", pennylime: "Within 24 hours", competitor: "5–10 business days" },
+      { feature: "Credit Score Minimum", pennylime: "580", competitor: "Often 700+" },
+      { feature: "Loan Amounts", pennylime: "$500 – $10,000", competitor: "$5,000 – $50,000+" },
+      { feature: "Income History Required", pennylime: "3–6 months platform history", competitor: "2 years W-2 history" },
     ]),
-    verdict: "Traditional banks are excellent for W-2 employees with long employment histories. For gig workers and independent contractors, CreditLime offers a faster, more accessible, and equally legitimate alternative with underwriting designed for how you actually earn.",
+    verdict: "Traditional banks are excellent for W-2 employees with long employment histories. For gig workers and independent contractors, PennyLime offers a faster, more accessible, and equally legitimate alternative with underwriting designed for how you actually earn.",
     faqEntries: JSON.stringify([
-      { question: "Are CreditLime loans legitimate like bank loans?", answer: "Yes. CreditLime is a licensed lender operating under applicable state and federal consumer lending laws. Loans are structured as installment loans with fixed payments, not payday or predatory products." },
-      { question: "Will a CreditLime loan appear on my credit report?", answer: "Yes. CreditLime reports to major credit bureaus. On-time payments build your credit history positively — unlike many alternative lenders who don't report positive payment behavior." },
-      { question: "Can I get a higher loan amount from a bank eventually?", answer: "Yes. Building a credit history with CreditLime and other lenders, combined with growing your gig income documentation over 1–2 years, can position you to qualify for larger bank loans in the future." },
+      { question: "Are PennyLime loans legitimate like bank loans?", answer: "Yes. PennyLime is a licensed lender operating under applicable state and federal consumer lending laws. Loans are structured as installment loans with fixed payments, not payday or predatory products." },
+      { question: "Will a PennyLime loan appear on my credit report?", answer: "Yes. PennyLime reports to major credit bureaus. On-time payments build your credit history positively — unlike many alternative lenders who don't report positive payment behavior." },
+      { question: "Can I get a higher loan amount from a bank eventually?", answer: "Yes. Building a credit history with PennyLime and other lenders, combined with growing your gig income documentation over 1–2 years, can position you to qualify for larger bank loans in the future." },
     ]),
-    metaTitle: "CreditLime vs Traditional Banks for Gig Workers",
-    metaDescription: "Why gig workers choose CreditLime over traditional banks. Faster approval, no W-2 required, and underwriting built for 1099 income.",
+    metaTitle: "PennyLime vs Traditional Banks for Gig Workers",
+    metaDescription: "Why gig workers choose PennyLime over traditional banks. Faster approval, no W-2 required, and underwriting built for 1099 income.",
   },
   {
-    title: "CreditLime vs Merchant Cash Advance: Personal Loans vs MCA",
-    slug: "creditlime-vs-merchant-cash-advance",
-    entityA: "CreditLime Personal Loan",
+    title: "PennyLime vs Merchant Cash Advance: Personal Loans vs MCA",
+    slug: "pennylime-vs-merchant-cash-advance",
+    entityA: "PennyLime Personal Loan",
     entityB: "Merchant Cash Advance (MCA)",
     introHtml: `<p>Merchant Cash Advances (MCAs) are marketed aggressively to self-employed workers and small business owners who need fast cash. But MCAs are structured completely differently from personal loans — and for many gig workers, they're a far more expensive option. Here's the full comparison.</p>`,
     comparisonGrid: JSON.stringify([
-      { feature: "Product Type", creditlime: "Personal installment loan", competitor: "Purchase of future receivables" },
-      { feature: "Cost Representation", creditlime: "APR (transparent, comparable)", competitor: "Factor rate (obscures true cost)" },
-      { feature: "Typical True APR", creditlime: "18% – 60%", competitor: "80% – 350% equivalent APR" },
-      { feature: "Repayment Structure", creditlime: "Fixed monthly payments", competitor: "Daily or weekly deductions from revenue" },
-      { feature: "Regulated by", creditlime: "State and federal lending law (TILA)", competitor: "Often unregulated as a commercial product" },
-      { feature: "Credit Score Impact", creditlime: "Reports to credit bureaus — builds credit", competitor: "May not report positively to bureaus" },
-      { feature: "Early Repayment Benefit", creditlime: "Yes — save on interest", competitor: "No — factor rate is fixed regardless" },
-      { feature: "Appropriate for", creditlime: "Personal expenses, emergency needs, vehicle repair", competitor: "Business with high card transaction volume" },
+      { feature: "Product Type", pennylime: "Personal installment loan", competitor: "Purchase of future receivables" },
+      { feature: "Cost Representation", pennylime: "APR (transparent, comparable)", competitor: "Factor rate (obscures true cost)" },
+      { feature: "Typical True APR", pennylime: "18% – 60%", competitor: "80% – 350% equivalent APR" },
+      { feature: "Repayment Structure", pennylime: "Fixed monthly payments", competitor: "Daily or weekly deductions from revenue" },
+      { feature: "Regulated by", pennylime: "State and federal lending law (TILA)", competitor: "Often unregulated as a commercial product" },
+      { feature: "Credit Score Impact", pennylime: "Reports to credit bureaus — builds credit", competitor: "May not report positively to bureaus" },
+      { feature: "Early Repayment Benefit", pennylime: "Yes — save on interest", competitor: "No — factor rate is fixed regardless" },
+      { feature: "Appropriate for", pennylime: "Personal expenses, emergency needs, vehicle repair", competitor: "Business with high card transaction volume" },
     ]),
-    verdict: "For gig workers needing personal financing, a CreditLime personal loan is almost always a better choice than an MCA. MCAs carry equivalent APRs many times higher than CreditLime rates, are largely unregulated, and don't build your credit score. MCAs may be appropriate for established businesses with high card sales volume — not for individual gig workers.",
+    verdict: "For gig workers needing personal financing, a PennyLime personal loan is almost always a better choice than an MCA. MCAs carry equivalent APRs many times higher than PennyLime rates, are largely unregulated, and don't build your credit score. MCAs may be appropriate for established businesses with high card sales volume — not for individual gig workers.",
     faqEntries: JSON.stringify([
       { question: "Why do so many gig workers end up with MCAs?", answer: "MCA companies market aggressively to self-employed workers with promises of instant approval and no credit check. The true cost is buried in 'factor rates' rather than APR, making comparisons difficult. Always ask for APR before signing any financing agreement." },
       { question: "Is an MCA ever appropriate for a gig worker?", answer: "Rarely. MCAs are designed for businesses with consistent card payment volume (like restaurants or retail). Individual gig workers have personal financing needs that are better served by personal installment loans." },
-      { question: "What if I already have an MCA and want to get out?", answer: "CreditLime personal loans can sometimes be used to pay off an MCA balance, effectively refinancing to a lower rate and a regulated, structured loan. Contact us to discuss your situation." },
+      { question: "What if I already have an MCA and want to get out?", answer: "PennyLime personal loans can sometimes be used to pay off an MCA balance, effectively refinancing to a lower rate and a regulated, structured loan. Contact us to discuss your situation." },
     ]),
-    metaTitle: "CreditLime vs Merchant Cash Advance: True Cost Comparison",
-    metaDescription: "Personal loans vs merchant cash advances for gig workers. See the true cost difference and why CreditLime is a better choice than MCAs.",
+    metaTitle: "PennyLime vs Merchant Cash Advance: True Cost Comparison",
+    metaDescription: "Personal loans vs merchant cash advances for gig workers. See the true cost difference and why PennyLime is a better choice than MCAs.",
   },
   {
-    title: "CreditLime vs Credit Cards: Which Is Cheaper for Gig Workers?",
-    slug: "creditlime-vs-credit-cards",
-    entityA: "CreditLime Personal Loan",
+    title: "PennyLime vs Credit Cards: Which Is Cheaper for Gig Workers?",
+    slug: "pennylime-vs-credit-cards",
+    entityA: "PennyLime Personal Loan",
     entityB: "Credit Cards",
-    introHtml: `<p>Credit cards and personal loans both provide access to credit, but they work very differently and serve different purposes. For gig workers needing a specific amount of money for a defined purpose, a personal loan from CreditLime often has a lower total cost than carrying a credit card balance. Here's the full comparison.</p>`,
+    introHtml: `<p>Credit cards and personal loans both provide access to credit, but they work very differently and serve different purposes. For gig workers needing a specific amount of money for a defined purpose, a personal loan from PennyLime often has a lower total cost than carrying a credit card balance. Here's the full comparison.</p>`,
     comparisonGrid: JSON.stringify([
-      { feature: "Typical APR", creditlime: "18% – 36% for qualified borrowers", competitor: "20% – 29.99% average for existing cards" },
-      { feature: "Rate Type", creditlime: "Fixed — won't change during loan term", competitor: "Variable — can increase with Fed rate changes" },
-      { feature: "Payment Structure", creditlime: "Fixed monthly payment — fully amortizing", competitor: "Minimum payment — can carry balance indefinitely" },
-      { feature: "Payoff Timeline", creditlime: "Defined — loan paid off at end of term", competitor: "Indefinite — minimum payment extends debt" },
-      { feature: "Cash Access Fee", creditlime: "None — funds deposited directly", competitor: "Cash advance fee 3–5% plus higher APR" },
-      { feature: "Credit Utilization Impact", creditlime: "Installment loan — minimal utilization impact", competitor: "Revolving — high balance hurts utilization score" },
-      { feature: "Appropriate for", creditlime: "Defined lump-sum needs (car repair, medical bill)", competitor: "Ongoing smaller purchases with full monthly payoff" },
-      { feature: "Best practice", creditlime: "Borrow what you need, pay it down systematically", competitor: "Use for purchases you can pay off monthly" },
+      { feature: "Typical APR", pennylime: "18% – 36% for qualified borrowers", competitor: "20% – 29.99% average for existing cards" },
+      { feature: "Rate Type", pennylime: "Fixed — won't change during loan term", competitor: "Variable — can increase with Fed rate changes" },
+      { feature: "Payment Structure", pennylime: "Fixed monthly payment — fully amortizing", competitor: "Minimum payment — can carry balance indefinitely" },
+      { feature: "Payoff Timeline", pennylime: "Defined — loan paid off at end of term", competitor: "Indefinite — minimum payment extends debt" },
+      { feature: "Cash Access Fee", pennylime: "None — funds deposited directly", competitor: "Cash advance fee 3–5% plus higher APR" },
+      { feature: "Credit Utilization Impact", pennylime: "Installment loan — minimal utilization impact", competitor: "Revolving — high balance hurts utilization score" },
+      { feature: "Appropriate for", pennylime: "Defined lump-sum needs (car repair, medical bill)", competitor: "Ongoing smaller purchases with full monthly payoff" },
+      { feature: "Best practice", pennylime: "Borrow what you need, pay it down systematically", competitor: "Use for purchases you can pay off monthly" },
     ]),
-    verdict: "Use credit cards for everyday purchases that you pay off in full each month. Use a CreditLime personal loan for a defined lump-sum need — car repair, medical bill, equipment purchase — where you want a fixed payoff timeline and potentially a lower rate than your credit card. Carrying a large credit card balance indefinitely is almost always more expensive than a personal loan.",
+    verdict: "Use credit cards for everyday purchases that you pay off in full each month. Use a PennyLime personal loan for a defined lump-sum need — car repair, medical bill, equipment purchase — where you want a fixed payoff timeline and potentially a lower rate than your credit card. Carrying a large credit card balance indefinitely is almost always more expensive than a personal loan.",
     faqEntries: JSON.stringify([
-      { question: "Should I use my credit card or a CreditLime loan to fix my car?", answer: "If you have a credit card with a 24% APR and you'd carry the balance for 12 months, a CreditLime loan may offer a lower total cost with the benefit of a defined payoff date. Run the numbers with our loan comparison tool." },
+      { question: "Should I use my credit card or a PennyLime loan to fix my car?", answer: "If you have a credit card with a 24% APR and you'd carry the balance for 12 months, a PennyLime loan may offer a lower total cost with the benefit of a defined payoff date. Run the numbers with our loan comparison tool." },
       { question: "Does a personal loan hurt my credit score?", answer: "Initially, a hard inquiry drops your score 2–5 points. But as you pay down the loan, your credit mix improves and your payment history strengthens — net positive effect over 12 months for most borrowers." },
-      { question: "Can I use a credit card to pay off a CreditLime loan?", answer: "CreditLime doesn't accept credit card payments directly. The monthly payment deducts from your bank account via ACH. You can make extra payments at any time to pay off the loan early." },
+      { question: "Can I use a credit card to pay off a PennyLime loan?", answer: "PennyLime doesn't accept credit card payments directly. The monthly payment deducts from your bank account via ACH. You can make extra payments at any time to pay off the loan early." },
     ]),
-    metaTitle: "CreditLime vs Credit Cards: Which Costs Less?",
-    metaDescription: "Comparing personal loans from CreditLime to credit cards for gig workers. Which has a lower true cost for lump-sum borrowing needs?",
+    metaTitle: "PennyLime vs Credit Cards: Which Costs Less?",
+    metaDescription: "Comparing personal loans from PennyLime to credit cards for gig workers. Which has a lower true cost for lump-sum borrowing needs?",
   },
   {
-    title: "CreditLime vs Payday Loans: The Real Numbers",
-    slug: "creditlime-vs-payday-loans",
-    entityA: "CreditLime Personal Loan",
+    title: "PennyLime vs Payday Loans: The Real Numbers",
+    slug: "pennylime-vs-payday-loans",
+    entityA: "PennyLime Personal Loan",
     entityB: "Payday Loans",
-    introHtml: `<p>Payday loans are designed to look like quick, simple solutions. They are neither. For gig workers facing an emergency, understanding the true cost of a payday loan versus a CreditLime personal loan could save you hundreds of dollars — and weeks of financial stress. Here are the real numbers.</p>`,
+    introHtml: `<p>Payday loans are designed to look like quick, simple solutions. They are neither. For gig workers facing an emergency, understanding the true cost of a payday loan versus a PennyLime personal loan could save you hundreds of dollars — and weeks of financial stress. Here are the real numbers.</p>`,
     comparisonGrid: JSON.stringify([
-      { feature: "Typical APR", creditlime: "18% – 60%", competitor: "200% – 400%+" },
-      { feature: "Loan Amount", creditlime: "$500 – $10,000", competitor: "$100 – $1,500" },
-      { feature: "Loan Term", creditlime: "3 – 24 months", competitor: "14 days (due on next payday)" },
-      { feature: "Repayment", creditlime: "Fixed monthly installments reducing principal", competitor: "Lump sum — designed to force rollover" },
-      { feature: "Credit Building", creditlime: "Reports to bureaus — builds credit history", competitor: "Usually does not report positive payments" },
-      { feature: "Rollover / Extension", creditlime: "Hardship plans available — not designed to trap", competitor: "Rollover fees compound rapidly into debt trap" },
-      { feature: "Income Verification", creditlime: "Platform earnings or bank statements", competitor: "Often none required — contributing to high cost" },
-      { feature: "Total Cost ($500 borrowed, 60 days)", creditlime: "~$20–$30 in interest", competitor: "$150–$300+ in fees/rollovers" },
+      { feature: "Typical APR", pennylime: "18% – 60%", competitor: "200% – 400%+" },
+      { feature: "Loan Amount", pennylime: "$500 – $10,000", competitor: "$100 – $1,500" },
+      { feature: "Loan Term", pennylime: "3 – 24 months", competitor: "14 days (due on next payday)" },
+      { feature: "Repayment", pennylime: "Fixed monthly installments reducing principal", competitor: "Lump sum — designed to force rollover" },
+      { feature: "Credit Building", pennylime: "Reports to bureaus — builds credit history", competitor: "Usually does not report positive payments" },
+      { feature: "Rollover / Extension", pennylime: "Hardship plans available — not designed to trap", competitor: "Rollover fees compound rapidly into debt trap" },
+      { feature: "Income Verification", pennylime: "Platform earnings or bank statements", competitor: "Often none required — contributing to high cost" },
+      { feature: "Total Cost ($500 borrowed, 60 days)", pennylime: "~$20–$30 in interest", competitor: "$150–$300+ in fees/rollovers" },
     ]),
-    verdict: "Payday loans are consumer debt traps that extract maximum fees from financially vulnerable people. CreditLime was built specifically to give gig workers — who often fall prey to payday lenders because they can't access traditional banks — a legitimate, affordable alternative. There is almost no scenario in which a payday loan is a better choice than a CreditLime personal loan for a gig worker who qualifies.",
+    verdict: "Payday loans are consumer debt traps that extract maximum fees from financially vulnerable people. PennyLime was built specifically to give gig workers — who often fall prey to payday lenders because they can't access traditional banks — a legitimate, affordable alternative. There is almost no scenario in which a payday loan is a better choice than a PennyLime personal loan for a gig worker who qualifies.",
     faqEntries: JSON.stringify([
-      { question: "What if I can't qualify for CreditLime — should I use a payday loan?", answer: "Contact CreditLime before concluding you don't qualify. Our minimum credit score is 580 and we accept gig income as low as $800/month average. If you truly don't qualify, we'll tell you — and suggest alternatives other than payday loans." },
+      { question: "What if I can't qualify for PennyLime — should I use a payday loan?", answer: "Contact PennyLime before concluding you don't qualify. Our minimum credit score is 580 and we accept gig income as low as $800/month average. If you truly don't qualify, we'll tell you — and suggest alternatives other than payday loans." },
       { question: "Are payday loans legal?", answer: "Payday loans are legal in many states but banned or heavily restricted in others. Regardless of legality, they are structured to be financially harmful to borrowers. Several states (Colorado, Ohio, Virginia) have passed reforms capping payday rates at 36% APR." },
-      { question: "I have a payday loan and can't pay it back. What do I do?", answer: "Contact the payday lender immediately to discuss extended payment plans (many states require lenders to offer these). Then apply for a CreditLime personal loan — if approved, use it to pay off the payday loan and get on a structured repayment plan at a fraction of the cost." },
+      { question: "I have a payday loan and can't pay it back. What do I do?", answer: "Contact the payday lender immediately to discuss extended payment plans (many states require lenders to offer these). Then apply for a PennyLime personal loan — if approved, use it to pay off the payday loan and get on a structured repayment plan at a fraction of the cost." },
     ]),
-    metaTitle: "CreditLime vs Payday Loans: Real Numbers Compared",
-    metaDescription: "The true cost of payday loans vs CreditLime personal loans for gig workers. APR, total cost, and why payday loans are always more expensive.",
+    metaTitle: "PennyLime vs Payday Loans: Real Numbers Compared",
+    metaDescription: "The true cost of payday loans vs PennyLime personal loans for gig workers. APR, total cost, and why payday loans are always more expensive.",
   },
 ];
 

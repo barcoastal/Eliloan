@@ -19,7 +19,7 @@ export function paymentSuccessEmail(params: {
         ${params.remainingBalance <= 0 ? '<p style="color: #16a34a; font-weight: bold;">Congratulations! Your loan is fully paid off!</p>' : ""}
         <p>View your loan: <a href="${statusUrl}" style="color: #16a34a;">${statusUrl}</a></p>
         <hr style="border: none; border-top: 1px solid #e5e7eb; margin: 24px 0;" />
-        <p style="color: #6b7280; font-size: 12px;">CreditLime</p>
+        <p style="color: #6b7280; font-size: 12px;">PennyLime</p>
       </div>
     `,
   };

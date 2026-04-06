@@ -129,7 +129,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
               <div className="bg-white rounded-2xl border border-[#e4e4e7] p-6 shadow-sm">
                 <div className="flex items-center gap-2 mb-3">
                   <LogoMark size={24} />
-                  <span className="text-[14px] font-extrabold tracking-[-0.02em]">Credit<span className="text-[#15803d]">Lime</span></span>
+                  <span className="text-[14px] font-extrabold tracking-[-0.02em]">Penny<span className="text-[#15803d]">Lime</span></span>
                 </div>
                 <p className="text-[15px] font-bold text-black mb-1">Need a loan?</p>
                 <p className="text-[13px] text-[#71717a] mb-4">$100 - $10,000 for gig workers. No credit check required.</p>
@@ -168,7 +168,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
                 <p className="text-[11px] font-bold uppercase tracking-[0.05em] text-[#a1a1aa] mb-3">Share</p>
                 <div className="flex gap-2">
                   <a
-                    href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(article.title)}&url=${encodeURIComponent(`https://creditlime.com/blog/${article.slug}`)}`}
+                    href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(article.title)}&url=${encodeURIComponent(`https://pennylime.com/blog/${article.slug}`)}`}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="flex items-center justify-center w-10 h-10 rounded-xl bg-[#f4f4f5] text-[#52525b] hover:bg-[#e4e4e7] transition-colors"
@@ -176,7 +176,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" /></svg>
                   </a>
                   <a
-                    href={`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(`https://creditlime.com/blog/${article.slug}`)}`}
+                    href={`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(`https://pennylime.com/blog/${article.slug}`)}`}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="flex items-center justify-center w-10 h-10 rounded-xl bg-[#f4f4f5] text-[#52525b] hover:bg-[#e4e4e7] transition-colors"
@@ -219,7 +219,7 @@ function ArticleBody({ html }: { html: string }) {
     <div>
       {parts.map((part, i) => {
         if (part === "banner") {
-          return <ContentCta key={`cta-${i}`} variant="banner" text="Did you know?" subtext="CreditLime doesn't check your credit score. We verify your gig platform earnings directly. A low credit score won't hold you back from getting funded." />;
+          return <ContentCta key={`cta-${i}`} variant="banner" text="Did you know?" subtext="PennyLime doesn't check your credit score. We verify your gig platform earnings directly. A low credit score won't hold you back from getting funded." />;
         }
         if (part === "inline") {
           return <ContentCta key={`cta-${i}`} variant="inline" text="Need cash between gigs?" subtext="$100 - $10,000. No credit check. Funded in 48 hours." />;

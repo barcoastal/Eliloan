@@ -1,7 +1,7 @@
 import { getResend } from "@/lib/email";
 import { prisma } from "@/lib/db";
 
-const FROM_EMAIL = process.env.FROM_EMAIL || "CreditLime <noreply@creditlime.com>";
+const FROM_EMAIL = process.env.FROM_EMAIL || "PennyLime <noreply@pennylime.com>";
 const APP_URL = process.env.APP_URL || "http://localhost:3000";
 
 export async function sendMarketingEmail({
@@ -37,7 +37,7 @@ export async function sendMarketingEmail({
       ${html}
     </div>
     <div style="margin-top:24px;text-align:center;color:#a1a1aa;font-size:12px;">
-      <p>CreditLime - Fast loans for gig workers</p>
+      <p>PennyLime - Fast loans for gig workers</p>
       <p><a href="${APP_URL}/unsubscribe?email=${encodeURIComponent(to)}" style="color:#71717a;">Unsubscribe</a></p>
     </div>
   </div>

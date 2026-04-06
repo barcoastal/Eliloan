@@ -5,7 +5,7 @@ Disallow: /admin
 Disallow: /api
 Disallow: /status
 
-Sitemap: https://creditlime.com/sitemap.xml`;
+Sitemap: https://pennylime.com/sitemap.xml`;
 
   return new Response(body, {
     headers: { "Content-Type": "text/plain" },

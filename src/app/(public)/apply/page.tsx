@@ -62,7 +62,7 @@ function Navbar() {
     <nav className="fixed top-0 z-50 w-full bg-[#f8faf8]/90 backdrop-blur-xl border-b border-[#e5e7eb]">
       <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4 sm:px-10">
         <Link href="/">
-          <span className="font-extrabold text-lg tracking-[-0.03em]">Credit<span className="text-[#15803d]">Lime</span></span>
+          <span className="font-extrabold text-lg tracking-[-0.03em]">Penny<span className="text-[#15803d]">Lime</span></span>
         </Link>
         <Link
           href="/status"
@@ -1636,7 +1636,7 @@ function ApplyPageInner() {
                               lastAppStep: 2,
                             });
                             await logActivity({ contactId: contact.id, type: "app_started", title: "Application started" });
-                            try { sessionStorage.setItem("creditlime_contact_id", contact.id); } catch {}
+                            try { sessionStorage.setItem("pennylime_contact_id", contact.id); } catch {}
                           } catch {}
                           setStep(step + 1);
                         }
@@ -1754,7 +1754,7 @@ function ApplyPageInner() {
                         lastAppStep: 2,
                       });
                       await logActivity({ contactId: contact.id, type: "app_started", title: "Application started" });
-                      try { sessionStorage.setItem("creditlime_contact_id", contact.id); } catch {}
+                      try { sessionStorage.setItem("pennylime_contact_id", contact.id); } catch {}
                     } catch {}
                     setStep(2);
                   }

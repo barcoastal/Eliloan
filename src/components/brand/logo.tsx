@@ -6,7 +6,7 @@ interface LogoProps {
 }
 
 /**
- * CreditLime brand mark: 3D half-lemon (cross-section view) with 3 juice drops flying away.
+ * PennyLime brand mark: 3D half-lemon (cross-section view) with 3 juice drops flying away.
  */
 export function LogoMark({ className = "", size = 32 }: { className?: string; size?: number }) {
   return (
@@ -138,7 +138,7 @@ export function Logo({
       <LogoMark size={size} />
       {showText && (
         <span className={textClassName}>
-          Credit<span className="text-[#15803d]">Lime</span>
+          Penny<span className="text-[#15803d]">Lime</span>
         </span>
       )}
     </span>
