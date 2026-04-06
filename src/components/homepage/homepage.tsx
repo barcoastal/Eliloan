@@ -9,6 +9,7 @@ import { HowItWorks } from "./sections/how-it-works";
 import { PlatformShowcase } from "./sections/platform-showcase";
 import { SocialProof } from "./sections/social-proof";
 import { WhyLimecredit } from "./sections/why-creditlime";
+import { Industries } from "./sections/industries";
 import { BlogPreview } from "./sections/blog-preview";
 import { HomeFaq } from "./sections/faq";
 import { FinalCta } from "./sections/final-cta";
@@ -37,6 +38,7 @@ export function Homepage({ latestArticles, platforms }: HomepageProps) {
         <PlatformShowcase platforms={platforms} />
         <SocialProof />
         <WhyLimecredit />
+        <Industries />
         <BlogPreview articles={latestArticles} />
         <HomeFaq />
         <FinalCta />
