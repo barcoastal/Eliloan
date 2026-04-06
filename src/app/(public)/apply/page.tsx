@@ -13,6 +13,8 @@ import { CheckCircle, Building2 } from "lucide-react";
 import { submitApplication } from "@/actions/applications";
 import { upsertContact, updateContactLastStep, linkContactApplication } from "@/actions/contacts";
 import { logActivity } from "@/actions/activities";
+import type { FormStep } from "@/types/form-template";
+import { DynamicStep } from "@/components/apply/dynamic-step";
 
 /* ------------------------------------------------------------------ */
 /*  CONSTANTS                                                           */
@@ -76,7 +78,7 @@ function Navbar() {
 /* ------------------------------------------------------------------ */
 /*  STEP INDICATOR                                                      */
 /* ------------------------------------------------------------------ */
-function StepIndicator({ current }: { current: number }) {
+function StepIndicator({ current, stepNames }: { current: number; stepNames: string[] }) {
   return (
     <div className="w-full">
       {/* Progress bar */}
@@ -84,16 +86,16 @@ function StepIndicator({ current }: { current: number }) {
         <motion.div
           className="h-full bg-[#1a1a1a] rounded-full"
           initial={false}
-          animate={{ width: `${((current + 1) / STEPS.length) * 100}%` }}
+          animate={{ width: `${((current + 1) / stepNames.length) * 100}%` }}
           transition={{ duration: 0.4 }}
         />
       </div>
       {/* Step counter */}
       <div className="mt-3 flex items-center justify-between">
         <span className="text-[13px] text-[#71717a]">
-          Step {current + 1} of {STEPS.length}
+          Step {current + 1} of {stepNames.length}
         </span>
-        <span className="text-[13px] text-[#71717a]">{STEPS[current]}</span>
+        <span className="text-[13px] text-[#71717a]">{stepNames[current]}</span>
       </div>
     </div>
   );
@@ -1466,6 +1468,8 @@ function ApplyPageInner() {
   const [submitting, setSubmitting] = useState(false);
   const [uploadProgress, setUploadProgress] = useState(false);
   const [applicationCode, setApplicationCode] = useState<string | null>(null);
+  const [templateSteps, setTemplateSteps] = useState<FormStep[] | null>(null);
+  const [customStepData, setCustomStepData] = useState<Record<string, string>>({});
 
   const addFiles = useCallback((newFiles: FileList | File[]) => {
     const valid: File[] = [];
@@ -1480,6 +1484,25 @@ function ApplyPageInner() {
   }, []);
 
   const removeFile = (index: number) => setFiles((prev) => prev.filter((_, i) => i !== index));
+
+  useEffect(() => {
+    const templateSlug = searchParams.get("template");
+    if (templateSlug) {
+      fetch(`/api/form-template?slug=${templateSlug}`)
+        .then(r => r.json())
+        .then(t => {
+          if (t?.steps) {
+            const steps = JSON.parse(t.steps) as FormStep[];
+            setTemplateSteps(steps.filter(s => s.enabled).sort((a, b) => a.order - b.order));
+          }
+        })
+        .catch(() => {});
+    }
+  }, [searchParams]);
+
+  const activeStepNames = templateSteps
+    ? templateSteps.map(s => s.title)
+    : STEPS;
 
   const validateStep2 = () => {
     const parsed = formSchema.safeParse({
@@ -1552,12 +1575,156 @@ function ApplyPageInner() {
       <Navbar />
 
       <div className="mx-auto max-w-[400px] px-6 pb-20 pt-28">
-        {!applicationCode && <StepIndicator current={step} />}
+        {!applicationCode && <StepIndicator current={step} stepNames={activeStepNames} />}
 
         <div className="mt-10 flex justify-center">
           <AnimatePresence mode="wait">
             {applicationCode ? (
               <SuccessScreen key="success" code={applicationCode} />
+            ) : templateSteps ? (
+              (() => {
+                const currentTemplateStep = templateSteps[step];
+                if (!currentTemplateStep) return null;
+
+                if (currentTemplateStep.type === "custom") {
+                  return (
+                    <DynamicStep
+                      key={`custom-${step}`}
+                      title={currentTemplateStep.title}
+                      description={currentTemplateStep.description}
+                      fields={currentTemplateStep.customFields || []}
+                      values={customStepData}
+                      onChange={(fieldId, value) => setCustomStepData(prev => ({ ...prev, [fieldId]: value }))}
+                      onNext={() => setStep(step + 1)}
+                      onBack={() => setStep(step - 1)}
+                    />
+                  );
+                }
+
+                // builtin step — map builtinKey to component
+                const builtinKey = currentTemplateStep.builtinKey;
+                if (builtinKey === "amount") {
+                  return (
+                    <StepAmount
+                      key="amount"
+                      amount={loanAmount}
+                      setAmount={setLoanAmount}
+                      loanTermMonths={loanTermMonths}
+                      setLoanTermMonths={setLoanTermMonths}
+                      onNext={() => setStep(step + 1)}
+                    />
+                  );
+                }
+                if (builtinKey === "info") {
+                  return (
+                    <StepInfo
+                      key="info"
+                      form={form}
+                      setForm={setForm}
+                      errors={errors}
+                      onNext={async () => {
+                        if (validateStep2()) {
+                          try {
+                            const contact = await upsertContact({
+                              email: form.email,
+                              firstName: form.firstName,
+                              lastName: form.lastName,
+                              phone: form.phone,
+                              source: searchParams.get("utm_campaign") ? `lp:${searchParams.get("utm_campaign")}` : "direct",
+                              utmSource: searchParams.get("utm_source") || undefined,
+                              utmCampaign: searchParams.get("utm_campaign") || undefined,
+                              lastAppStep: 2,
+                            });
+                            await logActivity({ contactId: contact.id, type: "app_started", title: "Application started" });
+                            try { sessionStorage.setItem("creditlime_contact_id", contact.id); } catch {}
+                          } catch {}
+                          setStep(step + 1);
+                        }
+                      }}
+                      onBack={() => setStep(step - 1)}
+                    />
+                  );
+                }
+                if (builtinKey === "platforms") {
+                  return (
+                    <StepPlatforms
+                      key="platforms"
+                      platforms={platforms}
+                      setPlatforms={setPlatforms}
+                      otherPlatform={otherPlatform}
+                      setOtherPlatform={setOtherPlatform}
+                      weeklyEarnings={weeklyEarnings}
+                      setWeeklyEarnings={setWeeklyEarnings}
+                      onNext={async () => { try { if (form.email) await updateContactLastStep(form.email, step + 1); } catch {} setStep(step + 1); }}
+                      onBack={() => setStep(step - 1)}
+                    />
+                  );
+                }
+                if (builtinKey === "identity") {
+                  return (
+                    <StepIdentity
+                      key="identity"
+                      photoId={photoId}
+                      setPhotoId={setPhotoId}
+                      bankStatement={bankStatement}
+                      setBankStatement={setBankStatement}
+                      onNext={async () => { try { if (form.email) await updateContactLastStep(form.email, step + 1); } catch {} setStep(step + 1); }}
+                      onBack={() => setStep(step - 1)}
+                    />
+                  );
+                }
+                if (builtinKey === "bank") {
+                  return (
+                    <StepPlaidLink
+                      key="plaid"
+                      plaidAccessToken={plaidAccessToken}
+                      plaidAccountId={plaidAccountId}
+                      plaidItemId={plaidItemId}
+                      setPlaidData={({ accessToken, accountId, itemId }) => {
+                        setPlaidAccessToken(accessToken);
+                        setPlaidAccountId(accountId);
+                        setPlaidItemId(itemId);
+                      }}
+                      onNext={async () => { try { if (form.email) await updateContactLastStep(form.email, step + 1); } catch {} setStep(step + 1); }}
+                      onBack={() => setStep(step - 1)}
+                    />
+                  );
+                }
+                if (builtinKey === "documents") {
+                  return (
+                    <StepUpload
+                      key="upload"
+                      files={files}
+                      addFiles={addFiles}
+                      removeFile={removeFile}
+                      onNext={async () => { try { if (form.email) await updateContactLastStep(form.email, step + 1); } catch {} setStep(step + 1); }}
+                      onBack={() => setStep(step - 1)}
+                    />
+                  );
+                }
+                if (builtinKey === "review") {
+                  return (
+                    <StepReview
+                      key="review"
+                      amount={loanAmount}
+                      loanTermMonths={loanTermMonths}
+                      form={form}
+                      files={files}
+                      photoId={photoId}
+                      bankStatement={bankStatement}
+                      platforms={platforms}
+                      otherPlatform={otherPlatform}
+                      weeklyEarnings={weeklyEarnings}
+                      bankLinked={!!(plaidAccessToken && plaidAccountId && plaidItemId)}
+                      submitting={submitting}
+                      uploadProgress={uploadProgress}
+                      onBack={() => setStep(step - 1)}
+                      onSubmit={handleSubmit}
+                    />
+                  );
+                }
+                return null;
+              })()
             ) : step === 0 ? (
               <StepAmount
                 key="amount"
