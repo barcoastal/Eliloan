@@ -127,6 +127,7 @@ async function main() {
       utmSource: "lp",
       utmCampaign: "uber-lyft",
       formPlatforms: JSON.stringify(["Uber", "Lyft", "Both"]),
+      formTemplateSlug: "uber-lyft-short",
       defaultAmount: 3000,
       defaultTermWeeks: 4,
       published: true,

@@ -35,6 +35,7 @@ interface LPFormData {
   finalCtaButtonText: string;
   utmSource: string;
   utmCampaign: string;
+  formTemplateSlug: string;
   formPlatforms: string[];
   defaultAmount: number;
   defaultTermWeeks: number;
@@ -66,6 +67,7 @@ const DEFAULT_FORM: LPFormData = {
   finalCtaButtonText: "Apply Now",
   utmSource: "lp",
   utmCampaign: "",
+  formTemplateSlug: "",
   formPlatforms: ["Uber", "Lyft", "Both"],
   defaultAmount: 3000,
   defaultTermWeeks: 4,
@@ -91,6 +93,7 @@ function parseInitial(raw?: Record<string, unknown>): LPFormData {
     finalCtaSubtext: (raw.finalCtaSubtext as string) ?? "",
     defaultAmount: (raw.defaultAmount as number) ?? 3000,
     defaultTermWeeks: (raw.defaultTermWeeks as number) ?? 4,
+    formTemplateSlug: (raw.formTemplateSlug as string) ?? "",
   };
 }
 
@@ -430,6 +433,16 @@ export function LandingPageEditorClient({ page }: { page?: Record<string, unknow
                 <label className={labelClass}>Default Term (weeks)</label>
                 <input type="number" value={form.defaultTermWeeks} onChange={(e) => set("defaultTermWeeks", Number(e.target.value))} className={inputClass} />
               </div>
+            </div>
+            <div>
+              <label className={labelClass}>Form Template Slug (optional)</label>
+              <input
+                value={form.formTemplateSlug}
+                onChange={(e) => set("formTemplateSlug", e.target.value)}
+                className={inputClass}
+                placeholder="e.g. uber-lyft-short (leave empty for default)"
+              />
+              <p className="text-[11px] text-[#a1a1aa] mt-1">Links to a form template. Applicants will use this form variant.</p>
             </div>
             <div>
               <div className="flex items-center justify-between">

@@ -15,6 +15,7 @@ interface Props {
   utmSource?: string;
   utmCampaign?: string;
   buttonText?: string;
+  formTemplateSlug?: string;
 }
 
 export function LandingLeadForm({
@@ -24,6 +25,7 @@ export function LandingLeadForm({
   utmSource = "lp",
   utmCampaign = "uber-lyft",
   buttonText = "Start My Application →",
+  formTemplateSlug,
 }: Props) {
   const router = useRouter();
   const [amount, setAmount] = useState(defaultAmount);
@@ -45,6 +47,9 @@ export function LandingLeadForm({
       utm_source: utmSource,
       utm_campaign: utmCampaign,
     });
+    if (formTemplateSlug) {
+      params.set("template", formTemplateSlug);
+    }
     router.push(`/apply?${params.toString()}`);
   }
 
