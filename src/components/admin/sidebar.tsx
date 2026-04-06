@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { signOut } from "next-auth/react";
 import { LogoMark } from "@/components/brand/logo";
 
@@ -84,6 +84,14 @@ export function AdminSidebar({ userName }: { userName: string }) {
   const pathname = usePathname();
   const [collapsed, setCollapsed] = useState(false);
   const [openGroups, setOpenGroups] = useState<Set<string>>(new Set(NAV_GROUPS.map((g) => g.title)));
+
+  useEffect(() => {
+    const mq = window.matchMedia("(max-width: 1280px)");
+    const handler = (e: MediaQueryListEvent | MediaQueryList) => setCollapsed(e.matches);
+    handler(mq);
+    mq.addEventListener("change", handler);
+    return () => mq.removeEventListener("change", handler);
+  }, []);
 
   const toggleGroup = (title: string) => {
     const next = new Set(openGroups);
