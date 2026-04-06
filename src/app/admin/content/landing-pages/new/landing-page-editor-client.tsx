@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { createLandingPage, updateLandingPage, deleteLandingPage } from "@/actions/content";
+import { TabBar } from "@/components/admin/tab-bar";
 
 interface TrustStat { value: string; label: string; }
 interface HowItWorksStep { num: string; title: string; desc: string; img: string; }
@@ -97,11 +98,20 @@ function parseInitial(raw?: Record<string, unknown>): LPFormData {
   };
 }
 
+const TABS = [
+  { id: "hero", label: "Hero" },
+  { id: "content", label: "Content" },
+  { id: "form", label: "Form" },
+  { id: "seo", label: "SEO" },
+  { id: "publish", label: "Publish" },
+];
+
 export function LandingPageEditorClient({ page }: { page?: Record<string, unknown> }) {
   const router = useRouter();
   const isEdit = !!(page?.id);
   const [form, setForm] = useState<LPFormData>(parseInitial(page));
   const [saving, setSaving] = useState(false);
+  const [activeTab, setActiveTab] = useState("hero");
 
   function set(field: keyof LPFormData, value: unknown) {
     setForm((prev) => ({ ...prev, [field]: value }));
@@ -206,38 +216,10 @@ export function LandingPageEditorClient({ page }: { page?: Record<string, unknow
         </div>
       </div>
 
-      <div className="grid grid-cols-[1fr_280px] gap-6">
-        {/* Main content */}
-        <div className="space-y-4">
-          {/* 1. Basics */}
-          <div className={sectionClass}>
-            <p className={sectionTitle}>Basics</p>
-            <div>
-              <label className={labelClass}>Slug</label>
-              <input value={form.slug} onChange={(e) => set("slug", e.target.value)} className={inputClass} placeholder="uber-lyft-driver-loans" />
-              <p className="text-[11px] text-[#a1a1aa] mt-1">URL: /lp/{form.slug || "..."}</p>
-            </div>
-            <div>
-              <div className="flex justify-between">
-                <label className={labelClass}>Meta Title</label>
-                <span className="text-[11px] text-[#a1a1aa]">{form.metaTitle.length}/60</span>
-              </div>
-              <input value={form.metaTitle} onChange={(e) => set("metaTitle", e.target.value)} className={inputClass} />
-            </div>
-            <div>
-              <div className="flex justify-between">
-                <label className={labelClass}>Meta Description</label>
-                <span className="text-[11px] text-[#a1a1aa]">{form.metaDescription.length}/160</span>
-              </div>
-              <textarea value={form.metaDescription} onChange={(e) => set("metaDescription", e.target.value)} rows={3} className={inputClass} />
-            </div>
-            <div>
-              <label className={labelClass}>Phone Number (header)</label>
-              <input value={form.phoneNumber} onChange={(e) => set("phoneNumber", e.target.value)} className={inputClass} placeholder="1-800-555-1234" />
-            </div>
-          </div>
+      <TabBar tabs={TABS} activeTab={activeTab} onChange={setActiveTab} />
 
-          {/* 2. Hero */}
+      {activeTab === "hero" && (
+        <div className="space-y-4">
           <div className={sectionClass}>
             <p className={sectionTitle}>Hero</p>
             <div>
@@ -265,8 +247,12 @@ export function LandingPageEditorClient({ page }: { page?: Record<string, unknow
               <input value={form.heroIllustration} onChange={(e) => set("heroIllustration", e.target.value)} className={inputClass} placeholder="/illustrations/platform-rideshare.png" />
             </div>
           </div>
+        </div>
+      )}
 
-          {/* 3. Trust Items */}
+      {activeTab === "content" && (
+        <div className="space-y-4">
+          {/* Trust Items */}
           <div className={sectionClass}>
             <div className="flex items-center justify-between">
               <p className={sectionTitle}>Trust Row Items</p>
@@ -284,7 +270,7 @@ export function LandingPageEditorClient({ page }: { page?: Record<string, unknow
             </div>
           </div>
 
-          {/* 4. Trust Stats */}
+          {/* Trust Stats */}
           <div className={sectionClass}>
             <div className="flex items-center justify-between">
               <p className={sectionTitle}>Trust Stats</p>
@@ -303,7 +289,7 @@ export function LandingPageEditorClient({ page }: { page?: Record<string, unknow
             </div>
           </div>
 
-          {/* 5. How It Works */}
+          {/* How It Works */}
           <div className={sectionClass}>
             <p className={sectionTitle}>How It Works</p>
             <div>
@@ -338,7 +324,7 @@ export function LandingPageEditorClient({ page }: { page?: Record<string, unknow
             </div>
           </div>
 
-          {/* 6. Testimonials */}
+          {/* Testimonials */}
           <div className={sectionClass}>
             <p className={sectionTitle}>Testimonials</p>
             <div>
@@ -369,7 +355,7 @@ export function LandingPageEditorClient({ page }: { page?: Record<string, unknow
             </div>
           </div>
 
-          {/* 7. FAQ */}
+          {/* FAQ */}
           <div className={sectionClass}>
             <p className={sectionTitle}>FAQ</p>
             <div>
@@ -396,7 +382,7 @@ export function LandingPageEditorClient({ page }: { page?: Record<string, unknow
             </div>
           </div>
 
-          {/* 8. Final CTA */}
+          {/* Final CTA */}
           <div className={sectionClass}>
             <p className={sectionTitle}>Final CTA</p>
             <div>
@@ -412,83 +398,112 @@ export function LandingPageEditorClient({ page }: { page?: Record<string, unknow
               <input value={form.finalCtaButtonText} onChange={(e) => set("finalCtaButtonText", e.target.value)} className={inputClass} />
             </div>
           </div>
+        </div>
+      )}
 
-          {/* 9. Form Config */}
-          <div className={sectionClass}>
-            <p className={sectionTitle}>Form Config</p>
-            <div className="grid grid-cols-2 gap-4">
-              <div>
-                <label className={labelClass}>UTM Source</label>
-                <input value={form.utmSource} onChange={(e) => set("utmSource", e.target.value)} className={inputClass} placeholder="lp" />
-              </div>
-              <div>
-                <label className={labelClass}>UTM Campaign</label>
-                <input value={form.utmCampaign} onChange={(e) => set("utmCampaign", e.target.value)} className={inputClass} placeholder="uber-lyft" />
-              </div>
-              <div>
-                <label className={labelClass}>Default Amount ($)</label>
-                <input type="number" value={form.defaultAmount} onChange={(e) => set("defaultAmount", Number(e.target.value))} className={inputClass} />
-              </div>
-              <div>
-                <label className={labelClass}>Default Term (weeks)</label>
-                <input type="number" value={form.defaultTermWeeks} onChange={(e) => set("defaultTermWeeks", Number(e.target.value))} className={inputClass} />
-              </div>
+      {activeTab === "form" && (
+        <div className={sectionClass}>
+          <p className={sectionTitle}>Form Config</p>
+          <div className="grid grid-cols-2 gap-4">
+            <div>
+              <label className={labelClass}>UTM Source</label>
+              <input value={form.utmSource} onChange={(e) => set("utmSource", e.target.value)} className={inputClass} placeholder="lp" />
             </div>
             <div>
-              <label className={labelClass}>Form Template Slug (optional)</label>
-              <input
-                value={form.formTemplateSlug}
-                onChange={(e) => set("formTemplateSlug", e.target.value)}
-                className={inputClass}
-                placeholder="e.g. uber-lyft-short (leave empty for default)"
-              />
-              <p className="text-[11px] text-[#a1a1aa] mt-1">Links to a form template. Applicants will use this form variant.</p>
+              <label className={labelClass}>UTM Campaign</label>
+              <input value={form.utmCampaign} onChange={(e) => set("utmCampaign", e.target.value)} className={inputClass} placeholder="uber-lyft" />
             </div>
             <div>
-              <div className="flex items-center justify-between">
-                <label className={labelClass}>Platform Options</label>
-                <button type="button" onClick={addFormPlatform} className="text-[12px] text-[#15803d] hover:underline">+ Add</button>
-              </div>
-              <div className="space-y-2 mt-1">
-                {form.formPlatforms.map((p, i) => (
-                  <div key={i} className="flex gap-2">
-                    <input value={p} onChange={(e) => updateFormPlatform(i, e.target.value)} className={inputClass} placeholder="Uber" />
-                    {form.formPlatforms.length > 1 && (
-                      <button type="button" onClick={() => removeFormPlatform(i)} className="text-[11px] text-red-400 hover:text-red-600 px-2">✕</button>
-                    )}
-                  </div>
-                ))}
-              </div>
+              <label className={labelClass}>Default Amount ($)</label>
+              <input type="number" value={form.defaultAmount} onChange={(e) => set("defaultAmount", Number(e.target.value))} className={inputClass} />
+            </div>
+            <div>
+              <label className={labelClass}>Default Term (weeks)</label>
+              <input type="number" value={form.defaultTermWeeks} onChange={(e) => set("defaultTermWeeks", Number(e.target.value))} className={inputClass} />
+            </div>
+          </div>
+          <div>
+            <label className={labelClass}>Form Template Slug (optional)</label>
+            <input
+              value={form.formTemplateSlug}
+              onChange={(e) => set("formTemplateSlug", e.target.value)}
+              className={inputClass}
+              placeholder="e.g. uber-lyft-short (leave empty for default)"
+            />
+            <p className="text-[11px] text-[#a1a1aa] mt-1">Links to a form template. Applicants will use this form variant.</p>
+          </div>
+          <div>
+            <div className="flex items-center justify-between">
+              <label className={labelClass}>Platform Options</label>
+              <button type="button" onClick={addFormPlatform} className="text-[12px] text-[#15803d] hover:underline">+ Add</button>
+            </div>
+            <div className="space-y-2 mt-1">
+              {form.formPlatforms.map((p, i) => (
+                <div key={i} className="flex gap-2">
+                  <input value={p} onChange={(e) => updateFormPlatform(i, e.target.value)} className={inputClass} placeholder="Uber" />
+                  {form.formPlatforms.length > 1 && (
+                    <button type="button" onClick={() => removeFormPlatform(i)} className="text-[11px] text-red-400 hover:text-red-600 px-2">✕</button>
+                  )}
+                </div>
+              ))}
             </div>
           </div>
         </div>
+      )}
 
-        {/* Sidebar */}
-        <div className="space-y-4">
-          <div className="bg-white rounded-[10px] p-4 space-y-3">
-            <h3 className="text-[13px] font-bold text-[#1a1a1a]">Publish</h3>
-            <label className="flex items-center gap-2">
-              <input
-                type="checkbox"
-                checked={form.published}
-                onChange={(e) => set("published", e.target.checked)}
-                className="rounded"
-              />
-              <span className="text-[13px] text-[#1a1a1a]">Published</span>
-            </label>
-            {form.slug && (
-              <a
-                href={`/lp/${form.slug}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="block text-[11px] text-[#15803d] hover:underline truncate"
-              >
-                /lp/{form.slug} ↗
-              </a>
-            )}
+      {activeTab === "seo" && (
+        <div className={sectionClass}>
+          <p className={sectionTitle}>SEO</p>
+          <div>
+            <div className="flex justify-between">
+              <label className={labelClass}>Meta Title</label>
+              <span className="text-[11px] text-[#a1a1aa]">{form.metaTitle.length}/60</span>
+            </div>
+            <input value={form.metaTitle} onChange={(e) => set("metaTitle", e.target.value)} className={inputClass} />
+          </div>
+          <div>
+            <div className="flex justify-between">
+              <label className={labelClass}>Meta Description</label>
+              <span className="text-[11px] text-[#a1a1aa]">{form.metaDescription.length}/160</span>
+            </div>
+            <textarea value={form.metaDescription} onChange={(e) => set("metaDescription", e.target.value)} rows={3} className={inputClass} />
+          </div>
+          <div>
+            <label className={labelClass}>Phone Number (header)</label>
+            <input value={form.phoneNumber} onChange={(e) => set("phoneNumber", e.target.value)} className={inputClass} placeholder="1-800-555-1234" />
+          </div>
+          <div>
+            <label className={labelClass}>Slug</label>
+            <input value={form.slug} onChange={(e) => set("slug", e.target.value)} className={inputClass} placeholder="uber-lyft-driver-loans" />
+            <p className="text-[11px] text-[#a1a1aa] mt-1">URL: /lp/{form.slug || "..."}</p>
           </div>
         </div>
-      </div>
+      )}
+
+      {activeTab === "publish" && (
+        <div className="bg-white rounded-[10px] p-4 space-y-3">
+          <h3 className="text-[13px] font-bold text-[#1a1a1a]">Publish</h3>
+          <label className="flex items-center gap-2">
+            <input
+              type="checkbox"
+              checked={form.published}
+              onChange={(e) => set("published", e.target.checked)}
+              className="rounded"
+            />
+            <span className="text-[13px] text-[#1a1a1a]">Published</span>
+          </label>
+          {form.slug && (
+            <a
+              href={`/lp/${form.slug}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="block text-[11px] text-[#15803d] hover:underline truncate"
+            >
+              /lp/{form.slug} ↗
+            </a>
+          )}
+        </div>
+      )}
     </div>
   );
 }

@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { TiptapEditor } from "@/components/content/tiptap-editor";
 import { createArticle, updateArticle, deleteArticle } from "@/actions/content";
 import { slugify, generateExcerpt } from "@/lib/content-helpers";
+import { TabBar } from "@/components/admin/tab-bar";
 
 interface Category { id: string; name: string; }
 interface Tag { id: string; name: string; }
@@ -25,6 +26,12 @@ interface ArticleData {
   tagIds: string[];
 }
 
+const TABS = [
+  { id: "content", label: "Content" },
+  { id: "seo", label: "SEO" },
+  { id: "publish", label: "Publish" },
+];
+
 export function ArticleEditorClient({
   article,
   categories,
@@ -36,6 +43,7 @@ export function ArticleEditorClient({
 }) {
   const router = useRouter();
   const isEdit = !!article?.id;
+  const [activeTab, setActiveTab] = useState("content");
 
   const [form, setForm] = useState<ArticleData>({
     title: article?.title || "",
@@ -93,6 +101,9 @@ export function ArticleEditorClient({
     router.refresh();
   }
 
+  const inputClass = "w-full text-[13px] px-3 py-2 border border-[#e4e4e7] rounded-lg bg-white";
+  const labelClass = "text-[11px] uppercase tracking-[0.05em] text-[#a1a1aa] mb-1 block";
+
   return (
     <div>
       <div className="flex items-center justify-between mb-6">
@@ -115,7 +126,9 @@ export function ArticleEditorClient({
         </div>
       </div>
 
-      <div className="grid grid-cols-[1fr_300px] gap-6">
+      <TabBar tabs={TABS} activeTab={activeTab} onChange={setActiveTab} />
+
+      {activeTab === "content" && (
         <div className="space-y-4">
           <input
             value={form.title}
@@ -124,8 +137,74 @@ export function ArticleEditorClient({
             className="w-full text-[20px] font-bold px-4 py-3 border border-[#e4e4e7] rounded-[10px] bg-white"
           />
           <TiptapEditor content={form.body} onChange={(html) => updateField("body", html)} />
+          <div className="bg-white rounded-[10px] p-4 space-y-2">
+            <label className={labelClass}>Excerpt</label>
+            <textarea
+              value={form.excerpt}
+              onChange={(e) => updateField("excerpt", e.target.value)}
+              rows={2}
+              placeholder="Auto-generated from body if empty"
+              className={inputClass}
+            />
+          </div>
         </div>
+      )}
 
+      {activeTab === "seo" && (
+        <div className="bg-white rounded-[10px] p-4 space-y-4">
+          <div>
+            <div className="flex justify-between">
+              <label className={labelClass}>Meta Title</label>
+              <span className="text-[11px] text-[#a1a1aa]">{form.metaTitle.length}/60</span>
+            </div>
+            <input
+              value={form.metaTitle}
+              onChange={(e) => updateField("metaTitle", e.target.value)}
+              className={inputClass}
+            />
+          </div>
+          <div>
+            <div className="flex justify-between">
+              <label className={labelClass}>Meta Description</label>
+              <span className="text-[11px] text-[#a1a1aa]">{form.metaDescription.length}/160</span>
+            </div>
+            <textarea
+              value={form.metaDescription}
+              onChange={(e) => updateField("metaDescription", e.target.value)}
+              rows={3}
+              className={inputClass}
+            />
+          </div>
+          <div>
+            <label className={labelClass}>Slug</label>
+            <input
+              value={form.slug}
+              onChange={(e) => updateField("slug", e.target.value)}
+              className={inputClass}
+            />
+          </div>
+          <div>
+            <label className={labelClass}>Featured Image</label>
+            <input
+              value={form.featuredImage}
+              onChange={(e) => updateField("featuredImage", e.target.value)}
+              placeholder="/uploads/content/..."
+              className={inputClass}
+            />
+          </div>
+          <div>
+            <label className={labelClass}>OG Image</label>
+            <input
+              value={form.ogImage}
+              onChange={(e) => updateField("ogImage", e.target.value)}
+              placeholder="/uploads/content/..."
+              className={inputClass}
+            />
+          </div>
+        </div>
+      )}
+
+      {activeTab === "publish" && (
         <div className="space-y-4">
           <div className="bg-white rounded-[10px] p-4 space-y-3">
             <h3 className="text-[13px] font-bold text-[#1a1a1a]">Publish</h3>
@@ -142,25 +221,16 @@ export function ArticleEditorClient({
               type="datetime-local"
               value={form.publishedAt}
               onChange={(e) => updateField("publishedAt", e.target.value)}
-              className="w-full text-[13px] px-3 py-2 border border-[#e4e4e7] rounded-lg"
+              className={inputClass}
             />
           </div>
 
           <div className="bg-white rounded-[10px] p-4 space-y-2">
-            <label className="text-[11px] uppercase tracking-[0.05em] text-[#a1a1aa]">Slug</label>
-            <input
-              value={form.slug}
-              onChange={(e) => updateField("slug", e.target.value)}
-              className="w-full text-[13px] px-3 py-2 border border-[#e4e4e7] rounded-lg"
-            />
-          </div>
-
-          <div className="bg-white rounded-[10px] p-4 space-y-2">
-            <label className="text-[11px] uppercase tracking-[0.05em] text-[#a1a1aa]">Category</label>
+            <label className={labelClass}>Category</label>
             <select
               value={form.categoryId}
               onChange={(e) => updateField("categoryId", e.target.value)}
-              className="w-full text-[13px] px-3 py-2 border border-[#e4e4e7] rounded-lg"
+              className={inputClass}
             >
               <option value="">None</option>
               {categories.map((cat) => (
@@ -170,7 +240,7 @@ export function ArticleEditorClient({
           </div>
 
           <div className="bg-white rounded-[10px] p-4 space-y-2">
-            <label className="text-[11px] uppercase tracking-[0.05em] text-[#a1a1aa]">Tags</label>
+            <label className={labelClass}>Tags</label>
             <div className="flex flex-wrap gap-1.5">
               {tags.map((tag) => (
                 <button
@@ -193,54 +263,8 @@ export function ArticleEditorClient({
               ))}
             </div>
           </div>
-
-          <div className="bg-white rounded-[10px] p-4 space-y-3">
-            <h3 className="text-[13px] font-bold text-[#1a1a1a]">SEO</h3>
-            <div>
-              <div className="flex justify-between">
-                <label className="text-[11px] uppercase tracking-[0.05em] text-[#a1a1aa]">Meta Title</label>
-                <span className="text-[11px] text-[#a1a1aa]">{form.metaTitle.length}/60</span>
-              </div>
-              <input
-                value={form.metaTitle}
-                onChange={(e) => updateField("metaTitle", e.target.value)}
-                className="w-full text-[13px] px-3 py-2 border border-[#e4e4e7] rounded-lg mt-1"
-              />
-            </div>
-            <div>
-              <div className="flex justify-between">
-                <label className="text-[11px] uppercase tracking-[0.05em] text-[#a1a1aa]">Meta Description</label>
-                <span className="text-[11px] text-[#a1a1aa]">{form.metaDescription.length}/160</span>
-              </div>
-              <textarea
-                value={form.metaDescription}
-                onChange={(e) => updateField("metaDescription", e.target.value)}
-                rows={3}
-                className="w-full text-[13px] px-3 py-2 border border-[#e4e4e7] rounded-lg mt-1"
-              />
-            </div>
-            <div>
-              <label className="text-[11px] uppercase tracking-[0.05em] text-[#a1a1aa]">Featured Image</label>
-              <input
-                value={form.featuredImage}
-                onChange={(e) => updateField("featuredImage", e.target.value)}
-                placeholder="/uploads/content/..."
-                className="w-full text-[13px] px-3 py-2 border border-[#e4e4e7] rounded-lg mt-1"
-              />
-            </div>
-            <div>
-              <label className="text-[11px] uppercase tracking-[0.05em] text-[#a1a1aa]">Excerpt</label>
-              <textarea
-                value={form.excerpt}
-                onChange={(e) => updateField("excerpt", e.target.value)}
-                rows={2}
-                placeholder="Auto-generated from body if empty"
-                className="w-full text-[13px] px-3 py-2 border border-[#e4e4e7] rounded-lg mt-1"
-              />
-            </div>
-          </div>
         </div>
-      </div>
+      )}
     </div>
   );
 }

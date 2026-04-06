@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { createToolPage, updateToolPage, deleteToolPage } from "@/actions/content";
 import { slugify } from "@/lib/content-helpers";
+import { TabBar } from "@/components/admin/tab-bar";
 
 const TOOL_COMPONENTS = [
   { value: "loan-calculator", label: "Loan Calculator" },
@@ -25,9 +26,15 @@ interface ToolFormData {
   published: boolean;
 }
 
+const TABS = [
+  { id: "content", label: "Content" },
+  { id: "seo", label: "SEO & Publish" },
+];
+
 export function ToolEditorClient({ tool }: { tool?: ToolFormData }) {
   const router = useRouter();
   const isEdit = !!tool?.id;
+  const [activeTab, setActiveTab] = useState("content");
   const [form, setForm] = useState<ToolFormData>(
     tool || { title: "", slug: "", description: "", toolComponent: "loan-calculator", body: "", metaTitle: "", metaDescription: "", published: false }
   );
@@ -70,21 +77,36 @@ export function ToolEditorClient({ tool }: { tool?: ToolFormData }) {
           <button onClick={handleSave} disabled={saving || !form.title} className="bg-[#15803d] text-white text-[13px] font-medium px-4 py-2 rounded-lg hover:bg-[#166534] disabled:opacity-50">{saving ? "Saving..." : "Save"}</button>
         </div>
       </div>
-      <div className="grid grid-cols-[1fr_300px] gap-6">
+
+      <TabBar tabs={TABS} activeTab={activeTab} onChange={setActiveTab} />
+
+      {activeTab === "content" && (
+        <div className="bg-white rounded-[10px] p-4 space-y-4">
+          <div><label className={labelClass}>Title</label><input value={form.title} onChange={(e) => updateField("title", e.target.value)} className={inputClass} /></div>
+          <div><label className={labelClass}>Description</label><textarea value={form.description} onChange={(e) => updateField("description", e.target.value)} rows={3} className={inputClass} /></div>
+          <div><label className={labelClass}>Tool Component</label><select value={form.toolComponent} onChange={(e) => updateField("toolComponent", e.target.value)} className={inputClass}>{TOOL_COMPONENTS.map((tc) => <option key={tc.value} value={tc.value}>{tc.label}</option>)}</select></div>
+          <div><label className={labelClass}>Additional Body Content (HTML)</label><textarea value={form.body} onChange={(e) => updateField("body", e.target.value)} rows={6} className={inputClass} /></div>
+        </div>
+      )}
+
+      {activeTab === "seo" && (
         <div className="space-y-4">
-          <div className="bg-white rounded-[10px] p-4 space-y-4">
-            <div><label className={labelClass}>Title</label><input value={form.title} onChange={(e) => updateField("title", e.target.value)} className={inputClass} /></div>
-            <div><label className={labelClass}>Description</label><textarea value={form.description} onChange={(e) => updateField("description", e.target.value)} rows={3} className={inputClass} /></div>
-            <div><label className={labelClass}>Tool Component</label><select value={form.toolComponent} onChange={(e) => updateField("toolComponent", e.target.value)} className={inputClass}>{TOOL_COMPONENTS.map((tc) => <option key={tc.value} value={tc.value}>{tc.label}</option>)}</select></div>
-            <div><label className={labelClass}>Additional Body Content (HTML)</label><textarea value={form.body} onChange={(e) => updateField("body", e.target.value)} rows={6} className={inputClass} /></div>
+          <div className="bg-white rounded-[10px] p-4 space-y-2">
+            <label className={labelClass}>Slug</label>
+            <input value={form.slug} onChange={(e) => updateField("slug", e.target.value)} className={inputClass} />
+            <p className="text-[11px] text-[#a1a1aa]">URL: /tools/{form.slug}</p>
+          </div>
+          <div className="bg-white rounded-[10px] p-4 space-y-3">
+            <h3 className="text-[13px] font-bold text-[#1a1a1a]">SEO</h3>
+            <div><div className="flex justify-between"><label className={labelClass}>Meta Title</label><span className="text-[11px] text-[#a1a1aa]">{form.metaTitle.length}/60</span></div><input value={form.metaTitle} onChange={(e) => updateField("metaTitle", e.target.value)} className={inputClass} /></div>
+            <div><div className="flex justify-between"><label className={labelClass}>Meta Description</label><span className="text-[11px] text-[#a1a1aa]">{form.metaDescription.length}/160</span></div><textarea value={form.metaDescription} onChange={(e) => updateField("metaDescription", e.target.value)} rows={3} className={inputClass} /></div>
+          </div>
+          <div className="bg-white rounded-[10px] p-4 space-y-3">
+            <h3 className="text-[13px] font-bold text-[#1a1a1a]">Publish</h3>
+            <label className="flex items-center gap-2"><input type="checkbox" checked={form.published} onChange={(e) => updateField("published", e.target.checked)} className="rounded" /><span className="text-[13px] text-[#1a1a1a]">Published</span></label>
           </div>
         </div>
-        <div className="space-y-4">
-          <div className="bg-white rounded-[10px] p-4 space-y-3"><h3 className="text-[13px] font-bold text-[#1a1a1a]">Publish</h3><label className="flex items-center gap-2"><input type="checkbox" checked={form.published} onChange={(e) => updateField("published", e.target.checked)} className="rounded" /><span className="text-[13px] text-[#1a1a1a]">Published</span></label></div>
-          <div className="bg-white rounded-[10px] p-4 space-y-2"><label className={labelClass}>Slug</label><input value={form.slug} onChange={(e) => updateField("slug", e.target.value)} className={inputClass} /><p className="text-[11px] text-[#a1a1aa]">URL: /tools/{form.slug}</p></div>
-          <div className="bg-white rounded-[10px] p-4 space-y-3"><h3 className="text-[13px] font-bold text-[#1a1a1a]">SEO</h3><div><div className="flex justify-between"><label className={labelClass}>Meta Title</label><span className="text-[11px] text-[#a1a1aa]">{form.metaTitle.length}/60</span></div><input value={form.metaTitle} onChange={(e) => updateField("metaTitle", e.target.value)} className={inputClass} /></div><div><div className="flex justify-between"><label className={labelClass}>Meta Description</label><span className="text-[11px] text-[#a1a1aa]">{form.metaDescription.length}/160</span></div><textarea value={form.metaDescription} onChange={(e) => updateField("metaDescription", e.target.value)} rows={3} className={inputClass} /></div></div>
-        </div>
-      </div>
+      )}
     </div>
   );
 }
