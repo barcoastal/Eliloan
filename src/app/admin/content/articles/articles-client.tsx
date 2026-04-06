@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { useState } from "react";
 
 interface ArticleWithRelations {
   id: string;
@@ -13,6 +14,13 @@ interface ArticleWithRelations {
 }
 
 export function ArticlesClient({ articles }: { articles: ArticleWithRelations[] }) {
+  const [search, setSearch] = useState("");
+  const [statusFilter, setStatusFilter] = useState("all");
+
+  const filtered = articles
+    .filter((a) => a.title.toLowerCase().includes(search.toLowerCase()))
+    .filter((a) => statusFilter === "all" || (statusFilter === "published" ? a.published : !a.published));
+
   return (
     <div>
       <div className="flex items-center justify-between mb-6">
@@ -25,7 +33,32 @@ export function ArticlesClient({ articles }: { articles: ArticleWithRelations[] 
         </Link>
       </div>
 
-      <div className="bg-white rounded-[10px] overflow-hidden">
+      <div className="flex items-center gap-3 mb-4">
+        <input
+          type="text"
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+          placeholder="Search articles..."
+          className="flex-1 max-w-xs text-[13px] px-3 py-2 border border-[#e4e4e7] rounded-lg bg-white focus:outline-none focus:ring-1 focus:ring-[#15803d]"
+        />
+        <div className="flex gap-1.5">
+          {(["all", "published", "draft"] as const).map((f) => (
+            <button
+              key={f}
+              onClick={() => setStatusFilter(f)}
+              className={`px-3 py-1.5 rounded-full text-[12px] font-medium transition-colors ${
+                statusFilter === f
+                  ? "bg-[#15803d] text-white"
+                  : "bg-[#f4f4f5] text-[#71717a] hover:bg-[#e4e4e7]"
+              }`}
+            >
+              {f.charAt(0).toUpperCase() + f.slice(1)}
+            </button>
+          ))}
+        </div>
+      </div>
+
+      <div className="bg-white rounded-xl overflow-hidden border border-[#e4e4e7]">
         <table className="w-full">
           <thead>
             <tr className="border-b border-[#f4f4f5]">
@@ -36,8 +69,8 @@ export function ArticlesClient({ articles }: { articles: ArticleWithRelations[] 
             </tr>
           </thead>
           <tbody>
-            {articles.map((article) => (
-              <tr key={article.id} className="border-b border-[#f4f4f5] last:border-0 hover:bg-[#f8faf8]">
+            {filtered.map((article) => (
+              <tr key={article.id} className="border-b border-[#f4f4f5] last:border-0 hover:bg-[#f8faf8] transition-colors">
                 <td className="px-4 py-3">
                   <Link href={`/admin/content/articles/${article.id}`} className="text-[13px] font-medium text-[#1a1a1a] hover:text-[#15803d]">
                     {article.title}
@@ -57,8 +90,8 @@ export function ArticlesClient({ articles }: { articles: ArticleWithRelations[] 
             ))}
           </tbody>
         </table>
-        {articles.length === 0 && (
-          <p className="text-center text-[#71717a] text-[14px] py-12">No articles yet.</p>
+        {filtered.length === 0 && (
+          <p className="text-center text-[#71717a] text-[14px] py-12">No articles found.</p>
         )}
       </div>
     </div>

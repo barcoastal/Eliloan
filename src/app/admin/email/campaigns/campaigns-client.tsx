@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { PageHeader } from "@/components/admin/page-header";
 
@@ -33,6 +34,12 @@ function StatusBadge({ status }: { status: string }) {
 
 export function CampaignsClient({ campaigns }: { campaigns: Campaign[] }) {
   const router = useRouter();
+  const [search, setSearch] = useState("");
+  const [statusFilter, setStatusFilter] = useState("all");
+
+  const filtered = campaigns
+    .filter((c) => c.name.toLowerCase().includes(search.toLowerCase()) || c.subject.toLowerCase().includes(search.toLowerCase()))
+    .filter((c) => statusFilter === "all" || c.status === statusFilter.toUpperCase());
 
   return (
     <div>
@@ -42,8 +49,33 @@ export function CampaignsClient({ campaigns }: { campaigns: Campaign[] }) {
         action={{ label: "+ New Campaign", href: "/admin/email/campaigns/new" }}
       />
 
+      <div className="flex items-center gap-3 mb-4">
+        <input
+          type="text"
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+          placeholder="Search campaigns..."
+          className="flex-1 max-w-xs text-[13px] px-3 py-2 border border-[#e4e4e7] rounded-lg bg-white focus:outline-none focus:ring-1 focus:ring-[#15803d]"
+        />
+        <div className="flex gap-1.5">
+          {(["all", "draft", "scheduled", "sent"] as const).map((f) => (
+            <button
+              key={f}
+              onClick={() => setStatusFilter(f)}
+              className={`px-3 py-1.5 rounded-full text-[12px] font-medium transition-colors ${
+                statusFilter === f
+                  ? "bg-[#15803d] text-white"
+                  : "bg-[#f4f4f5] text-[#71717a] hover:bg-[#e4e4e7]"
+              }`}
+            >
+              {f.charAt(0).toUpperCase() + f.slice(1)}
+            </button>
+          ))}
+        </div>
+      </div>
+
       <div className="bg-white rounded-xl border border-[#e4e4e7] overflow-hidden">
-        {campaigns.length === 0 ? (
+        {filtered.length === 0 ? (
           <div className="text-center py-16 text-[#a1a1aa]">
             <p className="text-[15px] font-medium mb-1">No campaigns yet</p>
             <p className="text-[13px]">Create your first campaign to start sending.</p>
@@ -61,7 +93,7 @@ export function CampaignsClient({ campaigns }: { campaigns: Campaign[] }) {
               </tr>
             </thead>
             <tbody>
-              {campaigns.map((c) => (
+              {filtered.map((c) => (
                 <tr
                   key={c.id}
                   className="border-b border-[#e4e4e7] last:border-0 hover:bg-[#f8f8f6] cursor-pointer transition-colors"

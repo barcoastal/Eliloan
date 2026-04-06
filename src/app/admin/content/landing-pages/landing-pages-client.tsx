@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { useState } from "react";
 
 interface LandingPageItem {
   id: string;
@@ -12,6 +13,13 @@ interface LandingPageItem {
 }
 
 export function LandingPagesClient({ pages }: { pages: LandingPageItem[] }) {
+  const [search, setSearch] = useState("");
+  const [statusFilter, setStatusFilter] = useState("all");
+
+  const filtered = pages
+    .filter((p) => p.slug.toLowerCase().includes(search.toLowerCase()) || p.metaTitle.toLowerCase().includes(search.toLowerCase()))
+    .filter((p) => statusFilter === "all" || (statusFilter === "published" ? p.published : !p.published));
+
   return (
     <div>
       <div className="flex items-center justify-between mb-6">
@@ -23,7 +31,33 @@ export function LandingPagesClient({ pages }: { pages: LandingPageItem[] }) {
           New Landing Page
         </Link>
       </div>
-      <div className="bg-white rounded-[10px] overflow-hidden">
+
+      <div className="flex items-center gap-3 mb-4">
+        <input
+          type="text"
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+          placeholder="Search landing pages..."
+          className="flex-1 max-w-xs text-[13px] px-3 py-2 border border-[#e4e4e7] rounded-lg bg-white focus:outline-none focus:ring-1 focus:ring-[#15803d]"
+        />
+        <div className="flex gap-1.5">
+          {(["all", "published", "draft"] as const).map((f) => (
+            <button
+              key={f}
+              onClick={() => setStatusFilter(f)}
+              className={`px-3 py-1.5 rounded-full text-[12px] font-medium transition-colors ${
+                statusFilter === f
+                  ? "bg-[#15803d] text-white"
+                  : "bg-[#f4f4f5] text-[#71717a] hover:bg-[#e4e4e7]"
+              }`}
+            >
+              {f.charAt(0).toUpperCase() + f.slice(1)}
+            </button>
+          ))}
+        </div>
+      </div>
+
+      <div className="bg-white rounded-xl overflow-hidden border border-[#e4e4e7]">
         <table className="w-full">
           <thead>
             <tr className="border-b border-[#f4f4f5]">
@@ -35,8 +69,8 @@ export function LandingPagesClient({ pages }: { pages: LandingPageItem[] }) {
             </tr>
           </thead>
           <tbody>
-            {pages.map((p) => (
-              <tr key={p.id} className="border-b border-[#f4f4f5] last:border-0 hover:bg-[#f8faf8]">
+            {filtered.map((p) => (
+              <tr key={p.id} className="border-b border-[#f4f4f5] last:border-0 hover:bg-[#f8faf8] transition-colors">
                 <td className="px-4 py-3">
                   <Link
                     href={`/admin/content/landing-pages/${p.id}`}
@@ -49,11 +83,7 @@ export function LandingPagesClient({ pages }: { pages: LandingPageItem[] }) {
                 <td className="px-4 py-3 text-[13px] text-[#71717a] max-w-[220px] truncate">{p.metaTitle}</td>
                 <td className="px-4 py-3 text-[13px] text-[#71717a]">{p.utmCampaign}</td>
                 <td className="px-4 py-3">
-                  <span
-                    className={`inline-block px-2 py-0.5 rounded text-[11px] font-medium ${
-                      p.published ? "bg-[#f0f5f0] text-[#15803d]" : "bg-[#f4f4f5] text-[#71717a]"
-                    }`}
-                  >
+                  <span className={`inline-block px-2 py-0.5 rounded text-[11px] font-medium ${p.published ? "bg-[#f0f5f0] text-[#15803d]" : "bg-[#f4f4f5] text-[#71717a]"}`}>
                     {p.published ? "Published" : "Draft"}
                   </span>
                 </td>
@@ -64,8 +94,8 @@ export function LandingPagesClient({ pages }: { pages: LandingPageItem[] }) {
             ))}
           </tbody>
         </table>
-        {pages.length === 0 && (
-          <p className="text-center text-[#71717a] text-[14px] py-12">No landing pages yet.</p>
+        {filtered.length === 0 && (
+          <p className="text-center text-[#71717a] text-[14px] py-12">No landing pages found.</p>
         )}
       </div>
     </div>
