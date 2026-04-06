@@ -6,6 +6,7 @@ import { StatCard } from "@/components/admin/stat-card";
 import { ApplicationTable } from "@/components/application-table";
 import type { ApplicationWithDocuments } from "@/types";
 import { KANBAN_STAGES } from "@/lib/contact-helpers";
+import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, Cell } from "recharts";
 
 type ContactMetrics = {
   total: number;
@@ -47,7 +48,7 @@ function activityTypeLabel(type: string): string {
   return map[type] || type;
 }
 
-const FUNNEL_STAGES = ["LEAD", "CONTACTED", "APPLICANT", "APPROVED", "FUNDED"] as const;
+const FUNNEL_STAGES = ["LEAD", "CONTACTED", "APPLICANT", "APPROVED", "FUNDED", "REPAYING"] as const;
 
 export function DashboardClient({
   applications,
@@ -65,9 +66,11 @@ export function DashboardClient({
     .filter((a) => a.status === "ACTIVE" || a.status === "LATE" || a.status === "COLLECTIONS")
     .reduce((sum, a) => sum + Number(a.loanAmount), 0);
 
-  // Funnel bar widths
-  const funnelCounts = FUNNEL_STAGES.map((s) => ({ stage: s, count: contactMetrics.byStage[s] || 0 }));
-  const maxCount = Math.max(...funnelCounts.map((f) => f.count), 1);
+  // Recharts funnel data
+  const funnelData = FUNNEL_STAGES.map((stage) => ({
+    name: stage.charAt(0) + stage.slice(1).toLowerCase(),
+    count: contactMetrics.byStage[stage] || 0,
+  }));
 
   // Recent 5 applications
   const recent = [...applications]
@@ -122,35 +125,30 @@ export function DashboardClient({
         />
       </div>
 
-      {/* Conversion Funnel */}
-      <div className="bg-white rounded-xl border border-[#e4e4e7] p-6">
-        <div className="flex items-center justify-between mb-5">
-          <h2 className="text-[15px] font-semibold text-[#1a1a1a]">Contact Pipeline</h2>
-          <Link href="/admin/pipeline" className="text-sm text-[#71717a] hover:text-[#1a1a1a] transition-colors">
-            View pipeline →
-          </Link>
-        </div>
-        <div className="flex flex-col gap-3">
-          {funnelCounts.map(({ stage, count }) => {
-            const widthPct = Math.round((count / maxCount) * 100);
-            return (
-              <div key={stage} className="flex items-center gap-3">
-                <span className="w-24 shrink-0 text-[12px] font-semibold uppercase tracking-[0.04em] text-[#a1a1aa]">{stage}</span>
-                <div className="flex-1 h-[8px] bg-[#f4f4f5] rounded-full overflow-hidden">
-                  <div
-                    className="h-full bg-[#1a1a1a] rounded-full transition-all duration-500"
-                    style={{ width: `${widthPct}%` }}
-                  />
-                </div>
-                <span className="w-8 shrink-0 text-right text-[13px] font-semibold text-[#1a1a1a]">{count}</span>
-              </div>
-            );
-          })}
-        </div>
-      </div>
-
-      {/* Recent Activity + Recent Applications */}
+      {/* Row 2: Funnel Chart + Activity Feed */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        {/* Conversion Funnel (recharts) */}
+        <div className="bg-white rounded-xl p-6 border border-[#e4e4e7]">
+          <div className="flex items-center justify-between mb-4">
+            <h3 className="text-[15px] font-bold text-[#1a1a1a]">Conversion Funnel</h3>
+            <Link href="/admin/pipeline" className="text-sm text-[#71717a] hover:text-[#1a1a1a] transition-colors">
+              View pipeline →
+            </Link>
+          </div>
+          <ResponsiveContainer width="100%" height={260}>
+            <BarChart data={funnelData} layout="vertical" margin={{ left: 80 }}>
+              <XAxis type="number" hide />
+              <YAxis type="category" dataKey="name" tick={{ fontSize: 12, fill: "#71717a" }} width={80} />
+              <Tooltip />
+              <Bar dataKey="count" radius={[0, 6, 6, 0]}>
+                {funnelData.map((_, i) => (
+                  <Cell key={i} fill={i < 2 ? "#a1a1aa" : i < 4 ? "#15803d" : "#166534"} />
+                ))}
+              </Bar>
+            </BarChart>
+          </ResponsiveContainer>
+        </div>
+
         {/* Activity Feed */}
         <div className="bg-white rounded-xl border border-[#e4e4e7] p-6">
           <h2 className="text-[15px] font-semibold text-[#1a1a1a] mb-5">Recent Activity</h2>
@@ -184,20 +182,20 @@ export function DashboardClient({
             </ul>
           )}
         </div>
+      </div>
 
-        {/* Recent Applications */}
-        <div>
-          <div className="flex items-center justify-between mb-4">
-            <h2 className="text-[15px] font-semibold text-[#1a1a1a]">Recent Applications</h2>
-            <Link
-              href="/admin/applications"
-              className="text-sm text-[#71717a] hover:text-[#1a1a1a] transition-colors"
-            >
-              View all →
-            </Link>
-          </div>
-          <ApplicationTable applications={recent} />
+      {/* Row 3: Recent Applications */}
+      <div>
+        <div className="flex items-center justify-between mb-4">
+          <h2 className="text-[15px] font-semibold text-[#1a1a1a]">Recent Applications</h2>
+          <Link
+            href="/admin/applications"
+            className="text-sm text-[#71717a] hover:text-[#1a1a1a] transition-colors"
+          >
+            View all →
+          </Link>
         </div>
+        <ApplicationTable applications={recent} />
       </div>
     </div>
   );

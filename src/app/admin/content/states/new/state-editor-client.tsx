@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { createStatePage, updateStatePage, deleteStatePage } from "@/actions/content";
 import { slugify } from "@/lib/content-helpers";
+import { TabBar } from "@/components/admin/tab-bar";
 
 interface FaqEntry { question: string; answer: string; }
 interface LocalStat { label: string; value: string; }
@@ -25,9 +26,16 @@ interface StateFormData {
   published: boolean;
 }
 
+const TABS = [
+  { id: "content", label: "Content" },
+  { id: "stats", label: "Stats & FAQ" },
+  { id: "seo", label: "SEO & Publish" },
+];
+
 export function StateEditorClient({ state }: { state?: StateFormData }) {
   const router = useRouter();
   const isEdit = !!state?.id;
+  const [activeTab, setActiveTab] = useState("content");
   const [form, setForm] = useState<StateFormData>(
     state || {
       stateName: "", stateCode: "", slug: "", heroHeadline: "", heroSubtext: "",
@@ -101,19 +109,24 @@ export function StateEditorClient({ state }: { state?: StateFormData }) {
         </div>
       </div>
 
-      <div className="grid grid-cols-[1fr_300px] gap-6">
-        <div className="space-y-4">
-          <div className="bg-white rounded-[10px] p-4 space-y-4">
-            <div className="grid grid-cols-2 gap-4">
-              <div><label className={labelClass}>State Name</label><input value={form.stateName} onChange={(e) => updateField("stateName", e.target.value)} className={inputClass} placeholder="California" /></div>
-              <div><label className={labelClass}>State Code</label><input value={form.stateCode} onChange={(e) => updateField("stateCode", e.target.value.toUpperCase())} className={inputClass} placeholder="CA" maxLength={2} /></div>
-            </div>
-            <div><label className={labelClass}>Hero Headline</label><input value={form.heroHeadline} onChange={(e) => updateField("heroHeadline", e.target.value)} className={inputClass} /></div>
-            <div><label className={labelClass}>Hero Subtext</label><textarea value={form.heroSubtext} onChange={(e) => updateField("heroSubtext", e.target.value)} rows={2} className={inputClass} /></div>
-            <div><label className={labelClass}>Regulations Summary</label><textarea value={form.regulationsSummary} onChange={(e) => updateField("regulationsSummary", e.target.value)} rows={4} className={inputClass} /></div>
-            <div><label className={labelClass}>Loan Availability</label><textarea value={form.loanAvailability} onChange={(e) => updateField("loanAvailability", e.target.value)} rows={3} className={inputClass} /></div>
-          </div>
+      <TabBar tabs={TABS} activeTab={activeTab} onChange={setActiveTab} />
 
+      {activeTab === "content" && (
+        <div className="bg-white rounded-[10px] p-4 space-y-4">
+          <div className="grid grid-cols-2 gap-4">
+            <div><label className={labelClass}>State Name</label><input value={form.stateName} onChange={(e) => updateField("stateName", e.target.value)} className={inputClass} placeholder="California" /></div>
+            <div><label className={labelClass}>State Code</label><input value={form.stateCode} onChange={(e) => updateField("stateCode", e.target.value.toUpperCase())} className={inputClass} placeholder="CA" maxLength={2} /></div>
+          </div>
+          <div><label className={labelClass}>Hero Headline</label><input value={form.heroHeadline} onChange={(e) => updateField("heroHeadline", e.target.value)} className={inputClass} /></div>
+          <div><label className={labelClass}>Hero Subtext</label><textarea value={form.heroSubtext} onChange={(e) => updateField("heroSubtext", e.target.value)} rows={2} className={inputClass} /></div>
+          <div><label className={labelClass}>Regulations Summary</label><textarea value={form.regulationsSummary} onChange={(e) => updateField("regulationsSummary", e.target.value)} rows={4} className={inputClass} /></div>
+          <div><label className={labelClass}>Loan Availability</label><textarea value={form.loanAvailability} onChange={(e) => updateField("loanAvailability", e.target.value)} rows={3} className={inputClass} /></div>
+          <div><label className={labelClass}>CTA Text</label><input value={form.ctaText} onChange={(e) => updateField("ctaText", e.target.value)} className={inputClass} /></div>
+        </div>
+      )}
+
+      {activeTab === "stats" && (
+        <div className="space-y-4">
           {/* Local Stats */}
           <div className="bg-white rounded-[10px] p-4">
             <div className="flex items-center justify-between mb-3">
@@ -148,13 +161,10 @@ export function StateEditorClient({ state }: { state?: StateFormData }) {
             </div>
           </div>
         </div>
+      )}
 
-        {/* Sidebar */}
+      {activeTab === "seo" && (
         <div className="space-y-4">
-          <div className="bg-white rounded-[10px] p-4 space-y-3">
-            <h3 className="text-[13px] font-bold text-[#1a1a1a]">Publish</h3>
-            <label className="flex items-center gap-2"><input type="checkbox" checked={form.published} onChange={(e) => updateField("published", e.target.checked)} className="rounded" /><span className="text-[13px] text-[#1a1a1a]">Published</span></label>
-          </div>
           <div className="bg-white rounded-[10px] p-4 space-y-2">
             <label className={labelClass}>Slug</label>
             <input value={form.slug} onChange={(e) => updateField("slug", e.target.value)} className={inputClass} />
@@ -165,8 +175,12 @@ export function StateEditorClient({ state }: { state?: StateFormData }) {
             <div><div className="flex justify-between"><label className={labelClass}>Meta Title</label><span className="text-[11px] text-[#a1a1aa]">{form.metaTitle.length}/60</span></div><input value={form.metaTitle} onChange={(e) => updateField("metaTitle", e.target.value)} className={inputClass} /></div>
             <div><div className="flex justify-between"><label className={labelClass}>Meta Description</label><span className="text-[11px] text-[#a1a1aa]">{form.metaDescription.length}/160</span></div><textarea value={form.metaDescription} onChange={(e) => updateField("metaDescription", e.target.value)} rows={3} className={inputClass} /></div>
           </div>
+          <div className="bg-white rounded-[10px] p-4 space-y-3">
+            <h3 className="text-[13px] font-bold text-[#1a1a1a]">Publish</h3>
+            <label className="flex items-center gap-2"><input type="checkbox" checked={form.published} onChange={(e) => updateField("published", e.target.checked)} className="rounded" /><span className="text-[13px] text-[#1a1a1a]">Published</span></label>
+          </div>
         </div>
-      </div>
+      )}
     </div>
   );
 }

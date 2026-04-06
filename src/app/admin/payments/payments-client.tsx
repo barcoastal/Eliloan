@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { getAllPayments } from "@/actions/payments";
+import { PageHeader } from "@/components/admin/page-header";
 
 type PaymentWithApp = Awaited<ReturnType<typeof getAllPayments>>[number];
 
@@ -44,12 +45,7 @@ export function PaymentsClient() {
 
   return (
     <div>
-      <div className="mb-8">
-        <h2 className="text-[22px] font-extrabold tracking-[-0.03em] text-[#1a1a1a]">Payments</h2>
-        <p className="mt-1 text-[14px] text-[#71717a]">
-          View and manage all loan payments
-        </p>
-      </div>
+      <PageHeader title="Payments" description="View and manage all loan payments" />
 
       {/* Filters */}
       <div className="mb-6 flex flex-wrap gap-2">
@@ -76,7 +72,7 @@ export function PaymentsClient() {
           <p className="text-[#a1a1aa]">No payments found.</p>
         </div>
       ) : (
-        <div className="overflow-hidden rounded-[10px] bg-white">
+        <div className="overflow-hidden rounded-xl bg-white border border-[#e4e4e7]">
           <table className="w-full text-[13px]">
             <thead>
               <tr className="bg-[#fafafa]">
@@ -94,7 +90,7 @@ export function PaymentsClient() {
                 <tr
                   key={p.id}
                   onClick={() => router.push(`/admin/applications/${p.applicationId}`)}
-                  className="cursor-pointer transition-colors hover:bg-[#fafafa]"
+                  className="cursor-pointer transition-colors hover:bg-[#f8f8f6]"
                 >
                   <td className="px-4 py-3 font-mono text-[#1a1a1a]">{p.paymentNumber}</td>
                   <td className="px-4 py-3">

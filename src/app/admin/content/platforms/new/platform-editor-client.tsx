@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { createPlatformPage, updatePlatformPage, deletePlatformPage } from "@/actions/content";
 import { slugify } from "@/lib/content-helpers";
+import { TabBar } from "@/components/admin/tab-bar";
 
 interface FaqEntry {
   question: string;
@@ -28,9 +29,16 @@ interface PlatformFormData {
   published: boolean;
 }
 
+const TABS = [
+  { id: "content", label: "Content" },
+  { id: "faq", label: "FAQ" },
+  { id: "seo", label: "SEO & Publish" },
+];
+
 export function PlatformEditorClient({ platform }: { platform?: PlatformFormData }) {
   const router = useRouter();
   const isEdit = !!platform?.id;
+  const [activeTab, setActiveTab] = useState("content");
   const [form, setForm] = useState<PlatformFormData>(
     platform || {
       platformName: "", slug: "", heroHeadline: "", heroSubtext: "",
@@ -106,73 +114,76 @@ export function PlatformEditorClient({ platform }: { platform?: PlatformFormData
         </div>
       </div>
 
-      <div className="grid grid-cols-[1fr_300px] gap-6">
-        <div className="space-y-4">
-          <div className="bg-white rounded-[10px] p-4 space-y-4">
+      <TabBar tabs={TABS} activeTab={activeTab} onChange={setActiveTab} />
+
+      {activeTab === "content" && (
+        <div className="bg-white rounded-[10px] p-4 space-y-4">
+          <div>
+            <label className={labelClass}>Platform Name</label>
+            <input value={form.platformName} onChange={(e) => updateField("platformName", e.target.value)} className={inputClass} placeholder="Uber" />
+          </div>
+          <div>
+            <label className={labelClass}>Hero Headline</label>
+            <input value={form.heroHeadline} onChange={(e) => updateField("heroHeadline", e.target.value)} className={inputClass} placeholder="Loans for Uber Drivers" />
+          </div>
+          <div>
+            <label className={labelClass}>Hero Subtext</label>
+            <textarea value={form.heroSubtext} onChange={(e) => updateField("heroSubtext", e.target.value)} rows={2} className={inputClass} />
+          </div>
+          <div>
+            <label className={labelClass}>Platform Description</label>
+            <textarea value={form.platformDescription} onChange={(e) => updateField("platformDescription", e.target.value)} rows={4} className={inputClass} />
+          </div>
+          <div className="grid grid-cols-2 gap-4">
             <div>
-              <label className={labelClass}>Platform Name</label>
-              <input value={form.platformName} onChange={(e) => updateField("platformName", e.target.value)} className={inputClass} placeholder="Uber" />
+              <label className={labelClass}>Avg Earnings</label>
+              <input value={form.avgEarnings} onChange={(e) => updateField("avgEarnings", e.target.value)} className={inputClass} placeholder="$45,000/yr" />
             </div>
             <div>
-              <label className={labelClass}>Hero Headline</label>
-              <input value={form.heroHeadline} onChange={(e) => updateField("heroHeadline", e.target.value)} className={inputClass} placeholder="Loans for Uber Drivers" />
-            </div>
-            <div>
-              <label className={labelClass}>Hero Subtext</label>
-              <textarea value={form.heroSubtext} onChange={(e) => updateField("heroSubtext", e.target.value)} rows={2} className={inputClass} />
-            </div>
-            <div>
-              <label className={labelClass}>Platform Description</label>
-              <textarea value={form.platformDescription} onChange={(e) => updateField("platformDescription", e.target.value)} rows={4} className={inputClass} />
-            </div>
-            <div className="grid grid-cols-2 gap-4">
-              <div>
-                <label className={labelClass}>Avg Earnings</label>
-                <input value={form.avgEarnings} onChange={(e) => updateField("avgEarnings", e.target.value)} className={inputClass} placeholder="$45,000/yr" />
-              </div>
-              <div>
-                <label className={labelClass}>Top Earner Range</label>
-                <input value={form.topEarnerRange} onChange={(e) => updateField("topEarnerRange", e.target.value)} className={inputClass} placeholder="$80,000-$120,000/yr" />
-              </div>
-            </div>
-            <div>
-              <label className={labelClass}>Loan Details</label>
-              <textarea value={form.loanDetailsHtml} onChange={(e) => updateField("loanDetailsHtml", e.target.value)} rows={4} className={inputClass} />
+              <label className={labelClass}>Top Earner Range</label>
+              <input value={form.topEarnerRange} onChange={(e) => updateField("topEarnerRange", e.target.value)} className={inputClass} placeholder="$80,000-$120,000/yr" />
             </div>
           </div>
-
-          {/* FAQ Section */}
-          <div className="bg-white rounded-[10px] p-4">
-            <div className="flex items-center justify-between mb-3">
-              <label className={labelClass}>FAQ Entries</label>
-              <button type="button" onClick={addFaq} className="text-[12px] text-[#15803d] hover:underline">+ Add FAQ</button>
-            </div>
-            <div className="space-y-3">
-              {form.faqEntries.map((faq, i) => (
-                <div key={i} className="border border-[#e4e4e7] rounded-lg p-3 space-y-2">
-                  <div className="flex justify-between">
-                    <span className="text-[11px] text-[#a1a1aa]">Q{i + 1}</span>
-                    {form.faqEntries.length > 1 && (
-                      <button type="button" onClick={() => removeFaq(i)} className="text-[11px] text-red-400 hover:text-red-600">Remove</button>
-                    )}
-                  </div>
-                  <input value={faq.question} onChange={(e) => updateFaq(i, "question", e.target.value)} placeholder="Question" className={inputClass} />
-                  <textarea value={faq.answer} onChange={(e) => updateFaq(i, "answer", e.target.value)} placeholder="Answer" rows={2} className={inputClass} />
-                </div>
-              ))}
-            </div>
+          <div>
+            <label className={labelClass}>Loan Details</label>
+            <textarea value={form.loanDetailsHtml} onChange={(e) => updateField("loanDetailsHtml", e.target.value)} rows={4} className={inputClass} />
+          </div>
+          <div>
+            <label className={labelClass}>CTA Text</label>
+            <input value={form.ctaText} onChange={(e) => updateField("ctaText", e.target.value)} className={inputClass} />
+          </div>
+          <div>
+            <label className={labelClass}>CTA Subtext</label>
+            <input value={form.ctaSubtext} onChange={(e) => updateField("ctaSubtext", e.target.value)} className={inputClass} />
           </div>
         </div>
+      )}
 
-        {/* Sidebar */}
-        <div className="space-y-4">
-          <div className="bg-white rounded-[10px] p-4 space-y-3">
-            <h3 className="text-[13px] font-bold text-[#1a1a1a]">Publish</h3>
-            <label className="flex items-center gap-2">
-              <input type="checkbox" checked={form.published} onChange={(e) => updateField("published", e.target.checked)} className="rounded" />
-              <span className="text-[13px] text-[#1a1a1a]">Published</span>
-            </label>
+      {activeTab === "faq" && (
+        <div className="bg-white rounded-[10px] p-4">
+          <div className="flex items-center justify-between mb-3">
+            <label className={labelClass}>FAQ Entries</label>
+            <button type="button" onClick={addFaq} className="text-[12px] text-[#15803d] hover:underline">+ Add FAQ</button>
           </div>
+          <div className="space-y-3">
+            {form.faqEntries.map((faq, i) => (
+              <div key={i} className="border border-[#e4e4e7] rounded-lg p-3 space-y-2">
+                <div className="flex justify-between">
+                  <span className="text-[11px] text-[#a1a1aa]">Q{i + 1}</span>
+                  {form.faqEntries.length > 1 && (
+                    <button type="button" onClick={() => removeFaq(i)} className="text-[11px] text-red-400 hover:text-red-600">Remove</button>
+                  )}
+                </div>
+                <input value={faq.question} onChange={(e) => updateFaq(i, "question", e.target.value)} placeholder="Question" className={inputClass} />
+                <textarea value={faq.answer} onChange={(e) => updateFaq(i, "answer", e.target.value)} placeholder="Answer" rows={2} className={inputClass} />
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {activeTab === "seo" && (
+        <div className="space-y-4">
           <div className="bg-white rounded-[10px] p-4 space-y-2">
             <label className={labelClass}>Slug</label>
             <input value={form.slug} onChange={(e) => updateField("slug", e.target.value)} className={inputClass} />
@@ -188,13 +199,16 @@ export function PlatformEditorClient({ platform }: { platform?: PlatformFormData
               <div className="flex justify-between"><label className={labelClass}>Meta Description</label><span className="text-[11px] text-[#a1a1aa]">{form.metaDescription.length}/160</span></div>
               <textarea value={form.metaDescription} onChange={(e) => updateField("metaDescription", e.target.value)} rows={3} className={inputClass} />
             </div>
-            <div>
-              <label className={labelClass}>CTA Text</label>
-              <input value={form.ctaText} onChange={(e) => updateField("ctaText", e.target.value)} className={inputClass} />
-            </div>
+          </div>
+          <div className="bg-white rounded-[10px] p-4 space-y-3">
+            <h3 className="text-[13px] font-bold text-[#1a1a1a]">Publish</h3>
+            <label className="flex items-center gap-2">
+              <input type="checkbox" checked={form.published} onChange={(e) => updateField("published", e.target.checked)} className="rounded" />
+              <span className="text-[13px] text-[#1a1a1a]">Published</span>
+            </label>
           </div>
         </div>
-      </div>
+      )}
     </div>
   );
 }

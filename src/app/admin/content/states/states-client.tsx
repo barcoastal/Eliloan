@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { useState } from "react";
 
 interface StatePageItem {
   id: string;
@@ -12,6 +13,13 @@ interface StatePageItem {
 }
 
 export function StatesClient({ states }: { states: StatePageItem[] }) {
+  const [search, setSearch] = useState("");
+  const [statusFilter, setStatusFilter] = useState("all");
+
+  const filtered = states
+    .filter((s) => s.stateName.toLowerCase().includes(search.toLowerCase()))
+    .filter((s) => statusFilter === "all" || (statusFilter === "published" ? s.published : !s.published));
+
   return (
     <div>
       <div className="flex items-center justify-between mb-6">
@@ -20,7 +28,33 @@ export function StatesClient({ states }: { states: StatePageItem[] }) {
           New State Page
         </Link>
       </div>
-      <div className="bg-white rounded-[10px] overflow-hidden">
+
+      <div className="flex items-center gap-3 mb-4">
+        <input
+          type="text"
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+          placeholder="Search states..."
+          className="flex-1 max-w-xs text-[13px] px-3 py-2 border border-[#e4e4e7] rounded-lg bg-white focus:outline-none focus:ring-1 focus:ring-[#15803d]"
+        />
+        <div className="flex gap-1.5">
+          {(["all", "published", "draft"] as const).map((f) => (
+            <button
+              key={f}
+              onClick={() => setStatusFilter(f)}
+              className={`px-3 py-1.5 rounded-full text-[12px] font-medium transition-colors ${
+                statusFilter === f
+                  ? "bg-[#15803d] text-white"
+                  : "bg-[#f4f4f5] text-[#71717a] hover:bg-[#e4e4e7]"
+              }`}
+            >
+              {f.charAt(0).toUpperCase() + f.slice(1)}
+            </button>
+          ))}
+        </div>
+      </div>
+
+      <div className="bg-white rounded-xl overflow-hidden border border-[#e4e4e7]">
         <table className="w-full">
           <thead>
             <tr className="border-b border-[#f4f4f5]">
@@ -31,8 +65,8 @@ export function StatesClient({ states }: { states: StatePageItem[] }) {
             </tr>
           </thead>
           <tbody>
-            {states.map((s) => (
-              <tr key={s.id} className="border-b border-[#f4f4f5] last:border-0 hover:bg-[#f8faf8]">
+            {filtered.map((s) => (
+              <tr key={s.id} className="border-b border-[#f4f4f5] last:border-0 hover:bg-[#f8faf8] transition-colors">
                 <td className="px-4 py-3">
                   <Link href={`/admin/content/states/${s.id}`} className="text-[13px] font-medium text-[#1a1a1a] hover:text-[#15803d]">{s.stateName}</Link>
                   <p className="text-[11px] text-[#a1a1aa]">/1099-loans-{s.slug}</p>
@@ -48,7 +82,7 @@ export function StatesClient({ states }: { states: StatePageItem[] }) {
             ))}
           </tbody>
         </table>
-        {states.length === 0 && <p className="text-center text-[#71717a] text-[14px] py-12">No state pages yet.</p>}
+        {filtered.length === 0 && <p className="text-center text-[#71717a] text-[14px] py-12">No state pages found.</p>}
       </div>
     </div>
   );

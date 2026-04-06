@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { ApplicationTable } from "@/components/application-table";
+import { PageHeader } from "@/components/admin/page-header";
 import type { ApplicationWithDocuments } from "@/types";
 
 type FilterTab = "All" | "Pending" | "Approved" | "Active" | "Late" | "Collections" | "Defaulted" | "Paid Off";
@@ -25,20 +26,28 @@ export function ApplicationsClient({
   applications: ApplicationWithDocuments[];
 }) {
   const [activeTab, setActiveTab] = useState<FilterTab>("All");
+  const [search, setSearch] = useState("");
 
   const filtered =
     STATUS_MAP[activeTab] === null
       ? applications
       : applications.filter((a) => a.status === STATUS_MAP[activeTab]);
 
+  const searched = search.trim()
+    ? filtered.filter((a) => {
+        const q = search.toLowerCase();
+        return (
+          a.firstName.toLowerCase().includes(q) ||
+          a.lastName.toLowerCase().includes(q) ||
+          a.email.toLowerCase().includes(q) ||
+          a.applicationCode.toLowerCase().includes(q)
+        );
+      })
+    : filtered;
+
   return (
     <div className="space-y-6">
-      {/* Header */}
-      <div>
-        <h1 className="text-[22px] font-extrabold tracking-[-0.03em] text-[#1a1a1a]">
-          Applications
-        </h1>
-      </div>
+      <PageHeader title="Applications" />
 
       {/* Filter Tabs */}
       <div className="flex items-center gap-1 flex-wrap">
@@ -57,8 +66,19 @@ export function ApplicationsClient({
         ))}
       </div>
 
+      {/* Search */}
+      <input
+        type="text"
+        placeholder="Search by name, email, or code..."
+        value={search}
+        onChange={(e) => setSearch(e.target.value)}
+        className="w-full max-w-sm rounded-xl border border-[#e4e4e7] bg-white px-4 py-2.5 text-[13px] text-[#1a1a1a] placeholder:text-[#a1a1aa] focus:outline-none focus:ring-2 focus:ring-[#e4e4e7]"
+      />
+
       {/* Table */}
-      <ApplicationTable applications={filtered} />
+      <div className="bg-white rounded-xl border border-[#e4e4e7] overflow-hidden">
+        <ApplicationTable applications={searched} />
+      </div>
     </div>
   );
 }

@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { PageHeader } from "@/components/admin/page-header";
 import { updateEmailSequence } from "@/actions/email";
@@ -21,6 +22,11 @@ function stepCount(stepsJson: string): number {
 
 export function SequencesClient({ sequences }: { sequences: Sequence[] }) {
   const router = useRouter();
+  const [search, setSearch] = useState("");
+
+  const filtered = sequences.filter(
+    (s) => s.name.toLowerCase().includes(search.toLowerCase()) || (s.description ?? "").toLowerCase().includes(search.toLowerCase())
+  );
 
   async function toggleActive(id: string, current: boolean) {
     try {
@@ -40,8 +46,18 @@ export function SequencesClient({ sequences }: { sequences: Sequence[] }) {
         action={{ label: "+ New Sequence", href: "/admin/email/sequences/new" }}
       />
 
+      <div className="flex items-center gap-3 mb-4">
+        <input
+          type="text"
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+          placeholder="Search sequences..."
+          className="flex-1 max-w-xs text-[13px] px-3 py-2 border border-[#e4e4e7] rounded-lg bg-white focus:outline-none focus:ring-1 focus:ring-[#15803d]"
+        />
+      </div>
+
       <div className="bg-white rounded-xl border border-[#e4e4e7] overflow-hidden">
-        {sequences.length === 0 ? (
+        {filtered.length === 0 ? (
           <div className="text-center py-16 text-[#a1a1aa]">
             <p className="text-[15px] font-medium mb-1">No sequences yet</p>
             <p className="text-[13px]">Create a sequence to automate your email outreach.</p>
@@ -57,7 +73,7 @@ export function SequencesClient({ sequences }: { sequences: Sequence[] }) {
               </tr>
             </thead>
             <tbody>
-              {sequences.map((s) => (
+              {filtered.map((s) => (
                 <tr
                   key={s.id}
                   className="border-b border-[#e4e4e7] last:border-0 hover:bg-[#f8f8f6] cursor-pointer transition-colors"

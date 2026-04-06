@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { getAuditLogs } from "@/actions/audit";
+import { PageHeader } from "@/components/admin/page-header";
 
 type AuditLog = {
   id: string;
@@ -39,10 +40,7 @@ export default function AuditClient() {
 
   return (
     <div>
-      <div className="mb-8 flex items-center justify-between">
-        <h2 className="text-[22px] font-extrabold tracking-[-0.03em] text-[#1a1a1a]">Audit Log</h2>
-        <span className="text-[13px] text-[#a1a1aa]">{total} entries</span>
-      </div>
+      <PageHeader title="Audit Log" description={`${total} entries`} />
 
       {/* Action filters */}
       <div className="mb-6 flex flex-wrap gap-2">
@@ -72,7 +70,7 @@ export default function AuditClient() {
       {loading ? (
         <div className="py-12 text-center text-[#a1a1aa]">Loading...</div>
       ) : (
-        <div className="overflow-hidden rounded-[10px] bg-white">
+        <div className="overflow-hidden rounded-xl bg-white border border-[#e4e4e7]">
           <table className="w-full">
             <thead>
               <tr className="bg-[#fafafa]">
@@ -85,7 +83,7 @@ export default function AuditClient() {
             </thead>
             <tbody>
               {logs.map((log) => (
-                <tr key={log.id} className="transition-colors hover:bg-[#fafafa]">
+                <tr key={log.id} className="transition-colors hover:bg-[#f8f8f6]">
                   <td className="px-4 py-3 text-[13px] text-[#a1a1aa]">
                     {new Date(log.createdAt).toLocaleString()}
                   </td>
