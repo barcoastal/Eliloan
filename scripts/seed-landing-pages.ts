@@ -86,7 +86,7 @@ async function main() {
         },
         {
           quote:
-            "Rent was due and my week had been slow. Got a $1,500 loan same day. Back to driving by Friday. Game changer.",
+            "Needed new tires and an oil change to keep driving. Slow week meant I couldn't cover it out of pocket. Got $1,500 same day. Back to full-time by Friday.",
           name: "David K.",
           role: "Uber/Lyft Driver · Chicago, IL",
           amount: "$1,500",

@@ -126,7 +126,7 @@ export function FinalCta() {
             className="text-[#bbf7d0] text-[18px] leading-relaxed max-w-xl mx-auto mb-10"
             style={{ opacity: 0 }}
           >
-            Join 1,200+ gig workers who got the funding they deserved. Apply in 5 minutes.
+            Join 1,200+ gig workers who funded their business expenses. Apply in 5 minutes.
           </p>
 
           {/* CTA + hand-drawn arrow */}

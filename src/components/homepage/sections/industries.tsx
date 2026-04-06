@@ -25,7 +25,7 @@ const INDUSTRIES = [
     icon: (
       <svg width="32" height="32" viewBox="0 0 32 32" fill="none"><path d="M6 24V12L16 6L26 12V24" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" /><rect x="12" y="18" width="8" height="6" stroke="currentColor" strokeWidth="2" rx="1" /><path d="M16 6V2" stroke="currentColor" strokeWidth="2" strokeLinecap="round" /></svg>
     ),
-    description: "Deliver meals across your city. Peak hours, bad weather bonuses, and tips add up fast. When your car breaks down or rent hits, we bridge the gap instantly.",
+    description: "Deliver meals across your city. Peak hours, bad weather bonuses, and tips add up fast. When your bike needs replacing or your car needs repairs, we fund your business costs instantly.",
     stats: { avgEarnings: "$38K/yr", drivers: "2M+" },
     color: "bg-[#fef9ec]",
     href: "/loans-for-doordash-drivers",
@@ -69,7 +69,7 @@ const INDUSTRIES = [
     icon: (
       <svg width="32" height="32" viewBox="0 0 32 32" fill="none"><rect x="4" y="10" width="24" height="14" rx="2" stroke="currentColor" strokeWidth="2" /><path d="M8 10V8C8 6.9 8.9 6 10 6H22C23.1 6 24 6.9 24 8V10" stroke="currentColor" strokeWidth="2" /><path d="M12 17H20" stroke="currentColor" strokeWidth="2" strokeLinecap="round" /><path d="M16 14V20" stroke="currentColor" strokeWidth="2" strokeLinecap="round" /></svg>
     ),
-    description: "Deliver packages or rent your car. Amazon Flex drivers run 3-5 hour blocks. Turo hosts earn passive income. When vehicle costs spike, we're here.",
+    description: "Deliver packages or list your car. Amazon Flex drivers run 3-5 hour blocks. Turo hosts earn passive income. When vehicle maintenance costs spike, we fund it fast.",
     stats: { avgEarnings: "$35K/yr", drivers: "500K+" },
     color: "bg-[#fef2f2]",
     href: "/loans-for-amazon-flex-drivers",

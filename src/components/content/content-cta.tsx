@@ -63,7 +63,7 @@ export function ContentCta({ text, subtext, variant = "default" }: { text?: stri
           {text || "Ready to Get Funded?"}
         </h2>
         <p className="text-[16px] text-[#bbf7d0] mb-6 max-w-md mx-auto">
-          {subtext || "Join 1,200+ gig workers who got the cash they needed. No credit check. Apply in 5 minutes."}
+          {subtext || "Join 1,200+ gig workers who funded their business expenses. No credit check. Apply in 5 minutes."}
         </p>
         <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
           <Link

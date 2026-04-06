@@ -143,9 +143,9 @@ export function Hero() {
           ref={subtitleRef}
           className="text-[#71717a] text-[18px] leading-relaxed max-w-xl mb-10"
         >
-          PennyLime offers $100 - $10,000 loans built for Uber, DoorDash, Lyft
-          drivers, and independent contractors. No W-2 required. Decisions in
-          minutes.
+          Business cash advances for gig workers and 1099 contractors. $100 -
+          $10,000 for vehicle repairs, equipment, inventory, and operating
+          costs. Verified by your earnings, not your credit score.
         </p>
 
         {/* CTAs */}
