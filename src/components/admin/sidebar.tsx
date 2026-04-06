@@ -51,7 +51,10 @@ const NAV_GROUPS: NavGroup[] = [
   {
     title: "EMAIL",
     items: [
-      { href: "/admin/email", label: "Email Marketing", icon: <EmailIcon /> },
+      { href: "/admin/email", label: "Overview", icon: <EmailIcon /> },
+      { href: "/admin/email/campaigns", label: "Campaigns", icon: <EmailIcon /> },
+      { href: "/admin/email/sequences", label: "Sequences", icon: <EmailIcon /> },
+      { href: "/admin/email/templates", label: "Templates", icon: <EmailIcon /> },
     ],
   },
   {
@@ -127,7 +130,9 @@ export function AdminSidebar({ userName }: { userName: string }) {
             {(collapsed || openGroups.has(group.title)) && (
               <div className="space-y-0.5">
                 {group.items.map((item) => {
-                  const active = pathname.startsWith(item.href);
+                  const active = item.href === "/admin/email"
+                    ? pathname === "/admin/email"
+                    : pathname.startsWith(item.href);
                   return (
                     <Link
                       key={item.href}
