@@ -50,6 +50,30 @@ export async function GET(request: Request) {
       });
 
       tagged++;
+
+      // Auto-enroll in abandoned app recovery sequence
+      const abandonedSequence = await prisma.emailSequence.findFirst({
+        where: { triggerType: "abandoned_app", active: true },
+      });
+      if (abandonedSequence) {
+        const steps = JSON.parse(abandonedSequence.steps);
+        const firstDelay = steps[0];
+        const delayMs = firstDelay
+          ? (firstDelay.delayUnit === "days" ? firstDelay.delayAmount * 86400000 : firstDelay.delayAmount * 3600000)
+          : 3600000;
+
+        await prisma.sequenceEnrollment.upsert({
+          where: { contactId_sequenceId: { contactId: contact.id, sequenceId: abandonedSequence.id } },
+          update: {},
+          create: {
+            contactId: contact.id,
+            sequenceId: abandonedSequence.id,
+            status: "ACTIVE",
+            currentStep: 0,
+            nextSendAt: new Date(Date.now() + delayMs),
+          },
+        });
+      }
     }
 
     return NextResponse.json({
