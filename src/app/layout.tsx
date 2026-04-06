@@ -38,6 +38,7 @@ export default function RootLayout({
     <html lang="en">
       <body
         className={`${inter.variable} ${geistMono.variable} antialiased`}
+        style={{ fontFamily: "var(--font-sans), Inter, system-ui, -apple-system, sans-serif" }}
       >
         {children}
         <Toaster
