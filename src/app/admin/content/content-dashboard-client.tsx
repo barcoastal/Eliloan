@@ -9,6 +9,7 @@ const contentTypes = [
   { label: "Tool Pages", href: "/admin/content/tools", key: "tools" as const },
   { label: "Comparisons", href: "/admin/content/comparisons", key: "comparisons" as const },
   { label: "Landing Pages", href: "/admin/content/landing-pages", key: "landingPages" as const },
+  { label: "Form Templates", href: "/admin/content/form-templates", key: "formTemplates" as const },
 ];
 
 const quickLinks = [
@@ -26,10 +27,11 @@ export function ContentDashboardClient({
     tools: number;
     comparisons: number;
     landingPages: number;
+    formTemplates: number;
     published: number;
   };
 }) {
-  const total = counts.articles + counts.platforms + counts.states + counts.tools + counts.comparisons + counts.landingPages;
+  const total = counts.articles + counts.platforms + counts.states + counts.tools + counts.comparisons + counts.landingPages + counts.formTemplates;
 
   return (
     <div>
