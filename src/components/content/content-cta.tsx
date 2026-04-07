@@ -1,25 +1,38 @@
+"use client";
+
+import { useState } from "react";
 import Link from "next/link";
 import { LogoMark } from "@/components/brand/logo";
 
 export function ContentCta({ text, subtext, variant = "default" }: { text?: string; subtext?: string; variant?: "default" | "inline" | "banner" }) {
+  const [dismissed, setDismissed] = useState(false);
+
   if (variant === "inline") {
+    if (dismissed) return null;
     return (
-      <div className="my-10 bg-gradient-to-r from-[#15803d] to-[#166534] rounded-2xl p-6 md:p-8 flex flex-col md:flex-row items-center gap-6 text-white">
+      <div className="my-8 bg-gradient-to-r from-[#15803d] to-[#166534] rounded-2xl p-5 md:p-6 flex flex-col md:flex-row items-center gap-4 text-white relative">
+        <button
+          onClick={() => setDismissed(true)}
+          className="absolute top-3 right-3 w-6 h-6 flex items-center justify-center rounded-full bg-white/20 text-white/80 hover:bg-white/30 hover:text-white transition-colors text-[14px]"
+          aria-label="Dismiss"
+        >
+          x
+        </button>
         <div className="flex-1">
-          <div className="flex items-center gap-2 mb-2">
-            <LogoMark size={24} />
-            <span className="text-[12px] font-bold uppercase tracking-[0.06em] text-[#bbf7d0]">PennyLime</span>
+          <div className="flex items-center gap-2 mb-1.5">
+            <LogoMark size={20} />
+            <span className="text-[11px] font-bold uppercase tracking-[0.06em] text-[#bbf7d0]">PennyLime</span>
           </div>
-          <p className="text-[18px] font-extrabold tracking-[-0.02em] mb-1">
+          <p className="text-[16px] font-extrabold tracking-[-0.02em]">
             {text || "Need cash between gigs?"}
           </p>
-          <p className="text-[14px] text-[#bbf7d0]">
+          <p className="text-[13px] text-[#bbf7d0] mt-0.5">
             {subtext || "$100 - $10,000. No credit check. Funded in 48 hours."}
           </p>
         </div>
         <Link
           href="/apply"
-          className="shrink-0 bg-white text-[#15803d] font-bold text-[14px] px-6 py-3.5 rounded-xl hover:bg-[#f0fdf4] transition-colors shadow-lg"
+          className="shrink-0 bg-white text-[#15803d] font-bold text-[13px] px-5 py-3 rounded-xl hover:bg-[#f0fdf4] transition-colors shadow-lg"
         >
           Apply Now
         </Link>
@@ -28,23 +41,31 @@ export function ContentCta({ text, subtext, variant = "default" }: { text?: stri
   }
 
   if (variant === "banner") {
+    if (dismissed) return null;
     return (
-      <div className="my-10 border-2 border-[#15803d] rounded-2xl p-6 md:p-8 bg-[#f0fdf4] relative overflow-hidden">
-        <div className="absolute top-0 right-0 w-32 h-32 bg-[#15803d]/5 rounded-full -translate-y-1/2 translate-x-1/2" />
-        <div className="relative z-10">
-          <div className="flex items-center gap-2 mb-3">
+      <div className="my-8 border border-[#15803d]/30 rounded-xl p-4 bg-[#f0fdf4] relative">
+        <button
+          onClick={() => setDismissed(true)}
+          className="absolute top-2.5 right-2.5 w-6 h-6 flex items-center justify-center rounded-full text-[#15803d]/50 hover:bg-[#15803d]/10 hover:text-[#15803d] transition-colors text-[14px]"
+          aria-label="Dismiss"
+        >
+          x
+        </button>
+        <div className="flex items-start gap-3">
+          <div className="shrink-0 mt-0.5">
             <LogoMark size={20} />
-            <span className="text-[11px] font-bold uppercase tracking-[0.06em] text-[#15803d]">Quick Tip</span>
           </div>
-          <p className="text-[16px] font-bold text-black mb-2">
-            {text || "Did you know?"}
-          </p>
-          <p className="text-[14px] text-[#52525b] leading-relaxed mb-4">
-            {subtext || "PennyLime doesn't check your credit score. We verify your gig platform earnings directly, so a low credit score won't hold you back."}
-          </p>
-          <Link href="/apply" className="text-[14px] font-bold text-[#15803d] hover:underline">
-            Check your eligibility &rarr;
-          </Link>
+          <div>
+            <p className="text-[14px] font-bold text-black leading-tight">
+              {text || "Did you know?"}
+            </p>
+            <p className="text-[13px] text-[#52525b] leading-relaxed mt-1">
+              {subtext || "PennyLime doesn't check your credit score. We verify your gig platform earnings directly, so a low credit score won't hold you back."}
+            </p>
+            <Link href="/apply" className="text-[13px] font-bold text-[#15803d] hover:underline mt-1.5 inline-block">
+              Check your eligibility &rarr;
+            </Link>
+          </div>
         </div>
       </div>
     );
