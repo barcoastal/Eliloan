@@ -2128,6 +2128,7 @@ async function main() {
     const created = await prisma.article.create({
       data: {
         ...rest,
+        featuredImage: `/blog-images/${rest.slug}.png`,
         categoryId: categoryMap[categorySlug] ?? null,
         published: true,
         publishedAt: now,
