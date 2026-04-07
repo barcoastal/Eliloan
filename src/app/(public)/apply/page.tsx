@@ -127,7 +127,7 @@ function StepAmount({
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -20 }}
       transition={{ duration: 0.4 }}
-      className="flex flex-col w-full max-w-[540px] md:max-w-[640px] mx-auto"
+      className="flex flex-col w-full w-full max-w-4xl mx-auto"
     >
       <h2 className="text-[28px] font-extrabold tracking-[-0.03em] text-[#1a1a1a]">
         How much do you need?
@@ -271,7 +271,7 @@ function StepInfo({
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -20 }}
       transition={{ duration: 0.4 }}
-      className="w-full max-w-[540px] md:max-w-[640px] mx-auto"
+      className="w-full w-full max-w-4xl mx-auto"
     >
       <h2 className="text-[28px] font-extrabold tracking-[-0.03em] text-[#1a1a1a]">
         Tell us about yourself
@@ -427,7 +427,7 @@ function StepPlatforms({
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -20 }}
       transition={{ duration: 0.4 }}
-      className="w-full max-w-[540px] md:max-w-[640px] mx-auto"
+      className="w-full w-full max-w-4xl mx-auto"
     >
       <h2 className="text-[28px] font-extrabold tracking-[-0.03em] text-[#1a1a1a]">
         Where do you earn?
@@ -651,7 +651,7 @@ function StepIdentity({
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -20 }}
       transition={{ duration: 0.4 }}
-      className="w-full max-w-[540px] md:max-w-[640px] mx-auto"
+      className="w-full w-full max-w-4xl mx-auto"
     >
       <h2 className="text-[28px] font-extrabold tracking-[-0.03em] text-[#1a1a1a]">
         Verify your identity
@@ -922,7 +922,7 @@ function StepPlaidLink({
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -20 }}
       transition={{ duration: 0.4 }}
-      className="w-full max-w-[540px] md:max-w-[640px] mx-auto"
+      className="w-full w-full max-w-4xl mx-auto"
     >
       <h2 className="text-[28px] font-extrabold tracking-[-0.03em] text-[#1a1a1a]">
         Link your bank account
@@ -1059,7 +1059,7 @@ function StepUpload({
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -20 }}
       transition={{ duration: 0.4 }}
-      className="w-full max-w-[540px] md:max-w-[640px] mx-auto"
+      className="w-full w-full max-w-4xl mx-auto"
     >
       <h2 className="text-[28px] font-extrabold tracking-[-0.03em] text-[#1a1a1a]">
         Upload your pay stubs
@@ -1224,7 +1224,7 @@ function StepReview({
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -20 }}
       transition={{ duration: 0.4 }}
-      className="w-full max-w-[540px] md:max-w-[640px] mx-auto"
+      className="w-full w-full max-w-4xl mx-auto"
     >
       <h2 className="text-[28px] font-extrabold tracking-[-0.03em] text-[#1a1a1a]">
         Review & submit
@@ -1373,7 +1373,7 @@ function SuccessScreen({ code }: { code: string }) {
       initial={{ opacity: 0, scale: 0.95 }}
       animate={{ opacity: 1, scale: 1 }}
       transition={{ duration: 0.6 }}
-      className="flex flex-col items-center text-center max-w-[540px] md:max-w-[640px] mx-auto"
+      className="flex flex-col items-center text-center w-full max-w-4xl mx-auto"
     >
       <motion.div
         className="flex h-20 w-20 items-center justify-center rounded-full bg-[#1a1a1a]"
@@ -1574,7 +1574,7 @@ function ApplyPageInner() {
     <div className="min-h-screen bg-[#f8faf8]">
       <Navbar />
 
-      <div className="mx-auto max-w-[540px] md:max-w-[640px] px-6 pb-20 pt-28">
+      <div className="mx-auto w-full max-w-4xl px-6 pb-20 pt-28">
         {!applicationCode && <StepIndicator current={step} stepNames={activeStepNames} />}
 
         <div className="mt-10 flex justify-center">
